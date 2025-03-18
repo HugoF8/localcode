@@ -1,0 +1,44 @@
+Relembrar GIT
+------------------------------------------------------
+Instalar GIT Windows-  https://git-scm.com/downloads/win
+
+Instalem o git pelo site ou pelo comando " winget install --id Git.Git -e --source winget " , se quiserem podem fazer de outra maneira ou em outro Os, dá ao mesmo.
+
+Se não tiverem a certeza se instalou usem o comando " git version " se aparecer algo instalou.
+
+
+
+Comandos a realizar configuração inicial
+------------------------------------------------------
+Usem estes comandos em uma linha de comandos
+
+git config --global user.name " O vosso nome "
+git config --global user.email "exemplo@email.pt"
+
+
+Usem o comando abaixo para copiar o repositório remoto para o vosso pc, ele é copiado para onde estão na linha de comandos, usem " cd " para ir para outras pastas e " dir " para ver o que à dentro das pastas.
+
+git clone https://github.com/1PedroMartins/localcode.git
+
+Ele vái pedir para autenticar pelo browser, á outro comando mas esse acho que é precisso o token se alguem souber pode fazer por esse.
+
+
+Comandos Básicos (chat)
+------------------------------------------------------
+Verificar o status do repositório (ver se deu add nos ficheiros):
+git status
+
+Adicionar todos os arquivos ao Git:
+git add .
+
+Adicionar um arquivo específico:
+git add nome_do_arquivo.ext
+
+Criar um commit com mensagem descritiva:
+git commit -m "Descrição do que foi alterado"
+
+Enviar (push) as mudanças para o repositório remoto:
+git push origin main
+
+Baixar (pull) as últimas alterações do repositório remoto:
+git pull origin main
