@@ -12,6 +12,14 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    // Tipos de Utilizador
+    enum tipoUtilizadores
+    {
+        Administrador,
+        Moderador,
+        Utilizador
+    };
+
     /// <summary>
     /// Classe base que representa um utilizador.
     /// </summary>
@@ -19,11 +27,15 @@ namespace BO
     {
         #region Atributos
 
+        int idUtilizador;
+        int idMorada;
         string nome;
-        string apelido;
-        int idade;
-        int NIF;
-        int SNS;
+        string email;
+        string password;
+        DateTime dataNascimento;
+        int contacto;
+        tipoUtilizadores tipoUtilizador;
+
         #endregion
 
         #region Métodos
@@ -31,40 +43,66 @@ namespace BO
         #region Construtores
 
         /// <summary>
-        /// Construtor padrão 
-
+        /// Construtor padrão para utilizador
         /// </summary>
-        public Pessoa()
+        public Utilizador()
         {
-            nome = "";
-            apelido = "";
-            idade = 0;
-            NIF = 0;
-            SNS = 0;
+            this.idUtilizador = 0;
+            this.idMorada = 0;
+            this.nome = "";
+            this.email = "";
+            this.password = "";
+            this.dataNascimento = DateTime.MinValue;
+            this.contacto = 0;
+            this.tipoUtilizador = "Utilizador";
         }
 
         /// <summary>
-        /// Construtor por parametros
+        /// Construtor por parametros para utilizador
         /// </summary>
+        /// <param name="idUtilizador"></param>
+        /// <param name="idMorada"></param>
         /// <param name="nome"></param>
-        /// <param name="apelido"></param>
-        /// <param name="idade"></param>
-        /// <param name="nIF"></param>
-        /// <param name="sNS"></param>
-        public Pessoa(string nome, string apelido, int idade, int nIF, int sNS)
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="dataNascimento"></param>
+        /// <param name="contacto"></param>
+        /// <param name="tipoUtilizador"></param>
+        public Pessoa(int idUtilizador, int idMorada, string nome, string email, string password, DateTime dataNascimento, int contacto, tipoUtilizadores tipoUtilizador)
         {
+            this.idUtilizador = idUtilizador;
+            this.idMorada = idMorada;
             this.nome = nome;
-            this.apelido = apelido;
-            this.idade = idade;
-            NIF = nIF;
-            SNS = sNS;
+            this.email = email;
+            this.password = password;
+            this.dataNascimento = dataNascimento;
+            this.contacto = contacto;
+            this.tipoUtilizador = tipoUtilizador;
         }
+
         #endregion
 
         #region Propriedades
 
         /// <summary>
-        /// Obtém ou define o nome da pessoa.
+        /// Obtém o identificar único de utilizador.
+        /// </summary>
+        public int IdUtilizador
+        {
+            get { return idUtilizador; }
+        }
+
+        /// <summary>
+        /// Obtém ou define identificar único de morada.
+        /// </summary>
+        public int IdMorada
+        {
+            get { return idMorada; }
+            set { idMorada = value; }
+        }
+
+        /// <summary>
+        /// Obtém ou define o nome do utilizador.
         /// </summary>
         public string Nome
         {
@@ -72,57 +110,50 @@ namespace BO
             set { nome = value; }
         }
 
-
-        #endregion
-
-        #region Operadores
-
         /// <summary>
-        /// Compara duas pessoas para igualdade com base em seus atributos.
+        /// Obtém ou define o email do utilizador.
         /// </summary>
-        public static bool operator ==(Pessoa p1, Pessoa p2)
+        public string Email
         {
-            if ((p1.nome == p2.nome) && (p1.apelido == p2.apelido) && (p1.idade == p2.idade) && (p1.NIF == p2.NIF) && (p1.SNS == p2.SNS))
-                return true;
-            return false;
+            get { return email; }
+            set { email = value; }
         }
 
         /// <summary>
-        /// Compara duas pessoas para desigualdade com base em seus atributos.
+        /// Obtém ou define a password do utilizador.
         /// </summary>
-        public static bool operator !=(Pessoa p1, Pessoa p2)
+        public string Password
         {
-            return !(p1 == p2);
-        }
-        #endregion
-
-        #region Overrides
-
-        /// <summary>
-        /// Retorna uma representação em string da pessoa.
-        /// </summary>
-        public override string ToString()
-        {
-            return String.Format("Nome: {0} {1} - Idade: {2} - NIF: {3} - SNS: {4}", nome, apelido, idade.ToString(), NIF.ToString(), SNS.ToString());
+            get { return password; }
+            set { password = value; }
         }
 
         /// <summary>
-        /// Determina se a pessoa é igual a outro objeto.
+        /// Obtém ou define a data de nascimento do utilizador.
         /// </summary>
-        public override bool Equals(object obj)
+        public DateTime DataNascimento
         {
-            if (obj is Pessoa)
-            {
-                Pessoa p = (Pessoa)obj;
-                if (this == p)
-                {
-                    return true;
-                }
-            }
-            return false;
+            get { return dataNascimento; }
+            set { dataNascimento = value; }
         }
 
+        /// <summary>
+        /// Obtém ou define o contacto do utilizador.
+        /// </summary>
+        public int Contacto
+        {
+            get { return contacto; }
+            set { contacto = value; }
+        }
 
+        /// <summary>
+        /// Obtém ou define o tipo de utilizador.
+        /// </summary>
+        public tipoUtilizadores TipoUtilizador
+        {
+            get { return tipoUtilizador; }
+            set { tipoUtilizador = value; }
+        }
 
 
         #endregion
@@ -131,6 +162,4 @@ namespace BO
         #endregion
     }
 }
-
-
 
