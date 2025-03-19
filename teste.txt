@@ -44,6 +44,4 @@ Baixar (pull) as últimas alterações do repositório remoto:
 git pull origin main
 
 
-GAY Gonçalo
-isto é para testar RENATO
-gay hugo - teste (do tiago)
+GAY
