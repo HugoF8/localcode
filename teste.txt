@@ -43,5 +43,6 @@ git push origin main
 Baixar (pull) as últimas alterações do repositório remoto:
 git pull origin main
 
-
-HOLA
+burro 
+gay 
+hola
