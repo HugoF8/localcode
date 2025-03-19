@@ -30,5 +30,5 @@ Projeto de Desenvolvimento de Software
 
 ## Conclusão do Projeto
 
-------
+---
 ## Organização
