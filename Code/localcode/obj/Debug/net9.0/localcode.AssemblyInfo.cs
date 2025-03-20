@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("localcode")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b9ce11fe24433a64c0ea3ed4e6e7887302c7b7a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1413b23f5e816f4c89b50915475a5f18c97c39e")]
 [assembly: System.Reflection.AssemblyProductAttribute("localcode")]
 [assembly: System.Reflection.AssemblyTitleAttribute("localcode")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

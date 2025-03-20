@@ -1,0 +1,15 @@
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.exe
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.deps.json
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.runtimeconfig.json
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.dll
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.pdb
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.AssemblyInfoInputs.cache
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.AssemblyInfo.cs
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.csproj.CoreCompileInputs.cache
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.sourcelink.json
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.dll
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\refint\localcode.dll
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.pdb
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.genruntimeconfig.cache
+C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\ref\localcode.dll
