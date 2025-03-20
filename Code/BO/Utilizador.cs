@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 namespace BO
 {
     // Tipos de Utilizador
-    enum tipoUtilizadores
+    public enum tipoUtilizadores
     {
         Administrador,
         Moderador,
-        Utilizador
+        Utilizador,
     };
 
     /// <summary>
@@ -54,7 +54,7 @@ namespace BO
             this.password = "";
             this.dataNascimento = DateTime.MinValue;
             this.contacto = 0;
-            this.tipoUtilizador = "Utilizador";
+          
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace BO
         /// <param name="dataNascimento"></param>
         /// <param name="contacto"></param>
         /// <param name="tipoUtilizador"></param>
-        public Pessoa(int idUtilizador, int idMorada, string nome, string email, string password, DateTime dataNascimento, int contacto, tipoUtilizadores tipoUtilizador)
+        public Utilizador(int idUtilizador, int idMorada, string nome, string email, string password, DateTime dataNascimento, int contacto, tipoUtilizadores tipoUtilizador)
         {
             this.idUtilizador = idUtilizador;
             this.idMorada = idMorada;

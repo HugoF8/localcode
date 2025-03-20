@@ -9,21 +9,22 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    enum funcao_moderador
+    enum funcaoModerador
     {
         dono,
         moderador,
     }
+
     /// <summary>
     /// Classe base que representa um comentário.
     /// </summary>
-    public class ModeradorPagina
+    public class MODERADORPAGINA
     {
         #region Atributos
-        int idmoderador;
-        int idpagina;
-        int idutilizador;
-        Enum funcao_moderador;
+        int idModerador;
+        int idPagina;
+        int idUtilizador;
+        Enum funcaoModerador;
         #endregion
 
         #region Métodos
@@ -42,12 +43,13 @@ namespace BO
         //    this.funcao_moderador = null; 
         //}
 
-        public ModeradorPagina(int idmoderador, int idpagina, int idutilizador, Enum funcao_moderador)
+        
+        public MODERADORPAGINA(int idModerador, int idPagina, int idUtilizador, Enum funcaoModerador)
         {
-            this.idmoderador = idmoderador;
-            this.idpagina = idpagina;
-            this.idutilizador = idutilizador;
-            this.funcao_moderador = null;
+            this.idModerador = idModerador;
+            this.idPagina = idPagina;
+            this.idUtilizador = idUtilizador;
+            this.funcaoModerador = null;
         }
 
         #endregion
@@ -56,17 +58,20 @@ namespace BO
 
         public int Idmoderador 
         {
-            get { return idmoderador; }
+            get { return idModerador; }
+           
         }
 
         public int Idpagina
         {
-            get { return idpagina; }
+            get { return idPagina; }
+            set { idPagina = value; }
         }
 
         public int Idutilizador
         {
-            get { return idutilizador; }
+            get { return idUtilizador; }
+            set { idUtilizador = value; }
         }
 
 

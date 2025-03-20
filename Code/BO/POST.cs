@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 namespace BO
 {
     //Tipo de Post
-    enum tiposPost
+    public enum tiposPost
     {
         Votacao,
         Publicacao
     };
 
     //Estado do Post
-    enum estadosPost
+    public enum estadosPost
     {
         Pendente,
         Recusado,
@@ -60,9 +60,9 @@ namespace BO
             this.idPagina = 0;
             this.descricaoPost = "";
             this.mediaPost = "";
-            this.dataPost = "";
-            this.tipoPost = "Publicacao";
-            this.estadoPost = "Pendente";
+            this.dataPost = DateTime.Now;
+            this.tipoPost = tiposPost.Publicacao;
+            this.estadoPost = estadosPost.Pendente;
         }
 
         /// <summary>
@@ -129,13 +129,13 @@ namespace BO
             set { dataPost = value; }
         }
 
-        public tiposPost tipoPost
+        public tiposPost TipoPost
         {
             get { return tipoPost; }
             set { tipoPost = value; }
         }
 
-        public estadosPost estadoPost
+        public estadosPost EstadoPost
         {
             get { return estadoPost; }
             set { estadoPost = value; }
@@ -146,53 +146,12 @@ namespace BO
 
         #region Operadores
 
-        /// <summary>
-        /// Compara duas pessoas para igualdade com base em seus atributos.
-        /// </summary>
-        public static bool operator ==(Pessoa p1, Pessoa p2)
-        {
-            if ((p1.nome == p2.nome) && (p1.apelido == p2.apelido) && (p1.idade == p2.idade) && (p1.NIF == p2.NIF) && (p1.SNS == p2.SNS))
-                return true;
-            return false;
-        }
-
-        /// <summary>
-        /// Compara duas pessoas para desigualdade com base em seus atributos.
-        /// </summary>
-        public static bool operator !=(Pessoa p1, Pessoa p2)
-        {
-            return !(p1 == p2);
-        }
+       
         #endregion
 
         #region Overrides
 
-        /// <summary>
-        /// Retorna uma representação em string da pessoa.
-        /// </summary>
-        public override string ToString()
-        {
-            return String.Format("Nome: {0} {1} - Idade: {2} - NIF: {3} - SNS: {4}", nome, apelido, idade.ToString(), NIF.ToString(), SNS.ToString());
-        }
-
-        /// <summary>
-        /// Determina se a pessoa é igual a outro objeto.
-        /// </summary>
-        public override bool Equals(object obj)
-        {
-            if (obj is Pessoa)
-            {
-                Pessoa p = (Pessoa)obj;
-                if (this == p)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-
+        
 
         #endregion
 
