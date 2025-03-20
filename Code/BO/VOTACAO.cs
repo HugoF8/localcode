@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace BO
 {
     // Estado da Votação
-    enum estadosVotacao
+    public enum estadosVotacao
     {
         Pendente,
         Realizada
@@ -30,7 +30,7 @@ namespace BO
         int idVotacao;
         int idUtilizador;
         int idPagina;
-        string tituloVotacao
+        string tituloVotacao;
         DateTime dataCriacao;
         DateTime dataExpiracao;
         estadosVotacao estadoVotacao;
@@ -52,7 +52,7 @@ namespace BO
             this.tituloVotacao = "";
             this.dataCriacao = DateTime.MinValue;
             this.dataExpiracao = DateTime.MinValue;
-            this.estadoVotacao = "Pendente";
+            this.estadoVotacao = estadosVotacao.Pendente;
         }
 
         /// <summary>

@@ -41,7 +41,6 @@ namespace BO
 
         /// <summary>
         /// Construtor padrão 
-
         /// </summary>
         public TICKET(int idTicket, int idUtilizador, int idPagina, DateTime dataCriacao, string descricaoProblema, estadosTicket estadoTicket)
         {
@@ -80,7 +79,6 @@ namespace BO
         public int IDticket
         {
             get { return idTicket; }
-            set { idTicket = value; }
         }
 
         public int IDutilizador
@@ -112,11 +110,6 @@ namespace BO
             get { return estadoTicket; }
             set { estadoTicket = value; }
         }
-
-        #endregion
-
-        #region Operadores
-
 
         #endregion
 
