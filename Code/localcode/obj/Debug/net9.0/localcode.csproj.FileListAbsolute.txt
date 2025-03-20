@@ -1,15 +1,30 @@
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.exe
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.deps.json
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.runtimeconfig.json
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.dll
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\bin\Debug\net9.0\localcode.pdb
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.AssemblyInfoInputs.cache
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.AssemblyInfo.cs
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.csproj.CoreCompileInputs.cache
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.sourcelink.json
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.dll
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\refint\localcode.dll
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.pdb
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\localcode.genruntimeconfig.cache
-C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\Code\localcode\obj\Debug\net9.0\ref\localcode.dll
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/bin/Debug/net9.0/localcode.exe
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/bin/Debug/net9.0/localcode.deps.json
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/bin/Debug/net9.0/localcode.runtimeconfig.json
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/bin/Debug/net9.0/localcode.dll
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/bin/Debug/net9.0/localcode.pdb
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/localcode.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/localcode.AssemblyInfoInputs.cache
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/localcode.AssemblyInfo.cs
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/localcode.csproj.CoreCompileInputs.cache
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/localcode.sourcelink.json
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/localcode.dll
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/refint/localcode.dll
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/localcode.pdb
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/localcode.genruntimeconfig.cache
+C:/Users/Admin/OneDrive - Instituto Politécnico do Cávado e do Ave/Desktop/localcode/Code/localcode/obj/Debug/net9.0/ref/localcode.dll
+/Users/renatobarbosa/PDS/localcode/Code/localcode/bin/Debug/net9.0/localcode
+/Users/renatobarbosa/PDS/localcode/Code/localcode/bin/Debug/net9.0/localcode.deps.json
+/Users/renatobarbosa/PDS/localcode/Code/localcode/bin/Debug/net9.0/localcode.runtimeconfig.json
+/Users/renatobarbosa/PDS/localcode/Code/localcode/bin/Debug/net9.0/localcode.dll
+/Users/renatobarbosa/PDS/localcode/Code/localcode/bin/Debug/net9.0/localcode.pdb
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/localcode.GeneratedMSBuildEditorConfig.editorconfig
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/localcode.AssemblyInfoInputs.cache
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/localcode.AssemblyInfo.cs
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/localcode.csproj.CoreCompileInputs.cache
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/localcode.sourcelink.json
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/localcode.dll
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/refint/localcode.dll
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/localcode.pdb
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/localcode.genruntimeconfig.cache
+/Users/renatobarbosa/PDS/localcode/Code/localcode/obj/Debug/net9.0/ref/localcode.dll
