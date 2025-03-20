@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace BO
 {
     //Tipos de ticket
-    enum estadosResposta
+    public enum estadosResposta
     {
         Pendente,
         Recusado,
@@ -67,7 +67,6 @@ namespace BO
         public int IDresposta
         {
             get { return idResposta; }
-            set { idResposta = value; }
         }
 
         public int IDticket

@@ -98,17 +98,6 @@ namespace BO
 
         #endregion
 
-        #region Operadores
-
-       
-        #endregion
-
-        #region Overrides
-
-        
-        #endregion
-
-
         #endregion
     }
 }

@@ -53,7 +53,6 @@ namespace BO
         public int IdSeguimento
         {
             get { return idSeguimento; }
-            set { idSeguimento = value; }
         }
 
         public int IdPagina

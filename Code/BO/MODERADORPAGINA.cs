@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    enum funcaoModerador
+    public enum funcoesModerador
     {
         dono,
         moderador,
@@ -21,35 +21,36 @@ namespace BO
     public class MODERADORPAGINA
     {
         #region Atributos
+
         int idModerador;
         int idPagina;
         int idUtilizador;
-        Enum funcaoModerador;
+        funcoesModerador funcaoModerador;
+
         #endregion
 
         #region Métodos
 
         #region Construtores
 
-        /// <summary>
+        ///<summary>
         /// Construtor padrão.
-
         /// </summary>
-        //public ModeradorPagina()
-        //{
-        //    this.idmoderador = 0;
-        //    this.idpagina = 0;
-        //    this.idutilizador = 0;
-        //    this.funcao_moderador = null; 
-        //}
+        public MODERADORPAGINA()
+        {
+            this.idModerador = 0;
+            this.idPagina = 0;
+            this.idUtilizador = 0;
+            this.funcaoModerador = funcoesModerador.moderador; 
+        }
 
         
-        public MODERADORPAGINA(int idModerador, int idPagina, int idUtilizador, Enum funcaoModerador)
+        public MODERADORPAGINA(int idModerador, int idPagina, int idUtilizador, funcoesModerador funcaoModerador)
         {
             this.idModerador = idModerador;
             this.idPagina = idPagina;
             this.idUtilizador = idUtilizador;
-            this.funcaoModerador = null;
+            this.funcaoModerador = funcaoModerador;
         }
 
         #endregion
@@ -78,24 +79,6 @@ namespace BO
 
 
         #endregion
-
-        #region Operadores
-
-        #endregion
-
-        #region Overrides
-
-        /// <summary>
-        /// Retorna uma representação em string da pessoa.
-        /// </summary>
-
-
-
-
-
-
-        #endregion
-
 
         #endregion
     }

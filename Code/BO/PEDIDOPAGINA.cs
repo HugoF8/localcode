@@ -66,7 +66,6 @@ namespace BO
         public int IdPedido
         {
             get { return this.idPedido; }
-            set { this.idPedido = value; }
         }
 
         public int IdUtilizador

@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 namespace BO
 {
     //Tipos de ticket
-    enum estadosTicket
+    public enum estadosTicket
     {
         Pendente,
         Recusado,
@@ -42,14 +43,14 @@ namespace BO
         /// <summary>
         /// Construtor padrão 
         /// </summary>
-        public TICKET(int idTicket, int idUtilizador, int idPagina, DateTime dataCriacao, string descricaoProblema, estadosTicket estadoTicket)
+        public TICKET()
         {
             this.idTicket = 0;
             this.idUtilizador = 0;
             this.idPagina = 0;
-            this.dateCriacao = "";
+            this.dataCriacao = DateTime.MinValue;
             this.descricaoProblema = "";
-            this.estadoTicket = "";
+            this.estadoTicket = estadosTicket.Pendente;
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace BO
         /// <param name="idade"></param>
         /// <param name="nIF"></param>
         /// <param name="sNS"></param>
-        public TICKET(int idTicket, int idUtilizador, int idPagina, dateTime dataCriacao, string descricaoProblema, estadosTicket estadoTicket)
+        public TICKET(int idTicket, int idUtilizador, int idPagina, DateTime dataCriacao, string descricaoProblema, estadosTicket estadoTicket)
         {
             this.idTicket = idTicket;
             this.idUtilizador = idUtilizador;
@@ -95,14 +96,14 @@ namespace BO
 
         public DateTime DataCriacao
         {
-            get { return descricaoProblema; }
-            set { descricaoProblema = value; }
+            get { return dataCriacao; }
+            set { dataCriacao = value; }
         }
 
         public string DescricaoProblema
         {
-            get { return dataProblema; }
-            set { dataProblema = value; }
+            get { return descricaoProblema; }
+            set { descricaoProblema = value; }
         }
 
         public estadosTicket EstadoTicket
