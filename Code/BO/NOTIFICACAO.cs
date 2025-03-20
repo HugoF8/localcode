@@ -38,12 +38,12 @@ namespace BO
 
         #endregion
 
-        #region Métodos
+        #region Mï¿½todos
 
         #region Construtores
 
         /// <summary>
-        /// Construtor padrão para Notificacao
+        /// Construtor padrï¿½o para Notificacao
         /// </summary>
         public NOTIFICACAO()
         {
@@ -75,7 +75,7 @@ namespace BO
         #region Propriedades
 
         /// <summary>
-        /// Obtém o identificar único de morada.
+        /// Obtï¿½m o identificar ï¿½nico de morada.
         /// </summary>
         public int IdNotificacao
         {
@@ -83,7 +83,7 @@ namespace BO
         }
 
         /// <summary>
-        /// Obtém ou define a freguesia.
+        /// Obtï¿½m ou define a freguesia.
         /// </summary>
         public int IdUtilizador
         {
@@ -92,7 +92,7 @@ namespace BO
         }
 
         /// <summary>
-        /// Obtém ou define a cidade.
+        /// Obtï¿½m ou define a cidade.
         /// </summary>
         public int IdPagina
         {
@@ -101,7 +101,7 @@ namespace BO
         }
 
         /// <summary>
-        /// Obtém ou define a rua.
+        /// Obtï¿½m ou define a rua.
         /// </summary>
         public int IdPost
         {
@@ -110,7 +110,7 @@ namespace BO
         }
 
         /// <summary>
-        /// Obtém ou define o código postal.
+        /// Obtï¿½m ou define o cï¿½digo postal.
         /// </summary>
         public int IdTicket
         {
@@ -124,7 +124,7 @@ namespace BO
             set { idVotacao = value; }
         }
 
-        public tipoNotificacao TipoNotificação
+        public tipoNotificacao TipoNotificacao
         {
             get { return tipoNotificacao; }
             set { tipoNotificacao = value; }
