@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +23,7 @@ namespace BO
         int idmoderador;
         int idpagina;
         int idutilizador;
-        
+        Enum funcao_moderador;
         #endregion
 
         #region Métodos
@@ -32,21 +34,43 @@ namespace BO
         /// Construtor padrão.
 
         /// </summary>
-        public ModeradorPagina()
+        //public ModeradorPagina()
+        //{
+        //    this.idmoderador = 0;
+        //    this.idpagina = 0;
+        //    this.idutilizador = 0;
+        //    this.funcao_moderador = null; 
+        //}
+
+        public ModeradorPagina(int idmoderador, int idpagina, int idutilizador, Enum funcao_moderador)
         {
-           
+            this.idmoderador = idmoderador;
+            this.idpagina = idpagina;
+            this.idutilizador = idutilizador;
+            this.funcao_moderador = null;
         }
 
-        
-        }
         #endregion
 
         #region Propriedades
 
-        /// <summary>
-        /// Obtém ou define o nome da pessoa.
-        /// </summary>
-        
+        public int Idmoderador 
+        {
+            get { return idmoderador; }
+        }
+
+        public int Idpagina
+        {
+            get { return idpagina; }
+        }
+
+        public int Idutilizador
+        {
+            get { return idutilizador; }
+        }
+
+
+
 
         #endregion
 
@@ -59,8 +83,8 @@ namespace BO
         /// <summary>
         /// Retorna uma representação em string da pessoa.
         /// </summary>
-       
-        
+
+
 
 
 
