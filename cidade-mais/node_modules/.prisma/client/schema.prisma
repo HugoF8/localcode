@@ -1,0 +1,190 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model comentario {
+  id_comentario       Int         @id @default(autoincrement())
+  id_post             Int?
+  id_utilizador       Int?
+  conteudo_comentario String?
+  data_comentario     DateTime?   @default(now()) @db.Timestamp(6)
+  post                post?       @relation(fields: [id_post], references: [id_post], onDelete: Cascade, onUpdate: NoAction)
+  utilizador          utilizador? @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model moderador_pagina {
+  id_moderador     Int               @id @default(autoincrement())
+  id_pagina        Int?
+  id_utilizador    Int?
+  funcao           funcao_moderador
+  pagina_freguesia pagina_freguesia? @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
+  utilizador       utilizador?       @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model morada {
+  id_morada        Int                @id @default(autoincrement())
+  freguesia        String?            @db.VarChar(255)
+  cidade           String?            @db.VarChar(255)
+  rua              String?            @db.VarChar(255)
+  codigo_postal    Int?
+  pagina_freguesia pagina_freguesia[]
+  pedido_pagina    pedido_pagina[]
+  utilizador       utilizador[]
+}
+
+model pagina_freguesia {
+  id_pagina         Int                 @id @default(autoincrement())
+  id_morada         Int?
+  id_utilizador     Int?
+  nome_pagina       String?             @db.VarChar(255)
+  descricao         String?
+  foto_perfil       String?             @db.VarChar(255)
+  foto_capa         String?             @db.VarChar(255)
+  moderador_pagina  moderador_pagina[]
+  morada            morada?             @relation(fields: [id_morada], references: [id_morada], onUpdate: NoAction)
+  utilizador        utilizador?         @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+  post              post[]
+  seguidores_pagina seguidores_pagina[]
+  ticket            ticket[]
+}
+
+model pedido_pagina {
+  id_pedido         Int           @id @default(autoincrement())
+  id_utilizador     Int?
+  id_morada         Int?
+  dados_comprovacao String?
+  estado_pedido     estado_pedido
+  data_pedido       DateTime?     @default(now()) @db.Timestamp(6)
+  morada            morada?       @relation(fields: [id_morada], references: [id_morada], onUpdate: NoAction)
+  utilizador        utilizador?   @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model perfil {
+  id_perfil     Int         @id @default(autoincrement())
+  id_utilizador Int?
+  foto_perfil   String?     @db.VarChar(255)
+  foto_capa     String?     @db.VarChar(255)
+  biografia     String?     @db.VarChar(255)
+  utilizador    utilizador? @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model post {
+  id_post          Int               @id @default(autoincrement())
+  id_utilizador    Int?
+  id_pagina        Int?
+  descricao_post   String?
+  media_post       String?           @db.VarChar(255)
+  estado_post      estado_post
+  aprovacoes       Int?              @default(0)
+  comentario       comentario[]
+  pagina_freguesia pagina_freguesia? @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
+  utilizador       utilizador?       @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model resposta_ticket {
+  id_resposta       Int             @id @default(autoincrement())
+  id_ticket         Int?
+  id_utilizador     Int?
+  data_resposta     DateTime?       @default(now()) @db.Timestamp(6)
+  conteudo_resposta String?
+  estado_resposta   estado_resposta
+  ticket            ticket?         @relation(fields: [id_ticket], references: [id_ticket], onDelete: Cascade, onUpdate: NoAction)
+  utilizador        utilizador?     @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model seguidores_pagina {
+  id_seguimento    Int               @id @default(autoincrement())
+  id_utilizador    Int?
+  id_pagina        Int?
+  data_seguimento  DateTime?         @default(dbgenerated("CURRENT_DATE")) @db.Date
+  pagina_freguesia pagina_freguesia? @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
+  utilizador       utilizador?       @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model ticket {
+  id_ticket          Int               @id @default(autoincrement())
+  id_utilizador      Int?
+  id_pagina          Int?
+  data_criacao       DateTime?         @default(now()) @db.Timestamp(6)
+  descricao_problema String?
+  estado_ticket      estado_ticket
+  resposta_ticket    resposta_ticket[]
+  pagina_freguesia   pagina_freguesia? @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
+  utilizador         utilizador?       @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model utilizador {
+  id_utilizador     Int                 @id @default(autoincrement())
+  id_morada         Int?
+  nome              String?             @db.VarChar(255)
+  password          String?             @db.VarChar(255)
+  email             String?             @unique @db.VarChar(255)
+  data_nascimento   DateTime?           @db.Date
+  contacto          String?             @db.VarChar(20)
+  tipo_utilizador   tipo_utilizador
+  comentario        comentario[]
+  moderador_pagina  moderador_pagina[]
+  pagina_freguesia  pagina_freguesia[]
+  pedido_pagina     pedido_pagina[]
+  perfil            perfil[]
+  post              post[]
+  resposta_ticket   resposta_ticket[]
+  seguidores_pagina seguidores_pagina[]
+  ticket            ticket[]
+  morada            morada?             @relation(fields: [id_morada], references: [id_morada], onUpdate: NoAction)
+}
+
+enum estado_notificacao {
+  lida
+  nao_lida @map("nao lida")
+}
+
+enum estado_pedido {
+  pendente
+  aprovado
+  reprovado
+}
+
+enum estado_post {
+  ativo
+  inativo
+}
+
+enum estado_resposta {
+  resolvido
+  nao_resolvido @map("nao resolvido")
+}
+
+enum estado_ticket {
+  aberto
+  fechado
+  pendente
+}
+
+enum estado_votacao {
+  ativo
+  encerrado
+}
+
+enum funcao_moderador {
+  dono
+  moderador
+}
+
+enum tipo_notificacao {
+  Comentario
+  Post
+  Ticket
+  pagina
+}
+
+enum tipo_utilizador {
+  admin
+  moderador
+  utilizador
+}
