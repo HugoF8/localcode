@@ -3,8 +3,8 @@ const utilizadorService = require('../services/utilizador.service');
 // Criar usuário
 async function createUtilizador(req, res) {
     try {
-        //const utilizador = await utilizadorService.createUtilizador(req.body);
-        //res.status(201).json(utilizador);
+        const utilizador = await utilizadorService.createUtilizador(req.body);
+        res.status(201).json(utilizador);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao criar utilizador' });
     }

@@ -8,7 +8,7 @@ async function createUtilizador(data) {
 
 // Buscar todos os utilizador
 async function getAllUtilizadores() {
-    return prisma.utilizador.findMany();
+    //return prisma.utilizador.findMany();
 }
 
 module.exports = { createUtilizador, getAllUtilizadores };
