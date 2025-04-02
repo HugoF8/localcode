@@ -42,3 +42,9 @@ bin/
 
 Makefile temporários
 Makefile~
+
+-------------------------------------------
+.env
+/node_modules/
+package-lock.json
+package.jsong
