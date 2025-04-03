@@ -1,0 +1,9 @@
+const express = require('express');
+const comentarioController = require('../controllers/comentario.controller');
+
+const router = express.Router();
+
+router.post('/criarComentario', comentarioController.createComentario);
+router.get('/verComentario', comentarioController.getAllComentario);
+
+module.exports = router;

@@ -17,7 +17,7 @@ async function getAllUtilizadores(req, res) {
         const utilizadores = await utilizadorService.getAllUtilizadores();
         res.json(utilizadores);
     } catch (error) {
-        console.log(error);
+        console.error("Erro ao procurar comentarios:", error); // Mostra o erro real no terminal
         res.status(500).json({ error: 'Erro ao buscar utilizador' });
     }
 }
