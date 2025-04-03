@@ -19,3 +19,5 @@ async function getAllMorada(req, res) {
         res.status(500).json({ error: 'Erro ao procurar moradas' });
     }
 }
+
+module.exports = { createMorada, getAllMorada };

@@ -19,3 +19,5 @@ async function getAllPedidoPagina(req, res) {
         res.status(500).json({ error: 'Erro ao procurar Pedidos de Paginas' });
     }
 }
+
+module.exports = { createPedidoPagina, getAllPedidoPagina };

@@ -19,3 +19,5 @@ async function getAllModeradorPagina(req, res) {
         res.status(500).json({ error: 'Erro ao procurar Moderadores de Pagina' });
     }
 }
+
+module.exports = { createModeradorPagina, getAllModeradorPagina };
