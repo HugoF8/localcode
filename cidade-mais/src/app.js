@@ -14,6 +14,7 @@ app.use(express.json());
 // Rotas
 app.use('/api/utilizadores', utilizadorRoutes);
 
+
 // Teste de conexão com o banco de dados
 async function main() {
     try {

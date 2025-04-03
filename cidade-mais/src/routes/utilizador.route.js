@@ -3,7 +3,7 @@ const utilizadorController = require('../controllers/utilizador.controller');
 
 const router = express.Router();
 
-router.post('/', utilizadorController.createUtilizador);
-router.get('/utilizadores', utilizadorController.getAllUtilizadores);
+router.post('/criarUtilizador', utilizadorController.createUtilizador);
+router.get('/verUtilizadores', utilizadorController.getAllUtilizadores);
 
 module.exports = router;
