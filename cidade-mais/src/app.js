@@ -1,7 +1,19 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+
+const comentarioRoutes = require('./routes/comentario.route');
+const moderadorRoutes = require('./routes/moderdorPagina.route');
+const moradaRoutes = require('./routes/morada.route');
+const paginaFreguesiaRoutes = require('./routes/paginaFreguesia.route');
+const pedidoPaginaRoutes = require('./routes/pedidoPagina.route');
+const perfilRoutes = require('./routes/perfil.route');
+const postRoutes = require('./routes/post.route');
+const respostaTicketRoutes = require('./routes/respostaTicket.route');
+const seguidoresRoutes = require('./routes/seguidoresPagina.route');
+const ticketRoutes = require('./routes/ticket.route');
 const utilizadorRoutes = require('./routes/utilizador.route');
+
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
@@ -12,6 +24,16 @@ app.use(cors());
 app.use(express.json());
 
 // Rotas
+app.use('/api/comentarios', comentarioRoutes);
+app.use('/api/moderadores', moderadorRoutes);
+app.use('/api/moradas', moradaRoutes,);
+app.use('/api/paginaFreguesias', paginaFreguesiaRoutes,);
+app.use('/api/pedidosPagina', pedidoPaginaRoutes);
+app.use('/api/perfil', perfilRoutes);
+app.use('/api/posts', postRoutes,);
+app.use('/api/respostasTickets', respostaTicketRoutes,);
+app.use('/api/seguidores', seguidoresRoutes,);
+app.use('/api/tickets', ticketRoutes, );
 app.use('/api/utilizadores', utilizadorRoutes);
 
 
