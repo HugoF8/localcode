@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
+
 const comentarioRoutes = require('./routes/comentario.route');
 const moderadorRoutes = require('./routes/moderdorPagina.route');
 const moradaRoutes = require('./routes/morada.route');
@@ -13,6 +14,7 @@ const respostaTicketRoutes = require('./routes/respostaTicket.route');
 const seguidoresRoutes = require('./routes/seguidoresPagina.route');
 const ticketRoutes = require('./routes/ticket.route');
 const utilizadorRoutes = require('./routes/utilizador.route');
+const autentRoutes = require('./routes/autent.route');
 
 const { PrismaClient } = require('@prisma/client');
 
@@ -35,6 +37,7 @@ app.use('/api/respostasTickets', respostaTicketRoutes,);
 app.use('/api/seguidores', seguidoresRoutes,);
 app.use('/api/tickets', ticketRoutes, );
 app.use('/api/utilizadores', utilizadorRoutes);
+app.use('/api/autent', autentRoutes);
 
 
 // Teste de conexão com o banco de dados
