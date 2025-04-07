@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
 const JWT_SECRET = 'supersecreto';
 
-async function register(nome, email, password) {
+async function register(nome, email, password, data_nascimento) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const utilizador = await prisma.utilizador.create({
-        data: { nome, email, password: hashedPassword },
+        data: { nome, email, password: hashedPassword, data_nascimento: new Date(data_nascimento) },
     });
 
     const token = jwt.sign({ utilizadorId: utilizador.id_utilizador }, JWT_SECRET, { expiresIn: '1h' });
