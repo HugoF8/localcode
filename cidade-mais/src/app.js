@@ -26,6 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 // Rotas
+app.use('/api/autent', autentRoutes);
 app.use('/api/comentarios', comentarioRoutes);
 app.use('/api/moderadores', moderadorRoutes);
 app.use('/api/moradas', moradaRoutes,);
@@ -37,7 +38,6 @@ app.use('/api/respostasTickets', respostaTicketRoutes,);
 app.use('/api/seguidores', seguidoresRoutes,);
 app.use('/api/tickets', ticketRoutes, );
 app.use('/api/utilizadores', utilizadorRoutes);
-app.use('/api/autent', autentRoutes);
 
 
 // Teste de conexão com o banco de dados
