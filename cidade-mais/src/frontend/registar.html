@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registar</title>
+    <link rel="stylesheet" href="estiloregistar.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="maincontainer">
+        <div class="container-registo">
+            <div class="registo">
+                <h1>Registar</h1>
+            <form action="/registar" method="POST">
+                <div class="registar">
+                    <input class="campo" type="text" name="username" placeholder="Nome de utilizador" required />
+                    <input class="campo" type="email" name="email" placeholder="E-mail" required />
+                    
+                    <div class="password-container">
+                        <input class="campo" id="password" type="password" name="password" placeholder="Palavra-passe" required />
+                        <a href="#" class="toggle-password" onclick="togglePasswordVisibility()">Mostrar</a>
+                    </div>
+        
+                    <div class="password-container">
+                        <input class="campo" id="password" type="password" name="password" placeholder="Confirmar palavra-passe" required />
+                        <a href="#" class="toggle-password" onclick="togglePasswordVisibility()">Mostrar</a>
+                    </div>
+        
+                    <div class="form-row">
+                        <input class="campo small" type="text" name="birthdate" placeholder="dd/mm/aaaa" required />
+                        <input class="campo small" type="text" name="contact" placeholder="Contacto" required />
+                    </div>
+        
+                    <button class="extras" type="submit">Seguinte</button>
+                </div>
+            </form>
+            
+        </div>
+
+            </div>
+    
+        <div class="imagecontainer">
+
+        </div>
+    </div>
+    
+    <script>
+        function togglePassword(inputId) {
+            var input = document.getElementById(inputId);
+            input.type = input.type === "password" ? "text" : "password";
+        }
+    </script>
+    </body>
+    </html>

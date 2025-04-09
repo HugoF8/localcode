@@ -1,0 +1,118 @@
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .maincontainer
+        {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            width: 70%;
+            height: 80%;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .imagecontainer {
+            width: 30%;
+            background: url('teste1.avif') center/cover no-repeat;
+
+
+        }
+        h1 {
+            text-align: center;
+            font-size: 50px;
+        }
+        
+        .login{
+            background-color: #daf4fb;
+            cursor: pointer;
+            width: 50%;
+            padding: 12px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #07c8f3;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 50%;
+            padding: 12px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #2f7af2;
+        }
+
+        .link {
+            display: flex;
+            justify-content: space-between; /* Alinha os elementos nas bordas */
+            align-items: center;
+            font-size: 12px;
+            width: 50%; /* Mesmo tamanho que os botões */
+            margin: 0 auto; /* Para garantir o alinhamento central */
+        }
+        
+        .box {
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Espaçamento entre a checkbox e o label */
+        }
+
+        .link a {
+            color: #000000;
+            text-decoration: none;
+            
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+
+        .password-container {
+            position: relative;
+            width: 50%;
+            margin: 8px auto;
+        }
+
+        .password-container input {
+            width: 100%;
+            padding-right: 40px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-decoration: none;
+            color: #000000;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        
