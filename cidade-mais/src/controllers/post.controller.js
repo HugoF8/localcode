@@ -22,12 +22,12 @@ async function getAllPosts(req, res) {
     }
 }
 
-async function getAllPostsPendentes(req, res) {
+async function getAllPostsPendente(req, res) {
 
     const id_pagina = parseInt(req.params.id_pagina) // ou req.query.id_pagina
 
     try {
-        const posts = await postService.getAllPostsPendentes(id_pagina)
+        const posts = await postService.getPostPendente(id_pagina)
         res.json(posts);
     } catch (error) {
         console.error("Erro na busca :", error); // Mostra o erro real no terminal
@@ -36,7 +36,7 @@ async function getAllPostsPendentes(req, res) {
 }
 
 //-----------------------------
-async function atualizarEstadoPostController(req, res) {
+async function atualizarEstadoPost(req, res) {
     const id_post = parseInt(req.params.id)
     const { bolean } = req.body
   
@@ -49,4 +49,4 @@ async function atualizarEstadoPostController(req, res) {
     }
   }
 
-module.exports = { createPost, getAllPosts, getAllPostsPendentes, atualizarEstadoPostController};
+module.exports = { createPost, getAllPosts, getAllPostsPendente, atualizarEstadoPost};
