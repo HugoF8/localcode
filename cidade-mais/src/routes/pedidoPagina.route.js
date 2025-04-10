@@ -6,6 +6,6 @@ const router = express.Router();
 router.post('/criarPedido', pedidoController.createPedidoPagina);
 router.get('/verPedidos', pedidoController.getAllPedidoPagina);
 router.get('/verPedidosPendentes', pedidoController.getPedidoPendente);
-router.patch('/atualizarEstadoPedido', pedidoController.atualizarEstadoPedido);
+router.patch('/atualizarEstadoPedido/:id_pedido', pedidoController.atualizarEstadoPedido);
 
 module.exports = router;

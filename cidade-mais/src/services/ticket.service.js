@@ -16,13 +16,13 @@ async function getTicketPendente(id_pagina) {
         where:{
             id_pagina: id_pagina,
             estado_ticket:'pendente',
-        }
+  }
     })
 }
 
 async function atualizarEstadoTicket(id_ticket, bol,) {
 
-  
+
     const novoEstado = bol ? "fechado" : "aberto";
 
     const ticketAtualizado = await prisma.ticket.update({
@@ -34,7 +34,7 @@ async function atualizarEstadoTicket(id_ticket, bol,) {
 
     
     return ticketAtualizado
-    
+
 }
 
 module.exports = { createTicket, getAllTickets, getTicketPendente, atualizarEstadoTicket };

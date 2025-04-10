@@ -3,24 +3,25 @@ const prisma = new PrismaClient();
 
 // Criar pedidoPagina
 async function createPedidoPagina(data) {
-    return prisma.pedidoPagina.create({ data });
+    return prisma.pedido_pagina.create({ data });
 }
 
 // Buscar todos os pedidoPagina
 async function getAllPedidoPagina() {
-    return prisma.pedidoPagina.findMany();
+    return prisma.pedido_pagina.findMany();
 }
 
 async function getPedidoPendente() {
-    return prisma.post.findMany({ 
+    return prisma.pedido_pagina.findMany({
         where:{
             estado_pedido:'pendente'
         }
     })
 }
 
-async function atualizarEstadoPedido(id_pedido, bol,) {
-    
+async function atualizarEstadoPedido(id_pedido, bol) {
+
+
     const pedidoAtual = await prisma.pedido_pagina.findUnique({where:{id_pedido}})
 
     const novoEstado = bol ? "aprovado" : "recusado";
@@ -32,7 +33,7 @@ async function atualizarEstadoPedido(id_pedido, bol,) {
             estado_pedido: novoEstado,
         },
         })   
-    
+
     
         if (novoEstado === "aprovado") {
             // Criar a página freguesia com dados do pedido
@@ -40,7 +41,6 @@ async function atualizarEstadoPedido(id_pedido, bol,) {
               data: {
                 id_utilizador: pedidoAtual.id_utilizador,
                 id_morada: pedidoAtual.id_morada,
-                morada: pedidoAtual.morada,
                 nome_pagina: "Freguesia",
               }
             });

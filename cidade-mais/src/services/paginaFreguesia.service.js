@@ -3,12 +3,12 @@ const prisma = new PrismaClient();
 
 // Criar paginaFreguesia
 async function createPaginaFreguesia(data) {
-    return prisma.paginaFreguesia.create({ data });
+    return prisma.pagina_freguesia.create({ data });
 }
 
 // Buscar todos os paginaFreguesia
 async function getAllPaginaFreguesia() {
-    return prisma.paginaFreguesia.findMany();
+    return prisma.pagina_freguesia.findMany();
 }
 
 module.exports = { createPaginaFreguesia, getAllPaginaFreguesia };
