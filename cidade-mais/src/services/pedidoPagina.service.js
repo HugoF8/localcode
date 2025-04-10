@@ -38,8 +38,7 @@ async function atualizarEstadoPedido(id_pedido, bol,) {
         },
         })   
     
-    if(novoEstado==true)
-    {
+    
         if (novoEstado === "aprovado") {
             // Criar a página freguesia com dados do pedido
             await prisma.pagina_freguesia.create({
@@ -54,8 +53,7 @@ async function atualizarEstadoPedido(id_pedido, bol,) {
               }
             });
           }
-        }
-    
+        
 
     return pedidoAtualizado 
     
