@@ -20,4 +20,24 @@ async function getAllPedidoPagina(req, res) {
     }
 }
 
-module.exports = { createPedidoPagina, getAllPedidoPagina };
+async function getPedidoPendente(req, res) {
+    try {
+        const pedidoPagina = await pedidoPaginaService.getPedidoPendente();
+        res.json(pedidoPagina);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Erro ao procurar Pedidos de Paginas' });
+    }
+}
+
+async function atualizarEstadoPedido(req, res) {
+    try {
+        const pedidoPagina = await pedidoPaginaService.atualizarEstadoPedido();
+        res.json(pedidoPagina);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Erro ao procurar Pedidos de Paginas' });
+    }
+}
+
+module.exports = { createPedidoPagina, getAllPedidoPagina, getPedidoPendente, atualizarEstadoPedido };
