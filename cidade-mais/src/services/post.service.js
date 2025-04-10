@@ -28,7 +28,6 @@ async function atualizarEstadoPost(bolean,id_post) {
           estado_post: estadoatualizado,
         },
         })
-  
       
       return postAtualizado 
 }
