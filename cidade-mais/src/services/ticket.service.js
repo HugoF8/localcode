@@ -20,4 +20,21 @@ async function getTicketPendente(id_pagina) {
     })
 }
 
-module.exports = { createTicket, getAllTickets, getTicketPendente };
+async function atualizarEstadoTicket(id_ticket, bol,) {
+
+  
+    const novoEstado = bol ? "fechado" : "aberto";
+
+    const ticketAtualizado = await prisma.ticket.update({
+        where: { id_ticket },
+        data: {
+            estado_pedido: novoEstado,
+        },
+        })   
+
+    
+    return ticketAtualizado
+    
+}
+
+module.exports = { createTicket, getAllTickets, getTicketPendente, atualizarEstadoTicket };

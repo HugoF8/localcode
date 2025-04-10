@@ -6,5 +6,6 @@ const router = express.Router();
 router.post('/criarTicket', ticketController.createTicket);
 router.get('/verTickets', ticketController.getAllTickets);
 router.get('/verTicketsPendentes', ticketController.getTicketPendente);
+router.patch('/atualizarEstadoTicket', ticketController.atualizarEstadoTicket);
 
 module.exports = router;

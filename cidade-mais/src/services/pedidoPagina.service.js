@@ -22,14 +22,9 @@ async function getPedidoPendente() {
 async function atualizarEstadoPedido(id_pedido, bol,) {
     
     const pedidoAtual = await prisma.pedido_pagina.findUnique({where:{id_pedido}})
-    let novoEstado;
 
-    if(bol==true)
-    {
-        novoEstado= "aprovado";
-    }
-    else
-        novoEstado="recusado";
+    const novoEstado = bol ? "aprovado" : "recusado";
+
 
     const pedidoAtualizado = await prisma.pedido_pagina.update({
         where: { id_pedido },
@@ -46,10 +41,7 @@ async function atualizarEstadoPedido(id_pedido, bol,) {
                 id_utilizador: pedidoAtual.id_utilizador,
                 id_morada: pedidoAtual.id_morada,
                 morada: pedidoAtual.morada,
-                nome_pagina: pedidoAtual.nome_freguesia,
-                descricao: "Bem-vindo à nova página da freguesia!", // valor default
-                foto_perfil: "/img/default-perfil.png",             // valor default
-                foto_capa: "/img/default-capa.jpg"                  // valor default
+                nome_pagina: "Freguesia",
               }
             });
           }
