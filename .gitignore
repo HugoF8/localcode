@@ -1,3 +1,6 @@
+# Ignorar a pasta node_modules e seus arquivos
+node_modules/
+
 Arquivos de build
 *.o
 *.a
