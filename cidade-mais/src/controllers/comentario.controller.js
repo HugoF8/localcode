@@ -20,4 +20,14 @@ async function getAllComentario(req, res) {
     }
 }
 
-module.exports = { createComentario, getAllComentario };
+async function getComentarioPost(req, res) {
+    try {
+        const comentario = await comentarioService.getComentarioPost();
+        res.json(comentario);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Erro ao procurar comentarios' });
+    }
+}
+
+module.exports = { createComentario, getAllComentario, getComentarioPost };

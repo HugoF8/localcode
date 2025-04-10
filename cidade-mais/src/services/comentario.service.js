@@ -11,4 +11,12 @@ async function getAllComentario() {
     return prisma.comentario.findMany();
 }
 
-module.exports = { createComentario, getAllComentario };
+async function getComentarioPost(id_post) {
+    return prisma.comentario.findMany({ 
+        where:{
+            id_post: id_post,
+        }
+    })
+}
+
+module.exports = { createComentario, getAllComentario, getComentarioPost };

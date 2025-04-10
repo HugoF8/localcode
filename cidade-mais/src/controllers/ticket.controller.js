@@ -22,4 +22,15 @@ async function getAllTickets(req, res) {
     }
 }
 
-module.exports = { createTicket, getAllTickets };
+// Buscar todos os tickets pendentes
+async function getTicketPendente(req, res) {
+    try {
+        const tickets = await ticketService.getTicketPendente();
+        res.json(tickets);
+    } catch (error) {
+        console.error("Erro ao buscar tickets pendentes:", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar tickets pendentes", detalhes: error.message });
+    }
+}
+
+module.exports = { createTicket, getAllTickets, getTicketPendente };

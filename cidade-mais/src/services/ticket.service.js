@@ -11,4 +11,13 @@ async function getAllTickets() {
     return prisma.ticket.findMany();
 }
 
-module.exports = { createTicket, getAllTickets };
+async function getTicketPendente(id_pagina) {
+    return prisma.ticket.findMany({ 
+        where:{
+            id_pagina: id_pagina,
+            estado_ticket:'pendente',
+        }
+    })
+}
+
+module.exports = { createTicket, getAllTickets, getTicketPendente };
