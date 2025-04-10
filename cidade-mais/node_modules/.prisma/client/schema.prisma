@@ -8,13 +8,13 @@ datasource db {
 }
 
 model comentario {
-  id_comentario       Int         @id @default(autoincrement())
+  id_comentario       Int        @id @default(autoincrement())
   id_post             Int
   id_utilizador       Int
   conteudo_comentario String
-  data_comentario     DateTime?   @default(now()) @db.Timestamp(6)
-  post                post?       @relation(fields: [id_post], references: [id_post], onDelete: Cascade, onUpdate: NoAction)
-  utilizador          utilizador? @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+  data_comentario     DateTime?  @default(now()) @db.Timestamp(6)
+  post                post       @relation(fields: [id_post], references: [id_post], onDelete: Cascade, onUpdate: NoAction)
+  utilizador          utilizador @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model moderador_pagina {
@@ -47,7 +47,7 @@ model pagina_freguesia {
   foto_capa         String?             @db.VarChar(255)
   moderador_pagina  moderador_pagina[]
   notificacao       notificacao[]
-  morada            morada?             @relation(fields: [id_morada], references: [id_morada], onUpdate: NoAction)
+  morada            morada              @relation(fields: [id_morada], references: [id_morada], onUpdate: NoAction)
   utilizador        utilizador?         @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
   post              post[]
   seguidores_pagina seguidores_pagina[]
@@ -61,31 +61,31 @@ model pedido_pagina {
   dados_comprovacao String
   estado_pedido     estado_pedido @default(pendente)
   data_pedido       DateTime?     @default(now()) @db.Timestamp(6)
-  morada            morada?       @relation(fields: [id_morada], references: [id_morada], onUpdate: NoAction)
-  utilizador        utilizador?   @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+  morada            morada        @relation(fields: [id_morada], references: [id_morada], onUpdate: NoAction)
+  utilizador        utilizador    @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model perfil {
-  id_perfil     Int         @id @default(autoincrement())
+  id_perfil     Int        @id @default(autoincrement())
   id_utilizador Int
-  foto_perfil   String?     @db.VarChar(255)
-  foto_capa     String?     @db.VarChar(255)
-  biografia     String?     @db.VarChar(255)
-  utilizador    utilizador? @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+  foto_perfil   String?    @db.VarChar(255)
+  foto_capa     String?    @db.VarChar(255)
+  biografia     String?    @db.VarChar(255)
+  utilizador    utilizador @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model post {
-  id_post          Int               @id @default(autoincrement())
+  id_post          Int              @id @default(autoincrement())
   id_utilizador    Int
   id_pagina        Int
   descricao_post   String?
-  media_post       String?           @db.VarChar(255)
-  estado_post      estado_post       @default(pendente)
-  aprovacoes       Int?              @default(0)
+  media_post       String?          @db.VarChar(255)
+  estado_post      estado_post      @default(pendente)
+  aprovacoes       Int?             @default(0)
   comentario       comentario[]
   notificacao      notificacao[]
-  pagina_freguesia pagina_freguesia? @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
-  utilizador       utilizador?       @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+  pagina_freguesia pagina_freguesia @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
+  utilizador       utilizador       @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model resposta_ticket {
@@ -95,17 +95,17 @@ model resposta_ticket {
   data_resposta     DateTime?       @default(now()) @db.Timestamp(6)
   conteudo_resposta String?
   estado_resposta   estado_resposta
-  ticket            ticket?         @relation(fields: [id_ticket], references: [id_ticket], onDelete: Cascade, onUpdate: NoAction)
-  utilizador        utilizador?     @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+  ticket            ticket          @relation(fields: [id_ticket], references: [id_ticket], onDelete: Cascade, onUpdate: NoAction)
+  utilizador        utilizador      @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model seguidores_pagina {
-  id_seguimento    Int               @id @default(autoincrement())
+  id_seguimento    Int              @id @default(autoincrement())
   id_utilizador    Int
   id_pagina        Int
-  data_seguimento  DateTime?         @default(dbgenerated("CURRENT_DATE")) @db.Date
-  pagina_freguesia pagina_freguesia? @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
-  utilizador       utilizador?       @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+  data_seguimento  DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
+  pagina_freguesia pagina_freguesia @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
+  utilizador       utilizador       @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model ticket {
@@ -117,8 +117,8 @@ model ticket {
   estado_ticket      estado_ticket     @default(pendente)
   notificacao        notificacao[]
   resposta_ticket    resposta_ticket[]
-  pagina_freguesia   pagina_freguesia? @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
-  utilizador         utilizador?       @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+  pagina_freguesia   pagina_freguesia  @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
+  utilizador         utilizador        @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model utilizador {
