@@ -47,4 +47,4 @@ async function getAllPosts() {
     return prisma.post.findMany();
 }
 
-module.exports = { createPost, getAllPosts };
+module.exports = { createPost, getAllPosts, atualizarEstadoPost, getPostPendente};
