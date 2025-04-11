@@ -28,7 +28,7 @@ async function atualizarEstadoTicket(id_ticket, bol,) {
     const ticketAtualizado = await prisma.ticket.update({
         where: { id_ticket },
         data: {
-            estado_pedido: novoEstado,
+            estado_ticket: novoEstado,
         },
         })   
 

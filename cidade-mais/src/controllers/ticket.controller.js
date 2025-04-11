@@ -1,4 +1,5 @@
 const ticketService = require('../services/ticket.service');
+const pedidoPaginaService = require("../services/pedidoPagina.service");
 
 // Criar tickets
 async function createTicket(req, res) {
@@ -35,11 +36,25 @@ async function getTicketPendente(req, res) {
 
 async function atualizarEstadoTicket(req, res) {
     try {
-        const tickets = await ticketService.atualizarEstadoTicket();
-        res.json(tickets);
+        // Extrai o id_ticket da URL (que vem como string)
+        const { id_ticket } = req.params;
+
+        // Converte id_ticket para número
+        const idTicketNumber = Number(id_ticket);
+
+        // Verifica se a conversão foi bem-sucedida
+        if (isNaN(idTicketNumber)) {
+            return res.status(400).json({ error: 'id_ticket deve ser um número válido' });
+        }
+
+        const { bol } = req.body;  // Pega os dados do corpo da requisição
+
+        // Chama o serviço para atualizar o estado do ticket
+        const ticket = await ticketService.atualizarEstadoTicket(idTicketNumber, bol);
+        res.json(ticket);
     } catch (error) {
-        console.error("Erro ao buscar tickets pendentes:", error); // Mostra o erro real no terminal
-        res.status(500).json({ error: "Erro ao buscar tickets pendentes", detalhes: error.message });
+        console.log(error);
+        res.status(500).json({ error: 'Erro ao atualizar estado do ticket' });
     }
 }
 
