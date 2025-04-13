@@ -7,4 +7,5 @@ router.post('/criarPost', postController.createPost);
 router.get('/verPosts', postController.getAllPosts);
 router.get('/PostsPendentes', postController.getAllPostsPendente);
 router.patch('/PostsPendentes/:id_post', postController.atualizarEstadoPost);
+router.get('/verPostsPagina', postController.getPostPagina);
 module.exports = router;

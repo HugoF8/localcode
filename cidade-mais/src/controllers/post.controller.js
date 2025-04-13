@@ -54,4 +54,15 @@ async function atualizarEstadoPost(req, res) {
     }
   }
 
-module.exports = { createPost, getAllPosts, getAllPostsPendente, atualizarEstadoPost};
+  async function getPostPagina(req, res) {
+
+    try {
+        const posts = await postService.getPostPagina(id_pagina)
+        res.json(posts);
+    } catch (error) {
+        console.error("Erro na busca :", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar publicação", detalhes: error.message });
+    }
+}
+
+module.exports = { createPost, getAllPosts, getAllPostsPendente, atualizarEstadoPost, getPostPagina};

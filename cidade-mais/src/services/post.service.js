@@ -32,18 +32,26 @@ async function atualizarEstadoPost(bolean,id_post) {
       return postAtualizado 
 }
 
-async function getPostPendente() {
+// Buscar todos os Posts
+async function getAllPosts() {
+    return prisma.post.findMany();
+}
+
+async function getPostPendente(id_pagina) {
     return prisma.post.findMany({ 
         where:{
+            id_pagina: id_pagina,
             estado_post:'pendente',
             aprovacoes:{lt:4}//lt=less than
         }
     })
 }
 
-// Buscar todos os Posts
-async function getAllPosts() {
-    return prisma.post.findMany();
+async function getPostPagina(id_pagina) {
+    return prisma.post.findMany({ 
+        where:{
+            id_pagina: id_pagina,
+        }
+    })
 }
-
-module.exports = { createPost, getAllPosts, atualizarEstadoPost, getPostPendente};
+module.exports = { createPost, getAllPosts, atualizarEstadoPost, getPostPendente, getPostPagina};
