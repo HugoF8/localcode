@@ -21,8 +21,16 @@ async function getAllComentario(req, res) {
 }
 
 async function getComentarioPost(req, res) {
+
+    const { id_post} = req.params;
+    const idPost = Number(id_post);
+
+    if (isNaN(idPost)) {
+        return res.status(400).json({ error: 'id POst deve ser um número válido' });
+    }
+
     try {
-        const comentario = await comentarioService.getComentarioPost();
+        const comentario = await comentarioService.getComentarioPost(idPost);
         res.json(comentario);
     } catch (error) {
         console.log(error);

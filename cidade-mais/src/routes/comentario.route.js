@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/criarComentario', comentarioController.createComentario);
 router.get('/verComentarios', comentarioController.getAllComentario);
-router.get('/verComentariosPost', comentarioController.getComentarioPost);
+router.get('/verComentariosPost/:id_post', comentarioController.getComentarioPost);
 
 module.exports = router;
