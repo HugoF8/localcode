@@ -19,17 +19,19 @@ async function getPedidoPendente() {
     })
 }
 
-async function getPedidoAprovado() {
+async function getPedidoAprovado(id_utilizador) {
     return prisma.pedido_pagina.findMany({
         where: {
+            id_utilizador:id_utilizador,
             estado_pedido:'aprovado'
         }
     })
 }
 
-async function getPedidoReprovado() {
+async function getPedidoReprovado(id_utilizador) {
     return prisma.pedido_pagina.findMany({
         where: {
+            id_utilizador:id_utilizador,
             estado_pedido:'reprovado'
         }
     })

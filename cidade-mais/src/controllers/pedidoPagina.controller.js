@@ -32,7 +32,7 @@ async function getPedidoPendente(req, res) {
 
 async function getPedidoAprovado(req, res) {
     try {
-        const pedidoPagina = await pedidoPaginaService.getPedidoAprovado();
+        const pedidoPagina = await pedidoPaginaService.getPedidoAprovado(id_utilizador);
         res.json(pedidoPagina);
     } catch (error) {
         console.log(error);
@@ -42,7 +42,7 @@ async function getPedidoAprovado(req, res) {
 
 async function getPedidoReprovado(req, res) {
     try {
-        const pedidoPagina = await pedidoPaginaService.getPedidoReprovado();
+        const pedidoPagina = await pedidoPaginaService.getPedidoReprovado(id_utilizador);
         res.json(pedidoPagina);
     } catch (error) {
         console.log(error);
@@ -100,4 +100,4 @@ async function alterarPedidoPagina(req, res) {
     }
 }
 
-module.exports = { createPedidoPagina, getAllPedidoPagina, getPedidoPendente, atualizarEstadoPedido, alterarPedidoPagina };
+module.exports = { createPedidoPagina, getAllPedidoPagina, getPedidoPendente, getPedidoAprovado, getPedidoReprovado, atualizarEstadoPedido, alterarPedidoPagina };
