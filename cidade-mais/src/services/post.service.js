@@ -55,18 +55,20 @@ async function getPostPagina(id_pagina) {
     })
 }
 
-async function getPostsAprovados() {
+async function getPostsAprovados(id_utilizador) {
     return prisma.post.findMany({ 
         where:{
-            estado_post: 'ativo',
+            id_utilizador:id_utilizador,
+            estado_post: 'ativo'
         }
     })
 }
 
-async function getPostsRecusados() {
+async function getPostsRecusados(id_utilizador) {
     return prisma.post.findMany({ 
         where:{
-            estado_post: 'inativo',
+            id_utilizador:id_utilizador,
+            estado_post: 'inativo'
         }
     })
 }
