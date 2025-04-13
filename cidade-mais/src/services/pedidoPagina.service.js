@@ -13,10 +13,36 @@ async function getAllPedidoPagina() {
 
 async function getPedidoPendente() {
     return prisma.pedido_pagina.findMany({
-        where:{
+        where: {
             estado_pedido:'pendente'
         }
     })
+}
+
+async function getPedidoAprovado() {
+    return prisma.pedido_pagina.findMany({
+        where: {
+            estado_pedido:'aprovado'
+        }
+    })
+}
+
+async function getPedidoReprovado() {
+    return prisma.pedido_pagina.findMany({
+        where: {
+            estado_pedido:'reprovado'
+        }
+    })
+}
+
+async function alterarPedidoPagina(id_pedido, dados) {
+    const pedidoAlterado = await prisma.pedido_pagina.update({
+        where: { id_pedido: id_pedido },
+        data: {
+            dados_comprovacao: dados
+        },
+    });
+    return pedidoAlterado;
 }
 
 async function atualizarEstadoPedido(id_pedido, bol) {
@@ -50,4 +76,4 @@ async function atualizarEstadoPedido(id_pedido, bol) {
     return pedidoAtualizado 
     
 }
-module.exports = { createPedidoPagina, getAllPedidoPagina, getPedidoPendente, atualizarEstadoPedido};
+module.exports = { createPedidoPagina, getAllPedidoPagina, getPedidoPendente, getPedidoAprovado, getPedidoReprovado, atualizarEstadoPedido, alterarPedidoPagina};
