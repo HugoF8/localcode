@@ -36,7 +36,7 @@ async function getTicketPendente(req, res) {
 
 async function getTicketAberto(req, res) {
     try {
-        const tickets = await ticketService.getTicketAberto();
+        const tickets = await ticketService.getTicketAberto(id_utilizador);
         res.json(tickets);
     } catch (error) {
         console.error("Erro ao buscar tickets abertos:", error); // Mostra o erro real no terminal
@@ -46,7 +46,7 @@ async function getTicketAberto(req, res) {
 
 async function getTicketFechado(req, res) {
     try {
-        const tickets = await ticketService.getTicketFechado();
+        const tickets = await ticketService.getTicketFechado(id_utilizador);
         res.json(tickets);
     } catch (error) {
         console.error("Erro ao buscar tickets fechados:", error); // Mostra o erro real no terminal
@@ -79,8 +79,8 @@ async function atualizarEstadoTicket(req, res) {
 }
 
 async function alterarTicket(req, res) {
-    const { id } = req.params;
-    const id_ticket = Number(id_ticket)
+    const { id_ticket } = req.params;
+    const idTicket = Number(id_ticket)
     const { descricao_problema } = req.body;
 
     if (!descricao_problema) {
@@ -88,7 +88,7 @@ async function alterarTicket(req, res) {
     }
 
     try {
-        const ticketAlterado = await alterarTicket(parseInt(id), descricao_problema);
+        const ticketAlterado = await alterarTicket(idTicket, descricao_problema);
 
         return res.status(200).json({
             mensagem: "Descrição do ticket alterada com sucesso.",
