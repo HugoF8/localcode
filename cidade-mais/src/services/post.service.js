@@ -107,5 +107,51 @@ async function alterarInformacoesPost(idPost, descricao_post, media_post) {
         return postAlterado
 }
 
+async function getPostsPaginasSeguidas(id_utilizador) {
+    try {
+        // Buscar IDs das páginas seguidas pelo utilizador
+        const paginasSeguidas = await prisma.seguidores_pagina.findMany({
+            where: {
+                id_utilizador: id_utilizador,
+            },
+            select: {
+                id_pagina: true,
+            },
+        });
 
-module.exports = { createPost, getAllPosts, atualizarEstadoPost, getPostPendente, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost};
+        const idsPaginas = paginasSeguidas.map(p => p.id_pagina);
+
+        if (idsPaginas.length === 0) return [];
+
+        // Buscar posts dessas páginas com estado "ativo"
+        const posts = await prisma.post.findMany({
+            where: {
+                id_pagina: {
+                    in: idsPaginas,
+                },
+                estado_post: 'ativo',
+            },
+            include: {
+                utilizador: true,
+                pagina_freguesia: {
+                    select: {
+                        nome_pagina: true,
+                        //foto_perfil: true,
+                    }
+                },
+            },
+            orderBy: {
+                data_post: 'desc',
+            },
+        });
+
+        return posts;
+
+    } catch (error) {
+        throw new Error('Erro ao buscar posts das páginas seguidas: ' + error.message);
+    }
+}
+
+
+
+module.exports = { createPost, getAllPosts, atualizarEstadoPost, getPostPendente, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost, getPostsPaginasSeguidas};
