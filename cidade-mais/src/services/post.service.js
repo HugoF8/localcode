@@ -54,4 +54,35 @@ async function getPostPagina(id_pagina) {
         }
     })
 }
-module.exports = { createPost, getAllPosts, atualizarEstadoPost, getPostPendente, getPostPagina};
+
+async function getPostsAprovados() {
+    return prisma.post.findMany({ 
+        where:{
+            estado_post: 'ativo',
+        }
+    })
+}
+
+async function getPostsRecusados() {
+    return prisma.post.findMany({ 
+        where:{
+            estado_post: 'inativo',
+        }
+    })
+}
+
+async function alterarInformacoesPost(idPost, descricao_post, media_post) {
+
+    const postAlterado = await prisma.post.update({
+        where: { id_post: idPost },
+        data: {
+            descricao_post: descricao_post,
+            media_post: media_post
+        },
+        })  
+
+        return postAlterado
+}
+
+
+module.exports = { createPost, getAllPosts, atualizarEstadoPost, getPostPendente, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost};

@@ -65,4 +65,45 @@ async function atualizarEstadoPost(req, res) {
     }
 }
 
-module.exports = { createPost, getAllPosts, getAllPostsPendente, atualizarEstadoPost, getPostPagina};
+async function getPostsAprovados(req, res) {
+
+    try {
+        const posts = await postService.getPostsAprovados()
+        res.json(posts);
+    } catch (error) {
+        console.error("Erro na busca :", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar publicação", detalhes: error.message });
+    }
+}
+
+async function getPostsRecusados(req, res) {
+
+    try {
+        const posts = await postService.getPostsRecusados()
+        res.json(posts);
+    } catch (error) {
+        console.error("Erro na busca :", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar publicação", detalhes: error.message });
+    }
+}
+
+async function alterarInformacoesPost(req, res) {
+
+    const {id_post} = req.params
+    const idPost = Number(id_post)
+    const {descricao_post, media_post} = req.body
+
+    if (isNaN(idPost)) {
+        return res.status(400).json({ error: 'idPost deve ser um número válido' });
+    }
+
+    try {
+        const postAlterado = await postService.alterarInformacoesPost(idPost, descricao_post, media_post);
+        res.json(postAlterado);
+    } catch (error) {
+        console.error("Erro na busca :", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar publicação", detalhes: error.message });
+    }
+}
+
+module.exports = { createPost, getAllPosts, getAllPostsPendente, atualizarEstadoPost, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost};
