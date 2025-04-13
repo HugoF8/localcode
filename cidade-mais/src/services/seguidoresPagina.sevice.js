@@ -12,4 +12,13 @@ async function getAllUSeguidores() {
     return prisma.seguidores_pagina.findMany();
 }
 
-module.exports = { createUSeguidor, getAllUSeguidores };
+async function getPaginasSeguidas(id_utilizador) {
+    return prisma.seguidores_pagina.findMany({
+        where:{
+            id_utilizador: id_utilizador,
+        }
+    })
+}
+
+
+module.exports = { createUSeguidor, getAllUSeguidores, getPaginasSeguidas };
