@@ -37,6 +37,22 @@ model morada {
   utilizador       utilizador[]
 }
 
+model notificacao {
+  id_notificacao       Int                @id @default(autoincrement())
+  id_utilizador        Int?
+  id_pagina            Int?
+  tipo_notificacao     tipo_notificacao
+  id_post              Int?
+  id_ticket            Int?
+  data                 DateTime?          @default(now()) @db.Timestamp(6)
+  conteudo_notificacao String?
+  estado_notificacao   estado_notificacao @default(nao_lida)
+  pagina_freguesia     pagina_freguesia?  @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
+  post                 post?              @relation(fields: [id_post], references: [id_post], onUpdate: NoAction)
+  ticket               ticket?            @relation(fields: [id_ticket], references: [id_ticket], onUpdate: NoAction)
+  utilizador           utilizador?        @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
+}
+
 model pagina_freguesia {
   id_pagina         Int                 @id @default(autoincrement())
   id_morada         Int
@@ -61,6 +77,7 @@ model pedido_pagina {
   dados_comprovacao String
   estado_pedido     estado_pedido @default(pendente)
   data_pedido       DateTime?     @default(now()) @db.Timestamp(6)
+  nomefreguesia     String        @db.VarChar(255)
   morada            morada        @relation(fields: [id_morada], references: [id_morada], onUpdate: NoAction)
   utilizador        utilizador    @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
 }
@@ -113,7 +130,7 @@ model ticket {
   id_utilizador      Int
   id_pagina          Int
   data_criacao       DateTime?         @default(now()) @db.Timestamp(6)
-  descricao_problema String?
+  descricao_problema String
   estado_ticket      estado_ticket     @default(pendente)
   notificacao        notificacao[]
   resposta_ticket    resposta_ticket[]
@@ -141,22 +158,6 @@ model utilizador {
   seguidores_pagina seguidores_pagina[]
   ticket            ticket[]
   morada            morada?             @relation(fields: [id_morada], references: [id_morada], onUpdate: NoAction)
-}
-
-model notificacao {
-  id_notificacao       Int                @id @default(autoincrement())
-  id_utilizador        Int?
-  id_pagina            Int?
-  tipo_notificacao     tipo_notificacao
-  id_post              Int?
-  id_ticket            Int?
-  data                 DateTime?          @default(now()) @db.Timestamp(6)
-  conteudo_notificacao String?
-  estado_notificacao   estado_notificacao @default(nao_lida)
-  pagina_freguesia     pagina_freguesia?  @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)
-  post                 post?              @relation(fields: [id_post], references: [id_post], onUpdate: NoAction)
-  ticket               ticket?            @relation(fields: [id_ticket], references: [id_ticket], onUpdate: NoAction)
-  utilizador           utilizador?        @relation(fields: [id_utilizador], references: [id_utilizador], onDelete: Cascade, onUpdate: NoAction)
 }
 
 enum estado_notificacao {
@@ -198,10 +199,12 @@ enum funcao_moderador {
 }
 
 enum tipo_notificacao {
-  Comentario
-  Post
-  Ticket
-  pagina
+  Aprovado
+  Recusado
+  Validacao
+  Verificacao
+  Sucesso
+  Insucesso
 }
 
 enum tipo_utilizador {

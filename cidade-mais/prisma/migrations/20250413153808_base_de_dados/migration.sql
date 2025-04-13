@@ -20,7 +20,7 @@ CREATE TYPE "estado_votacao" AS ENUM ('ativo', 'encerrado');
 CREATE TYPE "funcao_moderador" AS ENUM ('dono', 'moderador');
 
 -- CreateEnum
-CREATE TYPE "tipo_notificacao" AS ENUM ('Comentario', 'Post', 'Ticket', 'pagina');
+CREATE TYPE "tipo_notificacao" AS ENUM ('Aprovado', 'Recusado', 'Validacao', 'Verificacao', 'Sucesso', 'Insucesso');
 
 -- CreateEnum
 CREATE TYPE "tipo_utilizador" AS ENUM ('admin', 'moderador', 'utilizador');
@@ -58,6 +58,21 @@ CREATE TABLE "morada" (
 );
 
 -- CreateTable
+CREATE TABLE "notificacao" (
+    "id_notificacao" SERIAL NOT NULL,
+    "id_utilizador" INTEGER,
+    "id_pagina" INTEGER,
+    "tipo_notificacao" "tipo_notificacao" NOT NULL,
+    "id_post" INTEGER,
+    "id_ticket" INTEGER,
+    "data" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
+    "conteudo_notificacao" TEXT,
+    "estado_notificacao" "estado_notificacao" NOT NULL DEFAULT 'nao lida',
+
+    CONSTRAINT "notificacao_pkey" PRIMARY KEY ("id_notificacao")
+);
+
+-- CreateTable
 CREATE TABLE "pagina_freguesia" (
     "id_pagina" SERIAL NOT NULL,
     "id_morada" INTEGER NOT NULL,
@@ -78,6 +93,7 @@ CREATE TABLE "pedido_pagina" (
     "dados_comprovacao" TEXT NOT NULL,
     "estado_pedido" "estado_pedido" NOT NULL DEFAULT 'pendente',
     "data_pedido" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
+    "nomefreguesia" VARCHAR(255) NOT NULL,
 
     CONSTRAINT "pedido_pagina_pkey" PRIMARY KEY ("id_pedido")
 );
@@ -134,7 +150,7 @@ CREATE TABLE "ticket" (
     "id_utilizador" INTEGER NOT NULL,
     "id_pagina" INTEGER NOT NULL,
     "data_criacao" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "descricao_problema" TEXT,
+    "descricao_problema" TEXT NOT NULL,
     "estado_ticket" "estado_ticket" NOT NULL DEFAULT 'pendente',
 
     CONSTRAINT "ticket_pkey" PRIMARY KEY ("id_ticket")
@@ -154,21 +170,6 @@ CREATE TABLE "utilizador" (
     CONSTRAINT "utilizador_pkey" PRIMARY KEY ("id_utilizador")
 );
 
--- CreateTable
-CREATE TABLE "notificacao" (
-    "id_notificacao" SERIAL NOT NULL,
-    "id_utilizador" INTEGER,
-    "id_pagina" INTEGER,
-    "tipo_notificacao" "tipo_notificacao" NOT NULL,
-    "id_post" INTEGER,
-    "id_ticket" INTEGER,
-    "data" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "conteudo_notificacao" TEXT,
-    "estado_notificacao" "estado_notificacao" NOT NULL DEFAULT 'nao lida',
-
-    CONSTRAINT "notificacao_pkey" PRIMARY KEY ("id_notificacao")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "utilizador_email_key" ON "utilizador"("email");
 
@@ -183,6 +184,18 @@ ALTER TABLE "moderador_pagina" ADD CONSTRAINT "moderador_pagina_id_pagina_fkey" 
 
 -- AddForeignKey
 ALTER TABLE "moderador_pagina" ADD CONSTRAINT "moderador_pagina_id_utilizador_fkey" FOREIGN KEY ("id_utilizador") REFERENCES "utilizador"("id_utilizador") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "notificacao" ADD CONSTRAINT "notificacao_id_pagina_fkey" FOREIGN KEY ("id_pagina") REFERENCES "pagina_freguesia"("id_pagina") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "notificacao" ADD CONSTRAINT "notificacao_id_post_fkey" FOREIGN KEY ("id_post") REFERENCES "post"("id_post") ON DELETE SET NULL ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "notificacao" ADD CONSTRAINT "notificacao_id_ticket_fkey" FOREIGN KEY ("id_ticket") REFERENCES "ticket"("id_ticket") ON DELETE SET NULL ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "notificacao" ADD CONSTRAINT "notificacao_id_utilizador_fkey" FOREIGN KEY ("id_utilizador") REFERENCES "utilizador"("id_utilizador") ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "pagina_freguesia" ADD CONSTRAINT "pagina_freguesia_id_morada_fkey" FOREIGN KEY ("id_morada") REFERENCES "morada"("id_morada") ON DELETE RESTRICT ON UPDATE NO ACTION;
@@ -225,15 +238,3 @@ ALTER TABLE "ticket" ADD CONSTRAINT "ticket_id_utilizador_fkey" FOREIGN KEY ("id
 
 -- AddForeignKey
 ALTER TABLE "utilizador" ADD CONSTRAINT "utilizador_id_morada_fkey" FOREIGN KEY ("id_morada") REFERENCES "morada"("id_morada") ON DELETE SET NULL ON UPDATE NO ACTION;
-
--- AddForeignKey
-ALTER TABLE "notificacao" ADD CONSTRAINT "notificacao_id_pagina_fkey" FOREIGN KEY ("id_pagina") REFERENCES "pagina_freguesia"("id_pagina") ON DELETE CASCADE ON UPDATE NO ACTION;
-
--- AddForeignKey
-ALTER TABLE "notificacao" ADD CONSTRAINT "notificacao_id_post_fkey" FOREIGN KEY ("id_post") REFERENCES "post"("id_post") ON DELETE SET NULL ON UPDATE NO ACTION;
-
--- AddForeignKey
-ALTER TABLE "notificacao" ADD CONSTRAINT "notificacao_id_ticket_fkey" FOREIGN KEY ("id_ticket") REFERENCES "ticket"("id_ticket") ON DELETE SET NULL ON UPDATE NO ACTION;
-
--- AddForeignKey
-ALTER TABLE "notificacao" ADD CONSTRAINT "notificacao_id_utilizador_fkey" FOREIGN KEY ("id_utilizador") REFERENCES "utilizador"("id_utilizador") ON DELETE CASCADE ON UPDATE NO ACTION;
