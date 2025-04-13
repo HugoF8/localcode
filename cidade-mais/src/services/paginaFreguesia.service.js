@@ -11,4 +11,15 @@ async function getAllPaginaFreguesia() {
     return prisma.pagina_freguesia.findMany();
 }
 
-module.exports = { createPaginaFreguesia, getAllPaginaFreguesia };
+async function pesquisaPagina(pesquisa) {
+    return prisma.pagina_freguesia.findMany({
+      where: {
+        nome_pagina: {
+          contains: pesquisa,
+          mode: 'insensitive'
+        }
+      }
+    });
+  }
+
+module.exports = { createPaginaFreguesia, getAllPaginaFreguesia, pesquisaPagina };

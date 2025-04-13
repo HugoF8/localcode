@@ -20,4 +20,14 @@ async function getAllPaginaFreguesia(req, res) {
     }
 }
 
-module.exports = { createPaginaFreguesia, getAllPaginaFreguesia };
+async function pesquisaPagina(req, res) {
+    try {
+        const paginas = await paginaFregusiaService.pesquisaPagina();
+        res.json(paginas);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Erro ao procurar paginas' });
+    }
+}
+
+module.exports = { createPaginaFreguesia, getAllPaginaFreguesia, pesquisaPagina };
