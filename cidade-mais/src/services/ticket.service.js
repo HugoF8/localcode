@@ -20,19 +20,19 @@ async function getTicketPendente(id_pagina) {
     })
 }
 
-async function getTicketFechado(id_pagina) {
+async function getTicketFechado(id_utilizador) {
     return prisma.ticket.findMany({ 
         where:{
-            id_pagina: id_pagina,
+            id_utilizador:id_utilizador,
             estado_ticket:'Fechado',
   }
     })
 }
 
-async function getTicketAberto(id_pagina) {
+async function getTicketAberto(id_utilizador) {
     return prisma.ticket.findMany({ 
         where:{
-            id_pagina: id_pagina,
+            id_utilizador:id_utilizador,
             estado_ticket:'Aberto',
   }
     })
