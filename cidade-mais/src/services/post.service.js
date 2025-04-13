@@ -1,9 +1,21 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, tipo_notificacao } = require('@prisma/client');
+const { createNotificacao } = require('./notificacao.service');
 const prisma = new PrismaClient();
 
 // Criar post
 async function createPost(data) {
-    return prisma.post.create({ data });
+    // 1. Cria o post primeiro
+    const novoPost = await prisma.post.create({ data });
+
+    // 2. Cria a notificação usando dados do post criado
+    await createNotificacao({
+        id_utilizador: novoPost.id_utilizador,
+        id_post: novoPost.id_post,
+        tipo_notificacao: tipo_notificacao.Validacao
+    });
+
+    return novoPost;
+    
 }
 
 async function atualizarEstadoPost(bolean,id_post) {
@@ -13,13 +25,21 @@ async function atualizarEstadoPost(bolean,id_post) {
     let aprovacoes= postAtual.aprovacoes ?? 0
     let estadoatualizado = postAtual.estado_post
 
-    if(bolean == true && aprovacoes < 3){
+    if(bolean === true && aprovacoes < 3){
         aprovacoes += 1
-        if(aprovacoes == 3){
+
+        if (aprovacoes === 1){
+            notificacao = tipo_notificacao.Verificacao
+        }
+        else if(aprovacoes === 3){
             estadoatualizado = 'ativo'
+            notificacao = tipo_notificacao.Aprovado
         }
     }
-    else {estadoatualizado = 'inativo'}
+    else if (bolean === false) {
+        estadoatualizado = 'inativo'
+        notificacao = tipo_notificacao.Recusado
+    }
 
     const postAtualizado = await prisma.post.update({
         where: { id_post },
@@ -28,7 +48,8 @@ async function atualizarEstadoPost(bolean,id_post) {
           estado_post: estadoatualizado,
         },
         })
-      
+     if(notificacao) {await createNotificacao({id_utilizador: postAtual.id_utilizador, id_post: postAtual.id_post,tipo_notificacao: notificacao})}
+        notificacao = null
       return postAtualizado 
 }
 

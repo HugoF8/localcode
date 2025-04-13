@@ -22,7 +22,7 @@ async function getAllPosts(req, res) {
     }
 }
 
-async function getAllPostsPendente(req, res) {
+async function getPostsPendente(req, res) {
 
     const id_pagina = parseInt(req.params.id_pagina) // ou req.query.id_pagina
 
@@ -106,4 +106,4 @@ async function alterarInformacoesPost(req, res) {
     }
 }
 
-module.exports = { createPost, getAllPosts, getAllPostsPendente, atualizarEstadoPost, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost};
+module.exports = { createPost, getAllPosts, getPostsPendente, atualizarEstadoPost, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost};

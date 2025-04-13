@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/criarPost', postController.createPost);
 router.get('/verPosts', postController.getAllPosts);
-router.get('/verTodosPostsPendentes', postController.getAllPostsPendente);
+router.get('/verPostsPendentes/:id_pagina', postController.getPostsPendente);
 router.patch('/atualizarPostsPendentes/:id_post', postController.atualizarEstadoPost);
 router.get('/verPostsPagina', postController.getPostPagina);
 router.get('/verPostsAprovados', postController.getPostsAprovados);
