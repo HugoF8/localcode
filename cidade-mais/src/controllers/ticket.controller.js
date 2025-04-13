@@ -34,6 +34,26 @@ async function getTicketPendente(req, res) {
     }
 }
 
+async function getTicketAberto(req, res) {
+    try {
+        const tickets = await ticketService.getTicketAberto();
+        res.json(tickets);
+    } catch (error) {
+        console.error("Erro ao buscar tickets abertos:", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar tickets abertos", detalhes: error.message });
+    }
+}
+
+async function getTicketFechado(req, res) {
+    try {
+        const tickets = await ticketService.getTicketFechado();
+        res.json(tickets);
+    } catch (error) {
+        console.error("Erro ao buscar tickets fechados:", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar tickets fechados", detalhes: error.message });
+    }
+}
+
 async function atualizarEstadoTicket(req, res) {
     try {
         // Extrai o id_ticket da URL (que vem como string)
@@ -58,5 +78,31 @@ async function atualizarEstadoTicket(req, res) {
     }
 }
 
+async function alterarTicket(req, res) {
+    const { id } = req.params;
+    const id_ticket = Number(id_ticket)
+    const { descricao_problema } = req.body;
 
-module.exports = { createTicket, getAllTickets, getTicketPendente, atualizarEstadoTicket };
+    if (!descricao_problema) {
+        return res.status(400).json({ mensagem: "O campo 'descricao_problema' é obrigatório." });
+    }
+
+    try {
+        const ticketAlterado = await alterarTicket(parseInt(id), descricao_problema);
+
+        return res.status(200).json({
+            mensagem: "Descrição do ticket alterada com sucesso.",
+            ticket: ticketAlterado,
+        });
+    } catch (error) {
+        console.error("Erro ao alterar a descrição do ticket:", error);
+
+        return res.status(500).json({
+            mensagem: "Erro ao alterar o ticket.",
+            erro: error.message,
+        });
+    }
+}
+
+
+module.exports = { createTicket, getAllTickets, getTicketPendente, getTicketAberto, getTicketFechado,atualizarEstadoTicket, alterarTicket};

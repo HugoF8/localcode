@@ -20,6 +20,25 @@ async function getTicketPendente(id_pagina) {
     })
 }
 
+async function getTicketFechado(id_pagina) {
+    return prisma.ticket.findMany({ 
+        where:{
+            id_pagina: id_pagina,
+            estado_ticket:'Fechado',
+  }
+    })
+}
+
+async function getTicketAberto(id_pagina) {
+    return prisma.ticket.findMany({ 
+        where:{
+            id_pagina: id_pagina,
+            estado_ticket:'Aberto',
+  }
+    })
+}
+
+
 async function atualizarEstadoTicket(id_ticket, bol,) {
 
 
@@ -37,4 +56,15 @@ async function atualizarEstadoTicket(id_ticket, bol,) {
 
 }
 
-module.exports = { createTicket, getAllTickets, getTicketPendente, atualizarEstadoTicket };
+async function alterarTicket(id_ticket, descricao_problema) {
+    const ticketAlterado = await prisma.ticket.update({
+        where: { id_ticket },
+        data: {
+            descricao_problema: descricao_problema
+        },
+    });
+
+    return ticketAlterado;
+}
+
+module.exports = { createTicket, getAllTickets, getTicketPendente,getTicketAberto, getTicketFechado, atualizarEstadoTicket, alterarTicket };
