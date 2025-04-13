@@ -22,7 +22,7 @@ async function getAllPaginaFreguesia(req, res) {
 
 async function pesquisaPagina(req, res) {
     try {
-        const paginas = await paginaFregusiaService.pesquisaPagina();
+        const paginas = await paginaFregusiaService.pesquisaPagina(pesquisa);
         res.json(paginas);
     } catch (error) {
         console.log(error);

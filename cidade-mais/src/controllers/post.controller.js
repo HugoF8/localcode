@@ -68,7 +68,7 @@ async function atualizarEstadoPost(req, res) {
 async function getPostsAprovados(req, res) {
 
     try {
-        const posts = await postService.getPostsAprovados()
+        const posts = await postService.getPostsAprovados(id_utilizador)
         res.json(posts);
     } catch (error) {
         console.error("Erro na busca :", error); // Mostra o erro real no terminal
@@ -79,7 +79,7 @@ async function getPostsAprovados(req, res) {
 async function getPostsRecusados(req, res) {
 
     try {
-        const posts = await postService.getPostsRecusados()
+        const posts = await postService.getPostsRecusados(id_utilizador)
         res.json(posts);
     } catch (error) {
         console.error("Erro na busca :", error); // Mostra o erro real no terminal
