@@ -37,11 +37,16 @@ async function getAllPostsPendente(req, res) {
 
 //-----------------------------
 async function atualizarEstadoPost(req, res) {
-    const id_post = parseInt(req.params.id)
+    const {id_post} = req.params
+    const idPost = Number(id_post)
     const { bolean } = req.body
+
+    if (isNaN(idPost)) {
+        return res.status(400).json({ error: 'idPost deve ser um número válido' });
+    }
   
     try {
-      const postAtualizado = await postService.atualizarEstadoPost(bolean, id_post)
+      const postAtualizado = await postService.atualizarEstadoPost(bolean, idPost)
       res.json(postAtualizado)
     } catch (error) {
       console.error("Erro ao atualizar post:", error)

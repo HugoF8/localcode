@@ -32,10 +32,10 @@ async function atualizarEstadoPost(bolean,id_post) {
       return postAtualizado 
 }
 
-async function getPostPendente(id_pagina) {
+async function getPostPendente() {
     return prisma.post.findMany({ 
         where:{
-            id_pagina: id_pagina,
+            estado_post:'pendente',
             aprovacoes:{lt:4}//lt=less than
         }
     })
