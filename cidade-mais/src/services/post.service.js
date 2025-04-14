@@ -132,7 +132,11 @@ async function getPostsPaginasSeguidas(id_utilizador) {
                 estado_post: 'ativo',
             },
             include: {
-                utilizador: true,
+                utilizador: {
+                    select: {
+                        nome: true,
+                    }
+                },
                 pagina_freguesia: {
                     select: {
                         nome_pagina: true,
