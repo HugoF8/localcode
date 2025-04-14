@@ -107,6 +107,7 @@ async function alterarInformacoesPost(req, res) {
 }
 
 async function getPostsPaginasSeguidas(req, res) {
+
     const id_utilizador = req.user?.id || req.query.id_utilizador;
 
     try {

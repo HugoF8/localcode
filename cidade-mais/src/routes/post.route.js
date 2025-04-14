@@ -11,6 +11,6 @@ router.get('/verPostsPagina', postController.getPostPagina);
 router.get('/verPostsAprovados', postController.getPostsAprovados);
 router.get('/verPostsRecusados', postController.getPostsRecusados);
 router.patch('/alterarInformacoesPost/:id_post', postController.alterarInformacoesPost);
-router.get('/verPostsPaginasSeguidas', postController.getPostsPaginasSeguidas);
+router.get('/verPostsPaginasSeguidas/:id_utilizador', postController.getPostsPaginasSeguidas);
 
 module.exports = router;
