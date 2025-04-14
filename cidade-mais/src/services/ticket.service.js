@@ -43,7 +43,7 @@ async function getTicketAberto(id_utilizador) {
 async function atualizarEstadoTicket(id_ticket, bol,) {
 
 
-    const novoEstado = bol ? "fechado" : "aberto"; // genius 
+    const novoEstado = bol ? "aberto" : "fechado";
     const notificacao = bol ? tipo_notificacao.Aprovado : tipo_notificacao.Recusado;
     
     const ticketAtualizado = await prisma.ticket.update({
