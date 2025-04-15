@@ -21,12 +21,14 @@ async function getAllPaginaFreguesia(req, res) {
 }
 
 async function pesquisaPagina(req, res) {
+    const { pesquisa } = req.query;
+
     try {
         const paginas = await paginaFregusiaService.pesquisaPagina(pesquisa);
         res.json(paginas);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: 'Erro ao procurar paginas' });
+        res.status(500).json({ error: 'Erro ao procurar páginas' });
     }
 }
 
