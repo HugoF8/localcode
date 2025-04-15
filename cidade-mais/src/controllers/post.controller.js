@@ -22,7 +22,7 @@ async function getAllPosts(req, res) {
     }
 }
 
-async function getAllPostsPendente(req, res) {
+async function getPostsPendente(req, res) {
 
     const id_pagina = parseInt(req.params.id_pagina) // ou req.query.id_pagina
 
@@ -106,4 +106,17 @@ async function alterarInformacoesPost(req, res) {
     }
 }
 
-module.exports = { createPost, getAllPosts, getAllPostsPendente, atualizarEstadoPost, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost};
+async function getPostsPaginasSeguidas(req, res) {
+
+    const id_utilizador = req.user?.id || req.query.id_utilizador;
+
+    try {
+        const posts = await postService.getPostsPaginasSeguidas(id_utilizador);
+        res.json(posts);
+    } catch (error) {
+        console.error("Erro ao buscar feed:", error);
+        res.status(500).json({ error: "Erro ao buscar feed", detalhes: error.message });
+    }
+}
+
+module.exports = { createPost, getAllPosts, getPostsPendente, atualizarEstadoPost, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost, getPostsPaginasSeguidas};

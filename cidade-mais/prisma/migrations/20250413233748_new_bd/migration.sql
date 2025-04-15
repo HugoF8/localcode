@@ -118,6 +118,7 @@ CREATE TABLE "post" (
     "media_post" VARCHAR(255),
     "estado_post" "estado_post" NOT NULL DEFAULT 'pendente',
     "aprovacoes" INTEGER DEFAULT 0,
+    "data_post" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "post_pkey" PRIMARY KEY ("id_post")
 );

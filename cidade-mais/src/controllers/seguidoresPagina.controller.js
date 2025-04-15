@@ -1,4 +1,5 @@
 const seguidoresService = require('../services/seguidoresPagina.sevice');
+const postService = require("../services/post.service");
 
 // Criar seguidores
 async function createUSeguidor(req, res) {
@@ -22,4 +23,22 @@ async function getAllUSeguidores(req, res) {
     }
 }
 
-module.exports = { createUSeguidor, getAllUSeguidores };
+async function getPaginasSeguidas(req, res) {
+
+    const { id_utilizador} = req.params;
+    const idUtilizador = Number(id_utilizador);
+
+    if (isNaN(idUtilizador)) {
+        return res.status(400).json({ error: 'id de utilizador deve ser um número válido' });
+    }
+
+    try {
+        const pagina = await seguidoresService.getPaginasSeguidas(idUtilizador);
+        res.json(pagina);
+    } catch (error) {
+        console.error("Erro na busca :", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar publicação", detalhes: error.message });
+    }
+}
+
+module.exports = { createUSeguidor, getAllUSeguidores, getPaginasSeguidas};

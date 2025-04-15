@@ -99,6 +99,7 @@ model post {
   media_post       String?          @db.VarChar(255)
   estado_post      estado_post      @default(pendente)
   aprovacoes       Int?             @default(0)
+  data_post        DateTime?        @default(now()) @db.Timestamp(6)
   comentario       comentario[]
   notificacao      notificacao[]
   pagina_freguesia pagina_freguesia @relation(fields: [id_pagina], references: [id_pagina], onDelete: Cascade, onUpdate: NoAction)

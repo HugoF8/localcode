@@ -1,4 +1,5 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, tipo_notificacao } = require('@prisma/client');
+const { createNotificacao } = require('./notificacao.service');
 const prisma = new PrismaClient();
 
 // Criar pedidoPagina
@@ -53,7 +54,7 @@ async function atualizarEstadoPedido(id_pedido, bol) {
     const pedidoAtual = await prisma.pedido_pagina.findUnique({where:{id_pedido}})
 
     const novoEstado = bol ? "aprovado" : "recusado";
-
+    const notificacao = bol ? tipo_notificacao.Aprovado : tipo_notificacao.Recusado;
 
     const pedidoAtualizado = await prisma.pedido_pagina.update({
         where: { id_pedido },
@@ -69,12 +70,14 @@ async function atualizarEstadoPedido(id_pedido, bol) {
               data: {
                 id_utilizador: pedidoAtual.id_utilizador,
                 id_morada: pedidoAtual.id_morada,
-                nome_pagina: "Freguesia",
+                id_morada: pedidoAtual.id_morada,
+                nome_pagina: pedidoAtual.nomefreguesia
               }
             });
-          }
-        
+        }
 
+        if(notificacao) {await createNotificacao({id_utilizador: pedidoAtualizado.id_utilizador, id_pedido: pedidoAtualizado.id_post,tipo_notificacao: notificacao})}
+ 
     return pedidoAtualizado 
     
 }

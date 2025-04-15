@@ -1,4 +1,5 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, tipo_notificacao } = require('@prisma/client');
+const { createNotificacao } = require('./notificacao.service');
 const prisma = new PrismaClient();
 
 // Criar ticket
@@ -42,16 +43,18 @@ async function getTicketAberto(id_utilizador) {
 async function atualizarEstadoTicket(id_ticket, bol,) {
 
 
-    const novoEstado = bol ? "fechado" : "aberto";
-
+    const novoEstado = bol ? "aberto" : "fechado";
+    const notificacao = bol ? tipo_notificacao.Aprovado : tipo_notificacao.Recusado;
+    
     const ticketAtualizado = await prisma.ticket.update({
         where: { id_ticket },
         data: {
             estado_ticket: novoEstado,
         },
         })   
-
     
+    const ticketAtual = await prisma.ticket.findUnique({where:{id_ticket}}) //simplificar isto ir buscar só o id_utilizador
+    await createNotificacao({id_utilizador: ticketAtual.id_utilizador, id_ticket: id_ticket,tipo_notificacao: notificacao})
     return ticketAtualizado
 
 }

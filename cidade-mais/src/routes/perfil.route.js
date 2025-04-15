@@ -3,6 +3,9 @@ const perfilController = require('../controllers/perfil.controller');
 
 const router = express.Router();
 
+const {authenticate} = require('../middlewares/autent.middleware');
+router.use(authenticate);
+
 router.post('/criarPerfil', perfilController.createPerfil);
 router.get('/verPerfil', perfilController.getAllPerfil);
 

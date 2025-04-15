@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 
 // Criar Notificacao
 async function createNotificacao(data) {
+    
     return prisma.notificacao.create({ data });
 }
 
@@ -10,5 +11,7 @@ async function createNotificacao(data) {
 async function getAllNotificacao() {
     return prisma.notificacao.findMany();
 }
+
+
 
 module.exports = { createNotificacao, getAllNotificacao };

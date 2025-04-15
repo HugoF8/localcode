@@ -3,6 +3,9 @@ const paginaFreguesiaController = require('../controllers/paginaFreguesia.contro
 
 const router = express.Router();
 
+const {authenticate} = require('../middlewares/autent.middleware');
+router.use(authenticate);
+
 router.post('/criarPaginaFreguesia', paginaFreguesiaController.createPaginaFreguesia);
 router.get('/verPaginaFreguesia', paginaFreguesiaController.getAllPaginaFreguesia);
 router.get('/pesquisarPaginas', paginaFreguesiaController.pesquisaPagina);

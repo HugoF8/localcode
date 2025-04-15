@@ -17,7 +17,7 @@ async function getAllNotificacao(req, res) {
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Erro ao procurar notificacaos' });
-    
+    }    
 }
 
 module.exports = { createNotificacao, getAllNotificacao };

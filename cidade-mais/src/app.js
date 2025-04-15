@@ -16,9 +16,9 @@ const seguidoresRoutes = require('./routes/seguidoresPagina.route');
 const ticketRoutes = require('./routes/ticket.route');
 const utilizadorRoutes = require('./routes/utilizador.route');
 const autentRoutes = require('./routes/autent.route');
+const notificacaoRoutes = require('./routes/notificacao.route');
 
 const { PrismaClient } = require('@prisma/client');
-
 const prisma = new PrismaClient();
 const app = express();
 
@@ -39,6 +39,7 @@ app.use('/api/respostasTickets', respostaTicketRoutes,);
 app.use('/api/seguidores', seguidoresRoutes,);
 app.use('/api/tickets', ticketRoutes, );
 app.use('/api/utilizadores', utilizadorRoutes);
+app.use('/api/notificacao', notificacaoRoutes)
 
 
 // Teste de conexão com o banco de dados

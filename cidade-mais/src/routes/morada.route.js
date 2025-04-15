@@ -3,6 +3,9 @@ const moradaController = require('../controllers/morada.controller');
 
 const router = express.Router();
 
+const {authenticate} = require('../middlewares/autent.middleware');
+router.use(authenticate);
+
 router.post('/criarMorada', moradaController.createMorada);
 router.get('/verMorada', moradaController.getAllMorada);
 

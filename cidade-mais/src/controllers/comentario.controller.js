@@ -26,7 +26,7 @@ async function getComentarioPost(req, res) {
     const idPost = Number(id_post);
 
     if (isNaN(idPost)) {
-        return res.status(400).json({ error: 'id POst deve ser um número válido' });
+        return res.status(400).json({ error: 'id Post deve ser um número válido' });
     }
 
     try {

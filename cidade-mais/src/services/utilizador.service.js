@@ -11,4 +11,17 @@ async function getAllUtilizadores() {
     return prisma.utilizador.findMany();
 }
 
-module.exports = { createUtilizador, getAllUtilizadores };
+async function alterarTipoUser(tipo, id_utilizador) {
+
+    const novoUser = prisma.utilizador.update({
+        where: { id_utilizador },
+        data: {
+          tipo_utilizador: tipo,
+        },
+    })
+
+    return novoUser;
+
+}
+
+module.exports = { createUtilizador, getAllUtilizadores, alterarTipoUser };

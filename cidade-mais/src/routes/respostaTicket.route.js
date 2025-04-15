@@ -3,7 +3,10 @@ const respostaController = require('../controllers/respostaTicket.controller');
 
 const router = express.Router();
 
-router.post('/criarResposta', respostaController.createResposta);
+const { authenticate, authRole } = require('../middlewares/autent.middleware');
+router.use(authenticate);
+
+router.post('/criarResposta', authRole('moderador'), respostaController.createResposta);
 router.get('/verRespostas', respostaController.getAllRespostas);
 
 module.exports = router;
