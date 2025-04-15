@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: white;
+  border-bottom: 1px solid #ccc;
+  height: 80px;
+}
+
+.logo a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.logo a:hover {
+  color: #555;
+}
+
+.barra-pesquisa input {
+  padding: 8px 14px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.icones-topo {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.utilizador-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 80%;
+}
+
+.icones-topo img:not(.utilizador-img) {
+  width: 32px;
+  height: 32px;
+}
+
+.corpo {
+  display: flex;
+  flex: 1;
+}
+
+.barra-lateral {
+  width: 160px;
+  background-color: white;
+  border-right: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.barra-lateral ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.barra-lateral li img {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background-color: #ddd;
+}
+
+.zona-publicacoes {
+  flex: 1;
+  padding: 30px;
+}
