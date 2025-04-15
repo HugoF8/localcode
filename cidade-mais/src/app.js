@@ -18,7 +18,6 @@ const autentRoutes = require('./routes/autent.route');
 const notificacaoRoutes = require('./routes/notificacao.route');
 
 const { PrismaClient } = require('@prisma/client');
-
 const prisma = new PrismaClient();
 const app = express();
 
