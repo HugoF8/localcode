@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, tipo_utilizador } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -22,8 +22,8 @@ async function login(email, password) {
     const isMatch = await bcrypt.compare(password, utilizador.password);
     if (!isMatch) throw new Error('Credenciais inválidas');
 
-    const token = jwt.sign({ utilizadorId: utilizador.id_utilizador }, JWT_SECRET, { expiresIn: '1h' });
-    return { token, utilizador: { id: utilizador.id_utilizador, name: utilizador.nome, email: utilizador.email } };
+    const token = jwt.sign({ utilizadorId: utilizador.id_utilizador, tipo_utilizador: utilizador.tipo_utilizador }, JWT_SECRET, { expiresIn: '1h' });
+    return { token, utilizador: { id: utilizador.id_utilizador, name: utilizador.nome, email: utilizador.email, tipo_utilizador: utilizador.tipo_utilizador } };
 }
 
 module.exports = { register, login };

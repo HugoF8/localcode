@@ -16,4 +16,17 @@ function authenticate(req, res, next) {
     }
 }
 
-module.exports = authenticate;
+function authRole(tipoUser) {
+    return (req, res, next) => {
+      const utilizador = req.utilizador;
+      if (utilizador.tipo_utilizador !== tipoUser) {
+        return res.status(403).json({
+          error: `Acesso negado: tipo "${utilizador.tipo_utilizador}" não possui permissões para esta ação (requer "${tipoUser}").`
+        });
+      }
+      next();
+    };
+  }
+  
+
+module.exports = {authenticate, authRole};

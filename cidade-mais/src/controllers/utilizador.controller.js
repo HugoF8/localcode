@@ -22,4 +22,17 @@ async function getAllUtilizadores(req, res) {
     }
 }
 
-module.exports = { createUtilizador, getAllUtilizadores };
+async function alterarTipoUtilizadores(req, res) {
+    const {id_utilizador} = req.body
+    const {tipo} =req.body
+   
+    try {
+        const utilizadores = await utilizadorService.alterarTipoUser(tipo,id_utilizador);
+        res.json(utilizadores);
+    } catch (error) {
+        console.error("Erro ao buscar utilizador:", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar utilizadores", detalhes: error.message });
+    }
+}
+
+module.exports = { createUtilizador, getAllUtilizadores,alterarTipoUtilizadores };
