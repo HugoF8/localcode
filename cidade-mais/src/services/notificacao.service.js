@@ -12,6 +12,12 @@ async function getAllNotificacao() {
     return prisma.notificacao.findMany();
 }
 
-
+async function getNotificacaoPorUtilizador(id_utilizador) {
+    return prisma.notificacao.findMany({
+        where: {
+            id_utilizador: id_utilizador,
+        }
+    });
+}
 
 module.exports = { createNotificacao, getAllNotificacao };

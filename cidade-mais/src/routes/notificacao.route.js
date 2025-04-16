@@ -8,5 +8,6 @@ router.use(authenticate);
 
 router.post('/criarNotificacao', notificacaoController.createNotificacao);
 router.get('/verNotificacao', notificacaoController.getAllNotificacao);
+router.get('/verNotificacaoPorUtilizador/:id_utilizador', notificacaoController.getNotificacaoPorUtilizador);
 
 module.exports = router;

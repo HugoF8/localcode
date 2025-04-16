@@ -20,4 +20,19 @@ async function getAllNotificacao(req, res) {
     }    
 }
 
-module.exports = { createNotificacao, getAllNotificacao };
+async function getNotificacaoPorUtilizador(req, res) {
+
+    try {
+        const { id_utilizador } = req.params;
+        const notificacao = await notificacaoService.getNotificacaoPorUtilizador(id_utilizador);
+        res.json(notificacao);
+    } catch (error) {
+        console.error("Erro ao buscar notificações por utilizador:", error);
+        res.status(500).json({
+            error: "Erro ao buscar notificações por utilizador",
+            detalhes: error.message
+        });
+    }
+}
+
+module.exports = { createNotificacao, getAllNotificacao, getNotificacaoPorUtilizador };
