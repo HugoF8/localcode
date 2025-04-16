@@ -22,4 +22,24 @@ async function getAllRespostas(req, res) {
     }
 }
 
-module.exports = { createResposta, getAllRespostas };
+async function getRespostasPorUtilizador(req, res) {
+    
+    const { id_utilizador } = req.params;
+
+    if (!id_utilizador) {
+        return res.status(400).json({ mensagem: "Parâmetro 'id_utilizador' é obrigatório." });
+    }
+
+    try {
+        const respostas = await respostaService.getRespostasPorUtilizador(Number(id_utilizador));
+        res.json(respostas);
+    } catch (error) {
+        console.error("Erro ao buscar respostas por utilizador:", error); // Mostra o erro real no terminal
+        res.status(500).json({
+            error: "Erro ao buscar respostas por utilizador",
+            detalhes: error.message
+        });
+    }
+}
+
+module.exports = { createResposta, getAllRespostas, getRespostasPorUtilizador };

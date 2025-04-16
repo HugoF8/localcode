@@ -28,4 +28,12 @@ async function getAllRespostas() {
     return prisma.resposta_ticket.findMany();
 }
 
-module.exports = { createResposta, getAllRespostas };
+async function getRespostasPorUtilizador(id_utilizador) {
+    return prisma.resposta_ticket.findMany({
+        where: {
+            id_utilizador
+        }
+    });
+}
+
+module.exports = { createResposta, getAllRespostas, getRespostasPorUtilizador };

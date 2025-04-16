@@ -8,5 +8,6 @@ router.use(authenticate);
 
 router.post('/criarResposta', authRole('moderador'), respostaController.createResposta);
 router.get('/verRespostas', respostaController.getAllRespostas);
+router.get('/verRespostas/:id_utilizador', respostaController.getRespostasPorUtilizador);
 
 module.exports = router;

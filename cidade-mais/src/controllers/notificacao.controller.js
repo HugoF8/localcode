@@ -22,8 +22,13 @@ async function getAllNotificacao(req, res) {
 
 async function getNotificacaoPorUtilizador(req, res) {
 
+    const { id_utilizador } = req.params;
+
+    if (!id_utilizador) {
+        return res.status(400).json({ mensagem: "Parâmetro 'id_utilizador' é obrigatório." });
+    }
+
     try {
-        const { id_utilizador } = req.params;
         const notificacao = await notificacaoService.getNotificacaoPorUtilizador(id_utilizador);
         res.json(notificacao);
     } catch (error) {
