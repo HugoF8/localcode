@@ -53,7 +53,7 @@ async function atualizarEstadoPedido(id_pedido, bol) {
 
     const pedidoAtual = await prisma.pedido_pagina.findUnique({where:{id_pedido}})
 
-    const novoEstado = bol ? "aprovado" : "recusado";
+    const novoEstado = bol ? "aprovado" : "reprovado";
     const notificacao = bol ? tipo_notificacao.Aprovado : tipo_notificacao.Recusado;
 
     const pedidoAtualizado = await prisma.pedido_pagina.update({
