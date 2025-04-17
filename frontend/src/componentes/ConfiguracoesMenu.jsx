@@ -1,9 +1,11 @@
-import configIcon from '../assets/config-icon.png';
+import config from '../assets/config-icon.png';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function ConfiguracoesMenu() {
   const [aberto, setAberto] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setAberto(!aberto);
@@ -16,23 +18,25 @@ function ConfiguracoesMenu() {
 
   const terminarSessao = () => {
     alert('Sessão terminada!');
-    // Aqui podes redirecionar ou limpar tokens, etc.
+    // Ex: limpar token, redirecionar
   };
 
   return (
     <div className="config-wrapper">
       <img
-        src={configIcon}
+        src={config}
         alt="Definições"
         onClick={toggleMenu}
         className="icone-config"
       />
       {aberto && (
         <div className="config-menu">
-          <button onClick={terminarSessao}>Terminar Sessão</button>
+          <button onClick={() => navigate('/publicacoes-tickets')}>Publicações e Tickets</button>
+          <button onClick={() => navigate('/criar-freguesia')}>Criar Freguesia</button>
           <button onClick={toggleDarkMode}>
             {darkMode ? 'Modo Claro' : 'Modo Escuro'}
           </button>
+          <button onClick={terminarSessao}>Terminar Sessão</button>
         </div>
       )}
     </div>
