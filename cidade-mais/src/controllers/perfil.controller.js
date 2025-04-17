@@ -22,4 +22,15 @@ async function getAllPerfil(req, res) {
     }
 }
 
-module.exports = { createPerfil, getAllPerfil };
+async function atualizarFotoPerfil(req, res) {
+    try {
+        const userId = req.utilizador.utilizadorId; // <- este está certo
+        const imagePath = req.file.path;
+
+        const perfilAtualizado = await perfilService.atualizarFotoPerfil(userId, imagePath);
+        res.status(200).json(perfilAtualizado);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+module.exports = { createPerfil, getAllPerfil, atualizarFotoPerfil };
