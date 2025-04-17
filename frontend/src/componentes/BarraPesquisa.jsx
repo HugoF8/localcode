@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function SearchBar() {
+function BarraPesquisa() {
   const [pesquisa, setPesquisa] = useState('');
   const [resultados, setResultados] = useState([]);
 
@@ -20,20 +20,22 @@ function SearchBar() {
   }, [pesquisa]);
 
   return (
-    <div>
+    <div className="barra-pesquisa">
       <input
         type="text"
         placeholder="Pesquisar páginas..."
         value={pesquisa}
         onChange={(e) => setPesquisa(e.target.value)}
       />
-      <ul>
-        {resultados.map((pagina) => (
-          <li key={pagina.id_pagina}>{pagina.nome_pagina}</li>
-        ))}
-      </ul>
+      {resultados.length > 0 && (
+        <ul className="resultados-pesquisa">
+          {resultados.map((pagina) => (
+            <li key={pagina.id_pagina}>{pagina.nome_pagina}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
 
-export default SearchBar;
+export default BarraPesquisa;

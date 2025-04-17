@@ -1,4 +1,4 @@
-function ZonaPublicacoes() {
+function ZonaPublicacoesHome() {
     return (
       <div className="zona-publicacoes">
         {/* Conteúdo das publicações futuramente */}
@@ -6,5 +6,5 @@ function ZonaPublicacoes() {
     );
   }
   
-  export default ZonaPublicacoes;
+  export default ZonaPublicacoesHome;
   

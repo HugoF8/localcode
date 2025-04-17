@@ -1,14 +1,15 @@
-import Topo from '../componentes/BarraSuperior';
+import '../pages/Home.css';
+import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
-import ZonaPublicacoes from '../componentes/ZonaPublicacoesHome';
+import ZonaPublicacoesHome from '../componentes/ZonaPublicacoesHome';
 
 function Home() {
   return (
     <div className="container">
-      <Topo />
+      <BarraSuperior />
       <div className="corpo">
         <BarraLateral />
-        <ZonaPublicacoes />
+        <ZonaPublicacoesHome />
       </div>
     </div>
   );

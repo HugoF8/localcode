@@ -2,7 +2,7 @@ import blackImage from '../assets/black.jpg';
 import notificationIcon from '../assets/notification-icon.png';
 import configIcon from '../assets/config-icon.png';
 
-function IconesTopo() {
+function IconesBarraSuperiorDireito() {
   return (
     <div className="icones-topo">
       <img className="utilizador-img" src={blackImage} alt="User" />
@@ -12,5 +12,5 @@ function IconesTopo() {
   );
 }
   
-  export default IconesTopo;
+  export default IconesBarraSuperiorDireito;
   
