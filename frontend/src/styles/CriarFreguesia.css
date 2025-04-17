@@ -163,3 +163,11 @@
     color: #777;
     font-size: 12px;
   }
+
+  .btn-remover {
+    background: none;
+    border: none;
+    color: #c00;
+    cursor: pointer;
+    font-size: 14px;
+  }

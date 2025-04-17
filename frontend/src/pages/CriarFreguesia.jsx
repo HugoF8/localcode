@@ -11,6 +11,10 @@ function CriarFreguesia() {
     setDocumentos((prev) => [...prev, ...novosFicheiros]);
   };
 
+  const removerDocumento = (index) => {
+    setDocumentos(prev => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="container">
       <BarraSuperior />
@@ -50,8 +54,9 @@ function CriarFreguesia() {
           <div className="documento-info">
             <span className="documento-nome">{file.name}</span>
             <span className="documento-tamanho">{(file.size / 1024).toFixed(1)} KB</span>
-          </div>
-        </div>
+      <button onClick={() => removerDocumento(index)} className="btn-remover">✖️</button>
+  </div>
+</div>
       ))}
     </div>
   )}
