@@ -2,6 +2,7 @@ const express = require('express');
 const seguidoresController = require('../controllers/seguidoresPagina.controller');
 
 const router = express.Router();
+
 const { authenticate } = require('../middlewares/autent.middleware');
 router.use(authenticate);
 
