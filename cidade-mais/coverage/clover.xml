@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744989680592" clover="3.2.0">
-  <project timestamp="1744989680593" name="All files">
-    <metrics statements="94" coveredstatements="78" conditionals="16" coveredconditionals="12" methods="28" coveredmethods="14" elements="138" coveredelements="104" complexity="0" loc="94" ncloc="94" packages="3" files="9" classes="9"/>
+<coverage generated="1744991300208" clover="3.2.0">
+  <project timestamp="1744991300208" name="All files">
+    <metrics statements="99" coveredstatements="82" conditionals="16" coveredconditionals="12" methods="30" coveredmethods="15" elements="145" coveredelements="109" complexity="0" loc="99" ncloc="99" packages="3" files="10" classes="10"/>
     <package name="controllers">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="autent.controller.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\controllers\autent.controller.js">
@@ -43,7 +43,7 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="66" coveredstatements="50" conditionals="12" coveredconditionals="8" methods="23" coveredmethods="9"/>
+      <metrics statements="71" coveredstatements="54" conditionals="12" coveredconditionals="8" methods="25" coveredmethods="10"/>
       <file name="autent.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\autent.service.js">
         <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
@@ -74,6 +74,14 @@
         <line num="22" count="1" type="stmt"/>
       </file>
       <file name="moderadorPagina.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\moderadorPagina.service.js">
+        <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+      </file>
+      <file name="morada.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\morada.service.js">
         <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>

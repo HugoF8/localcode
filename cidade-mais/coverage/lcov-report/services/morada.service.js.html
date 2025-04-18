@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for services/moderadorPagina.service.js</title>
+    <title>Code coverage report for services/morada.service.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">services</a> moderadorPagina.service.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">services</a> morada.service.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -94,17 +94,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 &nbsp;
-// Criar moderadorPagina
-async function createModeradorPagina(data) {
-    return prisma.moderador_pagina.create({ data });
+// Criar morada
+async function createMorada(data) {
+    return prisma.morada.create({ data });
 }
 &nbsp;
-// Buscar todos os moderadorPagina
-async function <span class="fstat-no" title="function not covered" >getAllModeradorPagina(</span>) {
-<span class="cstat-no" title="statement not covered" >    return prisma.moderador_pagina.findMany();</span>
+// Buscar todos os morada
+async function <span class="fstat-no" title="function not covered" >getAllMorada(</span>) {
+<span class="cstat-no" title="statement not covered" >    return prisma.morada.findMany();</span>
 }
 &nbsp;
-module.exports = { createModeradorPagina, getAllModeradorPagina };
+module.exports = { createMorada, getAllMorada };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
