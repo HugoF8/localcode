@@ -1,15 +1,15 @@
 import Logo from './Logo';
 import BarraPesquisa from './BarraPesquisa';
-import IconesTopo from './IconesBarraSuperiorDireito';
+import IconesBarraSuperiorDireito from './IconesBarraSuperiorDireito';
 
-function Topo() {
+function BarraSuperior() {
   return (
     <div className="topo">
       <Logo />
       <BarraPesquisa />
-      <IconesTopo />
+      <IconesBarraSuperiorDireito />
     </div>
   );
 }
 
-export default Topo;
+export default BarraSuperior;

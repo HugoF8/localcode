@@ -7,12 +7,41 @@ const JWT_SECRET = 'supersecreto';
 
 async function register(nome, email, password, data_nascimento) {
     const hashedPassword = await bcrypt.hash(password, 10);
+    // Criar utilizador
     const utilizador = await prisma.utilizador.create({
-        data: { nome, email, password: hashedPassword, data_nascimento: new Date(data_nascimento) },
+        data: {
+            nome,
+            email,
+            password: hashedPassword,
+            data_nascimento: new Date(data_nascimento),
+        },
     });
 
-    const token = jwt.sign({ utilizadorId: utilizador.id_utilizador, tipo_utilizador: utilizador.tipo_utilizador }, JWT_SECRET, { expiresIn: '1h' });
-    return { token, utilizador: { id_utilizador: utilizador.id_utilizador, name: utilizador.nome, email: utilizador.email, tipo_utilizador: utilizador.tipo_utilizador } };
+    // Criar perfil associado ao utilizador
+    await prisma.perfil.create({
+        data: {
+            id_utilizador: utilizador.id_utilizador,
+            foto_perfil: null,
+            foto_capa: null,
+            biografia: null,
+        },
+    });
+
+    // Criar token JWT
+    const token = jwt.sign(
+        { utilizadorId: utilizador.id_utilizador, tipo_utilizador: utilizador.tipo_utilizador },
+        JWT_SECRET,        { expiresIn: '1h' }
+    );
+
+    return {
+        token,
+        utilizador: {
+            id_utilizador: utilizador.id_utilizador,
+            name: utilizador.nome,
+            email: utilizador.email,
+            tipo_utilizador: utilizador.tipo_utilizador,
+        },
+    };
 }
 
 async function login(email, password) {
@@ -22,8 +51,18 @@ async function login(email, password) {
     const isMatch = await bcrypt.compare(password, utilizador.password);
     if (!isMatch) throw new Error('Credenciais inválidas');
 
-    const token = jwt.sign({ utilizadorId: utilizador.id_utilizador, tipo_utilizador: utilizador.tipo_utilizador }, JWT_SECRET, { expiresIn: '1h' });
-    return { token, utilizador: { id_utilizador: utilizador.id_utilizador, name: utilizador.nome, email: utilizador.email, tipo_utilizador: utilizador.tipo_utilizador } };
+    const token = jwt.sign(
+        { utilizadorId: utilizador.id_utilizador, tipo_utilizador: utilizador.tipo_utilizador },
+                  JWT_SECRET, { expiresIn: '1h' }
+    );
+
+    return { token,
+        utilizador: { id_utilizador: utilizador.id_utilizador,
+                      name: utilizador.nome,
+                      email: utilizador.email,
+                      tipo_utilizador: utilizador.tipo_utilizador
+        },
+    };
 }
 
 module.exports = { register, login };

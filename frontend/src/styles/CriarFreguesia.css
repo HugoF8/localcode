@@ -1,0 +1,173 @@
+.conteudo-criar {
+    flex: 1;
+    padding: 40px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .conteudo-criar h2 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 720px;
+  }
+  
+  .formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 720px;
+  }
+  
+  .formulario label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  
+  .formulario input[type="text"],
+  .formulario textarea {
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  .upload-box {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 28px;
+    text-align: center;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #444;
+  }
+  
+  .upload-label .plus {
+    font-size: 26px;
+    background-color: #ddd;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  
+  .upload-label p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .btn-enviar {
+    margin-top: 24px;
+    align-self: center;
+    padding: 10px 26px;
+    background-color: #4a4a4a;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .btn-enviar:hover {
+    background-color: #333;
+  }
+  
+  label span[title] {
+    font-size: 14px;
+    margin-left: 6px;
+    cursor: help;
+    vertical-align: middle;
+  }
+  
+
+  .upload-box {
+    border: 2px dashed #aaa;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    position: relative;
+  }
+  
+  .upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+  }
+  
+  .upload-label .plus {
+    font-size: 24px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .preview-documentos-inside {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+    justify-content: center;
+  }
+  
+  .documento-card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.05);
+  }
+  
+  .documento-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    max-width: 180px;
+  }
+  
+  .documento-nome {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+  
+  .documento-tamanho {
+    color: #777;
+    font-size: 12px;
+  }
+
+  .btn-remover {
+    background: none;
+    border: none;
+    color: #c00;
+    cursor: pointer;
+    font-size: 14px;
+  }

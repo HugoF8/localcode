@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 
 
@@ -40,7 +41,8 @@ app.use('/api/seguidores', seguidoresRoutes,);
 app.use('/api/tickets', ticketRoutes, );
 app.use('/api/utilizadores', utilizadorRoutes);
 app.use('/api/notificacao', notificacaoRoutes)
-
+// Torna os ficheiros da pasta "uploads" acessíveis via URL
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Teste de conexão com o banco de dados
 async function main() {
