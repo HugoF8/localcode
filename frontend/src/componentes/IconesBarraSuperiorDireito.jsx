@@ -1,12 +1,12 @@
 import blackImage from '../assets/black.jpg';
-import notificationIcon from '../assets/notification-icon.png';
 import ConfiguracoesMenu from './ConfiguracoesMenu';
+import NotificacoesDropDown from './NotificacoesDropDown';
 
 function IconesBarraSuperiorDireito() {
   return (
     <div className="icones-topo">
       <img className="utilizador-img" src={blackImage} alt="User" />
-      <img src={notificationIcon} alt="Notificações" />
+      <NotificacoesDropDown  /*id_utilizador={id_utilizador}*//>
       <ConfiguracoesMenu />
     </div>
   );
