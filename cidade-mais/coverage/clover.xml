@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744997063166" clover="3.2.0">
-  <project timestamp="1744997063166" name="All files">
-    <metrics statements="108" coveredstatements="86" conditionals="18" coveredconditionals="12" methods="33" coveredmethods="16" elements="159" coveredelements="114" complexity="0" loc="108" ncloc="108" packages="3" files="11" classes="11"/>
+<coverage generated="1745003000065" clover="3.2.0">
+  <project timestamp="1745003000065" name="All files">
+    <metrics statements="125" coveredstatements="94" conditionals="22" coveredconditionals="12" methods="40" coveredmethods="20" elements="187" coveredelements="126" complexity="0" loc="125" ncloc="125" packages="3" files="12" classes="12"/>
     <package name="controllers">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="autent.controller.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\controllers\autent.controller.js">
@@ -43,7 +43,7 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="80" coveredstatements="58" conditionals="14" coveredconditionals="8" methods="28" coveredmethods="11"/>
+      <metrics statements="97" coveredstatements="66" conditionals="18" coveredconditionals="8" methods="35" coveredmethods="15"/>
       <file name="autent.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\autent.service.js">
         <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
@@ -91,12 +91,12 @@
       </file>
       <file name="notificacao.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\notificacao.service.js">
         <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
       </file>
       <file name="paginaFreguesia.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\paginaFreguesia.service.js">
         <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
@@ -140,6 +140,26 @@
         <line num="23" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
+      </file>
+      <file name="ticket.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\ticket.service.js">
+        <metrics statements="17" coveredstatements="8" conditionals="4" coveredconditionals="0" methods="7" coveredmethods="4"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="47" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
       </file>
       <file name="utilizador.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\utilizador.service.js">
         <metrics statements="7" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>

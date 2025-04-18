@@ -17,7 +17,7 @@ async function getTicketPendente(id_pagina) {
         where:{
             id_pagina: id_pagina,
             estado_ticket:'pendente',
-  }
+        }
     })
 }
 
@@ -26,7 +26,7 @@ async function getTicketFechado(id_utilizador) {
         where:{
             id_utilizador:id_utilizador,
             estado_ticket:'Fechado',
-  }
+        }
     })
 }
 
@@ -35,7 +35,7 @@ async function getTicketAberto(id_utilizador) {
         where:{
             id_utilizador:id_utilizador,
             estado_ticket:'Aberto',
-  }
+        }
     })
 }
 
