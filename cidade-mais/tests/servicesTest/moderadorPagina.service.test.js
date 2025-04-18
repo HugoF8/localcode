@@ -18,7 +18,7 @@ jest.mock('@prisma/client', () => {
 
 const { createModeradorPagina } = require('../../src/services/moderadorPagina.service');
 
-  describe('createModeradorPagina', () => {
+describe('createModeradorPagina', () => {
     it('deve chamar prisma.ModeradorPagina.create com os dados corretos', async () => {
       const mockData = {
         id_pagina: 1,
@@ -34,4 +34,4 @@ const { createModeradorPagina } = require('../../src/services/moderadorPagina.se
       expect(mockCreate).toHaveBeenCalledWith({ data: mockData });
       expect(result).toEqual(mockReturn);
     });
-  });
+});
