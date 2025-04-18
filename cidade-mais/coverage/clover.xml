@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744939697289" clover="3.2.0">
-  <project timestamp="1744939697289" name="All files">
-    <metrics statements="88" coveredstatements="73" conditionals="16" coveredconditionals="12" methods="26" coveredmethods="13" elements="130" coveredelements="98" complexity="0" loc="88" ncloc="88" packages="3" files="8" classes="8"/>
+<coverage generated="1744989680592" clover="3.2.0">
+  <project timestamp="1744989680593" name="All files">
+    <metrics statements="94" coveredstatements="78" conditionals="16" coveredconditionals="12" methods="28" coveredmethods="14" elements="138" coveredelements="104" complexity="0" loc="94" ncloc="94" packages="3" files="9" classes="9"/>
     <package name="controllers">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="autent.controller.js" path="C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\cidade-mais\src\controllers\autent.controller.js">
+      <file name="autent.controller.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\controllers\autent.controller.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
@@ -22,7 +22,7 @@
     </package>
     <package name="middlewares">
       <metrics statements="16" coveredstatements="16" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
-      <file name="autent.middleware.js" path="C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\cidade-mais\src\middlewares\autent.middleware.js">
+      <file name="autent.middleware.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\middlewares\autent.middleware.js">
         <metrics statements="16" coveredstatements="16" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -43,27 +43,28 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="60" coveredstatements="45" conditionals="12" coveredconditionals="8" methods="21" coveredmethods="8"/>
-      <file name="autent.service.js" path="C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\cidade-mais\src\services\autent.service.js">
-        <metrics statements="16" coveredstatements="16" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+      <metrics statements="66" coveredstatements="50" conditionals="12" coveredconditionals="8" methods="23" coveredmethods="9"/>
+      <file name="autent.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\autent.service.js">
+        <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="19" count="3" type="stmt"/>
-        <line num="20" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="23" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="29" count="2" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="48" count="3" type="stmt"/>
+        <line num="49" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="52" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
       </file>
-      <file name="comentario.service.js" path="C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\cidade-mais\src\services\comentario.service.js">
+      <file name="comentario.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\comentario.service.js">
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -72,7 +73,15 @@
         <line num="15" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
       </file>
-      <file name="notificacao.service.js" path="C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\cidade-mais\src\services\notificacao.service.js">
+      <file name="moderadorPagina.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\moderadorPagina.service.js">
+        <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+      </file>
+      <file name="notificacao.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\notificacao.service.js">
         <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -81,7 +90,7 @@
         <line num="16" count="0" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
       </file>
-      <file name="paginaFreguesia.service.js" path="C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\cidade-mais\src\services\paginaFreguesia.service.js">
+      <file name="paginaFreguesia.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\paginaFreguesia.service.js">
         <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -90,7 +99,7 @@
         <line num="15" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
       </file>
-      <file name="pedidoPagina.service.js" path="C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\cidade-mais\src\services\pedidoPagina.service.js">
+      <file name="pedidoPagina.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\pedidoPagina.service.js">
         <metrics statements="19" coveredstatements="12" conditionals="8" coveredconditionals="4" methods="7" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -112,7 +121,7 @@
         <line num="81" count="1" type="stmt"/>
         <line num="84" count="1" type="stmt"/>
       </file>
-      <file name="utilizador.service.js" path="C:\Users\Admin\OneDrive - Instituto Politécnico do Cávado e do Ave\Desktop\localcode\cidade-mais\src\services\utilizador.service.js">
+      <file name="utilizador.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\utilizador.service.js">
         <metrics statements="7" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
