@@ -76,7 +76,7 @@ async function atualizarEstadoPedido(id_pedido, bol) {
             });
         }
 
-        if(notificacao) {await createNotificacao({id_utilizador: pedidoAtualizado.id_utilizador, id_pedido: pedidoAtualizado.id_post,tipo_notificacao: notificacao})}
+        if(notificacao) {await createNotificacao({id_utilizador: pedidoAtualizado.id_utilizador, id_pedido: pedidoAtualizado.id_pedido,tipo_notificacao: notificacao})}
  
     return pedidoAtualizado 
     
