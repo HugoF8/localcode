@@ -130,7 +130,7 @@ const { estado_notificacao, estado_post } = require('@prisma/client');
         expect(mockFind).toHaveBeenCalledWith({
           where: {
             id_utilizador: id_utilizador,
-            estado_post: estado_post.ativo
+            estado_post: mockEstadoPost.ativo
           },
         });
         expect(result).toContainEqual(mockReturn[0]);
@@ -154,7 +154,7 @@ const { estado_notificacao, estado_post } = require('@prisma/client');
         expect(mockFind).toHaveBeenCalledWith({
           where: {
             id_utilizador: id_utilizador,
-            estado_post: estado_post.inativo
+            estado_post: mockEstadoPost.inativo
           },
         });
         expect(result).toContainEqual(mockReturn[1]);
@@ -181,14 +181,14 @@ const { estado_notificacao, estado_post } = require('@prisma/client');
         const postAtual = {
           id_post,
           id_utilizador: 10,
-          estado_post: 'pendente',
+          estado_post: mockEstadoPost.pendente,
           aprovacoes: 0,
         };
     
         const postAtualizado = {
           ...postAtual,
           aprovacoes: 1,
-          estado_post: 'pendente',
+          estado_post: mockEstadoPost.pendente,
         };
     
         mockFindUnique.mockResolvedValue(postAtual);
@@ -223,14 +223,14 @@ const { estado_notificacao, estado_post } = require('@prisma/client');
         const postAtual = {
           id_post,
           id_utilizador: 20,
-          estado_post: 'pendente',
+          estado_post: mockEstadoPost.pendente,
           aprovacoes: 2,
         };
     
         const postAtualizado = {
           ...postAtual,
           aprovacoes: 3,
-          estado_post: 'ativo',
+          estado_post: mockEstadoPost.ativo,
         };
     
         mockFindUnique.mockResolvedValue(postAtual);
@@ -243,7 +243,7 @@ const { estado_notificacao, estado_post } = require('@prisma/client');
           where: { id_post },
           data: {
             aprovacoes: 3,
-            estado_post: 'ativo',
+            estado_post: mockEstadoPost.ativo,
           },
         });
     
@@ -265,13 +265,13 @@ const { estado_notificacao, estado_post } = require('@prisma/client');
         const postAtual = {
           id_post,
           id_utilizador: 30,
-          estado_post: 'pendente',
+          estado_post: mockEstadoPost.pendente,
           aprovacoes: 1,
         };
     
         const postAtualizado = {
           ...postAtual,
-          estado_post: 'inativo',
+          estado_post: mockEstadoPost.inativo,
         };
     
         mockFindUnique.mockResolvedValue(postAtual);
@@ -299,3 +299,38 @@ const { estado_notificacao, estado_post } = require('@prisma/client');
         expect(result).toEqual(postAtualizado);
       });
     });
+
+    describe('alterarInformacoesPost', () => {
+      it('alterar as informações do post', async () => {
+        const idPost = 10
+        const descricao_post = "teste"
+        const media_post = "teste2"
+
+        const postAtual = {
+          id_post:10,
+          descricao_post:"Original",
+          media_post: "Original2"
+        }
+
+        const postAtualizado = {
+          id_post:10,
+          descricao_post:"teste",
+          media_post: "teste2"
+        }
+
+        mockUpdate.mockResolvedValue(postAtualizado);
+
+        const result = await alterarInformacoesPost(idPost, descricao_post, media_post);
+        
+        expect(mockUpdate).toHaveBeenCalledWith({
+          where: { id_post: idPost },
+          data: {
+            descricao_post: descricao_post,
+            media_post: media_post
+          },
+        });
+
+        expect(result).toEqual(postAtualizado);
+
+      })
+    })
