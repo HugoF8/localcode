@@ -31,7 +31,7 @@ async function getAllRespostas() {
 async function getRespostasPorUtilizador(id_utilizador) {
     return prisma.resposta_ticket.findMany({
         where: {
-            id_utilizador
+            id_utilizador: id_utilizador,
         }
     });
 }
