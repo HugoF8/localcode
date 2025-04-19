@@ -101,5 +101,52 @@ describe('atualizarEstadoPedido', () => {
     expect(result).toEqual(pedidoAtualizado);
   });
 
+  it('atualiza o estado para "reprovado" e cria página e notificação', async () => {
+    const id_pedido = 1;
+    const bol = false;
+
+    const pedidoAtual = {
+      id_pedido,
+      id_utilizador: 10,
+      id_morada: 20,
+      dados_comprovacao: "teste",
+      nomefreguesia: "Freguesia Teste",
+      estado_pedido: estado_pedido.pendente,  // Usa o enum importado
+    };
+
+    const pedidoAtualizado = {
+      id_pedido,
+      id_utilizador: 10,
+      id_morada: 20,
+      dados_comprovacao: "teste",
+      nomefreguesia: "Freguesia Teste",
+      estado_pedido: estado_pedido.reprovado,  // Usa o enum importado
+    };
+
+    mockFindUnique.mockResolvedValue(pedidoAtual);
+    mockUpdate.mockResolvedValue(pedidoAtualizado);
+    mockCreatePagina.mockResolvedValue({});
+    mockCreateNotificacao.mockResolvedValue({});
+
+    const result = await atualizarEstadoPedido(id_pedido, bol);
+
+    // Verifica as chamadas no mock
+    expect(mockFindUnique).toHaveBeenCalledWith({ where: { id_pedido } });
+    expect(mockUpdate).toHaveBeenCalledWith({
+      where: { id_pedido },
+      data: { estado_pedido: estado_pedido.reprovado },  // Usa o enum correto
+    });
+   
+    expect(mockCreateNotificacao).toHaveBeenCalledWith({
+      data: {  // Assuming the create method expects a data object
+        id_utilizador: pedidoAtualizado.id_utilizador,
+        id_pedido: pedidoAtualizado.id_pedido,
+        tipo_notificacao: tipo_notificacao.Recusado,  // Usa o enum correto
+      }
+    });
+
+    expect(result).toEqual(pedidoAtualizado);
+  });
+
   // Adicionar outros testes para o caso `bol = false` (reprovado)
 });
