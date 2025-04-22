@@ -20,4 +20,4 @@ async function getNotificacaoPorUtilizador(id_utilizador) {
     });
 }
 
-module.exports = { createNotificacao, getAllNotificacao };
+module.exports = { createNotificacao, getAllNotificacao, getNotificacaoPorUtilizador };
