@@ -79,7 +79,7 @@ const { estado_notificacao, estado_post } = require('@prisma/client');
           { id_post: 2, id_utilizador:12, id_pagina:42, descricao_post:"Teste2", aprovacoes:4 },
         ];
 
-        mockFind.mockResolvedValue([mockReturn[0]]);;
+        mockFind.mockResolvedValue([mockReturn[0]]);
         const result = await getPostPendente(id_pagina);
         
         expect(mockFind).toHaveBeenCalledWith({

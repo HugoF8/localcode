@@ -24,7 +24,7 @@ jest.mock('@prisma/client', () => {
         { id_resposta: 2, conteudo_resposta: 'Resposta 2', id_utilizador: id_utilizador },
       ];
   
-      mockFind.mockResolvedValue(mockReturn);
+      mockFind.mockResolvedValue([mockReturn[0]]);
   
       const result = await getRespostasPorUtilizador(id_utilizador);
   
@@ -32,6 +32,7 @@ jest.mock('@prisma/client', () => {
         where: { id_utilizador: id_utilizador },
       });
 
-      expect(result).toEqual(mockReturn);
+      expect(result).toContainEqual(mockReturn[0]);
+      expect(result).not.toContainEqual(mockReturn[1]);
     });
   });

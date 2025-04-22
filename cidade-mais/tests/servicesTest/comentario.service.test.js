@@ -41,7 +41,7 @@ describe('getComentarioPost', () => {
         { id_comentario: 2, conteudo_comentario: 'Comentário 2', id_post: id_post },
       ];
   
-      mockFind.mockResolvedValue(mockReturn);
+      mockFind.mockResolvedValue([mockReturn[0]]);
   
       const result = await getComentarioPost(id_post);
   
@@ -49,6 +49,7 @@ describe('getComentarioPost', () => {
         where: { id_post: id_post },
       });
 
-      expect(result).toEqual(mockReturn);
+      expect(result).toContainEqual(mockReturn[0]);
+      expect(result).not.toContainEqual(mockReturn[1]);
     });
   });

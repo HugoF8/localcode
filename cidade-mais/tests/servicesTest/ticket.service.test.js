@@ -48,7 +48,7 @@ describe('getTicketPendente', () => {
         { id_ticket: 2, descricao_problema: 'Ticket 2', id_pagina: id_pagina, estado_ticket: mockestadoticket.pendente },
       ];
   
-      mockFind.mockResolvedValue(mockReturn);
+      mockFind.mockResolvedValue([mockReturn[0]]);
   
       const result = await getTicketPendente(id_pagina);
   
@@ -57,7 +57,8 @@ describe('getTicketPendente', () => {
         
       });
 
-      expect(result).toEqual(mockReturn);
+      expect(result).toContainEqual(mockReturn[0]);
+      expect(result).not.toContainEqual(mockReturn[1]);
     });
 });
 
@@ -78,9 +79,9 @@ describe('getTicketAberto', () => {
         where: { id_utilizador:id_utilizador , estado_ticket: mockestadoticket.aberto },
         
       });
-      expect(result).toEqual(mockReturn[0]);
-      expect(result).not.toContain(mockReturn[1])
-      expect(result).not.toContain(mockReturn[2])
+      expect(result).toContainEqual(mockReturn[0]);
+      expect(result).not.toContainEqual(mockReturn[1])
+      expect(result).not.toContainEqual(mockReturn[2])
     });
 });
 
@@ -92,7 +93,7 @@ describe('getTicketFechado', () => {
         { id_utilizador:42, id_ticket: 2, conteudo_ticket: 'Ticket 2', id_pagina: 13, estado_ticket: mockestadoticket.fechado },
       ];
   
-      mockFind.mockResolvedValue(mockReturn);
+      mockFind.mockResolvedValue([mockReturn[0]]);
   
       const result = await getTicketFechado(id_utilizador);
   
@@ -101,6 +102,7 @@ describe('getTicketFechado', () => {
         
       });
 
-      expect(result).toEqual(mockReturn);
+      expect(result).toContainEqual(mockReturn[0]);
+      expect(result).not.toContainEqual(mockReturn[1]);
     });
 });
