@@ -44,8 +44,8 @@ describe('getTicketPendente', () => {
     it('deve chamar prisma.ticket.findMany com o id_pagina correto e o estado_ticket pendente', async () => {
       const id_pagina = 42;
       const mockReturn = [
-        { id_ticket: 1, conteudo_ticket: 'Ticket 1', id_pagina: id_pagina, estado_ticket: mockestadoticket.pendente },
-        { id_ticket: 2, conteudo_ticket: 'Ticket 2', id_pagina: id_pagina, estado_ticket: mockestadoticket.pendente },
+        { id_ticket: 1, descricao_problema: 'Ticket 1', id_pagina: id_pagina, estado_ticket: mockestadoticket.pendente },
+        { id_ticket: 2, descricao_problema: 'Ticket 2', id_pagina: id_pagina, estado_ticket: mockestadoticket.pendente },
       ];
   
       mockFind.mockResolvedValue(mockReturn);

@@ -46,7 +46,7 @@ describe('getComentarioPost', () => {
       const result = await getComentarioPost(id_post);
   
       expect(mockFind).toHaveBeenCalledWith({
-        where: { id_post: id_post},
+        where: { id_post: id_post },
       });
 
       expect(result).toEqual(mockReturn);
