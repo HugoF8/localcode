@@ -54,12 +54,21 @@ async function main() {
     }
 }
 
-// Iniciar servidor
+/* Iniciar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
     await main();
     console.log(`🚀 Servidor ligado em http://localhost:${PORT}`);
-});
+});*/
+
+const PORT = process.env.PORT || 3000;
+
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, async () => {
+    await main();
+    console.log(`🚀 Servidor ligado em http://localhost:${PORT}`);
+  });
+}
 
 
 module.exports = app; // <-- necessário para os testes
