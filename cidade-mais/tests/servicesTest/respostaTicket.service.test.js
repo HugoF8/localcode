@@ -4,7 +4,7 @@ const mockFind = jest.fn();
 jest.mock('@prisma/client', () => {
     return {
       PrismaClient: jest.fn().mockImplementation(() => ({
-        respostaTicket: {
+        resposta_ticket: {
           create: mockCreate,
           findMany: mockFind,
         },
@@ -12,7 +12,7 @@ jest.mock('@prisma/client', () => {
     };
   });
 
-  const { createResposta, getRespostasPorUtilizador} = require('../../src/services/respostaTicket.service');
+  const { createResposta, getRespostasPorUtilizador } = require('../../src/services/respostaTicket.service');
 
 
 

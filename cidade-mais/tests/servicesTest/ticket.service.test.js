@@ -79,7 +79,7 @@ describe('getTicketAberto', () => {
         where: { id_utilizador:id_utilizador , estado_ticket: mockestadoticket.aberto },
         
       });
-      expect(result).toContainEqual(mockReturn[0]);
+      expect(result).toEqual(mockReturn[0]);
       expect(result).not.toContainEqual(mockReturn[1])
       expect(result).not.toContainEqual(mockReturn[2])
     });
