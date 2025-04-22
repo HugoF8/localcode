@@ -38,7 +38,7 @@ const mockEstadoPost = {
   });
 
 
-const { estado_notificacao, estado_post } = require('@prisma/client');
+  const { estado_notificacao, estado_post } = require('@prisma/client');
   const { createPost, getPostPagina, getPostsAprovados,getPostsRecusados,atualizarEstadoPost, alterarInformacoesPost, getPostPendente } = require('../../src/services/post.service');
 
   describe('createPost', () => {
