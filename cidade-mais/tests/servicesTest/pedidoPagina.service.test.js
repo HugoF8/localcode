@@ -1,6 +1,6 @@
 const mockFindUnique = jest.fn();
 const mockUpdate = jest.fn();
-const mockCreatePagina = jest.fn();
+const mockCreatemoradaid_morada = jest.fn();
 const mockCreateNotificacao = jest.fn();
 
 // Define the mocked enums that we'll use in the test
@@ -23,12 +23,12 @@ const mockTipoNotificacao = {
 jest.mock('@prisma/client', () => {
   return {
     PrismaClient: jest.fn().mockImplementation(() => ({
-      pedido_pagina: {
+      pedido_moradaid_morada: {
         findUnique: mockFindUnique,
         update: mockUpdate,
       },
-      pagina_freguesia: {
-        create: mockCreatePagina,
+      moradaid_morada_freguesia: {
+        create: mockCreatemoradaid_morada,
       },
       notificacao: {
         create: mockCreateNotificacao,
@@ -41,7 +41,7 @@ jest.mock('@prisma/client', () => {
 
 // Import here ensures it's after the mock
 const { estado_pedido, tipo_notificacao } = require('@prisma/client');
-const { atualizarEstadoPedido } = require('../../src/services/pedidoPagina.service');
+const { atualizarEstadoPedido, getPedidoPendente, getPedidoAprovado, getPedidoRecusado } = require('../../src/services/pedidoPagina.service');
 
 describe('atualizarEstadoPedido', () => {
   beforeEach(() => {
@@ -72,7 +72,7 @@ describe('atualizarEstadoPedido', () => {
 
     mockFindUnique.mockResolvedValue(pedidoAtual);
     mockUpdate.mockResolvedValue(pedidoAtualizado);
-    mockCreatePagina.mockResolvedValue({});
+    mockCreatemoradaid_morada.mockResolvedValue({});
     mockCreateNotificacao.mockResolvedValue({});
 
     const result = await atualizarEstadoPedido(id_pedido, bol);
@@ -83,11 +83,11 @@ describe('atualizarEstadoPedido', () => {
       where: { id_pedido },
       data: { estado_pedido: estado_pedido.aprovado },  // Usa o enum correto
     });
-    expect(mockCreatePagina).toHaveBeenCalledWith({
+    expect(mockCreatemoradaid_morada).toHaveBeenCalledWith({
       data: {
         id_utilizador: pedidoAtual.id_utilizador,
         id_morada: pedidoAtual.id_morada,
-        nome_pagina: pedidoAtual.nomefreguesia,
+        nome_moradaid_morada: pedidoAtual.nomefreguesia,
       },
     });
     expect(mockCreateNotificacao).toHaveBeenCalledWith({
@@ -125,7 +125,7 @@ describe('atualizarEstadoPedido', () => {
 
     mockFindUnique.mockResolvedValue(pedidoAtual);
     mockUpdate.mockResolvedValue(pedidoAtualizado);
-    mockCreatePagina.mockResolvedValue({});
+    mockCreatemoradaid_morada.mockResolvedValue({});
     mockCreateNotificacao.mockResolvedValue({});
 
     const result = await atualizarEstadoPedido(id_pedido, bol);
@@ -149,4 +149,76 @@ describe('atualizarEstadoPedido', () => {
   });
 
   // Adicionar outros testes para o caso `bol = false` (reprovado)
+});
+
+
+describe('getPedidoPendente', () => {
+  it('get do pedido com os dados corretos e obter o resultado esperado', async () => {
+    const id_morada = 42
+    const mockReturn = [
+      { id_pedido: 1, id_utilizador:11, id_morada:42, dados_comprovacao:"Teste", aprovacoes:2},
+      { id_pedido: 2, id_utilizador:12, id_morada:42, dados_comprovacao:"Teste2", aprovacoes:4 },
+    ];
+
+    mockFind.mockResolvedValue([mockReturn[0]]);
+    const result = await getPedidoPendente(id_morada);
+    
+    expect(mockFind).toHaveBeenCalledWith({
+      where: {
+        id_morada:42,
+        estado_pedido: mockEstadoPedido.pendente,
+        aprovacoes:{lt:4},
+      },
+    });
+    expect(result).toContainEqual(mockReturn[0]);
+    expect(result).not.toContainEqual(mockReturn[1]);
+  })   
+});
+
+describe('getPedidoAprovado', () => {
+  it('get do pedido com os dados corretos e obter o resultado esperado', async () => {
+    const id_utilizador = 11
+    const mockReturn = [
+      { id_pedido: 1, id_utilizador:11, id_pagina:42, dados_comprovacao:"Teste", aprovacoes:2,estado_pedido: mockEstadoPedido.ativo },
+      { id_pedido: 3, id_utilizador:11, id_pagina:42, dados_comprovacao:"Teste3", aprovacoes:2,estado_pedido: mockEstadoPedido.inativo },
+      { id_pedido: 2, id_utilizador:12, id_pagina:43, dados_comprovacao:"Teste2", aprovacoes:4, estado_pedido: mockEstadoPedido.ativo },
+    ];
+
+    mockFind.mockResolvedValue([mockReturn[0]]);;
+    const result = await getPedidoAprovado(id_utilizador);
+    
+    expect(mockFind).toHaveBeenCalledWith({
+      where: {
+        id_utilizador: id_utilizador,
+        estado_pedido: mockEstadoPedido.ativo
+      },
+    });
+    expect(result).toContainEqual(mockReturn[0]);
+    expect(result).not.toContainEqual(mockReturn[2]);
+    expect(result).not.toContainEqual(mockReturn[1]);
+  })   
+});
+
+describe('getPedidoRecusado', () => {
+  it('get do pedido com os dados corretos e obter o resultado esperado', async () => {
+    const id_utilizador = 11
+    const mockReturn = [
+      { id_pedido: 1, id_utilizador:11, id_pagina:42, dados_comprovacao:"Teste", aprovacoes:2,estado_pedido: mockEstadoPedido.ativo },
+      { id_pedido: 3, id_utilizador:11, id_pagina:42, dados_comprovacao:"Teste3", aprovacoes:2,estado_pedido: mockEstadoPedido.inativo },
+      { id_pedido: 2, id_utilizador:12, id_pagina:43, dados_comprovacao:"Teste2", aprovacoes:4, estado_pedido: mockEstadoPedido.ativo },
+    ];
+
+    mockFind.mockResolvedValue([mockReturn[1]]);;
+    const result = await getPedidoRecusado(id_utilizador);
+    
+    expect(mockFind).toHaveBeenCalledWith({
+      where: {
+        id_utilizador: id_utilizador,
+        estado_pedido: mockEstadoPedido.inativo
+      },
+    });
+    expect(result).toContainEqual(mockReturn[1]);
+    expect(result).not.toContainEqual(mockReturn[2]);
+    expect(result).not.toContainEqual(mockReturn[0]);
+  })   
 });

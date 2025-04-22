@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
+    "testint": "jest tests/routesTest",
     "dev": "nodemon src/server.js"
   },
   "keywords": [],

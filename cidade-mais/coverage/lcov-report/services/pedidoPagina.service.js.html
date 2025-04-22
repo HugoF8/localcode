@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/20</span>
+                <span class='fraction'>5/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.15% </span>
+                <span class="strong">26.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/19</span>
+                <span class='fraction'>5/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -201,20 +201,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,11 +212,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const { PrismaClient, tipo_notificacao } = require('@prisma/client');
@@ -284,10 +284,10 @@ async function atualizarEstadoPedido(id_pedido, bol) {
 &nbsp;
     const pedidoAtual = await prisma.pedido_pagina.findUnique({where:{id_pedido}})
 &nbsp;
-    const novoEstado = bol ? "aprovado" : "reprovado";
-    const notificacao = bol ? tipo_notificacao.Aprovado : tipo_notificacao.Recusado;
+    const novoEstado = <span class="cstat-no" title="statement not covered" >bol ? "aprovado" : "reprovado";</span>
+    const notificacao = <span class="cstat-no" title="statement not covered" >bol ? tipo_notificacao.Aprovado : tipo_notificacao.Recusado;</span>
 &nbsp;
-    const pedidoAtualizado = await prisma.pedido_pagina.update({
+    const pedidoAtualizado = <span class="cstat-no" title="statement not covered" >await prisma.pedido_pagina.update({</span>
         where: { id_pedido },
         data: {
             estado_pedido: novoEstado,
@@ -295,9 +295,9 @@ async function atualizarEstadoPedido(id_pedido, bol) {
         })   
 &nbsp;
     
-        if (novoEstado === "aprovado") {
+<span class="cstat-no" title="statement not covered" >        if (novoEstado === "aprovado") {</span>
             // Criar a página freguesia com dados do pedido
-            await prisma.pagina_freguesia.create({
+<span class="cstat-no" title="statement not covered" >            await prisma.pagina_freguesia.create({</span>
               data: {
                 id_utilizador: pedidoAtual.id_utilizador,
                 id_morada: pedidoAtual.id_morada,
@@ -307,9 +307,9 @@ async function atualizarEstadoPedido(id_pedido, bol) {
             });
         }
 &nbsp;
-        <span class="missing-if-branch" title="else path not taken" >E</span>if(notificacao) {await createNotificacao({id_utilizador: pedidoAtualizado.id_utilizador, id_pedido: pedidoAtualizado.id_pedido,tipo_notificacao: notificacao})}
+<span class="cstat-no" title="statement not covered" >        if(notificacao) {<span class="cstat-no" title="statement not covered" >await createNotificacao({id_utilizador: pedidoAtualizado.id_utilizador, id_pedido: pedidoAtualizado.id_pedido,tipo_notificacao: notificacao})}</span></span>
  
-    return pedidoAtualizado 
+<span class="cstat-no" title="statement not covered" >    return pedidoAtualizado </span>
     
 }
 module.exports = { createPedidoPagina, getAllPedidoPagina, getPedidoPendente, getPedidoAprovado, getPedidoReprovado, atualizarEstadoPedido, alterarPedidoPagina};</pre></td></tr></table></pre>
@@ -319,7 +319,7 @@ module.exports = { createPedidoPagina, getAllPedidoPagina, getPedidoPendente, ge
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-22T17:22:32.586Z
+                at 2025-04-22T19:13:43.346Z
             </div>
         <script src="../prettify.js"></script>
         <script>

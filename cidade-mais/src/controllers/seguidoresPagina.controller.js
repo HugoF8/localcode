@@ -1,4 +1,4 @@
-const seguidoresService = require('../services/seguidoresPagina.sevice');
+const seguidoresService = require('../services/seguidoresPagina.service');
 const postService = require("../services/post.service");
 
 // Criar seguidores
