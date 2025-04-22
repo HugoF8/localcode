@@ -60,3 +60,6 @@ app.listen(PORT, async () => {
     await main();
     console.log(`🚀 Servidor ligado em http://localhost:${PORT}`);
 });
+
+
+module.exports = app; // <-- necessário para os testes

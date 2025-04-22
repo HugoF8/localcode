@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../app');
+const app = require('../../src/app');
 const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
 
@@ -46,7 +46,7 @@ describe('Testes de integração: Utilizador', () => {
                 nome: "Novo Utilizador",
                 email: "novo@email.com",
                 password: "senha123",
-                data_nascimento: "1990-05-10",
+                data_nascimento: new Date("1990-05-10").toISOString()
             });
 
         expect(res.statusCode).toBe(201);
