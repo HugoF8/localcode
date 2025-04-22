@@ -32,7 +32,7 @@ describe('createUSeguidor', () => {
 });
 
 describe('getPaginasSeguidas', () => {
-    it('deve chamar prisma.resposta_ticket.findMany com o id_utilizador correto', async () => {
+    it('deve chamar prisma.seguidores_pagina.findMany com o id_utilizador correto', async () => {
       const id_utilizador = 42;
       const mockReturn = [
         { id_seguimento: 1, id_utilizador: id_utilizador },
