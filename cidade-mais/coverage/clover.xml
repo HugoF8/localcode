@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1745343839216" clover="3.2.0">
-  <project timestamp="1745343839216" name="All files">
-    <metrics statements="180" coveredstatements="135" conditionals="40" coveredconditionals="25" methods="56" coveredmethods="31" elements="276" coveredelements="191" complexity="0" loc="180" ncloc="180" packages="3" files="15" classes="15"/>
+<coverage generated="1745349223376" clover="3.2.0">
+  <project timestamp="1745349223376" name="All files">
+    <metrics statements="180" coveredstatements="128" conditionals="40" coveredconditionals="18" methods="56" coveredmethods="31" elements="276" coveredelements="177" complexity="0" loc="180" ncloc="180" packages="3" files="15" classes="15"/>
     <package name="controllers">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="autent.controller.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\controllers\autent.controller.js">
@@ -43,7 +43,7 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="152" coveredstatements="107" conditionals="36" coveredconditionals="21" methods="51" coveredmethods="26"/>
+      <metrics statements="152" coveredstatements="100" conditionals="36" coveredconditionals="14" methods="51" coveredmethods="26"/>
       <file name="autent.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\autent.service.js">
         <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
@@ -93,7 +93,7 @@
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
-        <line num="7" count="7" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
         <line num="23" count="5" type="stmt"/>
@@ -108,7 +108,7 @@
         <line num="25" count="1" type="stmt"/>
       </file>
       <file name="pedidoPagina.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\pedidoPagina.service.js">
-        <metrics statements="19" coveredstatements="12" conditionals="8" coveredconditionals="7" methods="7" coveredmethods="1"/>
+        <metrics statements="19" coveredstatements="5" conditionals="8" coveredconditionals="0" methods="7" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -120,13 +120,13 @@
         <line num="42" count="0" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
         <line num="54" count="2" type="stmt"/>
-        <line num="56" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="57" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="59" count="2" type="stmt"/>
-        <line num="67" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="69" count="1" type="stmt"/>
-        <line num="79" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="81" count="2" type="stmt"/>
+        <line num="56" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="57" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="79" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="81" count="0" type="stmt"/>
         <line num="84" count="1" type="stmt"/>
       </file>
       <file name="perfil.service.js" path="C:\Users\tiago\OneDrive\Documentos\localcode\cidade-mais\src\services\perfil.service.js">
