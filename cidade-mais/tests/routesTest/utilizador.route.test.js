@@ -83,4 +83,27 @@ describe('Testes de integração: Utilizador', () => {
         expect(res.body).toHaveProperty('error', 'Token não fornecido');
     });
 
+    test('Falha ao criar utilizador com dados inválidos', async () => {
+        const res = await request(app)
+            .post('/api/utilizadores/criarUtilizador')
+            .send({
+                nome: "", // nome inválido
+                email: "emailinvalido", // email inválido
+                password: "", // password inválida
+                data_nascimento: "not-a-date" // data inválida
+            });
+    
+        expect(res.statusCode).toBeGreaterThanOrEqual(400);
+        expect(res.body).toHaveProperty('error');
+    });
+    
+    test('Token inválido não permite acesso à lista de utilizadores', async () => {
+        const res = await request(app)
+            .get('/api/utilizadores/verUtilizadores')
+            .set('Authorization', 'Bearer token-falso');
+    
+        expect(res.statusCode).toBe(403);
+        expect(res.body).toHaveProperty('error', 'Token inválido');
+    });
+
 });
