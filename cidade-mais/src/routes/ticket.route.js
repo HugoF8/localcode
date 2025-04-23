@@ -11,7 +11,7 @@ router.post('/criarTicket', ticketController.createTicket);
 router.get('/verTickets', ticketController.getAllTickets);
 router.get('/verTicketAberto', authProprietario, ticketController.getTicketAberto);
 router.get('/verTicketFechado',authProprietario, ticketController.getTicketFechado);
-router.get('/verTicketsPendentes', authRole('moderador'), ticketController.getTicketPendente);
+router.get('/verTicketsPendentes/:id_pagina', authRole('moderador'), ticketController.getTicketPendente);
 router.patch('/atualizarEstadoTicket/:id_ticket', authRole('moderador'), ticketController.atualizarEstadoTicket);
 router.patch('/alterarTicket/:id_ticket',authProprietario, ticketController.alterarTicket);
 

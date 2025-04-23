@@ -139,7 +139,7 @@ describe('Integração - Tickets', () => {
     );
 
     const res = await request(app)
-    .get(`/api/tickets/verTicketsPendentes?id_pagina=${id_pagina}`)
+    .get(`/api/tickets/verTicketsPendentes/${id_pagina}`)
     .set('Authorization', `Bearer ${adminToken}`);
       
 

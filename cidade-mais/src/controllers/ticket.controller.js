@@ -25,8 +25,8 @@ async function getAllTickets(req, res) {
 
 
 async function getTicketPendente(req, res) {
-    const { id_pagina } = req.query; 
     try {
+        const { id_pagina } = req.params;
       if (!id_pagina) {
         return res.status(400).json({ error: "id_pagina não fornecido" });
       }
