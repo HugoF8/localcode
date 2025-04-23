@@ -1,105 +1,154 @@
-process.env.NODE_ENV = "test";
-const request = require("supertest");
-const app = require("../../src/app");
+const request = require('supertest');
+const app = require('../../src/app');
 const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken');
 
-describe('POST /tickets', () => {
-  let token;
-  let utilizadorId;
-  let categoriaId;
-  let paginaId;
+const prisma = new PrismaClient();
+const JWT_SECRET = 'supersecreto';
+let token;
+let ticketId;
+let id_utilizador;
+let id_pagina;
 
-  beforeAll(async () => {
-    // Criar utilizador com todos os campos obrigatórios
-    const utilizador = await prisma.utilizador.create({
-      data: {
-        nome: 'Test User',
-        email: 'test@example.com',
-        password: 'hashedpassword',
-        tipo: 'utilizador',
-        data_nascimento: new Date('1990-01-01'),
-      },
-    });
+beforeAll(async () => {
+  await prisma.ticket.deleteMany();
+  await prisma.utilizador.deleteMany();
+  await prisma.pagina_freguesia.deleteMany();
+  await prisma.morada.deleteMany();
 
-    utilizadorId = utilizador.id;
+  const morada = await prisma.morada.create({
+    data: {
+      freguesia: 'TestLand',
+      cidade: 'TestCity',
+      rua: 'Rua Teste',
+      codigo_postal: 1234
+    }
+  });
 
-    // Criar categoria
-    const categoria = await prisma.categoria_ticket.create({
-      data: {
-        nome: 'Categoria Teste',
-      },
-    });
+  const utilizador = await prisma.utilizador.create({
+    data: {
+      nome: 'Tester',
+      email: 'ticket@test.com',
+      password: '1234',
+      data_nascimento: new Date('2000-01-01'),
+      tipo_utilizador: 'moderador',
+      id_morada: morada.id_morada
+    }
+  });
 
-    categoriaId = categoria.id;
+  id_utilizador = utilizador.id_utilizador;
+  
+  const pagina = await prisma.pagina_freguesia.create({
+    data: {
+      nome_pagina: 'Página Teste',
+      id_morada: morada.id_morada,
+      id_utilizador: utilizador.id_utilizador
+    }
+  });
 
-    // Criar página
-    const pagina = await prisma.pagina_freguesia.create({
-      data: {
-        nome: 'Página Teste',
-        freguesia: 'Freguesia Teste',
-      },
-    });
+  id_pagina = pagina.id_pagina;
 
-    paginaId = pagina.id;
+  token = jwt.sign(
+    { utilizadorId: utilizador.id_utilizador, tipo_utilizador: utilizador.tipo_utilizador },
+    JWT_SECRET,
+    { expiresIn: '1h' }
+  );
 
-    // Criar token JWT
-    token = jwt.sign(
-      { id: utilizador.id, tipo: utilizador.tipo },
-      process.env.JWT_SECRET,
+  await prisma.moderador_pagina.create({
+    data: {
+      id_utilizador,
+      id_pagina,
+      funcao: 'moderador'
+    }
+  });
+});
+
+afterAll(async () => {
+  await prisma.$disconnect();
+});
+
+describe('Integração - Tickets', () => {
+  test('Criar ticket', async () => {
+    const res = await request(app)
+      .post('/api/tickets/criarTicket')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        id_utilizador,
+        id_pagina,
+        descricao_problema: 'Testando o sistema de tickets.'
+      });
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty('id_ticket');
+    ticketId = res.body.id_ticket;
+  });
+
+  test('Listar todos os tickets', async () => {
+    const res = await request(app)
+      .get('/api/tickets/verTickets')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  test('Listar tickets abertos', async () => {
+    const res = await request(app)
+      .get('/api/tickets/verTicketAberto')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  test('Atualizar estado do ticket para fechado', async () => {
+    const res = await request(app)
+      .patch(`/api/tickets/atualizarEstadoTicket/${ticketId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ bol: false });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.estado_ticket).toBe('fechado');
+  });
+
+  test('Atualizar descrição do ticket', async () => {
+    const res = await request(app)
+      .patch(`/api/tickets/alterarTicket/${ticketId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ descricao_problema: 'Descrição atualizada' });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.ticket.descricao_problema).toBe('Descrição atualizada');
+  });
+
+  test('Listar tickets fechados', async () => {
+    const res = await request(app)
+      .get('/api/tickets/verTicketFechado')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.some(t => t.id_ticket === ticketId)).toBe(true);
+  });
+
+  test('Listar tickets pendentes (role admin)', async () => {
+    const adminToken = jwt.sign(
+      { utilizadorId: id_utilizador, tipo_utilizador: 'admin' },
+      JWT_SECRET,
       { expiresIn: '1h' }
     );
+
+    const res = await request(app)
+      .get('/api/tickets/verTicketsPendentes')
+      .set('Authorization', `Bearer ${adminToken}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
   });
 
-  afterAll(async () => {
-    await prisma.ticket.deleteMany();
-    await prisma.pagina_freguesia.deleteMany();
-    await prisma.categoria_ticket.deleteMany();
-    await prisma.utilizador.deleteMany();
-    await prisma.$disconnect();
-  });
-
-  it('cria um ticket com sucesso', async () => {
-    const response = await request(app)
-      .post('/tickets')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        titulo: 'Teste de Ticket',
-        descricao: 'Descrição teste',
-        categoriaId,
-        paginaId,
-      });
-
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('id');
-    expect(response.body.titulo).toBe('Teste de Ticket');
-  });
-
-  it('retorna 401 se não houver token', async () => {
-    const response = await request(app)
-      .post('/tickets')
-      .send({
-        titulo: 'Sem Token',
-        descricao: 'Falha esperada',
-        categoriaId,
-        paginaId,
-      });
-
-    expect(response.status).toBe(401);
-  });
-
-  it('retorna 400 se faltar campo obrigatório', async () => {
-    const response = await request(app)
-      .post('/tickets')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        descricao: 'Falta o título',
-        categoriaId,
-        paginaId,
-      });
-
-    expect(response.status).toBe(400);
+  test('Falhar rota sem token', async () => {
+    const res = await request(app).get('/api/tickets/verTickets');
+    expect(res.statusCode).toBe(401);
+    expect(res.body).toHaveProperty('error');
   });
 });

@@ -26,7 +26,7 @@ async function getAllTickets(req, res) {
 // Buscar todos os tickets pendentes
 async function getTicketPendente(req, res) {
     try {
-        const tickets = await ticketService.getTicketPendente();
+        const tickets = await ticketService.getTicketPendente(id_pagina);
         res.json(tickets);
     } catch (error) {
         console.error("Erro ao buscar tickets pendentes:", error); // Mostra o erro real no terminal
@@ -35,6 +35,7 @@ async function getTicketPendente(req, res) {
 }
 
 async function getTicketAberto(req, res) {
+    const id_utilizador = req.utilizador.utilizadorId;
     try {
         const tickets = await ticketService.getTicketAberto(id_utilizador);
         res.json(tickets);
@@ -45,6 +46,7 @@ async function getTicketAberto(req, res) {
 }
 
 async function getTicketFechado(req, res) {
+    const id_utilizador = req.utilizador.utilizadorId;
     try {
         const tickets = await ticketService.getTicketFechado(id_utilizador);
         res.json(tickets);
@@ -88,8 +90,7 @@ async function alterarTicket(req, res) {
     }
 
     try {
-        const ticketAlterado = await alterarTicket(idTicket, descricao_problema);
-
+        const ticketAlterado = await ticketService.alterarTicket(idTicket, descricao_problema);
         return res.status(200).json({
             mensagem: "Descrição do ticket alterada com sucesso.",
             ticket: ticketAlterado,
