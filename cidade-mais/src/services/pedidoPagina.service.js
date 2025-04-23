@@ -70,7 +70,6 @@ async function atualizarEstadoPedido(id_pedido, bol) {
               data: {
                 id_utilizador: pedidoAtual.id_utilizador,
                 id_morada: pedidoAtual.id_morada,
-                id_morada: pedidoAtual.id_morada,
                 nome_pagina: pedidoAtual.nomefreguesia
               }
             });

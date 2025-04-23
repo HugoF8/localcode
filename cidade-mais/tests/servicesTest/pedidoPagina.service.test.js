@@ -1,6 +1,9 @@
 const mockFindUnique = jest.fn();
+const mockFind = jest.fn();
+const mockCreate = jest.fn();
 const mockUpdate = jest.fn();
-const mockCreatemoradaid_morada = jest.fn();
+const mockCreatePagina = jest.fn();
+const mockCreatemorada = jest.fn();
 const mockCreateNotificacao = jest.fn();
 
 // Define the mocked enums that we'll use in the test
@@ -23,16 +26,21 @@ const mockTipoNotificacao = {
 jest.mock('@prisma/client', () => {
   return {
     PrismaClient: jest.fn().mockImplementation(() => ({
-      pedido_moradaid_morada: {
+      pedido_pagina: {
         findUnique: mockFindUnique,
         update: mockUpdate,
+        findMany: mockFind,
+        create: mockCreate,
       },
-      moradaid_morada_freguesia: {
-        create: mockCreatemoradaid_morada,
+      morada: {
+        create: mockCreatemorada,
       },
       notificacao: {
         create: mockCreateNotificacao,
       },
+      pagina_freguesia: {
+        create: mockCreatePagina,
+      }
     })),
     estado_pedido: mockEstadoPedido,
     tipo_notificacao: mockTipoNotificacao
@@ -41,7 +49,7 @@ jest.mock('@prisma/client', () => {
 
 // Import here ensures it's after the mock
 const { estado_pedido, tipo_notificacao } = require('@prisma/client');
-const { atualizarEstadoPedido, getPedidoPendente, getPedidoAprovado, getPedidoRecusado } = require('../../src/services/pedidoPagina.service');
+const { atualizarEstadoPedido, getPedidoPendente, getPedidoAprovado, getPedidoReprovado } = require('../../src/services/pedidoPagina.service');
 
 describe('atualizarEstadoPedido', () => {
   beforeEach(() => {
@@ -72,7 +80,7 @@ describe('atualizarEstadoPedido', () => {
 
     mockFindUnique.mockResolvedValue(pedidoAtual);
     mockUpdate.mockResolvedValue(pedidoAtualizado);
-    mockCreatemoradaid_morada.mockResolvedValue({});
+    mockCreatemorada.mockResolvedValue({});
     mockCreateNotificacao.mockResolvedValue({});
 
     const result = await atualizarEstadoPedido(id_pedido, bol);
@@ -83,11 +91,11 @@ describe('atualizarEstadoPedido', () => {
       where: { id_pedido },
       data: { estado_pedido: estado_pedido.aprovado },  // Usa o enum correto
     });
-    expect(mockCreatemoradaid_morada).toHaveBeenCalledWith({
+    expect(mockCreatePagina).toHaveBeenCalledWith({
       data: {
         id_utilizador: pedidoAtual.id_utilizador,
         id_morada: pedidoAtual.id_morada,
-        nome_moradaid_morada: pedidoAtual.nomefreguesia,
+        nome_pagina: pedidoAtual.nomefreguesia,
       },
     });
     expect(mockCreateNotificacao).toHaveBeenCalledWith({
@@ -125,7 +133,7 @@ describe('atualizarEstadoPedido', () => {
 
     mockFindUnique.mockResolvedValue(pedidoAtual);
     mockUpdate.mockResolvedValue(pedidoAtualizado);
-    mockCreatemoradaid_morada.mockResolvedValue({});
+    mockCreatemorada.mockResolvedValue({});
     mockCreateNotificacao.mockResolvedValue({});
 
     const result = await atualizarEstadoPedido(id_pedido, bol);
@@ -154,20 +162,18 @@ describe('atualizarEstadoPedido', () => {
 
 describe('getPedidoPendente', () => {
   it('get do pedido com os dados corretos e obter o resultado esperado', async () => {
-    const id_morada = 42
+    const id_utilizador = 11
     const mockReturn = [
-      { id_pedido: 1, id_utilizador:11, id_morada:42, dados_comprovacao:"Teste", aprovacoes:2},
-      { id_pedido: 2, id_utilizador:12, id_morada:42, dados_comprovacao:"Teste2", aprovacoes:4 },
+      { id_pedido: 1, id_utilizador:11, dados_comprovacao:"Teste", estado_pedido: mockEstadoPedido.pendente},
+      { id_pedido: 2, id_utilizador:12, dados_comprovacao:"Teste2", estado_pedido: mockEstadoPedido.aprovado},
     ];
 
     mockFind.mockResolvedValue([mockReturn[0]]);
-    const result = await getPedidoPendente(id_morada);
+    const result = await getPedidoPendente(id_utilizador);
     
     expect(mockFind).toHaveBeenCalledWith({
       where: {
-        id_morada:42,
         estado_pedido: mockEstadoPedido.pendente,
-        aprovacoes:{lt:4},
       },
     });
     expect(result).toContainEqual(mockReturn[0]);
@@ -190,7 +196,7 @@ describe('getPedidoAprovado', () => {
     expect(mockFind).toHaveBeenCalledWith({
       where: {
         id_utilizador: id_utilizador,
-        estado_pedido: mockEstadoPedido.ativo
+        estado_pedido: mockEstadoPedido.aprovado
       },
     });
     expect(result).toContainEqual(mockReturn[0]);
@@ -199,7 +205,7 @@ describe('getPedidoAprovado', () => {
   })   
 });
 
-describe('getPedidoRecusado', () => {
+describe('getPedidoReprovado', () => {
   it('get do pedido com os dados corretos e obter o resultado esperado', async () => {
     const id_utilizador = 11
     const mockReturn = [
@@ -209,12 +215,12 @@ describe('getPedidoRecusado', () => {
     ];
 
     mockFind.mockResolvedValue([mockReturn[1]]);;
-    const result = await getPedidoRecusado(id_utilizador);
+    const result = await getPedidoReprovado(id_utilizador);
     
     expect(mockFind).toHaveBeenCalledWith({
       where: {
         id_utilizador: id_utilizador,
-        estado_pedido: mockEstadoPedido.inativo
+        estado_pedido: mockEstadoPedido.reprovado
       },
     });
     expect(result).toContainEqual(mockReturn[1]);
