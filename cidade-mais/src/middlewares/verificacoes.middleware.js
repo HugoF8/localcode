@@ -76,7 +76,7 @@ async function authProprietario(req, res, next) {
       if (id_utilizadorAtual !== id_utilizador) {
         return res.status(403).json({
           error: "Não autorizado a aceder a este recurso",
-          detalhe: { id_utilizadorAtual, id_utilizador }
+          //detalhe: { id_utilizadorAtual, id_utilizador }
         });
       }
   
