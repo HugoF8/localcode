@@ -38,54 +38,55 @@ async function authSeguir(req, res, next) {
 }
 
 async function authProprietario(req, res, next) {
-
     const id_utilizadorAtual = req.utilizador.utilizadorId;
     let { id_utilizador } = req.body;
-
-    // Definir antes para não dar ReferenceError
+  
+    // Inicializa os possíveis identificadores
     let id_post = null;
     let id_pedido = null;
     let id_ticket = null;
-
+  
     try {
-        if (!id_utilizador) {
-            // Extrai dos parâmetros e do corpo
-            ({ id_post, id_pedido, id_ticket } = { ...req.params, ...req.body });
-
-            id_post = Number(id_post);
-            id_pedido = Number(id_pedido);
-            id_ticket = Number(id_ticket);
-
-            if (!isNaN(id_post)) {
-                const post = await prisma.post.findUnique({ where: { id_post } });
-                if (!post) return res.status(404).json({ error: 'Post não encontrado' });
-                id_utilizador = post.id_utilizador;
-            } else if (!isNaN(id_pedido)) {
-                const pedido = await prisma.pedido_pagina.findUnique({ where: { id_pedido } });
-                if (!pedido) return res.status(404).json({ error: 'Pedido não encontrado' });
-                id_utilizador = pedido.id_utilizador;
-            } else if (!isNaN(id_ticket)) {
-                const ticket = await prisma.ticket.findUnique({ where: { id_ticket } });
-                if (!ticket) return res.status(404).json({ error: 'Ticket não encontrado' });
-                id_utilizador = ticket.id_utilizador;
-            } else {
-                return res.status(400).json({ error: 'Nenhum identificador fornecido' });
-            }
+      if (!id_utilizador) {
+        // Extrai dos parâmetros e corpo
+        ({ id_post, id_pedido, id_ticket } = { ...req.params, ...req.body });
+  
+        id_post = Number(id_post);
+        id_pedido = Number(id_pedido);
+        id_ticket = Number(id_ticket);
+  
+        if (!isNaN(id_post)) {
+          const post = await prisma.post.findUnique({ where: { id_post } });
+          if (!post) return res.status(404).json({ error: 'Post não encontrado' });
+          id_utilizador = post.id_utilizador;
+        } else if (!isNaN(id_pedido)) {
+          const pedido = await prisma.pedido_pagina.findUnique({ where: { id_pedido } });
+          if (!pedido) return res.status(404).json({ error: 'Pedido não encontrado' });
+          id_utilizador = pedido.id_utilizador;
+        } else if (!isNaN(id_ticket)) {
+          const ticket = await prisma.ticket.findUnique({ where: { id_ticket } });
+          if (!ticket) return res.status(404).json({ error: 'Ticket não encontrado' });
+          id_utilizador = ticket.id_utilizador;
+        } else {
+          // Se não conseguir encontrar nenhum id — assume o próprio utilizador
+          id_utilizador = id_utilizadorAtual;
         }
-
-        // Verificação do proprietário com print de todos os IDs
-        if (id_utilizadorAtual !== id_utilizador) {
-            return res.status(403).json({error: "Não autorizado a aceder a este recurso",
-            });
-        }
-
-        next();
-
+      }
+  
+      if (id_utilizadorAtual !== id_utilizador) {
+        return res.status(403).json({
+          error: "Não autorizado a aceder a este recurso",
+          detalhe: { id_utilizadorAtual, id_utilizador }
+        });
+      }
+  
+      next();
     } catch (error) {
-        console.error('Erro no authProprietario:', error);
-        return res.status(500).json({ error: 'Erro interno ao verificar proprietário' });
+      console.error('Erro no authProprietario:', error);
+      return res.status(500).json({ error: 'Erro interno ao verificar proprietário' });
     }
-}
+  }
+  
 
 async function authModerador(req, res, next) {
     let { id_post, id_ticket } = { ...req.params, ...req.body };

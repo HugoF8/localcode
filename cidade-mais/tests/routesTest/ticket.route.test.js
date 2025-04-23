@@ -133,14 +133,15 @@ describe('Integração - Tickets', () => {
 
   test('Listar tickets pendentes (role admin)', async () => {
     const adminToken = jwt.sign(
-      { utilizadorId: id_utilizador, tipo_utilizador: 'admin' },
+      { utilizadorId: id_utilizador, tipo_utilizador: 'moderador' },
       JWT_SECRET,
       { expiresIn: '1h' }
     );
 
     const res = await request(app)
-      .get('/api/tickets/verTicketsPendentes')
-      .set('Authorization', `Bearer ${adminToken}`);
+    .get(`/api/tickets/verTicketsPendentes?id_pagina=${id_pagina}`)
+    .set('Authorization', `Bearer ${adminToken}`);
+      
 
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);

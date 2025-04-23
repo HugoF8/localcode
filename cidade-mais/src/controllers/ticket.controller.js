@@ -23,31 +23,38 @@ async function getAllTickets(req, res) {
     }
 }
 
-// Buscar todos os tickets pendentes
+
 async function getTicketPendente(req, res) {
+    const { id_pagina } = req.query; 
     try {
-        const tickets = await ticketService.getTicketPendente(id_pagina);
-        res.json(tickets);
+      if (!id_pagina) {
+        return res.status(400).json({ error: "id_pagina não fornecido" });
+      }
+      const tickets = await ticketService.getTicketPendente(Number(id_pagina));
+      res.json(tickets);
     } catch (error) {
-        console.error("Erro ao buscar tickets pendentes:", error); // Mostra o erro real no terminal
-        res.status(500).json({ error: "Erro ao buscar tickets pendentes", detalhes: error.message });
+      console.error("Erro ao buscar tickets pendentes:", error);
+      res.status(500).json({ error: "Erro ao buscar tickets pendentes", detalhes: error.message });
     }
-}
+  }
+
+
 
 async function getTicketAberto(req, res) {
-    const id_utilizador = req.utilizador.utilizadorId;
     try {
-        const tickets = await ticketService.getTicketAberto(id_utilizador);
-        res.json(tickets);
+      const id_utilizador = req.utilizador.utilizadorId;
+      const tickets = await ticketService.getTicketAberto(id_utilizador);
+      res.json(tickets);
     } catch (error) {
-        console.error("Erro ao buscar tickets abertos:", error); // Mostra o erro real no terminal
-        res.status(500).json({ error: "Erro ao buscar tickets abertos", detalhes: error.message });
+      console.error("Erro ao buscar tickets abertos:", error);
+      res.status(500).json({ error: "Erro ao buscar tickets abertos", detalhes: error.message });
     }
-}
+  }
+
 
 async function getTicketFechado(req, res) {
-    const id_utilizador = req.utilizador.utilizadorId;
     try {
+        const id_utilizador = req.utilizador.utilizadorId;
         const tickets = await ticketService.getTicketFechado(id_utilizador);
         res.json(tickets);
     } catch (error) {
