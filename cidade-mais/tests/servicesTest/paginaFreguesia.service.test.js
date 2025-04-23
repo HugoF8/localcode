@@ -1,10 +1,12 @@
-const mockFind = jest.fn(); // cria o mock antes
+const mockFind = jest.fn();
+const mockCreate = jest.fn();
 
 jest.mock('@prisma/client', () => {
     return {
       PrismaClient: jest.fn().mockImplementation(() => ({
         pagina_freguesia: {
           findMany: mockFind,
+          create: mockCreate
         },
       })),
     };
@@ -36,5 +38,37 @@ describe('pesquisaPagina', () => {
     });
 
     expect(result).toEqual(mockReturn);
+  });
+});
+
+describe('createPaginaFreguesia', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('deve criar uma nova página de freguesia com os dados fornecidos', async () => {
+    const dadosPagina = {
+      id_morada: 1,
+      id_utilizador: 2,
+      nome_pagina: 'Freguesia de Teste',
+      descricao: 'Uma freguesia de exemplo para teste.',
+      foto_perfil: 'imagens/perfil.png',
+      foto_capa: 'imagens/capa.png'
+    };
+
+    const paginaCriada = {
+      id_pagina: 10,
+      ...dadosPagina
+    };
+
+    mockCreate.mockResolvedValue(paginaCriada);
+
+    const result = await createPaginaFreguesia(dadosPagina);
+
+    expect(mockCreate).toHaveBeenCalledWith({
+      data: dadosPagina
+    });
+
+    expect(result).toEqual(paginaCriada);
   });
 });
