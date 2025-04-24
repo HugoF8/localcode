@@ -1,5 +1,8 @@
 const mockCreate = jest.fn();
 const mockFind = jest.fn();
+const mockUpdate = jest.fn();
+const mockFindUnique = jest.fn();
+const mockCreateNotificacao = jest.fn();
 
 const mockestadoticket = {
     aberto: 'aberto',
@@ -7,20 +10,36 @@ const mockestadoticket = {
     pendente: 'pendente',
   };
 
+  const mockTipoNotificacao = {
+    Aprovado: 'Aprovado',
+    Recusado: 'Recusado',
+    Validacao: 'Validacao', 
+    Verificacao: 'Verificacao',
+    Sucesso: 'Sucesso',
+    Insucesso: 'Insucesso'
+};
+
 jest.mock('@prisma/client', () => {
     return {
       PrismaClient: jest.fn().mockImplementation(() => ({
         ticket: {
           create: mockCreate,
           findMany: mockFind,
+          update: mockUpdate,
+          findUnique: mockFindUnique,
         },
+        notificacao: {
+          create: mockCreateNotificacao,
+        }
       })),
       estado_ticket: mockestadoticket,
+      tipo_notificacao: mockTipoNotificacao
     };
 });
 
+const { tipo_notificacao } = require('@prisma/client');
 //const { estado_ticket, funcao_moderador, tipo_notificacao } = require('@prisma/client');
-const { createTicket, getTicketPendente, getTicketFechado, getTicketAberto} = require('../../src/services/ticket.service');
+const { createTicket, getTicketPendente, getTicketFechado, getTicketAberto, atualizarEstadoTicket, alterarTicket} = require('../../src/services/ticket.service');
 
 describe('createTicket', () => {
     it('deve chamar prisma.ticket.create com os dados corretos', async () => {
@@ -105,4 +124,86 @@ describe('getTicketFechado', () => {
       expect(result).toContainEqual(mockReturn[0]);
       expect(result).not.toContainEqual(mockReturn[1]);
     });
+});
+
+describe('atualizarEstadoTicket', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('atualiza o estado para "aberto" e envia notificação "Aprovado"', async () => {
+    const idTicket = 5;
+    const mockTicket = { id_ticket: idTicket, id_utilizador: 10 };
+    const mockUpdatedTicket = { id_ticket: idTicket, estado_ticket: 'aberto' };
+
+    mockUpdate.mockResolvedValue(mockUpdatedTicket);
+    mockFindUnique.mockResolvedValue(mockTicket);
+
+    const result = await atualizarEstadoTicket(idTicket, true);
+
+    expect(mockUpdate).toHaveBeenCalledWith({
+      where: { id_ticket: idTicket },
+      data: { estado_ticket: 'aberto' },
+    });
+
+    expect(mockFindUnique).toHaveBeenCalledWith({ where: { id_ticket: idTicket } });
+
+    expect(mockCreateNotificacao).toHaveBeenCalledWith({
+      data:{
+      id_utilizador: mockTicket.id_utilizador,
+      id_ticket: idTicket,
+      tipo_notificacao: mockTipoNotificacao.Aprovado,
+      }
+    });
+
+    expect(result).toEqual(mockUpdatedTicket);
+  });
+
+  it('atualiza o estado para "fechado" e envia notificação "Recusado"', async () => {
+    const idTicket = 5;
+    const mockTicket = { id_ticket: idTicket, id_utilizador: 20 };
+    const mockUpdatedTicket = { id_ticket: idTicket, estado_ticket: 'fechado' };
+
+    mockUpdate.mockResolvedValue(mockUpdatedTicket);
+    mockFindUnique.mockResolvedValue(mockTicket);
+
+    const result = await atualizarEstadoTicket(idTicket, false);
+
+    expect(mockUpdate).toHaveBeenCalledWith({
+      where: { id_ticket: idTicket },
+      data: { estado_ticket: 'fechado' },
+    });
+
+    expect(mockCreateNotificacao).toHaveBeenCalledWith({
+      data:{
+      id_utilizador: mockTicket.id_utilizador,
+      id_ticket: idTicket,
+      tipo_notificacao: mockTipoNotificacao.Recusado,
+      }
+    });
+
+    expect(result).toEqual(mockUpdatedTicket);
+  });
+});
+
+describe('alterarTicket', () => {
+  it('altera a descrição do problema de um ticket', async () => {
+    const idTicket = 3;
+    const novaDescricao = "Novo problema aqui";
+    const mockTicket = {
+      id_ticket: idTicket,
+      descricao_problema: novaDescricao,
+    };
+
+    mockUpdate.mockResolvedValue(mockTicket);
+
+    const result = await alterarTicket(idTicket, novaDescricao);
+
+    expect(mockUpdate).toHaveBeenCalledWith({
+      where: { id_ticket: idTicket },
+      data: { descricao_problema: novaDescricao },
+    });
+
+    expect(result).toEqual(mockTicket);
+  });
 });

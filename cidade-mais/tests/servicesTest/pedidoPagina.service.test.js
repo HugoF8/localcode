@@ -49,7 +49,7 @@ jest.mock('@prisma/client', () => {
 
 // Import here ensures it's after the mock
 const { estado_pedido, tipo_notificacao } = require('@prisma/client');
-const { atualizarEstadoPedido, getPedidoPendente, getPedidoAprovado, getPedidoReprovado } = require('../../src/services/pedidoPagina.service');
+const { atualizarEstadoPedido, getPedidoPendente, getPedidoAprovado, getPedidoReprovado, createPedidoPagina } = require('../../src/services/pedidoPagina.service');
 
 describe('atualizarEstadoPedido', () => {
   beforeEach(() => {
@@ -227,4 +227,48 @@ describe('getPedidoReprovado', () => {
     expect(result).not.toContainEqual(mockReturn[2]);
     expect(result).not.toContainEqual(mockReturn[0]);
   })   
+});
+
+
+
+describe('createPedidoPagina', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('deve criar um pedido de página com os dados corretos', async () => {
+    const mockData = {
+      id_utilizador: 1,
+      id_morada: 5,
+      dados_comprovacao: 'documento.pdf',
+      nomefreguesia: 'Freguesia Central',
+    };
+
+    const mockResposta = {
+      ...mockData,
+      id_pedido: 123,
+      estado_pedido: 'pendente',
+      data_pedido: new Date(),
+    };
+
+    mockCreate.mockResolvedValue(mockResposta);
+
+    const result = await createPedidoPagina(mockData);
+
+    expect(mockCreate).toHaveBeenCalledWith({ data: mockData });
+    expect(result).toEqual(mockResposta);
+  });
+
+  it('lança erro se o pedido não puder ser criado', async () => {
+    const mockData = {
+      id_utilizador: 1,
+      id_morada: 5,
+      dados_comprovacao: 'documento.pdf',
+      nomefreguesia: 'Freguesia Central',
+    };
+
+    mockCreate.mockRejectedValue(new Error('Erro ao criar pedido'));
+
+    await expect(createPedidoPagina(mockData)).rejects.toThrow('Erro ao criar pedido');
+  });
 });
