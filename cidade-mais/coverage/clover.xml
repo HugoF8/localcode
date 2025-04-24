@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
+<coverage generated="1745422259015" clover="3.2.0">
+  <project timestamp="1745422259015" name="All files">
+    <metrics statements="748" coveredstatements="457" conditionals="102" coveredconditionals="66" methods="111" coveredmethods="52" elements="961" coveredelements="575" complexity="0" loc="748" ncloc="748" packages="6" files="43" classes="43"/>
+    <package name="src">
+      <metrics statements="46" coveredstatements="39" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="0"/>
+      <file name="app.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\app.js">
+=======
 <coverage generated="1745422367542" clover="3.2.0">
   <project timestamp="1745422367542" name="All files">
     <metrics statements="748" coveredstatements="457" conditionals="102" coveredconditionals="66" methods="111" coveredmethods="52" elements="961" coveredelements="575" complexity="0" loc="748" ncloc="748" packages="6" files="43" classes="43"/>
     <package name="src">
       <metrics statements="46" coveredstatements="39" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="0"/>
       <file name="app.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\app.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="46" coveredstatements="39" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -56,7 +65,11 @@
     </package>
     <package name="src.config">
       <metrics statements="8" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+<<<<<<< HEAD
+      <file name="multerConfig.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\config\multerConfig.js">
+=======
       <file name="multerConfig.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\config\multerConfig.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="8" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -70,7 +83,11 @@
     </package>
     <package name="src.controllers">
       <metrics statements="333" coveredstatements="82" conditionals="24" coveredconditionals="3" methods="50" coveredmethods="12"/>
+<<<<<<< HEAD
+      <file name="autent.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\autent.controller.js">
+=======
       <file name="autent.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\autent.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="3" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
@@ -85,7 +102,11 @@
         <line num="19" count="1" type="stmt"/>
         <line num="24" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="comentario.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\comentario.controller.js">
+=======
       <file name="comentario.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\comentario.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="21" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -109,7 +130,11 @@
         <line num="37" count="0" type="stmt"/>
         <line num="41" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="moderadorPagina.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\moderadorPagina.controller.js">
+=======
       <file name="moderadorPagina.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\moderadorPagina.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="12" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -124,7 +149,11 @@
         <line num="19" count="0" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="morada.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\morada.controller.js">
+=======
       <file name="morada.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\morada.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="12" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -139,7 +168,11 @@
         <line num="19" count="0" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="notificacao.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\notificacao.controller.js">
+=======
       <file name="notificacao.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\notificacao.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="20" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -162,7 +195,11 @@
         <line num="36" count="0" type="stmt"/>
         <line num="43" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="paginaFreguesia.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\paginaFreguesia.controller.js">
+=======
       <file name="paginaFreguesia.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\paginaFreguesia.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="18" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -183,7 +220,11 @@
         <line num="31" count="0" type="stmt"/>
         <line num="35" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="pedidoPagina.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\pedidoPagina.controller.js">
+=======
       <file name="pedidoPagina.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\pedidoPagina.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="47" coveredstatements="2" conditionals="4" coveredconditionals="0" methods="7" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -233,7 +274,11 @@
         <line num="96" count="0" type="stmt"/>
         <line num="103" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="perfil.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\perfil.controller.js">
+=======
       <file name="perfil.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\perfil.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="18" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
@@ -254,7 +299,11 @@
         <line num="33" count="0" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="post.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\post.controller.js">
+=======
       <file name="post.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\post.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="59" coveredstatements="2" conditionals="6" coveredconditionals="0" methods="9" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
@@ -316,7 +365,11 @@
         <line num="118" count="0" type="stmt"/>
         <line num="122" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="respostaTicket.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\respostaTicket.controller.js">
+=======
       <file name="respostaTicket.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\respostaTicket.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="20" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
@@ -339,7 +392,11 @@
         <line num="38" count="0" type="stmt"/>
         <line num="45" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="seguidoresPagina.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\seguidoresPagina.controller.js">
+=======
       <file name="seguidoresPagina.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\seguidoresPagina.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="22" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -364,7 +421,11 @@
         <line num="40" count="0" type="stmt"/>
         <line num="44" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="ticket.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\ticket.controller.js">
+=======
       <file name="ticket.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\ticket.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="53" coveredstatements="36" conditionals="6" coveredconditionals="3" methods="7" coveredmethods="7"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -420,7 +481,11 @@
         <line num="108" count="0" type="stmt"/>
         <line num="116" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="utilizador.controller.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\controllers\utilizador.controller.js">
+=======
       <file name="utilizador.controller.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\controllers\utilizador.controller.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="19" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -445,7 +510,11 @@
     </package>
     <package name="src.middlewares">
       <metrics statements="82" coveredstatements="82" conditionals="38" coveredconditionals="37" methods="6" coveredmethods="6"/>
+<<<<<<< HEAD
+      <file name="autent.middleware.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\middlewares\autent.middleware.js">
+=======
       <file name="autent.middleware.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\middlewares\autent.middleware.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="16" coveredstatements="16" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -464,7 +533,11 @@
         <line num="27" count="3" type="stmt"/>
         <line num="32" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="verificacoes.middleware.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\middlewares\verificacoes.middleware.js">
+=======
       <file name="verificacoes.middleware.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\middlewares\verificacoes.middleware.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="66" coveredstatements="66" conditionals="34" coveredconditionals="33" methods="3" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -536,7 +609,11 @@
     </package>
     <package name="src.routes">
       <metrics statements="127" coveredstatements="127" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+<<<<<<< HEAD
+      <file name="autent.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\autent.route.js">
+=======
       <file name="autent.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\autent.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -545,7 +622,11 @@
         <line num="6" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="comentario.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\comentario.route.js">
+=======
       <file name="comentario.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\comentario.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -558,7 +639,11 @@
         <line num="12" count="2" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="moderdorPagina.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\moderdorPagina.route.js">
+=======
       <file name="moderdorPagina.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\moderdorPagina.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -569,7 +654,11 @@
         <line num="10" count="2" type="stmt"/>
         <line num="12" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="morada.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\morada.route.js">
+=======
       <file name="morada.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\morada.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -580,7 +669,11 @@
         <line num="10" count="2" type="stmt"/>
         <line num="12" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="notificacao.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\notificacao.route.js">
+=======
       <file name="notificacao.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\notificacao.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -592,7 +685,11 @@
         <line num="11" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="paginaFreguesia.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\paginaFreguesia.route.js">
+=======
       <file name="paginaFreguesia.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\paginaFreguesia.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -604,7 +701,11 @@
         <line num="11" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="pedidoPagina.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\pedidoPagina.route.js">
+=======
       <file name="pedidoPagina.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\pedidoPagina.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -618,7 +719,11 @@
         <line num="12" count="2" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="perfil.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\perfil.route.js">
+=======
       <file name="perfil.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\perfil.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -631,7 +736,11 @@
         <line num="13" count="2" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="post.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\post.route.js">
+=======
       <file name="post.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\post.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -650,7 +759,11 @@
         <line num="18" count="2" type="stmt"/>
         <line num="20" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="respostaTicket.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\respostaTicket.route.js">
+=======
       <file name="respostaTicket.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\respostaTicket.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -662,7 +775,11 @@
         <line num="11" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="seguidoresPagina.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\seguidoresPagina.route.js">
+=======
       <file name="seguidoresPagina.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\seguidoresPagina.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -674,7 +791,11 @@
         <line num="11" count="2" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="ticket.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\ticket.route.js">
+=======
       <file name="ticket.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\ticket.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -691,7 +812,11 @@
         <line num="16" count="2" type="stmt"/>
         <line num="18" count="2" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="utilizador.route.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\routes\utilizador.route.js">
+=======
       <file name="utilizador.route.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\routes\utilizador.route.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -705,7 +830,11 @@
     </package>
     <package name="src.services">
       <metrics statements="152" coveredstatements="122" conditionals="36" coveredconditionals="23" methods="51" coveredmethods="34"/>
+<<<<<<< HEAD
+      <file name="autent.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\autent.service.js">
+=======
       <file name="autent.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\autent.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -725,7 +854,11 @@
         <line num="59" count="1" type="stmt"/>
         <line num="68" count="4" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="comentario.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\comentario.service.js">
+=======
       <file name="comentario.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\comentario.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -734,7 +867,11 @@
         <line num="15" count="1" type="stmt"/>
         <line num="22" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="moderadorPagina.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\moderadorPagina.service.js">
+=======
       <file name="moderadorPagina.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\moderadorPagina.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -742,7 +879,11 @@
         <line num="11" count="0" type="stmt"/>
         <line num="14" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="morada.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\morada.service.js">
+=======
       <file name="morada.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\morada.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -750,7 +891,11 @@
         <line num="11" count="0" type="stmt"/>
         <line num="14" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="notificacao.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\notificacao.service.js">
+=======
       <file name="notificacao.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\notificacao.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="1" count="7" type="stmt"/>
         <line num="2" count="7" type="stmt"/>
@@ -759,7 +904,11 @@
         <line num="16" count="1" type="stmt"/>
         <line num="23" count="7" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="paginaFreguesia.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\paginaFreguesia.service.js">
+=======
       <file name="paginaFreguesia.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\paginaFreguesia.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -768,7 +917,11 @@
         <line num="15" count="1" type="stmt"/>
         <line num="25" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="pedidoPagina.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\pedidoPagina.service.js">
+=======
       <file name="pedidoPagina.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\pedidoPagina.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="19" coveredstatements="15" conditionals="8" coveredconditionals="7" methods="7" coveredmethods="4"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -790,7 +943,11 @@
         <line num="80" count="2" type="stmt"/>
         <line num="83" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="perfil.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\perfil.service.js">
+=======
       <file name="perfil.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\perfil.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="9" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -802,7 +959,11 @@
         <line num="28" count="0" type="stmt"/>
         <line num="33" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="post.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\post.service.js">
+=======
       <file name="post.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\post.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="38" coveredstatements="30" conditionals="16" coveredconditionals="10" methods="10" coveredmethods="7"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -843,7 +1004,11 @@
         <line num="155" count="0" type="stmt"/>
         <line num="161" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="respostaTicket.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\respostaTicket.service.js">
+=======
       <file name="respostaTicket.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\respostaTicket.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="11" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -857,7 +1022,11 @@
         <line num="32" count="1" type="stmt"/>
         <line num="39" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="seguidoresPagina.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\seguidoresPagina.service.js">
+=======
       <file name="seguidoresPagina.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\seguidoresPagina.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -866,7 +1035,11 @@
         <line num="16" count="1" type="stmt"/>
         <line num="24" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="ticket.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\ticket.service.js">
+=======
       <file name="ticket.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\ticket.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="7"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -886,7 +1059,11 @@
         <line num="70" count="1" type="stmt"/>
         <line num="73" count="3" type="stmt"/>
       </file>
+<<<<<<< HEAD
+      <file name="utilizador.service.js" path="C:\Users\ASUS\source\repos\localcode\cidade-mais\src\services\utilizador.service.js">
+=======
       <file name="utilizador.service.js" path="C:\Users\Gonçalo\localcode-1\cidade-mais\src\services\utilizador.service.js">
+>>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
