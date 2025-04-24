@@ -88,43 +88,51 @@ async function authProprietario(req, res, next) {
   }
   
 
-async function authModerador(req, res, next) {
-    let { id_post, id_ticket } = { ...req.params, ...req.body };
+  async function authModerador(req, res, next) {
     const id_utilizador = req.utilizador.utilizadorId;
-
-    let postick = null;
-
-    try {
-        if (id_post != null) {
-            id_post = Number(id_post);
-            postick = await prisma.post.findUnique({ where: { id_post } });
-            if (!postick) return res.status(404).json({ error: 'Post não encontrado' });
-        } else if (id_ticket != null) {
-            id_ticket = Number(id_ticket);
-            postick = await prisma.ticket.findUnique({ where: { id_ticket } });
-            if (!postick) return res.status(404).json({ error: 'Ticket não encontrado' });
-        } else {
-            return res.status(400).json({ error: 'Nenhum identificador fornecido' });
-        }
-
-        // Verifica se o utilizador é moderador da página associada
-        const administrador = await prisma.moderador_pagina.findFirst({
-            where: {
-              id_utilizador: id_utilizador,
-              id_pagina: postick.id_pagina
-            }
-          });
-
-        if (!administrador) {
-            return res.status(403).json({error: "Não autorizado a aceder a este recurso",id_utilizador,id_pagina: postick.id_pagina});
-        }
-
-        next();
-    } catch (error) {
-        console.error('Erro no authModerador:', error);
-        return res.status(500).json({ error: 'Erro interno ao verificar permissões de moderação' });
+    let id_pagina;
+  
+    // 1) primeiro, se vier id_pagina na URL, use-o
+    if (req.params.id_pagina) {
+      id_pagina = Number(req.params.id_pagina);
+      if (isNaN(id_pagina)) {
+        return res.status(400).json({ error: 'id_pagina inválido' });
+      }
+    } else {
+      // 2) caso contrário, caia no seu fluxo atual de id_post / id_ticket
+      let { id_post, id_ticket } = { ...req.params, ...req.body };
+      let record;
+  
+      if (id_post != null) {
+        id_post = Number(id_post);
+        record = await prisma.post.findUnique({ where: { id_post } });
+        if (!record) return res.status(404).json({ error: 'Post não encontrado' });
+        id_pagina = record.id_pagina;
+      } else if (id_ticket != null) {
+        id_ticket = Number(id_ticket);
+        record = await prisma.ticket.findUnique({ where: { id_ticket } });
+        if (!record) return res.status(404).json({ error: 'Ticket não encontrado' });
+        id_pagina = record.id_pagina;
+      } else {
+        return res.status(400).json({ error: 'Nenhum identificador fornecido' });
+      }
     }
-}
+  
+    // 3) Verifica se o user é moderador desta página
+    const administrador = await prisma.moderador_pagina.findFirst({
+      where: {
+        id_utilizador,
+        id_pagina
+      }
+    });
+    if (!administrador) {
+      return res.status(403).json({
+        error: `Não autorizado a aceder a este recurso (não é moderador da página ${id_pagina}).`
+      });
+    }
+  
+    next();
+  }
 
 
 
