@@ -12,6 +12,7 @@ async function getAllPerfil() {
 }
 
 async function atualizarFotoPerfil(id_utilizador, caminhoImagem) {
+    
     // Primeiro vamos buscar o ID único do perfil
     const perfil = await prisma.perfil.findFirst({
         where: { id_utilizador }, // este campo tem UNIQUE?

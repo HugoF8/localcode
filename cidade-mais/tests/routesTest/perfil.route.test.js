@@ -75,8 +75,8 @@ describe('Integração - Perfil', () => {
         const res = await request(app)
             .patch('/api/perfil/foto-perfil')
             .set('Authorization', `Bearer ${token}`)
-            .attach('imagem', path.resolve(__dirname, 'localcode/cidade-mais/tests/imagens/imagemteste.jpg'));
-
+            .attach('imagem', path.resolve(__dirname, '../imagens/imagemteste.jpg'));
+    
         expect(res.statusCode).toBe(200);
         expect(res.body).toHaveProperty('foto_perfil');
         expect(res.body.foto_perfil).toMatch(/uploads/);
@@ -104,7 +104,7 @@ describe('Integração - Perfil', () => {
         const res = await request(app)
             .patch('/api/perfil/foto-perfil')
             .set('Authorization', `Bearer ${tokenFake}`)
-            .attach('imagem', path.resolve(__dirname, 'localcode/cidade-mais/tests/imagens/imagemteste.jpg'));
+            .attach('imagem', path.resolve(__dirname, '../imagens/imagemteste.jpg'));
 
         expect(res.statusCode).toBe(500);
         expect(res.body).toHaveProperty('error');

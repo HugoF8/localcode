@@ -21,23 +21,27 @@ async function getAllNotificacao(req, res) {
 }
 
 async function getNotificacaoPorUtilizador(req, res) {
+    // Extrai o parâmetro e converte para número
+    const idParam = req.params.id_utilizador;
+    const id_utilizador = Number(idParam);
 
-    const { id_utilizador } = req.params;
-
-    if (!id_utilizador) {
-        return res.status(400).json({ mensagem: "Parâmetro 'id_utilizador' é obrigatório." });
+    // Se não for um número válido, retorna 400
+    if (isNaN(id_utilizador)) {
+        return res.status(400).json({ mensagem: "Parâmetro 'id_utilizador' inválido." });
     }
 
     try {
-        const notificacao = await notificacaoService.getNotificacaoPorUtilizador(id_utilizador);
-        res.json(notificacao);
+        // Chama o service já com o ID numérico
+        const notificacoes = await notificacaoService.getNotificacaoPorUtilizador(id_utilizador);
+        return res.json(notificacoes);
     } catch (error) {
         console.error("Erro ao buscar notificações por utilizador:", error);
-        res.status(500).json({
+        return res.status(500).json({
             error: "Erro ao buscar notificações por utilizador",
             detalhes: error.message
         });
     }
 }
+
 
 module.exports = { createNotificacao, getAllNotificacao, getNotificacaoPorUtilizador };

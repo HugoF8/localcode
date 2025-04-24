@@ -84,7 +84,8 @@ async function alterarPedidoPagina(req, res) {
     }
 
     try {
-        const pedidoAlterado = await alterarPedidoPagina(idPedido, dados_comprovacao );
+        const pedidoAlterado = await pedidoPaginaService.alterarPedidoPagina(idPedido, dados_comprovacao);
+
 
         return res.status(200).json({
             mensagem: "Dados de comprovação do pedido alterados com sucesso.",

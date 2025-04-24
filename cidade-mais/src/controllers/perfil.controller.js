@@ -24,13 +24,23 @@ async function getAllPerfil(req, res) {
 
 async function atualizarFotoPerfil(req, res) {
     try {
-        const userId = req.utilizador.utilizadorId; // <- este está certo
+        const userId = req.utilizador.utilizadorId;
+
+        console.log('ID do utilizador para atualizar foto:', userId); // <-- adiciona aqui
+
+        if (!req.file) {
+            return res.status(400).json({ error: 'Nenhuma imagem foi enviada.' });
+        }
+
         const imagePath = req.file.path;
 
         const perfilAtualizado = await perfilService.atualizarFotoPerfil(userId, imagePath);
         res.status(200).json(perfilAtualizado);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error("Erro ao atualizar a foto do perfil:", err);
+        res.status(500).json({ error: 'Erro interno ao atualizar a foto', detalhes: err.message });
     }
 }
+
+
 module.exports = { createPerfil, getAllPerfil, atualizarFotoPerfil };
