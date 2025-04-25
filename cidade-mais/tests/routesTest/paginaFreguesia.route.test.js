@@ -118,6 +118,21 @@ describe('Integração - Página Freguesia', () => {
     expect(res.body.length).toBe(0);
   });
 
+  test('Falhar criar página com nome vazio', async () => {
+    const res = await request(app)
+      .post('/api/paginaFreguesias/criarPaginaFreguesia')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        nome_pagina: "   ",
+        descricao: "Descrição inválida",
+        id_morada: morada.id_morada,
+        id_utilizador: utilizador.id_utilizador
+      });
+  
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toHaveProperty('error', 'O nome da página é obrigatório');
+  });
+  
   test('Falhar listar sem token', async () => {
     const res = await request(app)
       .get('/api/paginaFreguesias/verPaginaFreguesia');

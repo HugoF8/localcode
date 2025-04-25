@@ -19,5 +19,14 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage });
+// Validação do tipo de ficheiro: apenas imagens
+const fileFilter = (req, file, cb) => {
+    if (!file.mimetype.startsWith('image/')) {
+        return cb(new Error('Apenas ficheiros de imagem são permitidos'), false);
+    }
+    cb(null, true);
+};
+
+const upload = multer({ storage, fileFilter });
+
 module.exports = upload;

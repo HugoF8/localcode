@@ -109,4 +109,16 @@ describe('Integração - Perfil', () => {
         expect(res.statusCode).toBe(500);
         expect(res.body).toHaveProperty('error');
     });
+    
+    test('Falhar ao fazer upload com ficheiro inválido', async () => {
+        const res = await request(app)
+            .patch('/api/perfil/foto-perfil')
+            .set('Authorization', `Bearer ${token}`)
+            .attach('imagem', path.resolve(__dirname, '../imagens/teste.txt'));
+    
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toHaveProperty('error');
+    });
+
+
 });
