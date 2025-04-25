@@ -15,6 +15,15 @@ async function createNotificacao(data) {
       data: dataNotificacao
     } = data;
   
+    const relacoes = [id_post, id_ticket, id_pagina].filter(id => id != null);
+  if (relacoes.length > 1) {
+    const err = new Error(
+      "Só podes associar a notificação a UM destes: post, ticket ou página."
+    );
+    err.statusCode = 400;
+    throw err;
+  }
+
     const createData = {
       tipo_notificacao,
       ...(conteudo_notificacao && { conteudo_notificacao }),
@@ -34,8 +43,15 @@ async function createNotificacao(data) {
     if (id_pagina) {
       createData.pagina_freguesia = { connect: { id_pagina } };
     }
-  
-    return prisma.notificacao.create({ data: createData });
+
+    return prisma.notificacao.create({
+      data: createData,
+      include: {
+        post: true,
+        ticket: true,
+        pagina_freguesia: true
+      }
+    });
   }
 
 // Buscar todos os Notificacao
@@ -50,5 +66,7 @@ async function getNotificacaoPorUtilizador(id_utilizador) {
         }
     });
 }
+
+
 
 module.exports = { createNotificacao, getAllNotificacao, getNotificacaoPorUtilizador };

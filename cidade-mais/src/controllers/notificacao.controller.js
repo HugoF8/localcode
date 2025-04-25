@@ -4,11 +4,14 @@ async function createNotificacao(req, res) {
     try {
         const notificacao = await notificacaoService.createNotificacao(req.body);
         res.status(201).json(notificacao);
-    } catch (error) {
-        console.error("Erro ao criar notificacao:", error); // Mostra o erro real no terminal
-        res.status(500).json({ error: "Erro ao criar notificacao", detalhes: error.message });
+      } catch (error) {
+        if (error.statusCode === 400) {
+          return res.status(400).json({ error: error.message });
+        }
+        console.error("Erro ao criar notificacao:", error);
+        res.status(500).json({ error: "Erro ao criar notificacao" });
+      }
     }
-}
 
 async function getAllNotificacao(req, res) {
     try {

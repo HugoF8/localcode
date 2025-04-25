@@ -13,7 +13,8 @@ let pedido;
 beforeAll(async () => {
     await prisma.pedido_pagina.deleteMany();
     await prisma.utilizador.deleteMany();
-    await prisma.morada.deleteMany();
+    await prisma.notificacao.deleteMany();
+    await prisma.pagina_freguesia.deleteMany();
 
     const morada = await prisma.morada.create({
         data: {
@@ -70,6 +71,33 @@ afterAll(async () => {
 });
 
 describe('Integração - Pedido Página', () => {
+
+    test('Atualizar estado do pedido (admin) cria página e notificação', async () => {
+        const res = await request(app)
+          .patch(`/api/pedidosPagina/atualizarEstadoPedido/${pedido.id_pedido}`)
+          .set('Authorization', `Bearer ${tokenAdmin}`)
+          .send({ bol: true });
+      
+        expect(res.statusCode).toBe(200);
+        expect(res.body.estado_pedido).toBe('aprovado');
+      
+        // 1) Confirma que a pagina_freguesia foi criada
+        const paginas = await prisma.pagina_freguesia.findMany({
+          where: { nome_pagina: pedido.nomefreguesia }
+        });
+        expect(paginas.length).toBe(1);
+        expect(paginas[0].id_utilizador).toBe(utilizadorUser.id_utilizador);
+      
+        // 2) Confirma que a notificação é aprovado
+        const notifs = await prisma.notificacao.findMany({
+            where: {
+              id_utilizador: utilizadorUser.id_utilizador,
+              tipo_notificacao: 'Aprovado'
+            }
+          });
+        expect(notifs.length).toBe(1);
+        expect(notifs[0].tipo_notificacao).toBe('Aprovado');
+      });
 
     test('Criar pedido de página', async () => {
         const res = await request(app)
