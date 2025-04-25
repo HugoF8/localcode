@@ -98,7 +98,7 @@ describe('Integração – Notificação', () => {
 
   test('Falhar buscar por utilizador sem param', async () => {
     const res = await request(app)
-      .get('/api/notificacao/verNotificacaoPorUtilizador/') // faltou ID
+      .get('/api/notificacao/verNotificacaoPorUtilizador/')
       .set('Authorization', `Bearer ${token}`);
 
     expect(res.statusCode).toBe(404);

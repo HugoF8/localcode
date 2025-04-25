@@ -51,13 +51,13 @@ describe('Integração – Morada', () => {
         freguesia: "Freguesia Teste",
         cidade: "Cidade Teste",
         rua: "Rua 123",
-        codigo_postal: 1000
+        codigo_postal: 1234-678
       });
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty('id_morada');
     expect(res.body.cidade).toBe("Cidade Teste");
-    expect(res.body.codigo_postal).toBe(1000);
+    expect(res.body.codigo_postal).toBe(1234-678);
   });
 
   test('Listar todas as moradas', async () => {
@@ -68,6 +68,46 @@ describe('Integração – Morada', () => {
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBeGreaterThanOrEqual(1);
+  });
+
+  test('Falhar ao criar morada sem cidade', async () => {
+    const res = await request(app)
+      .post('/api/moradas/criarMorada')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ codigo_postal: 1234 });
+  
+    expect(res.statusCode).toBeGreaterThanOrEqual(400);
+  });
+
+  test('Falhar ao criar morada com código postal inválido', async () => {
+    const res = await request(app)
+      .post('/api/moradas/criarMorada')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ cidade: 'Cidade', codigo_postal: "abc" });
+  
+    expect(res.statusCode).toBeGreaterThanOrEqual(400);
+  });
+  
+  test('Criar morada sem campos opcionais define rua e freguesia como null', async () => {
+    const payload = {
+      
+    };
+  
+    const res = await request(app)
+      .post('/api/moradas/criarMorada')
+      .set('Authorization', `Bearer ${token}`)
+      .send({cidade: 'Cidade2', codigo_postal: 1234-568});
+  
+    expect(res.statusCode).toBe(201);
+  
+    // campos obrigatórios
+    expect(res.body).toHaveProperty('id_morada');
+    expect(res.body.cidade).toBe('Cidade2');
+    expect(res.body.codigo_postal).toBe(1234-568);
+  
+    // campos opcionais devem vir como null
+    expect(res.body).toHaveProperty('rua', null);
+    expect(res.body).toHaveProperty('freguesia', null);
   });
 
   test('Falhar criar morada sem token', async () => {

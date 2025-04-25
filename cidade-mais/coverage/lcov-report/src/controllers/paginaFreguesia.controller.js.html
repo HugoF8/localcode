@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/18</span>
+                <span class='fraction'>12/18</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/18</span>
+                <span class='fraction'>12/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -97,22 +97,12 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -120,45 +110,55 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">const paginaFregusiaService = require('../services/paginaFreguesia.service');
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span></td><td class="text"><pre class="prettyprint lang-js">const paginaFregusiaService = require('../services/paginaFreguesia.service');
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >createPaginaFreguesia(</span>req, res) {
-<span class="cstat-no" title="statement not covered" >    try {</span>
-        const pagina = <span class="cstat-no" title="statement not covered" >await paginaFregusiaService.createPaginaFreguesia(req.body);</span>
-<span class="cstat-no" title="statement not covered" >        res.status(201).json(pagina);</span>
+async function createPaginaFreguesia(req, res) {
+    try {
+        const pagina = await paginaFregusiaService.createPaginaFreguesia(req.body);
+        res.status(201).json(pagina);
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >        console.error("Erro ao criar pagina:", error); </span>// Mostra o erro real no terminal
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: "Erro ao criar pagina", detalhes: error.message });</span>
     }
 }
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >getAllPaginaFreguesia(</span>req, res) {
-<span class="cstat-no" title="statement not covered" >    try {</span>
-        const paginas = <span class="cstat-no" title="statement not covered" >await paginaFregusiaService.getAllPaginaFreguesia();</span>
-<span class="cstat-no" title="statement not covered" >        res.json(paginas);</span>
+async function getAllPaginaFreguesia(req, res) {
+    try {
+        const paginas = await paginaFregusiaService.getAllPaginaFreguesia();
+        res.json(paginas);
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >        console.log(error);</span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: 'Erro ao procurar paginas' });</span>
     }
 }
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >pesquisaPagina(</span>req, res) {
-    const { pesquisa } = <span class="cstat-no" title="statement not covered" >req.query;</span>
+async function pesquisaPagina(req, res) {
+    const { pesquisa } = req.query;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    try {</span>
-        const paginas = <span class="cstat-no" title="statement not covered" >await paginaFregusiaService.pesquisaPagina(pesquisa);</span>
-<span class="cstat-no" title="statement not covered" >        res.json(paginas);</span>
+    try {
+        const paginas = await paginaFregusiaService.pesquisaPagina(pesquisa);
+        res.json(paginas);
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >        console.log(error);</span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: 'Erro ao procurar páginas' });</span>
@@ -172,11 +172,7 @@ module.exports = { createPaginaFreguesia, getAllPaginaFreguesia, pesquisaPagina 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-<<<<<<< HEAD
-                at 2025-04-23T15:30:58.940Z
-=======
-                at 2025-04-23T15:32:47.442Z
->>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
+                at 2025-04-25T14:35:09.809Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

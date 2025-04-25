@@ -91,6 +91,42 @@ describe('Integração - Moderador de Página', () => {
     expect(res.body.length).toBeGreaterThanOrEqual(1);
   });
 
+  test('Falhar ao criar moderador com id_pagina inexistente', async () => {
+    const res = await request(app)
+      .post('/api/moderadores/criarModeradorPagina')
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .send({
+        id_pagina: 999999, // página que não existe
+        id_utilizador: utilizador.id_utilizador,
+        funcao: 'moderador'
+      });
+    expect(res.statusCode).toBeGreaterThanOrEqual(400);
+  });
+  
+  test('Falhar ao criar moderador com função inválida', async () => {
+    const res = await request(app)
+      .post('/api/moderadores/criarModeradorPagina')
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .send({
+        id_pagina: pagina.id_pagina,
+        id_utilizador: utilizador.id_utilizador,
+        funcao: 'capitao' // não é 'dono' nem 'moderador'
+      });
+    expect(res.statusCode).toBeGreaterThanOrEqual(400);
+  });
+
+  test('Falhar ao criar moderador com id_utilizador inexistente', async () => {
+    const res = await request(app)
+      .post('/api/moderadores/criarModeradorPagina')
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .send({
+        id_pagina: pagina.id_pagina,
+        id_utilizador: 999999,
+        funcao: 'moderador'
+      });
+    expect(res.statusCode).toBeGreaterThanOrEqual(400);
+  });
+  
   test('Falhar criar sem token', async () => {
     const res = await request(app)
       .post('/api/moderadores/criarModeradorPagina')

@@ -97,6 +97,20 @@ describe('Integração – Comentário', () => {
     expect(res.body.conteudo_comentario).toBe('Olá');
   });
 
+  test('Falhar criar comentário vazio', async () => {
+    const res = await request(app)
+      .post('/api/comentarios/criarComentario')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        id_post: post.id_post,
+        id_utilizador: utilizador.id_utilizador,
+        conteudo_comentario: ""
+      });
+  
+    expect(res.statusCode).toBeGreaterThanOrEqual(400);
+  });
+  
+  
   test('Falhar criar comentário sem token', async () => {
     const res = await request(app)
       .post('/api/comentarios/criarComentario')

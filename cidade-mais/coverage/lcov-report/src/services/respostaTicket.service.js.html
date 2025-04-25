@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.45% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.45% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -102,34 +102,30 @@
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,38 +133,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { PrismaClient, tipo_notificacao } = require('@prisma/client');
 const { createNotificacao } = require('./notificacao.service');
 const prisma = new PrismaClient();
 &nbsp;
 // Criar resposta
-async function <span class="fstat-no" title="function not covered" >createResposta(</span>data) {
+async function createResposta(data) {
 &nbsp;
-    const novaResposta = <span class="cstat-no" title="statement not covered" >await prisma.resposta_ticket.create({ data });</span>
-    const notificacao = <span class="cstat-no" title="statement not covered" >novaResposta.estado_resposta === 'resolvido' ? tipo_notificacao.Sucesso : tipo_notificacao.Insucesso</span>
+    const novaResposta = await prisma.resposta_ticket.create({ data });
+    const notificacao = novaResposta.estado_resposta === 'resolvido' ? tipo_notificacao.Sucesso : tipo_notificacao.Insucesso
     
-<span class="cstat-no" title="statement not covered" >    await createNotificacao({</span>
+    await createNotificacao({
         id_utilizador: novaResposta.id_utilizador,
         id_ticket: novaResposta.id_ticket,
         tipo_notificacao: notificacao
     });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    await prisma.ticket.update({ // repetição de codigo melhorar isto</span>
+    await prisma.ticket.update({ // repetição de codigo melhorar isto
         where: { id_ticket: novaResposta.id_ticket },
         data: {
             estado_ticket: 'fechado',
         },})   
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return novaResposta</span>
+    return novaResposta
 }
 &nbsp;
 // Buscar todas as respostas
-async function <span class="fstat-no" title="function not covered" >getAllRespostas(</span>) {
-<span class="cstat-no" title="statement not covered" >    return prisma.resposta_ticket.findMany();</span>
+async function getAllRespostas() {
+    return prisma.resposta_ticket.findMany();
 }
 &nbsp;
 async function getRespostasPorUtilizador(id_utilizador) {
@@ -187,11 +187,7 @@ module.exports = { createResposta, getAllRespostas, getRespostasPorUtilizador };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-<<<<<<< HEAD
-                at 2025-04-23T15:30:58.940Z
-=======
-                at 2025-04-23T15:32:47.442Z
->>>>>>> d0ab591a9d1fe2e706cee4d4eafe64afc51ee44e
+                at 2025-04-25T14:35:09.809Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
