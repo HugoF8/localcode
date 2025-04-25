@@ -125,6 +125,58 @@ describe('Integração - Resposta Ticket', () => {
         expect(Array.isArray(res.body)).toBe(true);
     });
 
+    test('Verificar estado do ticket após resposta resolvida', async () => {
+        await request(app)
+            .post('/api/respostasTickets/criarResposta')
+            .set('Authorization', `Bearer ${tokenModerador}`)
+            .send({
+                id_ticket: ticket.id_ticket,
+                id_utilizador: utilizadorModerador.id_utilizador,
+                conteudo_resposta: "Fechando ticket",
+                estado_resposta: "resolvido"
+            });
+    
+        const ticketAtualizado = await prisma.ticket.findUnique({
+            where: { id_ticket: ticket.id_ticket }
+        });
+    
+        expect(ticketAtualizado.estado_ticket).toBe('fechado');
+    });
+    
+    test('Verifica criação de notificação após resposta', async () => {
+        const resposta = await request(app)
+            .post('/api/respostasTickets/criarResposta')
+            .set('Authorization', `Bearer ${tokenModerador}`)
+            .send({
+                id_ticket: ticket.id_ticket,
+                id_utilizador: utilizadorModerador.id_utilizador,
+                conteudo_resposta: "Com notificação",
+                estado_resposta: "resolvido"
+            });
+    
+        const notificacao = await prisma.notificacao.findFirst({
+            where: {
+                id_ticket: ticket.id_ticket,
+                tipo_notificacao: 'Sucesso'
+            }
+        });
+    
+        expect(notificacao).not.toBeNull();
+    });
+    
+    test('Falha ao criar resposta sem estado_resposta', async () => {
+        const res = await request(app)
+            .post('/api/respostasTickets/criarResposta')
+            .set('Authorization', `Bearer ${tokenModerador}`)
+            .send({
+                id_ticket: ticket.id_ticket,
+                id_utilizador: utilizadorModerador.id_utilizador,
+                conteudo_resposta: "Sem estado"
+            });
+    
+        expect(res.statusCode).toBe(500);
+    });
+    
     test('Falha ao criar resposta sem token', async () => {
         const res = await request(app)
             .post('/api/respostasTickets/criarResposta')

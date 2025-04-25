@@ -4,10 +4,17 @@ const pedidoPaginaService = require("../services/pedidoPagina.service");
 // Criar tickets
 async function createTicket(req, res) {
     try {
+        const { descricao_problema } = req.body;
+
+       
+        if (!descricao_problema || descricao_problema.trim() === '') {
+            return res.status(400).json({ error: "O campo 'descricao_problema' é obrigatório." });
+        }
+
         const ticket = await ticketService.createTicket(req.body);
         res.status(201).json(ticket);
     } catch (error) {
-        console.error("Erro ao criar ticket:", error); // Mostra o erro real no terminal
+        console.error("Erro ao criar ticket:", error);
         res.status(500).json({ error: "Erro ao criar ticket", detalhes: error.message });
     }
 }

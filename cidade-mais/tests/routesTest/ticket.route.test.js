@@ -147,6 +147,28 @@ describe('Integração - Tickets', () => {
     expect(Array.isArray(res.body)).toBe(true);
   });
 
+  test('Falhar criação com descrição vazia', async () => {
+    const res = await request(app)
+      .post('/api/tickets/criarTicket')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        id_utilizador,
+        id_pagina,
+        descricao_problema: ''
+      });
+  
+    expect(res.statusCode).toBeGreaterThanOrEqual(400);
+  });
+
+  test('Falhar alteração com descrição vazia', async () => {
+    const res = await request(app)
+      .patch(`/api/tickets/alterarTicket/${ticketId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ descricao_problema: '' });
+  
+    expect(res.statusCode).toBeGreaterThanOrEqual(400);
+  });
+
   test('Falhar rota sem token', async () => {
     const res = await request(app).get('/api/tickets/verTickets');
     expect(res.statusCode).toBe(401);

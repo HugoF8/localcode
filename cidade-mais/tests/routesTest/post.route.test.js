@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../../src/app');
+const path = require('path');
 const { PrismaClient, tipo_notificacao } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
 
@@ -65,6 +66,20 @@ describe('Integração – Posts', () => {
     // notification of type Validacao should be created
     const note = await prisma.notificacao.findFirst({ where: { id_post: res.body.id_post } });
     expect(note.tipo_notificacao).toBe(tipo_notificacao.Validacao);
+  });
+
+  test('Criar post com upload de imagem', async () => {
+    const res = await request(app)
+      .post('/api/posts/criarPost')
+      .set('Authorization', `Bearer ${tokenUser}`)
+      .field('id_pagina', page.id_pagina)
+      .field('id_utilizador', user.id_utilizador)
+      .field('descricao_post', 'Post com imagem')
+      .attach('media_post', path.resolve(__dirname, '../imagens/imagemteste.jpg'));
+  
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty('media_post');
+    expect(res.body.media_post).toMatch(/uploads/); // ou o caminho onde guardas
   });
 
   test('Falhar criar post sem seguir página', async () => {

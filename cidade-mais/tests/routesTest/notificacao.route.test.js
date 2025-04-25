@@ -19,8 +19,8 @@ describe('Integração – Notificação', () => {
     await prisma.notificacao.deleteMany();
     await prisma.ticket.deleteMany();
     await prisma.post.deleteMany();
-    await prisma.morada.deleteMany();
     await prisma.pagina_freguesia.deleteMany();
+    await prisma.morada.deleteMany();
     await prisma.utilizador.deleteMany();
 
     // Criar utilizador

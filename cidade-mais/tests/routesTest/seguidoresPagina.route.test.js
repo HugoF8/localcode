@@ -97,6 +97,32 @@ describe('Integração - Seguidores de Página', () => {
     expect(res.body.some(p => p.id_pagina === id_pagina)).toBe(true);
   });
 
+  test('Verificar presença do seguidor criado na listagem', async () => {
+    const res = await request(app)
+      .get('/api/seguidores/verSeguidor')
+      .set('Authorization', `Bearer ${token}`);
+  
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  
+    // Verifica se o par (id_utilizador, id_pagina) está entre os resultados
+    const existe = res.body.some(s =>
+      s.id_utilizador === id_utilizador && s.id_pagina === id_pagina
+    );
+  
+    expect(existe).toBe(true);
+  });
+  /*
+  test('Remover seguidor existente', async () => {
+    const res = await request(app)
+      .delete('/api/seguidores/removerSeguidor')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ id_utilizador, id_pagina });
+  
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty('mensagem', 'Seguidor removido com sucesso');
+  });
+*/
   test('Falha ao buscar páginas seguidas com ID inválido', async () => {
     const res = await request(app)
       .get('/api/seguidores/verPaginasSeguidas/abc')

@@ -96,7 +96,43 @@ describe('Testes de integração: Utilizador', () => {
         expect(res.statusCode).toBeGreaterThanOrEqual(400);
         expect(res.body).toHaveProperty('error');
     });
+
+    test('Falha ao criar utilizador com email já registado', async () => {
+        // Cria primeiro
+        await request(app).post('/api/utilizadores/criarUtilizador').send({
+            nome: "Repetido",
+            email: "email@duplicado.com",
+            password: "123456",
+            data_nascimento: new Date("1990-01-01").toISOString()
+        });
     
+        // Tenta criar de novo
+        const res = await request(app).post('/api/utilizadores/criarUtilizador').send({
+            nome: "Outro",
+            email: "email@duplicado.com",
+            password: "654321",
+            data_nascimento: new Date("1995-01-01").toISOString()
+        });
+    
+        expect(res.statusCode).toBeGreaterThanOrEqual(400);
+        expect(res.body).toHaveProperty('error');
+    });
+    
+    test('Falha ao criar utilizador com data de nascimento no futuro', async () => {
+        const futureDate = new Date();
+        futureDate.setFullYear(futureDate.getFullYear() + 1);
+    
+        const res = await request(app).post('/api/utilizadores/criarUtilizador').send({
+            nome: "Futuro",
+            email: "futuro@email.com",
+            password: "123456",
+            data_nascimento: futureDate.toISOString()
+        });
+    
+        expect(res.statusCode).toBeGreaterThanOrEqual(400);
+    });
+    
+
     test('Token inválido não permite acesso à lista de utilizadores', async () => {
         const res = await request(app)
             .get('/api/utilizadores/verUtilizadores')
