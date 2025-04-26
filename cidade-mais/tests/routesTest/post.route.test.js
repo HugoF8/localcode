@@ -79,7 +79,7 @@ describe('Integração – Posts', () => {
   
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty('media_post');
-    expect(res.body.media_post).toMatch(/uploads/); // ou o caminho onde guardas
+    expect(res.body.media_post).toMatch(/uploads/);
   });
 
   test('Falhar criar post sem seguir página', async () => {
@@ -148,13 +148,16 @@ describe('Integração – Posts', () => {
 
   test('Alterar informações de post (proprietário)', async () => {
     const post = await prisma.post.findFirst({ where: { id_utilizador: user.id_utilizador } });
+    
     const res = await request(app)
       .patch(`/api/posts/alterarInformacoesPost/${post.id_post}`)
       .set('Authorization', `Bearer ${tokenUser}`)
-      .send({ descricao_post: 'Edited', media_post: 'img.png' });
-
+      .field('descricao_post', 'Edited') // texto normal vai com .field
+      .attach('media_post', path.resolve(__dirname, '../imagens/imagemteste.jpg')); // caminho para nova imagem
+  
     expect(res.statusCode).toBe(200);
     expect(res.body.descricao_post).toBe('Edited');
+    expect(res.body.media_post).toMatch(/uploads/); // confirmar que a imagem foi atualizada e tem path certo
   });
 
   test('Obter feed de páginas seguidas', async () => {
