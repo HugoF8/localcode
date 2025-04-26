@@ -6,19 +6,6 @@ async function createPost(req, res) {
     const { id_utilizador, id_pagina, descricao_post } = req.body;
     const media_post = req.file ? req.file.path : null;
 
-    // Validações
-    if (!id_utilizador || isNaN(Number(id_utilizador))) {
-      return res.status(400).json({ error: "O ID de utilizador é obrigatório e deve ser numérico." });
-    }
-
-    if (!id_pagina || isNaN(Number(id_pagina))) {
-      return res.status(400).json({ error: "O ID de página é obrigatório e deve ser numérico." });
-    }
-
-    if (!descricao_post && !media_post) {
-      return res.status(400).json({ error: "Descrição ou imagem são obrigatórios." });
-    }
-
     const post = await postService.createPost({
       id_utilizador: Number(id_utilizador),
       id_pagina: Number(id_pagina),
@@ -33,7 +20,7 @@ async function createPost(req, res) {
   }
 }
 
-// Listar todos os posts (admin)
+// Listar todos (admin)
 async function getAllPosts(req, res) {
   try {
     const posts = await postService.getAllPosts();
@@ -44,14 +31,12 @@ async function getAllPosts(req, res) {
   }
 }
 
-// Listar posts pendentes (moderador)
+// Listar pendentes (moderador)
 async function getPostsPendente(req, res) {
   const id_pagina = Number(req.params.id_pagina);
-
   if (isNaN(id_pagina)) {
     return res.status(400).json({ error: 'id_pagina deve ser um número válido' });
   }
-
   try {
     const posts = await postService.getPostPendente(id_pagina);
     res.status(200).json(posts);
@@ -61,16 +46,13 @@ async function getPostsPendente(req, res) {
   }
 }
 
-// Aprovar/Recusar posts (moderador)
+// Aprovar/recusar (moderador)
 async function atualizarEstadoPost(req, res) {
   const id_post = Number(req.params.id_post);
-
   if (isNaN(id_post)) {
     return res.status(400).json({ error: 'id_post deve ser um número válido' });
   }
-
   const { bolean } = req.body;
-
   try {
     const atualizado = await postService.atualizarEstadoPost(bolean, id_post);
     res.status(200).json(atualizado);
@@ -80,22 +62,22 @@ async function atualizarEstadoPost(req, res) {
   }
 }
 
-// Listar posts de uma página ou o feed
+// Listar posts de uma página (seguindo ou não)
 async function getPostPagina(req, res) {
   const { id_pagina: qp } = req.query;
 
+  // se não veio query, devolve o feed (páginas seguidas)
   if (!qp) {
     try {
       const feed = await postService.getPostsPaginasSeguidas(req.utilizador.utilizadorId);
       return res.status(200).json(feed);
     } catch (error) {
-      console.error("Erro ao buscar feed:", error);
+      console.error("Erro ao buscar feed no lugar de posts de página:", error);
       return res.status(500).json({ error: "Erro ao buscar feed", detalhes: error.message });
     }
   }
 
   const id_pagina = Number(qp);
-
   if (isNaN(id_pagina)) {
     return res.status(400).json({ error: 'id_pagina deve ser um número válido na query string' });
   }
@@ -109,10 +91,9 @@ async function getPostPagina(req, res) {
   }
 }
 
-// Listar posts aprovados do utilizador
+// Listar aprovados do próprio usuário
 async function getPostsAprovados(req, res) {
   const id_utilizador = req.utilizador.utilizadorId;
-
   try {
     const posts = await postService.getPostsAprovados(id_utilizador);
     res.status(200).json(posts);
@@ -122,10 +103,9 @@ async function getPostsAprovados(req, res) {
   }
 }
 
-// Listar posts recusados do utilizador
+// Listar recusados do próprio usuário
 async function getPostsRecusados(req, res) {
   const id_utilizador = req.utilizador.utilizadorId;
-
   try {
     const posts = await postService.getPostsRecusados(id_utilizador);
     res.status(200).json(posts);
@@ -135,30 +115,29 @@ async function getPostsRecusados(req, res) {
   }
 }
 
-// Alterar informações de um post (proprietário)
+// Alterar infos (proprietário)
 async function alterarInformacoesPost(req, res) {
   try {
     const id_post = Number(req.params.id_post);
-
     if (isNaN(id_post)) {
       return res.status(400).json({ error: 'id_post inválido' });
     }
 
-    const { descricao_post } = req.body;
-    const updateData = { descricao_post };
+    let { descricao_post } = req.body;
+    let media_post = undefined;
 
     if (req.file) {
-      updateData.media_post = 'uploads/' + req.file.filename;
+      media_post = 'uploads/' + req.file.filename;
     }
 
     const updatedPost = await postService.alterarInformacoesPost(id_post, descricao_post, media_post);
-
 
     if (!updatedPost) {
       return res.status(404).json({ error: 'Post não encontrado' });
     }
 
     res.status(200).json(updatedPost);
+
   } catch (error) {
     console.error('Erro ao atualizar post:', error);
     res.status(500).json({ error: 'Erro interno ao atualizar post', detalhes: error.message });
@@ -168,7 +147,6 @@ async function alterarInformacoesPost(req, res) {
 // Feed de páginas seguidas
 async function getPostsPaginasSeguidas(req, res) {
   const id_utilizador = req.utilizador.utilizadorId;
-
   try {
     const feed = await postService.getPostsPaginasSeguidas(id_utilizador);
     res.status(200).json(feed);
@@ -178,4 +156,5 @@ async function getPostsPaginasSeguidas(req, res) {
   }
 }
 
-module.exports = {createPost,getAllPosts,getPostsPendente,atualizarEstadoPost,getPostPagina,getPostsAprovados,getPostsRecusados,alterarInformacoesPost,getPostsPaginasSeguidas};
+module.exports = {createPost,getAllPosts,getPostsPendente,atualizarEstadoPost,getPostPagina,getPostsAprovados,getPostsRecusados,alterarInformacoesPost,getPostsPaginasSeguidas
+};
