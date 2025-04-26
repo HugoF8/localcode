@@ -9,7 +9,7 @@ const JWT_SECRET = 'supersecreto';
 let token;
 let tokenOutros;
 let utilizador;
-let usuario2;
+let utilizador2;
 let post;
 
 beforeAll(async () => {
@@ -17,14 +17,14 @@ beforeAll(async () => {
   await prisma.comentario.deleteMany();
   await prisma.seguidores_pagina.deleteMany();
   await prisma.post.deleteMany();
-  await prisma.usuario2?.deleteMany();
+  await prisma.utilizador2?.deleteMany();
   await prisma.utilizador.deleteMany();
 
-  // Criar usuário principal
+  // Criar utilizador principal
   utilizador = await prisma.utilizador.create({
     data: {
-      nome: "Test User",
-      email: "testuser@email.com",
+      nome: "Test",
+      email: "teste@gmail.com",
       password: "123456",
       data_nascimento: new Date("2000-01-01"),
     },
@@ -35,19 +35,19 @@ beforeAll(async () => {
     email: utilizador.email,
   }, JWT_SECRET, { expiresIn: '1h' });
 
-  // Criar segundo usuário
-  usuario2 = await prisma.utilizador.create({
+  // Criar segundo utilizador
+  utilizador2 = await prisma.utilizador.create({
     data: {
       nome: "Outro User",
       email: "outro@email.com",
-      password: "senha123",
+      password: "pass123",
       data_nascimento: new Date("1991-01-01"),
     },
   });
   tokenOutros = jwt.sign({
-    utilizadorId: usuario2.id_utilizador,
-    tipo_utilizador: usuario2.tipo_utilizador,
-    email: usuario2.email,
+    utilizadorId: utilizador2.id_utilizador,
+    tipo_utilizador: utilizador2.tipo_utilizador,
+    email: utilizador2.email,
   }, JWT_SECRET, { expiresIn: '1h' });
 
   // Criar página e seguir
@@ -81,7 +81,7 @@ afterAll(async () => {
   await prisma.$disconnect();
 });
 
-describe('Integração – Comentário', () => {
+describe('Testes Integração – Comentário', () => {
   test('Criar novo comentário', async () => {
     const res = await request(app)
       .post('/api/comentarios/criarComentario')
@@ -130,7 +130,7 @@ describe('Integração – Comentário', () => {
       .set('Authorization', `Bearer ${tokenOutros}`)
       .send({
         id_post: post.id_post,
-        id_utilizador: usuario2.id_utilizador,
+        id_utilizador: utilizador2.id_utilizador,
         conteudo_comentario: "Não sigo"
       });
 

@@ -13,9 +13,9 @@ let pagina;
 let post;
 let ticket;
 
-describe('Integração – Notificação', () => {
+describe('Testes Integração – Notificação', () => {
   beforeAll(async () => {
-    // Limpeza de todos os dados
+    
     await prisma.notificacao.deleteMany();
     await prisma.ticket.deleteMany();
     await prisma.post.deleteMany();
@@ -26,14 +26,14 @@ describe('Integração – Notificação', () => {
     // Criar utilizador
     utilizador = await prisma.utilizador.create({
       data: {
-        nome: 'Notif Tester',
-        email: 'notif@exemplo.com',
+        nome: 'Teste',
+        email: 'teste@egmail.com',
         password: '123456',
         data_nascimento: new Date('1990-01-01')
       }
     });
 
-    // Gerar token
+
     token = jwt.sign(
       {
         utilizadorId: utilizador.id_utilizador,

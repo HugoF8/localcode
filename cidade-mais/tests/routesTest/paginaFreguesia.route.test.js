@@ -13,16 +13,16 @@ let paginaAlpha;
 let paginaBeta;
 
 beforeAll(async () => {
-  // Limpar tabelas relevantes
+  
   await prisma.pagina_freguesia.deleteMany();
   await prisma.utilizador.deleteMany();
   await prisma.morada.deleteMany();
 
-  // Criar utilizador e morada para contexto
+  
   utilizador = await prisma.utilizador.create({
     data: {
-      nome: "Tester",
-      email: "tester@exemplo.com",
+      nome: "Teste",
+      email: "teste@gmail.com",
       password: "123456",
       data_nascimento: new Date("1990-01-01"),
     }
@@ -38,7 +38,7 @@ beforeAll(async () => {
   // Criar duas páginas para pesquisa
   paginaAlpha = await prisma.pagina_freguesia.create({
     data: {
-      nome_pagina: "Alpha Page",
+      nome_pagina: "Pagina Alpha",
       descricao: "Descrição Alpha",
       id_morada: morada.id_morada,
       id_utilizador: utilizador.id_utilizador,
@@ -47,14 +47,14 @@ beforeAll(async () => {
 
   paginaBeta = await prisma.pagina_freguesia.create({
     data: {
-      nome_pagina: "Beta Page",
+      nome_pagina: "Pagina Beta",
       descricao: "Descrição Beta",
       id_morada: morada.id_morada,
       id_utilizador: utilizador.id_utilizador,
     }
   });
 
-  // Gerar token JWT
+  
   token = jwt.sign({
     utilizadorId: utilizador.id_utilizador,
     tipo_utilizador: utilizador.tipo_utilizador,
@@ -66,14 +66,14 @@ afterAll(async () => {
   await prisma.$disconnect();
 });
 
-describe('Integração - Página Freguesia', () => {
+describe('Testes Integração - Página Freguesia', () => {
 
   test('Criar nova página de freguesia', async () => {
     const res = await request(app)
       .post('/api/paginaFreguesias/criarPaginaFreguesia')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        nome_pagina: "Gamma Page",
+        nome_pagina: "Pagina Gamma",
         descricao: "Descrição Gamma",
         id_morada: morada.id_morada,
         id_utilizador: utilizador.id_utilizador
@@ -81,7 +81,7 @@ describe('Integração - Página Freguesia', () => {
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty('id_pagina');
-    expect(res.body.nome_pagina).toBe("Gamma Page");
+    expect(res.body.nome_pagina).toBe("Pagina Gamma");
   });
 
   test('Listar todas as páginas de freguesia', async () => {
@@ -91,11 +91,10 @@ describe('Integração - Página Freguesia', () => {
 
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
-    // Já existiam 2 + acabámos de criar 1
     expect(res.body.length).toBe(3);
   });
 
-  test('Pesquisar páginas por nome (case-insensitive)', async () => {
+  test('Pesquisar páginas por nome', async () => {
     const res = await request(app)
       .get('/api/paginaFreguesias/pesquisarPaginas')
       .set('Authorization', `Bearer ${token}`)
@@ -104,7 +103,7 @@ describe('Integração - Página Freguesia', () => {
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBe(1);
-    expect(res.body[0].nome_pagina).toBe("Alpha Page");
+    expect(res.body[0].nome_pagina).toBe("Pagina Alpha");
   });
 
   test('Pesquisar com termo sem correspondência', async () => {

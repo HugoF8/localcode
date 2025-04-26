@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const prisma = new PrismaClient();
 
-const JWT_SECRET = 'supersecreto'; // igual ao usado no middleware
+const JWT_SECRET = 'supersecreto'; 
 
 let token;
 let utilizadorId;
@@ -14,12 +14,12 @@ beforeAll(async () => {
     // Limpar base de dados antes do teste
     await prisma.utilizador.deleteMany();
 
-    // Criar utilizador de teste para autenticação
+
     const user = await prisma.utilizador.create({
         data: {
-            nome: "Test User",
-            email: "testuser@email.com",
-            password: "123456", // considera usar hash se bcrypt estiver implementado
+            nome: "Teste",
+            email: "teste@gmail.com",
+            password: "123456", 
             data_nascimento: new Date("2000-01-01"),
         },
     });
@@ -44,14 +44,14 @@ describe('Testes de integração: Utilizador', () => {
             .post('/api/utilizadores/criarUtilizador')
             .send({
                 nome: "Novo Utilizador",
-                email: "novo@email.com",
+                email: "novo@gmail.com",
                 password: "senha123",
                 data_nascimento: new Date("1990-05-10").toISOString()
             });
 
         expect(res.statusCode).toBe(201);
         expect(res.body).toHaveProperty('id_utilizador');
-        expect(res.body.email).toBe("novo@email.com");
+        expect(res.body.email).toBe("novo@gmail.com");
     });
 
     test('Buscar todos os utilizadores (com token)', async () => {
@@ -87,10 +87,10 @@ describe('Testes de integração: Utilizador', () => {
         const res = await request(app)
             .post('/api/utilizadores/criarUtilizador')
             .send({
-                nome: "", // nome inválido
-                email: "emailinvalido", // email inválido
-                password: "", // password inválida
-                data_nascimento: "not-a-date" // data inválida
+                nome: "", 
+                email: "emailinvalido", 
+                password: "", 
+                data_nascimento: "not-a-date" 
             });
     
         expect(res.statusCode).toBeGreaterThanOrEqual(400);
@@ -98,18 +98,18 @@ describe('Testes de integração: Utilizador', () => {
     });
 
     test('Falha ao criar utilizador com email já registado', async () => {
-        // Cria primeiro
+        
         await request(app).post('/api/utilizadores/criarUtilizador').send({
             nome: "Repetido",
-            email: "email@duplicado.com",
+            email: "email@gmail.com",
             password: "123456",
             data_nascimento: new Date("1990-01-01").toISOString()
         });
     
-        // Tenta criar de novo
+        
         const res = await request(app).post('/api/utilizadores/criarUtilizador').send({
             nome: "Outro",
-            email: "email@duplicado.com",
+            email: "email@gmail.com",
             password: "654321",
             data_nascimento: new Date("1995-01-01").toISOString()
         });
@@ -124,7 +124,7 @@ describe('Testes de integração: Utilizador', () => {
     
         const res = await request(app).post('/api/utilizadores/criarUtilizador').send({
             nome: "Futuro",
-            email: "futuro@email.com",
+            email: "futuro@gmail.com",
             password: "123456",
             data_nascimento: futureDate.toISOString()
         });

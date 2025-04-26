@@ -20,8 +20,8 @@ beforeAll(async () => {
   // Morada
   const morada = await prisma.morada.create({
     data: {
-      freguesia: 'TestFreguesia',
-      cidade: 'TestCidade',
+      freguesia: 'TesteFreguesia',
+      cidade: 'TesteCidade',
       rua: 'Rua Teste',
       codigo_postal: 1234
     }
@@ -31,7 +31,7 @@ beforeAll(async () => {
   const utilizador = await prisma.utilizador.create({
     data: {
       nome: 'Seguidor Teste',
-      email: 'seguidor@test.com',
+      email: 'seguidor@gmail.com',
       password: '1234',
       data_nascimento: new Date('2000-01-01'),
       tipo_utilizador: 'utilizador',
@@ -64,7 +64,7 @@ afterAll(async () => {
   await prisma.$disconnect();
 });
 
-describe('Integração - Seguidores de Página', () => {
+describe('Testes Integração - Seguidores de Página', () => {
   test('Criar seguidor', async () => {
     const res = await request(app)
       .post('/api/seguidores/criarSeguidor')

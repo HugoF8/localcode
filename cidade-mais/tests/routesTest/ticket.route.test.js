@@ -18,8 +18,8 @@ beforeAll(async () => {
 
   const morada = await prisma.morada.create({
     data: {
-      freguesia: 'TestLand',
-      cidade: 'TestCity',
+      freguesia: 'TesteFreguesia',
+      cidade: 'TesteCidade',
       rua: 'Rua Teste',
       codigo_postal: 1234
     }
@@ -27,8 +27,8 @@ beforeAll(async () => {
 
   const utilizador = await prisma.utilizador.create({
     data: {
-      nome: 'Tester',
-      email: 'ticket@test.com',
+      nome: 'Teste',
+      email: 'ticket@gmail.com',
       password: '1234',
       data_nascimento: new Date('2000-01-01'),
       tipo_utilizador: 'moderador',
@@ -67,7 +67,7 @@ afterAll(async () => {
   await prisma.$disconnect();
 });
 
-describe('Integração - Tickets', () => {
+describe('Testes Integração - Tickets', () => {
   test('Criar ticket', async () => {
     const res = await request(app)
       .post('/api/tickets/criarTicket')
@@ -75,7 +75,7 @@ describe('Integração - Tickets', () => {
       .send({
         id_utilizador,
         id_pagina,
-        descricao_problema: 'Testando o sistema de tickets.'
+        descricao_problema: 'Testar o sistema de tickets.'
       });
 
     expect(res.statusCode).toBe(201);

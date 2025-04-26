@@ -10,20 +10,15 @@ let token;
 let utilizador;
 
 beforeAll(async () => {
-  // 1) Deleta páginas que referenciam morada (para não violar FK)
+
   await prisma.pagina_freguesia.deleteMany();
-
-  // 2) Agora sim, deleta moradas
   await prisma.morada.deleteMany();
-
-  // 3) Deleta utilizadores
   await prisma.utilizador.deleteMany();
 
-  // Cria um utilizador só para gerar o token
   utilizador = await prisma.utilizador.create({
     data: {
-      nome: "Morada Tester",
-      email: "morada@exemplo.com",
+      nome: "Teste",
+      email: "teste@gmail.com",
       password: "123456",
       data_nascimento: new Date("1990-01-01")
     }
@@ -41,7 +36,7 @@ afterAll(async () => {
   await prisma.$disconnect();
 });
 
-describe('Integração – Morada', () => {
+describe('Testes Integração – Morada', () => {
 
   test('Criar nova morada', async () => {
     const res = await request(app)

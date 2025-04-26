@@ -7,43 +7,68 @@ const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
 const JWT_SECRET = 'supersecreto';
 
-describe('Integração – Posts', () => {
+describe('Testes Integração – Posts', () => {
   let tokenUser, tokenMod, tokenAdmin;
   let user, modUser, adminUser;
-  let page;
+  let pagina;
 
   beforeAll(async () => {
-    // clean tables in dependency order
+    
     await prisma.notificacao.deleteMany();
     await prisma.post.deleteMany();
     await prisma.seguidores_pagina.deleteMany();
     await prisma.pagina_freguesia.deleteMany();
     await prisma.utilizador.deleteMany();
 
-    // create users
-    user = await prisma.utilizador.create({ data: { nome: 'User', email: 'u@x.com', password: '123456', data_nascimento: new Date('2000-01-01') } });
-    modUser = await prisma.utilizador.create({ data: { nome: 'Mod', email: 'm@x.com', password: '123456', data_nascimento: new Date('2000-01-01'), tipo_utilizador: 'moderador' } });
-    adminUser = await prisma.utilizador.create({ data: { nome: 'Admin', email: 'a@x.com', password: '123456', data_nascimento: new Date('2000-01-01'), tipo_utilizador: 'admin' } });
+   
+    user = await prisma.utilizador.create({ 
+      data: { 
+        nome: 'Teste',
+         email: 'teste@gmail.com', 
+         password: '123456', 
+         data_nascimento: new Date('2000-01-01') 
+        } 
+      });
+    
+        modUser = await prisma.utilizador.create({ 
+      data: { 
+        nome: 'Mod', 
+        email: 'mod@gmail.com', 
+        password: '123456', 
+        data_nascimento: new Date('2000-01-01'), 
+        tipo_utilizador: 'moderador' 
+      } 
+    });
+    
+      adminUser = await prisma.utilizador.create({ 
+        data: { 
+          nome: 'Admin', 
+          email: 'admin@gmail.com', 
+          password: '123456', 
+          data_nascimento: new Date('2000-01-01'), 
+          tipo_utilizador: 'admin' 
+        } 
+      });
 
     [tokenUser, tokenMod, tokenAdmin] = [user, modUser, adminUser].map(u =>
       jwt.sign({ utilizadorId: u.id_utilizador, tipo_utilizador: u.tipo_utilizador, email: u.email }, JWT_SECRET, { expiresIn: '1h' })
     );
 
-    // create a page owned by admin and add modUser as moderator
-    page = await prisma.pagina_freguesia.create({
+    
+    pagina = await prisma.pagina_freguesia.create({
       data: {
-        nome_pagina: 'TestPage',
+        nome_pagina: 'Pagina Teste',
         id_morada: await prisma.morada.create({ data: { cidade: 'C', codigo_postal: 1000 } }).then(m => m.id_morada),
         id_utilizador: adminUser.id_utilizador,
       }
     });
     await prisma.moderador_pagina.create({
-      data: { id_pagina: page.id_pagina, id_utilizador: modUser.id_utilizador, funcao: 'moderador' }
+      data: { id_pagina: pagina.id_pagina, id_utilizador: modUser.id_utilizador, funcao: 'moderador' }
     });
 
-    // have user follow the page
+    
     await prisma.seguidores_pagina.create({
-      data: { id_pagina: page.id_pagina, id_utilizador: user.id_utilizador }
+      data: { id_pagina: pagina.id_pagina, id_utilizador: user.id_utilizador }
     });
   });
 
@@ -56,14 +81,14 @@ describe('Integração – Posts', () => {
       .post('/api/posts/criarPost')
       .set('Authorization', `Bearer ${tokenUser}`)
       .send({
-        id_pagina: page.id_pagina,
+        id_pagina: pagina.id_pagina,
         id_utilizador: user.id_utilizador,
-        descricao_post: 'Hello world'
+        descricao_post: 'ola'
       });
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty('id_post');
-    // notification of type Validacao should be created
+    
     const note = await prisma.notificacao.findFirst({ where: { id_post: res.body.id_post } });
     expect(note.tipo_notificacao).toBe(tipo_notificacao.Validacao);
   });
@@ -72,7 +97,7 @@ describe('Integração – Posts', () => {
     const res = await request(app)
       .post('/api/posts/criarPost')
       .set('Authorization', `Bearer ${tokenUser}`)
-      .field('id_pagina', page.id_pagina)
+      .field('id_pagina', pagina.id_pagina)
       .field('id_utilizador', user.id_utilizador)
       .field('descricao_post', 'Post com imagem')
       .attach('media_post', path.resolve(__dirname, '../imagens/imagemteste.jpg'));
@@ -83,13 +108,13 @@ describe('Integração – Posts', () => {
   });
 
   test('Falhar criar post sem seguir página', async () => {
-    const outsider = await prisma.utilizador.create({ data: { nome: 'Out', email: 'o@x.com', password: '123456', data_nascimento: new Date() } });
+    const outsider = await prisma.utilizador.create({ data: { nome: 'Teste2', email: 'teste2@gmail.com', password: '123456', data_nascimento: new Date() } });
     const tokenOut = jwt.sign({ utilizadorId: outsider.id_utilizador, tipo_utilizador: outsider.tipo_utilizador, email: outsider.email }, JWT_SECRET, { expiresIn: '1h' });
 
     const res = await request(app)
       .post('/api/posts/criarPost')
       .set('Authorization', `Bearer ${tokenOut}`)
-      .send({ id_pagina: page.id_pagina, id_utilizador: outsider.id_utilizador, descricao_post: 'No follow' });
+      .send({ id_pagina: pagina.id_pagina, id_utilizador: outsider.id_utilizador, descricao_post: 'No follow' });
 
     expect(res.statusCode).toBe(403);
     expect(res.body).toHaveProperty('error', 'Acesso negado. Utilizador não segue esta página.');
@@ -97,7 +122,7 @@ describe('Integração – Posts', () => {
 
   test('Listar posts pendentes (moderador)', async () => {
     const res = await request(app)
-      .get(`/api/posts/verPostsPendentes/${page.id_pagina}`)
+      .get(`/api/posts/verPostsPendentes/${pagina.id_pagina}`)
       .set('Authorization', `Bearer ${tokenMod}`);
 
     expect(res.statusCode).toBe(200);
@@ -107,7 +132,7 @@ describe('Integração – Posts', () => {
 
   test('Aprovar post (moderador)', async () => {
     // pick the pending post
-    const post = await prisma.post.findFirst({ where: { id_pagina: page.id_pagina } });
+    const post = await prisma.post.findFirst({ where: { id_pagina: pagina.id_pagina } });
     const res = await request(app)
       .patch(`/api/posts/atualizarPostsPendentes/${post.id_post}`)
       .set('Authorization', `Bearer ${tokenMod}`)
@@ -118,7 +143,7 @@ describe('Integração – Posts', () => {
   });
 
   test('Recusar post (moderador)', async () => {
-    const post = await prisma.post.findFirst({ where: { id_pagina: page.id_pagina } });
+    const post = await prisma.post.findFirst({ where: { id_pagina: pagina.id_pagina } });
     const res = await request(app)
       .patch(`/api/posts/atualizarPostsPendentes/${post.id_post}`)
       .set('Authorization', `Bearer ${tokenMod}`)
@@ -152,12 +177,12 @@ describe('Integração – Posts', () => {
     const res = await request(app)
       .patch(`/api/posts/alterarInformacoesPost/${post.id_post}`)
       .set('Authorization', `Bearer ${tokenUser}`)
-      .field('descricao_post', 'Edited') // texto normal vai com .field
-      .attach('media_post', path.resolve(__dirname, '../imagens/imagemteste.jpg')); // caminho para nova imagem
+      .field('descricao_post', 'Edited') 
+      .attach('media_post', path.resolve(__dirname, '../imagens/imagemteste.jpg')); 
   
     expect(res.statusCode).toBe(200);
     expect(res.body.descricao_post).toBe('Edited');
-    expect(res.body.media_post).toMatch(/uploads/); // confirmar que a imagem foi atualizada e tem path certo
+    expect(res.body.media_post).toMatch(/uploads/); 
   });
 
   test('Obter feed de páginas seguidas', async () => {

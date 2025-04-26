@@ -31,7 +31,7 @@ beforeAll(async () => {
     utilizadorModerador = await prisma.utilizador.create({
         data: {
             nome: "Moderador",
-            email: "mod@email.com",
+            email: "mod@gmail.com",
             password: "123456",
             data_nascimento: new Date("1990-01-01"),
             tipo_utilizador: "moderador"
@@ -41,7 +41,7 @@ beforeAll(async () => {
     utilizadorNormal = await prisma.utilizador.create({
         data: {
             nome: "Utilizador",
-            email: "user@email.com",
+            email: "utilizador@gmail.com",
             password: "123456",
             data_nascimento: new Date("1995-01-01")
         },
@@ -90,7 +90,7 @@ afterAll(async () => {
     await prisma.$disconnect();
 });
 
-describe('Integração - Resposta Ticket', () => {
+describe('Testes Integração - Resposta Ticket', () => {
     test('Criar resposta (moderador)', async () => {
         const res = await request(app)
             .post('/api/respostasTickets/criarResposta')
@@ -132,7 +132,7 @@ describe('Integração - Resposta Ticket', () => {
             .send({
                 id_ticket: ticket.id_ticket,
                 id_utilizador: utilizadorModerador.id_utilizador,
-                conteudo_resposta: "Fechando ticket",
+                conteudo_resposta: "Ticket fechado",
                 estado_resposta: "resolvido"
             });
     
@@ -143,7 +143,7 @@ describe('Integração - Resposta Ticket', () => {
         expect(ticketAtualizado.estado_ticket).toBe('fechado');
     });
     
-    test('Verifica criação de notificação após resposta', async () => {
+    test('Verificar criação de notificação após resposta', async () => {
         const resposta = await request(app)
             .post('/api/respostasTickets/criarResposta')
             .set('Authorization', `Bearer ${tokenModerador}`)
@@ -164,7 +164,7 @@ describe('Integração - Resposta Ticket', () => {
         expect(notificacao).not.toBeNull();
     });
     
-    test('Falha ao criar resposta sem estado_resposta', async () => {
+    test('Falhar ao criar resposta sem estado_resposta', async () => {
         const res = await request(app)
             .post('/api/respostasTickets/criarResposta')
             .set('Authorization', `Bearer ${tokenModerador}`)
@@ -177,7 +177,7 @@ describe('Integração - Resposta Ticket', () => {
         expect(res.statusCode).toBe(500);
     });
     
-    test('Falha ao criar resposta sem token', async () => {
+    test('Falhar ao criar resposta sem token', async () => {
         const res = await request(app)
             .post('/api/respostasTickets/criarResposta')
             .send({
@@ -191,14 +191,14 @@ describe('Integração - Resposta Ticket', () => {
         expect(res.body).toHaveProperty('error', 'Token não fornecido');
     });
 
-    test('Falha ao criar resposta com utilizador não moderador', async () => {
+    test('Falhar ao criar resposta com utilizador não moderador', async () => {
         const res = await request(app)
             .post('/api/respostasTickets/criarResposta')
             .set('Authorization', `Bearer ${tokenNormal}`)
             .send({
                 id_ticket: ticket.id_ticket,
                 id_utilizador: utilizadorNormal.id_utilizador,
-                conteudo_resposta: "Utilizador comum tentando responder",
+                conteudo_resposta: "Utilizador normal a tentar responder",
                 estado_resposta: "resolvido"
             });
 

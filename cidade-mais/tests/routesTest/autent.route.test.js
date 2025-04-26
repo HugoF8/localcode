@@ -18,13 +18,13 @@ describe('Testes Integração – Autenticação', () => {
   });
 
   const utilizador = {
-    nome: 'Test User',
-    email: 'testuser@example.com',
+    nome: 'Teste',
+    email: 'teste@gmail.com',
     password: 'password123',
     data_nascimento: '1990-05-15'
   };
 
-  test('Registrar novo utilizador com dados válidos', async () => {
+  test('Registar novo utilizador com dados válidos', async () => {
     const res = await request(app)
       .post('/api/autent/registar')
       .send(utilizador);
@@ -38,21 +38,21 @@ describe('Testes Integração – Autenticação', () => {
     });
   });
 
-  test('Falhar registro com dados inválidos', async () => {
+  test('Falhar registar com dados inválidos', async () => {
     const res = await request(app)
       .post('/api/autent/registar')
       .send({
         nome: '',
         email: 'invalido.com',
         password: '',
-        data_nascimento: 'not-a-date'
+        data_nascimento: 'data'
       });
   
     expect(res.statusCode).toBe(400);
     expect(res.body).toHaveProperty('error');
   });
 
-  test('Falhar registrar com email duplicado', async () => {
+  test('Falhar registar com email duplicado', async () => {
     const res = await request(app)
       .post('/api/autent/registar')
       .send(utilizador);
@@ -93,10 +93,10 @@ describe('Testes Integração – Autenticação', () => {
     expect(res.body).toHaveProperty('error');
   });
   
-  test('Falhar login com senha incorreta', async () => {
+  test('Falhar login com passe incorreta', async () => {
     const res = await request(app)
       .post('/api/autent/login')
-      .send({ email: utilizador.email, password: 'wrongpass' });
+      .send({ email: utilizador.email, password: 'pass-errada' });
 
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty('error');
@@ -105,7 +105,7 @@ describe('Testes Integração – Autenticação', () => {
   test('Falhar login com email inexistente', async () => {
     const res = await request(app)
       .post('/api/autent/login')
-      .send({ email: 'noone@nowhere.com', password: 'any' });
+      .send({ email: 'inexistente@gmail.com', password: 'any' });
 
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty('error');

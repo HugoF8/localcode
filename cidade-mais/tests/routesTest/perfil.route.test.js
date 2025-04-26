@@ -17,8 +17,8 @@ beforeAll(async () => {
 
     const user = await prisma.utilizador.create({
         data: {
-            nome: "Perfil Test",
-            email: "perfil@email.com",
+            nome: "Perfil Teste",
+            email: "perfilteste@gmail.com",
             password: "123456",
             data_nascimento: new Date("1990-01-01")
         },
@@ -44,7 +44,7 @@ afterAll(async () => {
     await prisma.$disconnect();
 });
 
-describe('Integração - Perfil', () => {
+describe('Testes Integração - Perfil', () => {
 
     test('Criar novo perfil', async () => {
         const res = await request(app)

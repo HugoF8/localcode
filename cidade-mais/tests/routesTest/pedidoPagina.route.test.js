@@ -25,8 +25,8 @@ beforeAll(async () => {
 
     utilizadorUser = await prisma.utilizador.create({
         data: {
-            nome: "User",
-            email: "user@email.com",
+            nome: "Teste",
+            email: "teste@gmail.com",
             password: "123456",
             data_nascimento: new Date("1990-01-01"),
             tipo_utilizador: "utilizador",
@@ -37,7 +37,7 @@ beforeAll(async () => {
     utilizadorAdmin = await prisma.utilizador.create({
         data: {
             nome: "Admin",
-            email: "admin@email.com",
+            email: "admin@gmail.com",
             password: "123456",
             data_nascimento: new Date("1990-01-01"),
             tipo_utilizador: "admin"
@@ -70,7 +70,7 @@ afterAll(async () => {
     await prisma.$disconnect();
 });
 
-describe('Integração - Pedido Página', () => {
+describe('Testes Integração - Pedido Página', () => {
 
     test('Atualizar estado do pedido (admin) cria página e notificação', async () => {
         const res = await request(app)

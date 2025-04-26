@@ -12,28 +12,29 @@ let tokenUser;
 let utilizador;
 let pagina;
 
-// Antes de tudo: limpar e preparar dados
+
 beforeAll(async () => {
   // Apaga em ordem respeitando FKs
   await prisma.moderador_pagina.deleteMany();
   await prisma.pagina_freguesia.deleteMany();
   await prisma.utilizador.deleteMany();
 
-  // Cria um admin e um user normal
+  // Cria um admin
   utilizador = await prisma.utilizador.create({
     data: {
-      nome: 'Admin Test',
-      email: 'admin@test.com',
-      password: 'senha',
+      nome: 'Admin Teste',
+      email: 'adminteste@gmail.com',
+      password: 'pass',
       data_nascimento: new Date('1990-01-01'),
       tipo_utilizador: 'admin'
     }
   });
+  //Cria um utlizador normal
   const normal = await prisma.utilizador.create({
     data: {
-      nome: 'User Test',
-      email: 'user@test.com',
-      password: 'senha',
+      nome: 'Teste',
+      email: 'user@gmail.com',
+      password: 'pass',
       data_nascimento: new Date('1990-01-01'),
     }
   });
@@ -50,7 +51,7 @@ beforeAll(async () => {
     email: normal.email
   }, JWT_SECRET);
 
-  // Cria uma página de freguesia para linkar
+  // Cria uma página de freguesia 
   pagina = await prisma.pagina_freguesia.create({
     data: {
       nome_pagina: 'Freguesia Teste',
@@ -67,7 +68,7 @@ afterAll(async () => {
   await prisma.$disconnect();
 });
 
-describe('Integração - Moderador de Página', () => {
+describe('Testes Integração - Moderador de Página', () => {
   test('Criar novo moderador de página (admin)', async () => {
     const res = await request(app)
       .post('/api/moderadores/criarModeradorPagina')
@@ -147,7 +148,7 @@ describe('Integração - Moderador de Página', () => {
     expect(res.body).toHaveProperty('error', 'Token inválido');
   });
 
-  test('Usuário normal não pode criar moderador de página', async () => {
+  test('Utilizador normal não pode criar moderador de página', async () => {
     const res = await request(app)
       .post('/api/moderadores/criarModeradorPagina')
       .set('Authorization', `Bearer ${tokenUser}`)
@@ -156,8 +157,6 @@ describe('Integração - Moderador de Página', () => {
         id_utilizador: utilizador.id_utilizador,
         funcao: 'moderador'
       });
-    // não há restrição por role neste endpoint, mas se você quiser aplicar,
-    // troque o status esperado para 403 e adicione o middleware authRole('admin')
     expect(res.statusCode).toBe(201);
   });
 });
