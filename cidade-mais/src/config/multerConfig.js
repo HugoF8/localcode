@@ -8,12 +8,12 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 
-// Define onde os ficheiros serão armazenados e com que nome
+// Define armazenamento com diskStorage
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination(req, file, cb) {
         cb(null, uploadDir);
     },
-    filename: function (req, file, cb) {
+    filename(req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         cb(null, uniqueSuffix + path.extname(file.originalname));
     }
@@ -22,11 +22,10 @@ const storage = multer.diskStorage({
 // Validação do tipo de ficheiro: apenas imagens
 const fileFilter = (req, file, cb) => {
     if (!file.mimetype.startsWith('image/')) {
-        return cb(new Error('Apenas ficheiros de imagem são permitidos'), false);
+        return cb(null, false);
     }
     cb(null, true);
 };
 
 const upload = multer({ storage, fileFilter });
-
 module.exports = upload;

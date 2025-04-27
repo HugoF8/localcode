@@ -1,23 +1,27 @@
 const express = require('express');
 const perfilController = require('../controllers/perfil.controller');
-const router = express.Router();
 const upload = require('../config/multerConfig');
+const { authenticate } = require('../middlewares/autent.middleware');
 
-const {authenticate} = require('../middlewares/autent.middleware');
+const router = express.Router();
 router.use(authenticate);
 
+// Criar e ler perfis
 router.post('/criarPerfil', perfilController.createPerfil);
 router.get('/verPerfil', perfilController.getAllPerfil);
-router.patch('/foto-perfil', upload.single('imagem'), perfilController.atualizarFotoPerfil);
 
-router.use((err, req, res, next) => {
-    if (err.message === 'Apenas ficheiros de imagem são permitidos') {
+router.patch(
+  '/foto-perfil',
+  (req, res, next) => {
+    upload.single('imagem')(req, res, err => {
+      if (err) {
+        // Captura qualquer erro de Multer
         return res.status(400).json({ error: err.message });
-    }
-    if (err instanceof multer.MulterError) {
-        return res.status(400).json({ error: err.message });
-    }
-    next(err);
-});
+      }
+      next();
+    });
+  },
+  perfilController.atualizarFotoPerfil
+);
 
 module.exports = router;

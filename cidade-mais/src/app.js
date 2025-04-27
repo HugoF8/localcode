@@ -2,8 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-
-
+const multer = require('multer');
 
 const comentarioRoutes = require('./routes/comentario.route');
 const moderadorRoutes = require('./routes/moderdorPagina.route');
@@ -31,44 +30,40 @@ app.use(express.json());
 app.use('/api/autent', autentRoutes);
 app.use('/api/comentarios', comentarioRoutes);
 app.use('/api/moderadores', moderadorRoutes);
-app.use('/api/moradas', moradaRoutes,);
-app.use('/api/paginaFreguesias', paginaFreguesiaRoutes,);
+app.use('/api/moradas', moradaRoutes);
+app.use('/api/paginaFreguesias', paginaFreguesiaRoutes);
 app.use('/api/pedidosPagina', pedidoPaginaRoutes);
 app.use('/api/perfil', perfilRoutes);
-app.use('/api/posts', postRoutes,);
-app.use('/api/respostasTickets', respostaTicketRoutes,);
-app.use('/api/seguidores', seguidoresRoutes,);
-app.use('/api/tickets', ticketRoutes, );
+app.use('/api/posts', postRoutes);
+app.use('/api/respostasTickets', respostaTicketRoutes);
+app.use('/api/seguidores', seguidoresRoutes);
+app.use('/api/tickets', ticketRoutes);
 app.use('/api/utilizadores', utilizadorRoutes);
-app.use('/api/notificacao', notificacaoRoutes)
-// Torna os ficheiros da pasta "uploads" acessíveis via URL
+app.use('/api/notificacao', notificacaoRoutes);
+
+// Ficheiros estáticos de uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Teste de conexão com o banco de dados
-async function main() {
-    try {
-        await prisma.$connect();
-        console.log('📦 Base de dados conectada com sucesso!');
-    } catch (error) {
-        console.error('Erro ao conectar base de dados:', error);
-    }
-}
-
-/* Iniciar servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, async () => {
-    await main();
-    console.log(`🚀 Servidor ligado em http://localhost:${PORT}`);
-});*/
+// Erro global para capturar erros de Multer e outros
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json({ error: err.message });
+  }
+  console.error('Erro não tratado:', err);
+  res.status(500).json({ error: 'Erro interno do servidor', detalhes: err.message });
+});
 
 const PORT = process.env.PORT || 3000;
-
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, async () => {
-    await main();
+    try {
+      await prisma.$connect();
+      console.log('📦 Base de dados conectada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao conectar base de dados:', error);
+    }
     console.log(`🚀 Servidor ligado em http://localhost:${PORT}`);
   });
 }
 
-
-module.exports = app; // <-- necessário para os testes
+module.exports = app;
