@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 // Criar Notificacao
 async function createNotificacao(data) {
-    // Extrai só os possíveis IDs relacionais
+    
     const {
       id_utilizador,
       id_post,

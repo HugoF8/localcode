@@ -5,7 +5,7 @@ async function createPedidoPagina(req, res) {
         const pedidoPagina = await pedidoPaginaService.createPedidoPagina(req.body);
         res.status(201).json(pedidoPagina);
     } catch (error) {
-        console.error("Erro ao criar Pedido Pagina:", error); // Mostra o erro real no terminal
+        console.error("Erro ao criar Pedido Pagina:", error);
         res.status(500).json({ error: "Erro ao criar Pedido Pagina", detalhes: error.message });
     }
 }
@@ -52,20 +52,17 @@ async function getPedidoReprovado(req, res) {
 
 async function atualizarEstadoPedido(req, res) {
     try {
-        // Extrai o id_pedido da URL (que vem como string)
+        
         const { id_pedido } = req.params;
-
-        // Converte id_pedido para número
         const idPedidoNumber = Number(id_pedido);
 
-        // Verifica se a conversão foi bem-sucedida
+        
         if (isNaN(idPedidoNumber)) {
             return res.status(400).json({ error: 'id_pedido deve ser um número válido' });
         }
 
-        const { bol } = req.body;  // Pega os dados do corpo da requisição
+        const { bol } = req.body;
 
-        // Chama o serviço para atualizar o estado do pedido
         const pedidoPagina = await pedidoPaginaService.atualizarEstadoPedido(idPedidoNumber, bol);
         res.json(pedidoPagina);
     } catch (error) {

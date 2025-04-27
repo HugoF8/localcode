@@ -7,7 +7,7 @@ async function createUSeguidor(req, res) {
         const seguidor = await seguidoresService.createUSeguidor(req.body);
         res.status(201).json(seguidor);
     } catch (error) {
-        console.error("Erro ao criar seguidor:", error); // Mostra o erro real no terminal
+        console.error("Erro ao criar seguidor:", error);
         res.status(500).json({ error: "Erro ao criar seguidor", detalhes: error.message });
     }
 }
@@ -18,7 +18,7 @@ async function getAllUSeguidores(req, res) {
         const seguidores = await seguidoresService.getAllUSeguidores();
         res.json(seguidores);
     } catch (error) {
-        console.error("Erro ao buscar seguidores:", error); // Mostra o erro real no terminal
+        console.error("Erro ao buscar seguidores:", error);
         res.status(500).json({ error: "Erro ao buscar seguidores", detalhes: error.message });
     }
 }
@@ -36,9 +36,21 @@ async function getPaginasSeguidas(req, res) {
         const pagina = await seguidoresService.getPaginasSeguidas(idUtilizador);
         res.json(pagina);
     } catch (error) {
-        console.error("Erro na busca :", error); // Mostra o erro real no terminal
+        console.error("Erro na busca :", error);
         res.status(500).json({ error: "Erro ao buscar publicação", detalhes: error.message });
     }
 }
 
-module.exports = { createUSeguidor, getAllUSeguidores, getPaginasSeguidas};
+async function pararSeguir(req, res) {
+    const { id_utilizador, id_pagina } = req.body;
+
+    try {
+        const removerSeguidor = await seguidoresService.pararSeguir(id_utilizador, id_pagina);
+        console.log("Seguidor removido:", removerSeguidor);
+        res.status(200).json({ mensagem: "Seguidor removido com sucesso" });
+    } catch (error) {
+        console.error("Erro ao parar de seguir:", error);
+        res.status(500).json({ error: "Erro ao parar de seguir", detalhes: error.message });
+    }
+}
+module.exports = { createUSeguidor, getAllUSeguidores, getPaginasSeguidas, pararSeguir};

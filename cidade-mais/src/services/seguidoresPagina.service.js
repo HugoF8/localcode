@@ -20,5 +20,13 @@ async function getPaginasSeguidas(id_utilizador) {
     })
 }
 
+async function pararSeguir(id_utilizador,id_pagina){
+    return prisma.seguidores_pagina.deleteMany({
+        where:{
+            id_utilizador: id_utilizador,
+            id_pagina: id_pagina
+        }
+    })
+}
 
-module.exports = { createUSeguidor, getAllUSeguidores, getPaginasSeguidas };
+module.exports = { createUSeguidor, getAllUSeguidores, getPaginasSeguidas, pararSeguir};

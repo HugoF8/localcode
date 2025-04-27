@@ -112,7 +112,7 @@ describe('Testes Integração - Seguidores de Página', () => {
   
     expect(existe).toBe(true);
   });
-  /*
+  
   test('Remover seguidor existente', async () => {
     const res = await request(app)
       .delete('/api/seguidores/removerSeguidor')
@@ -122,7 +122,7 @@ describe('Testes Integração - Seguidores de Página', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty('mensagem', 'Seguidor removido com sucesso');
   });
-*/
+
   test('Falha ao buscar páginas seguidas com ID inválido', async () => {
     const res = await request(app)
       .get('/api/seguidores/verPaginasSeguidas/abc')

@@ -6,7 +6,7 @@ async function createResposta(req, res) {
         const resposta = await respostaService.createResposta(req.body);
         res.status(201).json(resposta);
     } catch (error) {
-        console.error("Erro ao criar resposta para o ticket:", error); // Mostra o erro real no terminal
+        console.error("Erro ao criar resposta para o ticket:", error);
         res.status(500).json({ error: "Erro ao criar resposta para o ticket ", detalhes: error.message });
     }
 }
@@ -17,7 +17,7 @@ async function getAllRespostas(req, res) {
         const respostas = await respostaService.getAllRespostas();
         res.json(respostas);
     } catch (error) {
-        console.error("Erro ao buscar respostas para o ticket:", error); // Mostra o erro real no terminal
+        console.error("Erro ao buscar respostas para o ticket:", error);
         res.status(500).json({ error: "Erro ao buscar respostas para o ticket", detalhes: error.message });
     }
 }
@@ -34,7 +34,7 @@ async function getRespostasPorUtilizador(req, res) {
         const respostas = await respostaService.getRespostasPorUtilizador(Number(id_utilizador));
         res.json(respostas);
     } catch (error) {
-        console.error("Erro ao buscar respostas por utilizador:", error); // Mostra o erro real no terminal
+        console.error("Erro ao buscar respostas por utilizador:", error);
         res.status(500).json({
             error: "Erro ao buscar respostas por utilizador",
             detalhes: error.message

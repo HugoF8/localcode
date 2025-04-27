@@ -24,17 +24,15 @@ async function getAllNotificacao(req, res) {
 }
 
 async function getNotificacaoPorUtilizador(req, res) {
-    // Extrai o parâmetro e converte para número
+
     const idParam = req.params.id_utilizador;
     const id_utilizador = Number(idParam);
 
-    // Se não for um número válido, retorna 400
     if (isNaN(id_utilizador)) {
         return res.status(400).json({ mensagem: "Parâmetro 'id_utilizador' inválido." });
     }
 
     try {
-        // Chama o service já com o ID numérico
         const notificacoes = await notificacaoService.getNotificacaoPorUtilizador(id_utilizador);
         return res.json(notificacoes);
     } catch (error) {

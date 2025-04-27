@@ -6,7 +6,7 @@ async function createPerfil(req, res) {
         const perfil = await perfilService.createPerfil(req.body);
         res.status(201).json(perfil);
     } catch (error) {
-        console.error("Erro ao criar perfil:", error); // Mostra o erro real no terminal
+        console.error("Erro ao criar perfil:", error);
         res.status(500).json({ error: "Erro ao criar perfil", detalhes: error.message });
     }
 }
@@ -17,7 +17,7 @@ async function getAllPerfil(req, res) {
         const perfil = await perfilService.getAllPerfil();
         res.json(perfil);
     } catch (error) {
-        console.error("Erro ao buscar perfil:", error); // Mostra o erro real no terminal
+        console.error("Erro ao buscar perfil:", error); 
         res.status(500).json({ error: "Erro ao buscar perfil", detalhes: error.message });
     }
 }
@@ -26,7 +26,7 @@ async function atualizarFotoPerfil(req, res) {
     try {
         const userId = req.utilizador.utilizadorId;
 
-        console.log('ID do utilizador para atualizar foto:', userId); // <-- adiciona aqui
+        console.log('ID do utilizador para atualizar foto:', userId);
 
         if (!req.file) {
             return res.status(400).json({ error: 'Nenhuma imagem foi enviada.' });
