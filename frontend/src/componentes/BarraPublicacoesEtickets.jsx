@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import '../styles/PublicacoesEtickets.css';
 
-function PublicacoesETickets() {
+function BarraPublicacoesETickets() {
   const navigate = useNavigate();
 
   return (
@@ -21,4 +21,4 @@ function PublicacoesETickets() {
 }
 
 
-export default PublicacoesETickets;
+export default BarraPublicacoesETickets;
