@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.27% </span>
+                <span class="strong">80.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/22</span>
+                <span class='fraction'>17/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.27% </span>
+                <span class="strong">80.95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/22</span>
+                <span class='fraction'>17/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,12 +104,7 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,17 +129,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,7 +153,7 @@ async function createPerfil(req, res) {
         const perfil = await perfilService.createPerfil(req.body);
         res.status(201).json(perfil);
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >        console.error("Erro ao criar perfil:", error); </span>// Mostra o erro real no terminal
+<span class="cstat-no" title="statement not covered" >        console.error("Erro ao criar perfil:", error);</span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: "Erro ao criar perfil", detalhes: error.message });</span>
     }
 }
@@ -174,30 +164,25 @@ async function getAllPerfil(req, res) {
         const perfil = await perfilService.getAllPerfil();
         res.json(perfil);
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >        console.error("Erro ao buscar perfil:", error); </span>// Mostra o erro real no terminal
+<span class="cstat-no" title="statement not covered" >        console.error("Erro ao buscar perfil:", error); </span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: "Erro ao buscar perfil", detalhes: error.message });</span>
     }
 }
 &nbsp;
 async function atualizarFotoPerfil(req, res) {
     try {
-        const userId = req.utilizador.utilizadorId;
-&nbsp;
-        console.log('ID do utilizador para atualizar foto:', userId); // &lt;-- adiciona aqui
-&nbsp;
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (!req.file) {
-<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ error: 'Nenhuma imagem foi enviada.' });</span>
-        }
-&nbsp;
-        const imagePath = req.file.path;
-&nbsp;
-        const perfilAtualizado = await perfilService.atualizarFotoPerfil(userId, imagePath);
-        res.status(200).json(perfilAtualizado);
+      const userId = req.utilizador.utilizadorId;
+      if (!req.file) {
+        return res.status(400).json({ error: 'Nenhuma imagem válida foi enviada.' });
+      }
+      const imagePath = req.file.path;
+      const perfilAtualizado = await perfilService.atualizarFotoPerfil(userId, imagePath);
+      res.status(200).json(perfilAtualizado);
     } catch (err) {
-        console.error("Erro ao atualizar a foto do perfil:", err);
-        res.status(500).json({ error: 'Erro interno ao atualizar a foto', detalhes: err.message });
+      console.error("Erro ao atualizar a foto do perfil:", err);
+      res.status(500).json({ error: 'Erro interno ao atualizar a foto', detalhes: err.message });
     }
-}
+  }
 &nbsp;
 &nbsp;
 module.exports = { createPerfil, getAllPerfil, atualizarFotoPerfil };
@@ -208,7 +193,7 @@ module.exports = { createPerfil, getAllPerfil, atualizarFotoPerfil };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-25T14:35:09.809Z
+                at 2025-04-29T08:30:49.644Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

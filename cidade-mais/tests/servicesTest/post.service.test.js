@@ -59,10 +59,15 @@ const mockEstadoPost = {
         expect(mockCreate).toHaveBeenCalledWith({data: mockData});
 
         expect(mockCreateNotificacao).toHaveBeenCalledWith({
-          data: {  // Assuming the create method expects a data object
-            id_utilizador: mockData.id_utilizador,
-            id_post: result.id_post,
+         data: {  // Assuming the create method expects a data object
+            utilizador: { connect: { id_utilizador: mockData.id_utilizador } },
+            post: { connect: { id_post: result.id_post } },
             tipo_notificacao: mockTipoNotificacao.Validacao  // Usa o enum correto
+          },
+          include:{
+            post:true,
+            ticket:true,
+            pagina_freguesia:true
           }
         });
         
