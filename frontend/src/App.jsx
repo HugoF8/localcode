@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import CriarFreguesia from './pages/CriarFreguesia';
 import PublicacoesETickets from './pages/PublicacoesETicketsUtilizador';
 import './App.css';
+import EnviarTicket from './pages/EnviarTicket';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/criar-freguesia" element={<CriarFreguesia />} />
         <Route path="/publicacoes-tickets-utilizador" element={<PublicacoesETickets />} />
+        <Route path="/pages/EnviarTicket" element={<EnviarTicket />} />
       </Routes>
     </Router>
   );
