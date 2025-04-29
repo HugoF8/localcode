@@ -5,8 +5,9 @@ import PublicacoesETickets from './pages/PublicacoesETicketsUtilizador';
 import Login from './pages/Login';
 import Registar1 from './pages/Registar1';
 import Registar2 from './pages/Registar2';
-import './App.css';
 import EnviarTicket from './pages/EnviarTicket';
+import './App.css';
+
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/registar1" element={<Registar1 />} />
         <Route path="/registar2" element={<Registar2 />} />
-        <Route path="/pages/EnviarTicket" element={<EnviarTicket />} />
+        <Route path="/enviar-ticket" element={<EnviarTicket />} />
       </Routes>
     </Router>
   );
