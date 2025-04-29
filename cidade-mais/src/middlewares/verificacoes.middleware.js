@@ -127,7 +127,9 @@ async function authProprietario(req, res, next) {
     });
     if (!administrador) {
       return res.status(403).json({
-        error: `Não autorizado a aceder a este recurso (não é moderador da página ${id_pagina}).`
+        error: `Não autorizado a aceder a este recurso`,
+        id_pagina:id_pagina,
+        id_utilizador:id_utilizador
       });
     }
   
