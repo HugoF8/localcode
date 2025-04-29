@@ -31,9 +31,10 @@ function ConfiguracoesMenu() {
       />
       {aberto && (
         <div className="config-menu">
-          <button onClick={() => navigate('/publicacoes-tickets')}>Publicações e Tickets</button>
+          <button onClick={() => navigate('/tickets-utilizador')}>Publicações e Tickets</button>
           <button onClick={() => navigate('/criar-freguesia')}>Criar Freguesia</button>
           <button onClick={() => navigate('/editar-pedido')}>Editar Pedido</button>
+          <button onClick={() => navigate('/AprovacoesTickets')}>AprovacoesTickets</button>
           <button onClick={toggleDarkMode}>
             {darkMode ? 'Modo Claro' : 'Modo Escuro'}
           </button>

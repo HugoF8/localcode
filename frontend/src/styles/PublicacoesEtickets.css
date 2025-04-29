@@ -1,0 +1,36 @@
+.publicacoes-etickets-wrapper {
+  width: 100%;
+  padding: 2rem;
+  flex: 1;
+}
+
+.titulo-area {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+.botoes-navegacao {
+  display: flex;
+}
+
+.botao-navegacao {
+  padding: 50px 50px;
+  background-color: #d1d5db;
+  color: black;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.botao-navegacao:hover {
+  background-color: #737b84;
+}
+
+.conteudo {
+  flex: 1;
+  margin-top: 80px;     /* altura da .topo */
+  margin-left: 160px;   /* largura da .barra-lateral */
+  padding: 30px;
+  overflow-y: auto;
+}
