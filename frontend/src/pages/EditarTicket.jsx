@@ -1,36 +1,35 @@
+/*ainda nao esta */
+
+/* import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
-import '../styles/EnviarTicket.css';
+import '../styles/CriarFreguesia.css';
 
-function EnviarTicket() {
+function EditarTicket() {
   const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // lógica para enviar dados
-    alert('Ticket enviado!');
-    navigate('/dashboard');
-  };
 
   return (
     <div className="container">
       <BarraSuperior />
       <div className="corpo">
-        <BarraLateral />
+      <BarraLateral />
         <div className="conteudo-criar">
-          <h2>Ticket</h2>
+          <h2>Descrição de Problemers</h2>
           <hr />
-          <form className="formulario" onSubmit={handleSubmit}>
+
+            <label htmlFor="localizacao">Localização</label>
+            <input type="text" id="localizacao" placeholder="Localização" required />
+
             <label htmlFor="descricao">Descrição</label>
             <textarea id="descricao" placeholder="Descrição" rows="5" required></textarea>
 
             <button type="submit" className="btn-enviar">Enviar</button>
-          </form>
         </div>
       </div>
     </div>
   );
 }
 
-export default EnviarTicket;
+export default EditarTicket;
+ */
