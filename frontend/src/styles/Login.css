@@ -1,0 +1,116 @@
+/* Estrutura principal da página de login */
+.login-container {
+    display: flex;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Parte esquerda - formulário */
+  .login-left {
+    flex: 1;
+    padding: 4rem;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  /* Título */
+  .login-form h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  /* Inputs */
+  .input-box {
+    display: flex;
+    align-items: center;
+    background-color: #dcdcdc;
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    position: relative;
+  }
+  
+  .input-box input {
+    border: none;
+    background: transparent;
+    flex: 1;
+    padding-left: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  .input-box .icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+  }
+  
+  .mostrar-btn {
+    position: absolute;
+    right: 0.8rem;
+    background: none;
+    border: none;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  /* Lembrar-me*/
+  .lembrar-me-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+  }
+  
+  .lembrar-me-container label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  
+  
+  /* Botões */
+  .btn-entrar,
+  .btn-registar {
+    padding: 0.9rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #a0a0a0;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-entrar:hover,
+  .btn-registar:hover {
+    background-color: #7a7a7a;
+  }
+  
+  /* Parte direita - imagem */
+  .login-right {
+    flex: 1;
+    background-color: #eaeaea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-right img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+  }
+  
