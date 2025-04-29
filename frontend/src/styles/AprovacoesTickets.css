@@ -1,0 +1,121 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.ticket-list-wrapper {
+  flex: 1;
+  background-color: #f3f4f6;
+  padding: 2rem 1.5rem;
+  min-height: 100vh;
+}
+
+.ticket-title {
+  font-size: 2rem;        /* Aumenta o tamanho da fonte */
+  font-weight: bold;      /* Negrito */
+  margin-top: 3rem;       /* Afasta o título do topo */
+  margin-bottom: 2rem;    /* Espaço abaixo do título */
+  text-align: center;     /* Opcional: centralizar */
+}
+
+.ticket-card {
+  background-color: #d1d5db;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-card.expanded {
+  background-color: #f9fafb;
+  border: 1px solid #d1d5db;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket-user {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.ticket-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.ticket-id {
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.ticket-toggle {
+  font-size: 0.875rem;
+  color: #4b5563;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.ticket-description {
+  font-size: 0.875rem;
+  color: #374151;
+  margin: 1rem 0;
+}
+
+.ticket-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.ticket-actions {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.btn-aprovar {
+  padding: 0.5rem 1rem;
+  border: 2px solid #22c55e;
+  color: #22c55e;
+  background-color: white;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-aprovar:hover {
+  background-color: #dcfce7;
+}
+
+.btn-recusar {
+  padding: 0.5rem 1rem;
+  background-color: #9ca3af;
+  color: white;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-recusar:hover {
+  background-color: #6b7280;
+}
+
+.conteudo {
+  flex: 1;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
