@@ -17,7 +17,7 @@ function BarraPesquisa() {
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [pesquisa]);
+  }, [pesquisa]); 
 
   return (
     <div className="barra-pesquisa">
