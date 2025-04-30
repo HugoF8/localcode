@@ -31,7 +31,7 @@ function Registar2() {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/registar', {
+      const res = await fetch('http://localhost:3000/api/autent/registar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

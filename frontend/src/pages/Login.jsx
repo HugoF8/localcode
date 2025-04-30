@@ -16,7 +16,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:3000/login', {
+      const res = await fetch('http://localhost:3000/api/autent/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })   
@@ -27,7 +27,7 @@ function Login() {
         localStorage.setItem('token', data.token);
         localStorage.setItem('utilizador', JSON.stringify(data.utilizador));
         if (!rememberMe) sessionStorage.setItem('token', data.token);
-        navigate('/dashboard');
+        navigate('/');
       } else {
         alert(data.error || 'Credenciais inválidas');
       }
