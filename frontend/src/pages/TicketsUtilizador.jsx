@@ -3,7 +3,8 @@ import axios from 'axios';
 import BarraPublicacoesEtickets from '../componentes/BarraPublicacoesEtickets';
 import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
-import VerTicketUtilizador from '../componentes/VerTicketUtilizador';
+import TicketNaoAprovadoUtilizador from '../componentes/TicketNaoAprovadoUtilizador';
+import TicketAprovadoUtilizador from '../componentes/TicketAprovadoUtilizador';
 
 import '../styles/PublicacoesEtickets.css';
 
@@ -59,7 +60,16 @@ function TicketsUtilizador() {
           <BarraLateral />
           <div className="conteudo">
             <BarraPublicacoesEtickets/>
-            <VerTicketUtilizador
+            <TicketNaoAprovadoUtilizador
+              tickets={tickets}
+              expandidoId={expandidoId}
+              onToggleExpand={onToggleExpand}
+              onInputChange={onInputChange}
+              onAprovar={onAprovar}
+              onRecusar={onRecusar}
+              
+            />
+            <TicketAprovadoUtilizador
               tickets={tickets}
               expandidoId={expandidoId}
               onToggleExpand={onToggleExpand}
