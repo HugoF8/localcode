@@ -135,12 +135,13 @@ async function getPostsPaginasSeguidas(id_utilizador) {
                 utilizador: {
                     select: {
                         nome: true,
+                        foto_perfil: true,
                     }
                 },
                 pagina_freguesia: {
                     select: {
                         nome_pagina: true,
-                        //foto_perfil: true,
+                        foto_perfil: true,
                     }
                 },
             },
