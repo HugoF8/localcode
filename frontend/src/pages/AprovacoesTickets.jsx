@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AprovacoesTituloTickets from '../componentes/AprovacoesTituloTickets';
+import BarraPublicacoesEticketsMod from '../componentes/BarraPublicacoesEticketsMod';
 import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
 import '../styles/AprovacoesTickets.css';
@@ -56,6 +57,7 @@ function AprovacoesTickets() {
         <div className="flex">
           <BarraLateral />
           <div className="conteudo">
+          <BarraPublicacoesEticketsMod/>
             <AprovacoesTituloTickets
               tickets={tickets}
               expandidoId={expandidoId}
