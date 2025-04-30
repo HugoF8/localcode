@@ -27,7 +27,7 @@
 }
 
 .conteudo {
-  margin-top: 80px;     /* altura da .topo */
+     /* altura da .topo */
   margin-left: 160px;   /* largura da .barra-lateral */
   padding: 30px;
   overflow-y: auto;

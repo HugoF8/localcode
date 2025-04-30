@@ -30,7 +30,7 @@ function CriarFreguesia() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/pedidos/criarPedido', {
+      const response = await fetch('http://localhost:3000/api/pedidosPagina/criarPedido', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -63,12 +63,16 @@ function CriarFreguesia() {
           <form className="formulario" onSubmit={handleSubmit}>
             <label htmlFor="nome">Nome da Freguesia</label>
             <input type="text" id="nome" placeholder="Nome da freguesia" required />
+            
+            <label htmlFor="Cidade">Cidade</label>
+            <input type="text" id="cidade" placeholder="Cidade" required />
 
-            <label htmlFor="localizacao">Localização</label>
-            <input type="text" id="localizacao" placeholder="Localização" required />
+            <label htmlFor="Freguesia">Freguesia</label>
+            <input type="text" id="freguesia" placeholder="Freguesia" required />
 
-            <label htmlFor="descricao">Descrição</label>
-            <textarea id="descricao" placeholder="Descrição" rows="5" required></textarea>
+            <label htmlFor="Rua">Rua</label>
+            <input type="text" id="rua" placeholder="Rua" required/>
+
 
             <label htmlFor="documentos">Documentos necessários <span title="Documentos obrigatórios">ℹ️</span></label>
             <div className="upload-box">

@@ -1,4 +1,6 @@
-import img from '../assets/black.jpg';
+// src/componentes/ImagemLoginRegistar.jsx
+import React from 'react';
+import img from '../../assets/black.jpg';
 
 function ImagemLoginRegistar() {
   return (
@@ -9,3 +11,4 @@ function ImagemLoginRegistar() {
 }
 
 export default ImagemLoginRegistar;
+

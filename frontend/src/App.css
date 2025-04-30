@@ -40,6 +40,7 @@ body {
   display: flex;
   flex: 1;
   margin-top: 80px; /* altura do topo */
+  margin-left: 160px;
 }
 
 /* Logo */
@@ -107,14 +108,6 @@ body {
   height: 64px;
   border-radius: 12px;
   background-color: #ddd;
-}
-
-/* Zona das publicações */
-.zona-publicacoes {
-  flex: 1;
-  padding: 30px;
-  margin-left: 160px; /* espaço da barra lateral */
-  overflow-y: auto;
 }
 
 /* Menu de configurações */

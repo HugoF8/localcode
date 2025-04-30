@@ -19,7 +19,6 @@
 .ticket-title {
   font-size: 2rem;        /* Aumenta o tamanho da fonte */
   font-weight: bold;      /* Negrito */
-  margin-top: 3rem;       /* Afasta o título do topo */
   margin-bottom: 2rem;    /* Espaço abaixo do título */
   text-align: center;     /* Opcional: centralizar */
 }
