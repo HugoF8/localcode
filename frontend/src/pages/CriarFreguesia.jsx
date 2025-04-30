@@ -30,7 +30,7 @@ function CriarFreguesia() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/pedidos/criarPedido', {
+      const response = await fetch('http://localhost:3000/api/pedidosPagina/criarPedido', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
