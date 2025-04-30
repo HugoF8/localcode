@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/AprovacoesTicketsePublicacoes.css';
 import BotoesTicket from './BotoesTicket';
 import FotoPerfil from './FotoPerfil';
-import kfcblack from '../assets/kfcblack.jpg';
+import speedRoni from '../assets/speedRoni.png';
 
 function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
   return (
@@ -19,9 +19,9 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
 
               {/* Bloco do conteúdo, com classe comum para controlar o espaçamento */}
               <div className="publicacao-conteudo-central">
-                {pub.tipo === 'imagem' && kfcblack && (
+                {pub.tipo === 'imagem' && speedRoni && (
                   <img
-                    src={kfcblack}
+                    src={speedRoni}
                     alt="Imagem da publicação"
                     className="publicacao-img"
                   />

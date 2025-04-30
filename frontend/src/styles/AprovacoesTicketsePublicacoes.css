@@ -132,31 +132,24 @@
   padding-bottom: 0.5rem;
 }
 
-.publicacao-card {
-  background: #f5f5f5;
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 2rem;
+.publicacao-conteudo-central {
+  margin: 1rem 0;
 }
 
-.publicacao-header {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.publicacao-imagem img {
+.poll-container,
+.publicacao-img {
   width: 100%;
-  max-height: 300px;
-  object-fit: cover;
+  max-width: 400px;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+/* Garante que o container do poll não esteja a empurrar os botões */
+.poll-container {
+  margin: 1rem 0;
+}
+
+/* Garante alinhamento vertical dos botões */
+.publicacao-botoes {
+  margin-top: 1rem;
 }

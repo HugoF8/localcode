@@ -17,16 +17,17 @@ function AprovacoesPublicacoes() {
         {
           id: 1,
           nome: 'João',
-          descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum.',
+          descricao:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum.',
           imagemPublicacao: '/imagem-joao.jpg',
           imagemPerfil: 'blackpremium.jpg',
-          tipo: 'imagem', // ou "poll"
+          tipo: 'imagem',
         },
         {
           id: 2,
-          imagemPerfil: 'blackpremium.jpg',
           nome: 'Dolores',
           descricao: 'Lorem ipsum dolor sit amet, adipiscing elit ?',
+          imagemPerfil: 'blackpremium.jpg',
           tipo: 'poll',
           opcoes: [
             { id: 'a', texto: 'Amarelo', selecionada: true },
@@ -38,7 +39,7 @@ function AprovacoesPublicacoes() {
       ];
       setPublicacoes(mockPublicacoes);
     }, []);
-
+  
     const handleAprovar = (id) => {
       console.log('Aprovado publicação:', id);
     };
@@ -46,23 +47,23 @@ function AprovacoesPublicacoes() {
     const handleRecusar = (id) => {
       console.log('Recusado publicação:', id);
     };
-
+  
     return (
       <div className="container">
         <BarraSuperior />
         <div className="flex">
           <BarraLateral />
           <div className="conteudo">
-          <BarraPublicacoesEticketsMod/>
-          <AprovacaoPublicacao
-            publicacoes={publicacoes}
-            onAprovar={handleAprovar}
-            onRecusar={handleRecusar}
-          />
+            <BarraPublicacoesEticketsMod />
+            <AprovacaoPublicacao
+              publicacoes={publicacoes}
+              onAprovar={handleAprovar}
+              onRecusar={handleRecusar}
+            />
           </div>
         </div>
       </div>
     );
   }
-    
-export default AprovacoesPublicacoes;
+  
+  export default AprovacoesPublicacoes;

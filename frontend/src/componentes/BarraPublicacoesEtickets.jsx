@@ -12,7 +12,7 @@ function BarraPublicacoesETickets() {
           Publicações
         </button>
 
-        <button className="botao-navegacao" onClick={() => navigate('/AprovacoesTickets')}>
+        <button className="botao-navegacao" onClick={() => navigate('/tickets-utilizador')}>
           Tickets
         </button>
       </div>
