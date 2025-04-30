@@ -62,7 +62,7 @@ function EditarPedido() {
         }
       } else {
         alert('Pedido não encontrado');
-        navigate('/dashboard');
+        navigate('');
       }
     } catch (error) {
       console.error('Erro ao buscar dados do pedido:', error);
@@ -79,6 +79,8 @@ function EditarPedido() {
     setDocumentos(prev => prev.filter((_, i) => i !== index));
   };
 
+
+  //submeter as alterações 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -95,7 +97,7 @@ function EditarPedido() {
     try {
       
       // const response = await fetch(`http://localhost:3000/pedidos/atualizar/${dadosPedido.id_pedido}`, {
-      //   method: 'PUT',
+      //   method: 'Patch',
       //   headers: {
       //     'Content-Type': 'application/json'
       //   },
@@ -104,7 +106,7 @@ function EditarPedido() {
       
       // Simulando resposta bem-sucedida
       alert('Pedido de freguesia atualizado com sucesso!');
-      navigate('/dashboard');
+      navigate('');
       
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
@@ -199,7 +201,7 @@ function EditarPedido() {
               <button 
                 type="button" 
                 className="btn-cancelar"
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/pedidos')}
               >
                 Cancelar
               </button>
