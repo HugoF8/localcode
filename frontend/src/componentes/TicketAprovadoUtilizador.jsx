@@ -25,15 +25,6 @@ function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onAlt
           {expandidoId === ticket.id_ticket && (
             <>
               <p className="ticket-description">{ticket.descricao_problema}</p>
-              <input
-                type="text"
-                className="ticket-input"
-                value={ticket.input || ''}
-                onChange={(e) => onInputChange(ticket.id_ticket, e.target.value)}
-              />
-              <div className="ticket-actions">
-                <button className="btn-aprovar" onClick={() => onAlterar(ticket.id_ticket)}>Alterar</button>
-              </div>
             </>
           )}
         </div>

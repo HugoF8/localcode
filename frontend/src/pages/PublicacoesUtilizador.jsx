@@ -1,21 +1,25 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import BarraPublicacoesEtickets from '../componentes/BarraPublicacoesEtickets';
 import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
 
+import '../styles/PublicacoesEtickets.css';
 
 function PublicacoesUtilizador() {
-  return (
-    <div className="pagina">
-      <BarraSuperior />
-      <div className="conteudo-principal">
-        <BarraLateral />
-        <main className="zona-central">
-          <h1>Área do Utilizador - Publicações</h1>
-          <NavegacaoUtilizador />
-          <Publicacoes />
-        </main>
-      </div>
-    </div>
-  );
-}
+    const [tickets, setTickets] = useState([]);
+    const [expandidoId, setExpandidoId] = useState(null);
 
+    return (
+      <div className="container">
+        <BarraSuperior />
+        <div className="flex">
+          <BarraLateral />
+          <div className="conteudo">
+            <BarraPublicacoesEtickets/>   
+          </div>
+        </div>
+      </div>
+    );
+  }
 export default PublicacoesUtilizador;
