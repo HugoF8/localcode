@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/AprovacoesTickets.css';
+import '../styles/AprovacoesTicketsePublicacoes.css';
 
 function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onAlterar, expandidoId }) {
   return (

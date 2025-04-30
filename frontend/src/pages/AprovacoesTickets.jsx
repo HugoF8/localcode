@@ -4,7 +4,7 @@ import AprovacoesTituloTickets from '../componentes/AprovacoesTituloTickets';
 import BarraPublicacoesEticketsMod from '../componentes/BarraPublicacoesEticketsMod';
 import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
-import '../styles/AprovacoesTickets.css';
+import '../styles/AprovacoesTicketsePublicacoes.css';
 
 function AprovacoesTickets() {
     const [tickets, setTickets] = useState([]);

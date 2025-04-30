@@ -1,0 +1,20 @@
+.card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #f5f5f5;
+  }
+  
+  .foto {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .nome {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }

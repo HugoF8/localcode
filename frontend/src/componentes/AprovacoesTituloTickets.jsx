@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BotoesTicket from '../componentes/BotoesTicket';
-import '../styles/AprovacoesTickets.css';
+import '../styles/AprovacoesTicketsePublicacoes.css';
 
 function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onAprovar, onRecusar, expandidoId }) {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/AprovacoesTickets.css';
+import '../styles/AprovacoesTicketsePublicacoes.css';
 
 function BotoesTicket({ onAprovar, onRecusar }) {
     return (

@@ -8,7 +8,7 @@ function BarraPublicacoesETicketsMod() {
     <div className="publicacoes-etickets-wrapper">
 
       <div className="botoes-navegacao">
-        <button className="botao-navegacao" onClick={() => navigate('/publicacoes-utilizador')}>
+        <button className="botao-navegacao" onClick={() => navigate('/AprovacoesPublicacoes')}>
           Publicações
         </button>
 
