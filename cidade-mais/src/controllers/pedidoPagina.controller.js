@@ -1,8 +1,15 @@
 const pedidoPaginaService = require('../services/pedidoPagina.service');
 
 async function createPedidoPagina(req, res) {
+    //########################################################
+    const id_utilizador = req.utilizador?.utilizadorId;
+    const dadosCompletos = {
+        ...req.body,
+        id_utilizador
+    };
+      //########################################################
     try {
-        const pedidoPagina = await pedidoPaginaService.createPedidoPagina(req.body);
+        const pedidoPagina = await pedidoPaginaService.createPedidoPagina( dadosCompletos);
         res.status(201).json(pedidoPagina);
     } catch (error) {
         console.error("Erro ao criar Pedido Pagina:", error);

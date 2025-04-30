@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 // Criar morada
 async function createMorada(data) {
-    return prisma.morada.create({ data });
+    return await prisma.morada.create({ data });
 }
 
 // Buscar todos os morada

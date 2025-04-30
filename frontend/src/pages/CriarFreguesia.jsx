@@ -22,18 +22,24 @@ function CriarFreguesia() {
 
     const dadosPedido = {
       nomefreguesia: document.getElementById('nome').value,
-      localizacao: document.getElementById('localizacao').value,
-      descricao: document.getElementById('descricao').value,
+      freguesia: document.getElementById('freguesia').value,
+      cidade: document.getElementById('cidade').value,    
+      rua: document.getElementById('rua').value, 
+      codigo_postal: parseInt(document.getElementById('codigo_postal').value),
+      dados_comprovacao: document.getElementById('documentos-upload').value,
       id_utilizador: parseInt(localStorage.getItem('id_utilizador')), 
       id_morada: parseInt(localStorage.getItem('id_morada')),        
       estado_pedido: 'pendente'
     };
 
     try {
+      const token = localStorage.getItem('token');
+
       const response = await fetch('http://localhost:3000/api/pedidosPagina/criarPedido', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify(dadosPedido)
       });
@@ -42,9 +48,10 @@ function CriarFreguesia() {
 
       if (response.ok) {
         alert('Pedido de freguesia enviado com sucesso!');
-        navigate('/dashboard');
+        navigate('/');
       } else {
         alert('Erro ao enviar pedido: ' + (resultado.detalhes || resultado.error));
+        console.error('Erro ao enviar pedido: ' + (resultado.detalhes || resultado.error))
       }
     } catch (error) {
       console.error('Erro ao enviar pedido:', error);
@@ -72,6 +79,9 @@ function CriarFreguesia() {
 
             <label htmlFor="Rua">Rua</label>
             <input type="text" id="rua" placeholder="Rua" required/>
+            
+            <label htmlFor="Codigo Postal">Codigo Postal</label>
+            <input type="text" id="codigo_postal" placeholder="Codigo Postal" required/>
 
 
             <label htmlFor="documentos">Documentos necessários <span title="Documentos obrigatórios">ℹ️</span></label>
