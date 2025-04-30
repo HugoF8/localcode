@@ -2,7 +2,7 @@ import '../App.css';
 import '../styles/PedidoPagina.css'
 import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
-import DropdownPedidos from '../componentes/PedidosDropdown';
+import DropdownPedidos from '../componentes/Pedidos/PedidosDropdown';
 
 function verPedidos() {
     return (

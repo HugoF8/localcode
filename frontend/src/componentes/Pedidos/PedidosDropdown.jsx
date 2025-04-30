@@ -1,106 +1,4 @@
-/*import React, { useEffect, useState } from 'react'
-import '../styles/PedidoPagina.css';  
 
-function DropdownPedidos({ idUtilizador }) {
-  const [pedidos, setPedidos] = useState([])
-  const [aberto, setAberto] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    async function fetchPedidos() {
-      setLoading(true)
-      try {
-        const response = await fetch(`http://localhost:3000/verPedidosRecusados`)
-        const data = await response.json()
-        setPedidos(data)
-        setError(null)
-      } catch (error) {
-        console.error('Erro ao procurar pedidos:', error)
-        setError('Falha ao carregar pedidos. Tente novamente mais tarde.')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchPedidos()
-  }, [])
-
-  const togglePedido = (id) => {
-    setAberto((anterior) => (anterior === id ? null : id))
-  }
-
-  if (loading) return <p className="loading-message">Carregando pedidos...</p>
-  if (error) return <p className="error-message">{error}</p>
-
-  return (
-    <div className="pedido-list-wrapper">
-      <h1 className="pedido-title">Pedidos Recusados</h1>
-
-      {pedidos.length === 0 ? (
-        <p className="no-pedidos">Nenhum pedido recusado encontrado.</p>
-      ) : (
-        pedidos.map((pedido) => (
-          <article
-            key={pedido.id_pedido}
-            className={`pedido-card ${aberto === pedido.id_pedido ? 'expanded' : ''}`}
-          >
-            <div className="pedido-header">
-              <div>
-                <p className="pedido-freguesia">{pedido.nomefreguesia}</p>
-                <p className="pedido-date">
-                  {pedido.data_pedido ? 
-                    new Date(pedido.data_pedido).toLocaleDateString() : 
-                    'Data não disponível'}
-                </p>
-              </div>
-              <div className="pedido-id">#{pedido.id_pedido}</div>
-              <button 
-                className="pedido-toggle" 
-                onClick={() => togglePedido(pedido.id_pedido)}
-                aria-expanded={aberto === pedido.id_pedido}
-              >
-                {aberto === pedido.id_pedido ? '˄' : '˅'}
-              </button>
-            </div>
-
-            {aberto === pedido.id_pedido && (
-              <section className="pedido-details">
-                <p className="pedido-info"><strong>Nome Freguesia:</strong> {pedido.nomefreguesia}</p>
-                <p className="pedido-info">
-                  <strong>Morada:</strong>{' '}
-                  {pedido.morada ? (
-                    <>
-                      {pedido.morada.rua && `${pedido.morada.rua}, `}
-                      {pedido.morada.freguesia && `${pedido.morada.freguesia}, `}
-                      {pedido.morada.cidade ?? 'N/A'}
-                    </>
-                  ) : 'Morada não disponível'}
-                </p>
-                <div className="pedido-comprovativo">
-                  <p><strong>Comprovativo:</strong></p>
-                  <a
-                    href={`/ficheiros/${pedido.dados_comprovacao}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-comprovativo"
-                  >
-                    Ver Anexo 📎
-                  </a>
-                </div>
-              </section>
-            )}
-          </article>
-        ))
-      )}
-    </div>
-  )
-}
-
-export default DropdownPedidos*/
-
-
-// mockPedidos.js
 export const mockPedidos = [
     {
       id_pedido: 1001,
@@ -165,9 +63,12 @@ export const mockPedidos = [
     }
   ];
 
+
+
+  
   import React, { useEffect, useState } from 'react'
   import { useNavigate } from 'react-router-dom'; // Importe o hook de navegação
-  import '../styles/PedidoPagina.css';  
+  import '../../styles/PedidoPagina.css';  
   
   function DropdownPedidos({ idUtilizador }) {
     const [pedidos, setPedidos] = useState([])
