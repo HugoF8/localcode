@@ -1,7 +1,16 @@
 import React from 'react';
 import BotaoEditarPedido from './BotaoEditarPedido';
+import '../../styles/PedidoPagina.css';
 
-function DropdownPedidos({ pedidos, aberto, togglePedido, navegarParaEditar, titulo = "Pedidos", exibirBotaoEditar = true }) {
+function DropdownPedidos({
+  pedidos,
+  aberto,
+  togglePedido,
+  navegarParaEditar,
+  titulo = "Pedidos",
+  exibirBotaoEditar = true,
+  acoesAdicionais = null
+}) {
   if (!pedidos || pedidos.length === 0) {
     return <p className="no-pedidos">Nenhum pedido encontrado.</p>;
   }
@@ -68,8 +77,17 @@ function DropdownPedidos({ pedidos, aberto, togglePedido, navegarParaEditar, tit
                   </a>
                 </div>
 
-                {/* Condicionar a exibição do botão de editar */}
-                {exibirBotaoEditar && <BotaoEditarPedido pedido={pedido} navegarParaEditar={navegarParaEditar} />}
+                {/* Botão de editar (condicional) */}
+                {exibirBotaoEditar && navegarParaEditar && (
+                  <BotaoEditarPedido pedido={pedido} navegarParaEditar={navegarParaEditar} />
+                )}
+
+                {/* Ações adicionais, se fornecidas */}
+                {acoesAdicionais && (
+                  <div className="pedido-acoes-extra">
+                    {acoesAdicionais(pedido)}
+                  </div>
+                )}
               </section>
             )}
           </article>

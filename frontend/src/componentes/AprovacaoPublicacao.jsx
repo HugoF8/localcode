@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/AprovacoesTicketsePublicacoes.css';
 import FotoPerfil from './FotoPerfil';
 import kfcblack from '../assets/kfcblack.jpg';
-import BotoesTicketePublicacoes from './BotoesTicketePublicacoes';
+import BotoesTicketePublicacoesPedidos from './BotoesTicketePublicacoes';
 
 function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
   return (
@@ -39,7 +39,7 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
               </div>
 
               <div className="publicacao-botoes">
-                <BotoesTicketePublicacoes
+                <BotoesTicketePublicacoesPedidos
                   onAprovar={() => onAprovar(pub.id)}
                   onRecusar={() => onRecusar(pub.id)}
                 />
