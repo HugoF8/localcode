@@ -4,13 +4,8 @@ import ImagemDefaultUtilizador from '../assets/defautlutilizador.png';
 import ImagemDefaultCapa from '../assets/defaultcapautilizador.jpg';
 
 export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) {
-  const storedUser = JSON.parse(localStorage.getItem('utilizador') || '{}');
   const [perfil, setPerfil] = useState({
-    utilizador: {
-      nome: storedUser.name || '',
-      email: storedUser.email || '',
-      data_nascimento: storedUser.data_nascimento || ''
-    },
+    utilizador: { nome: '', email: '', data_nascimento: '' },
     foto_perfil: null,
     foto_capa: null
   });
@@ -21,29 +16,32 @@ export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) 
   useEffect(() => {
     if (!isOpen || !token) return;
 
-    setLoading(true);
-    fetch('http://localhost:3000/api/perfil/verPerfil', {
-        method: 'GET',
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(res => {
+    const carregarPerfil = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch('http://localhost:3000/api/perfil/verPerfilUtilizador', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         if (!res.ok) throw new Error('Erro ao obter perfil');
-        return res.json();
-      })
-      .then(data => {
-        const p = data[0] || {};
-        setPerfil(prev => ({
+        const p = await res.json();
+
+        setPerfil({
           utilizador: {
-            nome: p.utilizador?.nome || prev.utilizador.nome,
-            email: p.utilizador?.email || prev.utilizador.email,
-            data_nascimento: p.utilizador?.data_nascimento || prev.utilizador.data_nascimento
+            nome: p.utilizador?.nome || '',
+            email: p.utilizador?.email || '',
+            data_nascimento: p.utilizador?.data_nascimento || ''
           },
           foto_perfil: p.foto_perfil || null,
           foto_capa: p.foto_capa || null
-        }));
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    carregarPerfil();
   }, [isOpen, token]);
 
   const handleFotoChange = e => {
@@ -65,7 +63,7 @@ export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) 
         const url = updated.foto_perfil.startsWith('http')
           ? updated.foto_perfil
           : `http://localhost:3000/${updated.foto_perfil}`;
-        setPerfil(prev => ({ ...prev, foto_perfil: url }));
+        setPerfil(prev => ({ ...prev, foto_perfil: updated.foto_perfil }));
         onFotoAtualizada(url);
       })
       .catch(console.error);
@@ -129,14 +127,8 @@ export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) 
 
         {/* Dados do utilizador */}
         <h2 className="profile-modal-title">{perfil.utilizador.nome}</h2>
-        <div className="profile-modal-info">
-          <div><strong>Contacto:</strong> {perfil.utilizador.contacto || '—'}</div>
-          <div><strong>Email:</strong> {perfil.utilizador.email}</div>
-          <div>
-            <strong>Data de Nasc.:</strong>{' '}
-            {new Date(perfil.utilizador.data_nascimento).toLocaleDateString('pt-PT')}
-          </div>
-        </div>
+        <p>{perfil.utilizador.email}</p>
+        <p>{new Date(perfil.utilizador.data_nascimento).toLocaleDateString('pt-PT')}</p>
       </div>
     </div>
   );

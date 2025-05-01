@@ -9,6 +9,7 @@ router.use(authenticate);
 // Criar e ler perfis
 router.post('/criarPerfil', perfilController.createPerfil);
 router.get('/verPerfil', perfilController.getAllPerfil);
+router.get('/verPerfilUtilizador', perfilController.getPerfilUtilizador);
 
 router.patch(
   '/foto-perfil',

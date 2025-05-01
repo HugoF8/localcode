@@ -1,4 +1,3 @@
-// src/componentes/IconesBarraSuperiorDireito.jsx
 import React, { useState, useEffect } from 'react';
 import ConfiguracoesMenu from './ConfiguracoesMenu';
 import NotificacoesDropDown from './NotificacoesDropDown';
@@ -13,7 +12,7 @@ export default function IconesBarraSuperiorDireito() {
   useEffect(() => {
     if (!token) return;
 
-    fetch('http://localhost:3000/api/perfil/verPerfil', {
+    fetch('http://localhost:3000/api/perfil/verPerfilUtilizador', {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -21,15 +20,13 @@ export default function IconesBarraSuperiorDireito() {
         if (!res.ok) throw new Error('Erro ao obter perfil');
         return res.json();
       })
-      .then(data => {
-        const p = data[0];
-        // Se existir foto_perfil válida, usa-a; caso contrário, mantém o default
-        if (p && p.foto_perfil) {
-          const url = p.foto_perfil.startsWith('http')
-            ? p.foto_perfil
-            : `http://localhost:3000/${p.foto_perfil}`;
-          setFotoPerfil(url);
-        }
+      .then(perfil => {
+        const url = perfil.foto_perfil
+          ? (perfil.foto_perfil.startsWith('http')
+              ? perfil.foto_perfil
+              : `http://localhost:3000/${perfil.foto_perfil}`)
+          : ImagemDefaultUtilizador;
+        setFotoPerfil(url);
       })
       .catch(console.error);
   }, [token]);

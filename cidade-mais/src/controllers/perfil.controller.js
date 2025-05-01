@@ -22,6 +22,17 @@ async function getAllPerfil(req, res) {
     }
 }
 
+async function getPerfilUtilizador(req, res) {
+  try {
+    const userId = req.utilizador.utilizadorId;
+    const perfil = await perfilService.getPerfilUtilizador(userId);
+    if (!perfil) return res.status(404).json({ error: 'Perfil não encontrado' });
+    res.json(perfil);
+  } catch (err) {
+    console.error('Erro ao obter perfil:', err);
+    res.status(500).json({ error: 'Erro interno ao obter perfil' });
+  }
+}
 async function atualizarFotoPerfil(req, res) {
   try {
     const userId = req.utilizador.utilizadorId;
@@ -41,4 +52,4 @@ async function atualizarFotoPerfil(req, res) {
 
 
 
-module.exports = { createPerfil, getAllPerfil, atualizarFotoPerfil };
+module.exports = { createPerfil, getAllPerfil, getPerfilUtilizador,atualizarFotoPerfil };
