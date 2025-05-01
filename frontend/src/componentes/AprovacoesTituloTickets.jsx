@@ -13,9 +13,13 @@ function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onApr
           className={`ticket-card ${expandidoId === ticket.id_ticket ? 'expanded' : ''}`}
         >
           <div className="ticket-header">
-            <div>
-              <p className="ticket-user">{ticket.nome}</p>
-              <p className="ticket-date">{ticket.data}</p>
+            <div className="ticket-user-info">
+              <img
+                src={`http://localhost:3000/uploads/${ticket.utilizador?.perfil?.foto_perfil || 'default.jpg'}`}
+                alt={ticket.utilizador?.nome || 'Utilizador'} 
+                className="ticket-user-img"
+              />
+              <p className="ticket-user">{ticket.utilizador?.nome || 'Utilizador'}</p>
             </div>
             <div className="ticket-id">#{ticket.id_ticket}</div>
             <button className="ticket-toggle" onClick={() => onToggleExpand(ticket.id_ticket)}>
@@ -25,6 +29,9 @@ function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onApr
 
           {expandidoId === ticket.id_ticket && (
             <>
+              <p className="ticket-date">
+                {new Date(ticket.data_criacao).toLocaleDateString()}
+              </p>
               <p className="ticket-description">{ticket.descricao_problema}</p>
               <input
                 type="text"
@@ -33,8 +40,8 @@ function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onApr
                 onChange={(e) => onInputChange(ticket.id_ticket, e.target.value)}
               />
               <BotoesTicket
-                  onAprovar={() => onAprovar(ticket.id_ticket)}
-                  onRecusar={() => onRecusar(ticket.id_ticket)}
+                onAprovar={() => onAprovar(ticket.id_ticket)}
+                onRecusar={() => onRecusar(ticket.id_ticket)}
               />
             </>
           )}
@@ -43,6 +50,5 @@ function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onApr
     </div>
   );
 }
-
 
 export default AprovacoesTituloTickets;

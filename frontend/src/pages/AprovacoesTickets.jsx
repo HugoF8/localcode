@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import AprovacoesTituloTickets from '../componentes/AprovacoesTituloTickets';
 import BarraPublicacoesEticketsMod from '../componentes/BarraPublicacoesEticketsMod';
 import BarraSuperior from '../componentes/BarraSuperior';
@@ -9,26 +8,27 @@ import '../styles/AprovacoesTicketsePublicacoes.css';
 function AprovacoesTickets() {
     const [tickets, setTickets] = useState([]);
     const [expandidoId, setExpandidoId] = useState(null);
+
+    const token = localStorage.getItem('token'); // JWT token do utilizador
+    const idPagina = 1; // Substitui isto pelo ID real da página
   
     useEffect(() => {
-      // Simula dados vindos da API
-      const mockTickets = [
-        {
-          id_ticket: 1,
-          nome: 'Paulo',
-          data: '06/03/2025',
-          descricao_problema: 'Erro ao carregar página inicial.',
-          input: '',
+      fetch(`http://localhost:3000/api/tickets/verTicketsPendentes/${idPagina}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          id_ticket: 2,
-          nome: 'João',
-          data: '10/03/2025',
-          descricao_problema: 'Texto cortado na versão mobile.',
-          input: '',
-        },
-      ];
-      setTickets(mockTickets);
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error('Erro ao buscar tickets');
+          return res.json();
+        })
+        .then((data) => {
+          setTickets(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }, []);
   
     const onToggleExpand = (id) => {
@@ -44,11 +44,29 @@ function AprovacoesTickets() {
     };
   
     const onAprovar = (id) => {
-      console.log(`Ticket #${id} aprovado.`);
+      fetch(`http://localhost:3000/api/tickets/atualizarEstadoTicket/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ bol: true }),
+      }).then(() => {
+        setTickets((prev) => prev.filter((t) => t.id_ticket !== id));
+      });
     };
   
     const onRecusar = (id) => {
-      console.log(`Ticket #${id} recusado.`);
+      fetch(`http://localhost:3000/api/tickets/atualizarEstadoTicket/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ bol: false }),
+      }).then(() => {
+        setTickets((prev) => prev.filter((t) => t.id_ticket !== id));
+      });
     };
   
     return (
@@ -72,4 +90,4 @@ function AprovacoesTickets() {
     );
   }
     
-    export default AprovacoesTickets;
+export default AprovacoesTickets;
