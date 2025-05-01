@@ -1,71 +1,4 @@
 
-export const mockPedidos = [
-    {
-      id_pedido: 1001,
-      nomefreguesia: "Freguesia de São Vicente",
-      data_pedido: "2023-11-15T14:30:00Z",
-      morada: {
-        rua: "Rua das Flores, 123",
-        freguesia: "São Vicente",
-        cidade: "Lisboa"
-      },
-      dados_comprovacao: "comprovativo_1001.pdf",
-      estado: "recusado",
-      motivo_recusa: "Documentação incompleta"
-    },
-    {
-      id_pedido: 1002,
-      nomefreguesia: "Freguesia de Benfica",
-      data_pedido: "2023-10-22T09:15:00Z",
-      morada: {
-        rua: "Avenida da República, 45",
-        freguesia: "Benfica",
-        cidade: "Lisboa"
-      },
-      dados_comprovacao: "comprovativo_1002.pdf",
-      estado: "recusado",
-      motivo_recusa: "Informações incorretas"
-    },
-    {
-      id_pedido: 1003,
-      nomefreguesia: "Freguesia de Arroios",
-      data_pedido: "2023-12-05T16:45:00Z",
-      morada: {
-        rua: "Rua Nova do Almada, 78",
-        freguesia: "Arroios",
-        cidade: "Lisboa"
-      },
-      dados_comprovacao: "comprovativo_1003.pdf",
-      estado: "recusado",
-      motivo_recusa: "Fora do prazo"
-    },
-    {
-      id_pedido: 1004,
-      nomefreguesia: "Freguesia de Alcântara",
-      data_pedido: "2023-11-30T11:20:00Z",
-      morada: {
-        rua: "Rua da Junqueira, 15",
-        freguesia: "Alcântara",
-        cidade: "Lisboa"
-      },
-      dados_comprovacao: "comprovativo_1004.pdf",
-      estado: "recusado",
-      motivo_recusa: "Não cumpre requisitos"
-    },
-    {
-      id_pedido: 1005,
-      nomefreguesia: "Freguesia de Carnide",
-      data_pedido: "2023-09-18T10:00:00Z",
-      morada: null, // Testando caso sem morada
-      dados_comprovacao: "comprovativo_1005.pdf",
-      estado: "recusado",
-      motivo_recusa: "Documentação ilegível"
-    }
-  ];
-
-
-
-  
   import React, { useEffect, useState } from 'react'
   import { useNavigate } from 'react-router-dom'; // Importe o hook de navegação
   import '../../styles/PedidoPagina.css';  
@@ -81,9 +14,18 @@ export const mockPedidos = [
       const fetchPedidos = async () => {
         setLoading(true);
         try {
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          setPedidos(mockPedidos);
-          setError(null);
+          const token = localStorage.getItem('token');
+
+          const response = await fetch(`http://localhost:3000/api/pedidosPagina/PedidosReprovados`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+
+          const resultado = await response.json();
+          setPedidos(resultado); 
+
         } catch (error) {
           console.error('Erro ao procurar pedidos:', error);
           setError('Falha ao carregar pedidos. Tente novamente mais tarde.');

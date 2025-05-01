@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import HomeFreguesia from './pages/HomePaginaFreguesia';
 import CriarFreguesia from './pages/CriarFreguesia';
 import EditarPedido from './pages/EditarPedido';
 import Pedidos from './pages/Pedidos';
@@ -20,6 +21,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/Pagina/:id" element={<HomeFreguesia />} />
         <Route path="/criar-freguesia" element={<CriarFreguesia />} />
         <Route path="/editar-pedido/:id" element={<EditarPedido />} />
         <Route path="/pedidos" element={<Pedidos/>} />

@@ -6,8 +6,8 @@ const router = express.Router();
 const { authenticate } = require('../middlewares/autent.middleware');
 router.use(authenticate);
 
-router.post('/criarSeguidor', seguidoresController.createUSeguidor);
-router.get('/verSeguidor', seguidoresController.getAllUSeguidores);
+router.post('/criarSeguidor', seguidoresController.createSeguidor);
+router.get('/verSeguidor', seguidoresController.getAllSeguidores);
 router.get('/verPaginasSeguidas/:id_utilizador', seguidoresController.getPaginasSeguidas);
 router.delete('/removerSeguidor', seguidoresController.pararSeguir);
 
