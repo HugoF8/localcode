@@ -29,7 +29,7 @@ function CriarPost() {
     const token = localStorage.getItem('token');
     const id_utilizador = localStorage.getItem('id_utilizador');
 
-    if (!token || !id_utilizador) {
+    if (!token) {
       return alert('Tem de iniciar sessão.');
     }
     if (!descricao.trim() && !imagem) {
@@ -43,7 +43,7 @@ function CriarPost() {
     if (imagem) formData.append('media_post', imagem);
 
     try {
-      const res = await fetch('http://localhost:3000/posts/criarPost', {
+      const res = await fetch('http://localhost:3000/api/posts/criarPost', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: formData
