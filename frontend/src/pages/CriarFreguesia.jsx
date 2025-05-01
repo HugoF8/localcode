@@ -48,7 +48,7 @@ function CriarFreguesia() {
 
       if (response.ok) {
         alert('Pedido de freguesia enviado com sucesso!');
-        navigate('/');
+        navigate('/home');
       } else {
         alert('Erro ao enviar pedido: ' + (resultado.detalhes || resultado.error));
         console.error('Erro ao enviar pedido: ' + (resultado.detalhes || resultado.error))
