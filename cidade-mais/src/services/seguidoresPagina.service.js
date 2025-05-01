@@ -3,12 +3,12 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 // Criar Seguidor
-async function createUSeguidor(data) {
+async function createSeguidor(data) {
     return prisma.seguidores_pagina.create({ data });
 }
 
 // Buscar todos os seguidores
-async function getAllUSeguidores() {
+async function getAllSeguidores() {
     return prisma.seguidores_pagina.findMany();
 }
 
@@ -29,4 +29,4 @@ async function pararSeguir(id_utilizador,id_pagina){
     })
 }
 
-module.exports = { createUSeguidor, getAllUSeguidores, getPaginasSeguidas, pararSeguir};
+module.exports = { createSeguidor, getAllSeguidores, getPaginasSeguidas, pararSeguir};

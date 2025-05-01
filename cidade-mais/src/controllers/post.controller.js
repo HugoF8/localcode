@@ -3,7 +3,12 @@ const postService = require('../services/post.service');
 // Criar Post
 async function createPost(req, res) {
   try {
-    const { id_utilizador, id_pagina, descricao_post } = req.body;
+    const id_utilizador = req.utilizador?.utilizadorId;
+
+    if (!id_utilizador) {
+        return res.status(401).json({ error: 'Utilizador não autenticado ou ID inválido' });
+    }
+    const { id_pagina, descricao_post } = req.body;
     const media_post = req.file ? req.file.path : null;
 
     const post = await postService.createPost({

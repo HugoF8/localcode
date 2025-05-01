@@ -2,10 +2,21 @@ const seguidoresService = require('../services/seguidoresPagina.service');
 const postService = require("../services/post.service");
 
 // Criar seguidores
-async function createUSeguidor(req, res) {
+async function createSeguidor(req, res) {
+    const id_utilizador = req.utilizador?.utilizadorId;
+
+    if (!id_utilizador) {
+        return res.status(401).json({ error: 'Utilizador não autenticado ou ID inválido' });
+    }
+
+    const dadosSeguidor = {
+        id_utilizador: id_utilizador,
+        id_pagina: req.body.id_pagina,  
+    };
+
     try {
-        const seguidor = await seguidoresService.createUSeguidor(req.body);
-        res.status(201).json(seguidor);
+        const novoSeguidor = await seguidoresService.createSeguidor(dadosSeguidor);
+        res.status(201).json(novoSeguidor);
     } catch (error) {
         console.error("Erro ao criar seguidor:", error);
         res.status(500).json({ error: "Erro ao criar seguidor", detalhes: error.message });
@@ -13,9 +24,9 @@ async function createUSeguidor(req, res) {
 }
 
 // Buscar todos os seguidores
-async function getAllUSeguidores(req, res) {
+async function getAllSeguidores(req, res) {
     try {
-        const seguidores = await seguidoresService.getAllUSeguidores();
+        const seguidores = await seguidoresService.getAllSeguidores();
         res.json(seguidores);
     } catch (error) {
         console.error("Erro ao buscar seguidores:", error);
@@ -53,4 +64,4 @@ async function pararSeguir(req, res) {
         res.status(500).json({ error: "Erro ao parar de seguir", detalhes: error.message });
     }
 }
-module.exports = { createUSeguidor, getAllUSeguidores, getPaginasSeguidas, pararSeguir};
+module.exports = { createSeguidor, getAllSeguidores, getPaginasSeguidas, pararSeguir};
