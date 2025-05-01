@@ -1,0 +1,87 @@
+.criar-post {
+    display: flex;
+    padding: 16px;
+    background: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .foto-perfil {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .form-post {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .descricao-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+  
+  .preview-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .preview-img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .btn-remover-preview {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  
+  .acoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .btn-foto {
+    background-color: #ddd;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-publicar {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .btn-publicar:hover {
+    background-color: #000;
+  }
+  

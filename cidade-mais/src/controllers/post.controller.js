@@ -69,20 +69,8 @@ async function atualizarEstadoPost(req, res) {
 
 // Listar posts de uma página (seguindo ou não)
 async function getPostPagina(req, res) {
-  const { id_pagina: qp } = req.query;
-
-  // se não veio query, devolve o feed (páginas seguidas)
-  if (!qp) {
-    try {
-      const feed = await postService.getPostsPaginasSeguidas(req.utilizador.utilizadorId);
-      return res.status(200).json(feed);
-    } catch (error) {
-      console.error("Erro ao buscar feed no lugar de posts de página:", error);
-      return res.status(500).json({ error: "Erro ao buscar feed", detalhes: error.message });
-    }
-  }
-
-  const id_pagina = Number(qp);
+  
+  const id_pagina = Number(req.params.id_pagina);
   if (isNaN(id_pagina)) {
     return res.status(400).json({ error: 'id_pagina deve ser um número válido na query string' });
   }

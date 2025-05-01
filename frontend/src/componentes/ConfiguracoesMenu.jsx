@@ -35,6 +35,7 @@ function ConfiguracoesMenu() {
           <button onClick={() => navigate('/criar-freguesia')}>Criar Freguesia</button>
           <button onClick={() => navigate('/pedidos')}>Pedido</button>
           <button onClick={() => navigate('/AprovacoesTickets')}>AprovacoesTickets</button>
+          <button onClick={() => navigate('/criar-post')}>Post</button>
           <button onClick={toggleDarkMode}>
             {darkMode ? 'Modo Claro' : 'Modo Escuro'}
           </button>
