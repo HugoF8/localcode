@@ -28,6 +28,7 @@ async function getAllPedidoPagina(req, res) {
 }
 
 async function getPedidoPendente(req, res) {
+    
     try {
         const pedidoPagina = await pedidoPaginaService.getPedidoPendente();
         res.json(pedidoPagina);
@@ -38,6 +39,13 @@ async function getPedidoPendente(req, res) {
 }
 
 async function getPedidoAprovado(req, res) {
+
+    const id_utilizador = req.utilizador?.utilizadorId;
+
+    if (!id_utilizador) {
+        return res.status(401).json({ error: 'Utilizador não autenticado ou ID inválido' });
+    }
+
     try {
         const pedidoPagina = await pedidoPaginaService.getPedidoAprovado(id_utilizador);
         res.json(pedidoPagina);
@@ -48,6 +56,13 @@ async function getPedidoAprovado(req, res) {
 }
 
 async function getPedidoReprovado(req, res) {
+
+    const id_utilizador = req.utilizador?.utilizadorId;
+
+    if (!id_utilizador) {
+        return res.status(401).json({ error: 'Utilizador não autenticado ou ID inválido' });
+    }
+
     try {
         const pedidoPagina = await pedidoPaginaService.getPedidoReprovado(id_utilizador);
         res.json(pedidoPagina);

@@ -11,4 +11,7 @@ router.get('/verPedidosPendentes', authenticate,authRole('admin'), pedidoControl
 router.patch('/atualizarEstadoPedido/:id_pedido', authenticate, authRole('admin'), pedidoController.atualizarEstadoPedido);
 router.patch('/alterarPedidoPagina/:id_pedido',authenticate, authProprietario, pedidoController.alterarPedidoPagina);
 
+router.get('/PedidosReprovados', authenticate, authProprietario, pedidoController.getPedidoReprovado);
+router.get('/PedidosAprovados', authenticate, authProprietario, pedidoController.getPedidoAprovado);
+
 module.exports = router;
