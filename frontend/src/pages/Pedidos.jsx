@@ -2,18 +2,20 @@ import '../App.css';
 import '../styles/PedidoPagina.css'
 import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
-import DropdownPedidos from '../componentes/Pedidos/PedidosDropdown';
+import DropdownReprovados from '../componentes/Pedidos/PedidosReprovados';
+import DropdownAprovados from '../componentes/Pedidos/PedidosAprovados';
 
-function verPedidos() {
+function Pedidos() {
     return (
         <div className="container">
           <BarraSuperior />
           <BarraLateral />
           <div className="corpo">
-            <DropdownPedidos />
+            <DropdownReprovados />
+            <DropdownAprovados/>
           </div>
         </div>
       );
 }
   
-  export default verPedidos;
+  export default Pedidos;
