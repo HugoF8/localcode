@@ -11,7 +11,7 @@ router.post('/criarPost', authSeguir, upload.single('media_post'),  postControll
 router.get('/verPosts', postController.getAllPosts); //admin
 router.get('/verPostsPendentes/:id_pagina', authModerador, postController.getPostsPendente);
 router.patch('/atualizarPostsPendentes/:id_post', authModerador, postController.atualizarEstadoPost);
-router.get('/verPostsPagina', /*authSeguir,*/postController.getPostPagina);
+router.get('/verPostsPagina/:id_pagina', /*authSeguir,*/postController.getPostPagina);
 router.get('/verPostsAprovados', postController.getPostsAprovados);
 router.get('/verPostsRecusados',authProprietario, postController.getPostsRecusados);
 router.patch('/alterarInformacoesPost/:id_post', authProprietario, upload.single('media_post'), postController.alterarInformacoesPost);
