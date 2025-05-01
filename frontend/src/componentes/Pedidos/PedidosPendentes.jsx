@@ -16,7 +16,7 @@ function DropdownPendentes({ idUtilizador }) {
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/api/pedidosPagina/PedidosPendentes`, {
+        const response = await fetch(`http://localhost:3000/api/pedidosPagina/verPedidosPendentes`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -55,6 +55,7 @@ function DropdownPendentes({ idUtilizador }) {
       titulo="Pedidos Pendentes"
       exibirBotaoEditar={false} 
     />
+    
   );
 }
 
