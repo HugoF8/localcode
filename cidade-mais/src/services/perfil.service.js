@@ -8,7 +8,18 @@ async function createPerfil(data) {
 
 // Buscar todos os Perfis
 async function getAllPerfil() {
-    return prisma.perfil.findMany();
+  return prisma.perfil.findMany({
+    include: {
+      utilizador: true // Inclui dados do utilizador
+    }
+  });
+}
+
+async function getPerfilUtilizador(id_utilizador) {
+  return prisma.perfil.findFirst({
+    where: { id_utilizador },
+    include: { utilizador: true }
+  });
 }
 
 async function atualizarFotoPerfil(id_utilizador, caminhoImagem) {
@@ -32,4 +43,4 @@ async function atualizarFotoPerfil(id_utilizador, caminhoImagem) {
 
 
 
-module.exports = { createPerfil, getAllPerfil, atualizarFotoPerfil };
+module.exports = { createPerfil, getAllPerfil, getPerfilUtilizador,atualizarFotoPerfil };
