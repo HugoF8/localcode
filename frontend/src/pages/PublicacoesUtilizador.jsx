@@ -1,69 +1,141 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
 import BarraPublicacoesEtickets from '../componentes/BarraPublicacoesEtickets';
 import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
-import PublicacoesNaoAprovadasUtilizador from '../componentes/PublicacoesNaoAprovadasUtilizador';
-import FotoPerfil from '../componentes/FotoPerfil';
-import '../styles/AprovacoesTicketsePublicacoes.css';
+import PublicacoesNaoAprovadasUtilizador from '../componentes/PublicacoesAprovUtilizador/PublicacoesNaoAprovadasUtilizador';
+import PublicacoesAprovadasUtilizador from '../componentes/PublicacoesAprovUtilizador/PublicacoesAprovadasUtilizador';
 
 
+
+import '../styles/PublicacoesEtickets.css';
 
 function PublicacoesUtilizador() {
-    const [publicacoes, setPublicacoes] = useState([]);
-  
-    useEffect(() => {
-      const mockPublicacoes = [
-        {
-          id: 1,
-          nome: 'João',
-          descricao:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum.',
-          imagemPublicacao: '/imagem-joao.jpg',
-          imagemPerfil: 'blackpremium.jpg',
-          tipo: 'imagem',
-        },
-        {
-          id: 2,
-          nome: 'Dolores',
-          descricao: 'Lorem ipsum dolor sit amet, adipiscing elit ?',
-          imagemPerfil: 'blackpremium.jpg',
-          tipo: 'poll',
-          opcoes: [
-            { id: 'a', texto: 'Amarelo', selecionada: true },
-            { id: 'b', texto: 'Castanho', selecionada: false },
-            { id: 'c', texto: 'Preto', selecionada: false },
-          ],
-          dataTermino: '13/05/2025',
-        },
-      ];
-      setPublicacoes(mockPublicacoes);
-    }, []);
-  
-    const handleAprovar = (id) => {
-      console.log('Aprovado publicação:', id);
+  const [posts, setPosts] = useState({ aprovados: [], recusados: [] });
+  const [expandidoId, setExpandidoId] = useState(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+
+        const [aprovadosRes, recusadosRes] = await Promise.all([
+          fetch('/api/posts/aprovados', { headers }),
+          fetch('/api/posts/recusados', { headers }),
+        ]);
+
+        if (!aprovadosRes.ok || !recusadosRes.ok) {
+          throw new Error('Erro ao buscar posts');
+        }
+
+        const aprovados = await aprovadosRes.json();
+        const recusadosRaw = await recusadosRes.json();
+
+        const recusados = recusadosRaw.map(post => ({
+          ...post,
+          input: '',
+        }));
+
+        setPosts({ aprovados, recusados });
+      } catch (error) {
+        console.error('Erro ao buscar posts:', error);
+      }
     };
-  
-    const handleRecusar = (id) => {
-      console.log('Recusado publicação:', id);
-    };
-  
-    return (
-      <div className="container">
-        <BarraSuperior />
-        <div className="flex">
-          <BarraLateral />
-          <div className="conteudo">
-            <BarraPublicacoesEtickets/>
-            <PublicacoesNaoAprovadasUtilizador
-              publicacoes={publicacoes}
-              onAprovar={handleAprovar}
-              onRecusar={handleRecusar}
-            />
-          </div>
+
+    fetchPosts();
+  }, []);
+
+  const onToggleExpand = (id) => {
+    setExpandidoId(prev => (prev === id ? null : id));
+  };
+
+  const onInputChange = (id, valor) => {
+    setPosts(prev => ({
+      ...prev,
+      recusados: prev.recusados.map(post =>
+        post.id_post === id ? { ...post, input: valor } : post
+      ),
+    }));
+  };
+
+  const onAlterar = async (id) => {
+    const post = posts.recusados.find(p => p.id_post === id);
+    if (!post) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`/api/posts/alterarInformacoesPost/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ descricao_post: post.input }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Falha ao alterar publicação');
+      }
+
+      alert('Publicação alterada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao alterar publicação:', error);
+    }
+  };
+
+  const onApagar = async (id) => {
+    if (!window.confirm('Tens a certeza que queres apagar esta publicação?')) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`/api/posts/alterarInformacoesPost/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ descricao_post: '', media_post: null }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Falha ao apagar publicação');
+      }
+
+      setPosts(prev => ({
+        ...prev,
+        recusados: prev.recusados.filter(p => p.id_post !== id),
+      }));
+
+      alert('Publicação apagada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao apagar publicação:', error);
+    }
+  };
+
+  return (
+    <div className="container">
+      <BarraSuperior />
+      <div className="flex">
+        <BarraLateral />
+        <div className="conteudo">
+          <BarraPublicacoesEtickets />
+          <PublicacoesNaoAprovadasUtilizador
+            posts={posts.recusados}
+            expandidoId={expandidoId}
+            onToggleExpand={onToggleExpand}
+            onInputChange={onInputChange}
+            onAlterar={onAlterar}
+            onApagar={onApagar}
+          />
+          <PublicacoesAprovadasUtilizador
+            posts={posts.aprovados}
+            expandidoId={expandidoId}
+            onToggleExpand={onToggleExpand}
+          />
         </div>
       </div>
-    );
-  }
-  
-  export default PublicacoesUtilizador;
+    </div>
+  );
+}
+
+export default PublicacoesUtilizador;

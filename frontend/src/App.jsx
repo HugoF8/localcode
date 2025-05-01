@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import HomeFreguesia from './pages/HomePaginaFreguesia';
 import CriarFreguesia from './pages/CriarFreguesia';
+import Pedidos from './pages/Pedidos';
 import PublicacoesUtilizador from './pages/PublicacoesUtilizador';
 import TicketsUtilizador from './pages/TicketsUtilizador';
 import AprovacoesTickets from './pages/AprovacoesTickets';
@@ -22,6 +23,7 @@ function App() {
         <Route path="/Pagina/:id" element={<HomeFreguesia />} />
         <Route path="/criar-freguesia" element={<CriarFreguesia />} />
         <Route path="/publicacoes-utilizador" element={<PublicacoesUtilizador />} />
+        <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/tickets-utilizador" element={<TicketsUtilizador />} />
         <Route path="/AprovacoesTickets" element={<AprovacoesTickets />} />
         <Route path="/AprovacoesPublicacoes" element={<AprovacoesPublicacoes />} />

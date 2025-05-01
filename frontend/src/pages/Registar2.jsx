@@ -40,7 +40,7 @@ function Registar2() {
 
       if (res.ok) {
         // Apenas redireciona para o login
-        navigate('/login');
+        navigate('/');
       } else {
         alert(data.error || 'Erro no registo.');
       }
