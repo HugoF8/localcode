@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import '../styles/AprovacoesTicketsePublicacoes.css';
+import React from 'react';
+import '../../styles/AprovacoesTicketsePublicacoes.css';
 
-function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onAlterar, expandidoId }) {
+function TicketAprovadoUtilizador({ tickets, onToggleExpand, expandidoId }) {
   return (
     <div className="ticket-list-wrapper">
       <h1 className="ticket-title">Aprovados</h1>
@@ -13,8 +13,10 @@ function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onAlt
         >
           <div className="ticket-header">
             <div>
-              <p className="ticket-user">{ticket.nome}</p>
-              <p className="ticket-date">{ticket.data}</p>
+              <p className="ticket-user">{ticket.utilizador?.nome || 'Utilizador'}</p>
+              <p className="ticket-date">
+                {new Date(ticket.data_criacao).toLocaleDateString('pt-PT')}
+              </p>
             </div>
             <div className="ticket-id">#{ticket.id_ticket}</div>
             <button className="ticket-toggle" onClick={() => onToggleExpand(ticket.id_ticket)}>
@@ -33,5 +35,4 @@ function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onAlt
   );
 }
 
-
-export default AprovacoesTituloTickets;
+export default TicketAprovadoUtilizador;
