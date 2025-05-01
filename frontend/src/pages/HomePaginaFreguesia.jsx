@@ -4,6 +4,7 @@ import BarraLateral from '../componentes/BarraLateral';
 import BotaoSeguir from '../componentes/PaginaFreguesia/Seguir';
 import CriarPost from '../componentes/CriarPost';
 import PostsFreguesia from '../componentes/PaginaFreguesia/PostsFreguesia';
+import InfosFreguesia from '../componentes/PaginaFreguesia/InfosFreguesia';
 
 function HomeFreguesia() {
   return (
@@ -13,6 +14,9 @@ function HomeFreguesia() {
         <BarraLateral />
 
         <div className="zona-publicacoes">
+          {/* informações freguesia */}
+          <InfosFreguesia />
+
           {/* Botão de seguir à página */}
           <BotaoSeguir />
 
