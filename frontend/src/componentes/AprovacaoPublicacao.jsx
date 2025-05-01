@@ -1,25 +1,23 @@
 import React from 'react';
 import '../styles/AprovacoesTicketsePublicacoes.css';
-import BotoesTicket from './BotoesTicket';
 import FotoPerfil from './FotoPerfil';
 import kfcblack from '../assets/kfcblack.jpg';
+import BotoesTicketePublicacoes from './BotoesTicketePublicacoes';
 
 function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
   return (
     <div className="aprovacoes-container">
-      <h2 className="aprovacoes-titulo">Aprovação</h2>
+      <h2 className="aprovacoes-titulo">Aprovação de Publicações</h2>
 
       {publicacoes.map((pub) => (
         <div key={pub.id} className="publicacao-card">
           <div className="publicacao-header">
             <div className="publicacao-conteudo">
               <FotoPerfil nome={pub.nome} />
+              <p className="publicacao-descricao">{pub.descricao_post || pub.descricao}</p>
 
-              <p className="publicacao-descricao">{pub.descricao}</p>
-
-              {/* Bloco do conteúdo, com classe comum para controlar o espaçamento */}
               <div className="publicacao-conteudo-central">
-                {pub.tipo === 'imagem' && kfcblack && (
+                {pub.tipo === 'imagem' && (
                   <img
                     src={kfcblack}
                     alt="Imagem da publicação"
@@ -31,11 +29,7 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
                   <div className="poll-container">
                     {pub.opcoes.map((opcao) => (
                       <div key={opcao.id} className="poll-opcao">
-                        <input
-                          type="radio"
-                          checked={opcao.selecionada}
-                          readOnly
-                        />
+                        <input type="radio" checked={opcao.selecionada} readOnly />
                         <label>{opcao.texto}</label>
                       </div>
                     ))}
@@ -44,9 +38,8 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
                 )}
               </div>
 
-              {/* Botões */}
               <div className="publicacao-botoes">
-                <BotoesTicket
+                <BotoesTicketePublicacoes
                   onAprovar={() => onAprovar(pub.id)}
                   onRecusar={() => onRecusar(pub.id)}
                 />

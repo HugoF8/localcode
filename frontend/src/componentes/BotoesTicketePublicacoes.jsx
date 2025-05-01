@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/AprovacoesTicketsePublicacoes.css';
 
-function BotoesTicket({ onAprovar, onRecusar}) {
+function BotoesTicketePublicacoes({ onAprovar, onRecusar}) {
     return (
       <div className="ticket-actions">
         <button className="btn-aprovar" onClick={onAprovar}>
@@ -14,4 +14,4 @@ function BotoesTicket({ onAprovar, onRecusar}) {
     );
   }
 
-  export default BotoesTicket;
+  export default BotoesTicketePublicacoes;

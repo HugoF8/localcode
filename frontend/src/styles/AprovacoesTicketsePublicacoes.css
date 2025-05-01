@@ -114,6 +114,34 @@
   background-color: #dcfce7;
 }
 
+.veracidade-container {
+  margin-top: 2rem;
+}
+
+.veracidade-botoes {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-veredito {
+  background-color: #d4edda;
+  border: 1px solid #28a745;
+  color: #155724;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-falso {
+  background-color: #f8d7da;
+  border: 1px solid #dc3545;
+  color: #721c24;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .btn-recusar {
   padding: 0.5rem 1rem;
   border: 2px solid #c92222;

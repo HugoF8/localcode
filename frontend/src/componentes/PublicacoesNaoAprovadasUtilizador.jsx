@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/AprovacoesTicketsePublicacoes.css';
-import BotoesTicket from './BotoesTicket';
+import BotoesTicket from './BotoesTicketePublicacoes';
 import FotoPerfil from './FotoPerfil';
 import speedRoni from '../assets/speedRoni.png';
 

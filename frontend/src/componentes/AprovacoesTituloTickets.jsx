@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BotoesTicket from '../componentes/BotoesTicket';
+import BotoesTicketePublicacoes from '../componentes/BotoesTicketePublicacoes';
 import '../styles/AprovacoesTicketsePublicacoes.css';
 
 function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onAprovar, onRecusar, expandidoId }) {
@@ -39,7 +39,7 @@ function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onApr
                 value={ticket.input || ''}
                 onChange={(e) => onInputChange(ticket.id_ticket, e.target.value)}
               />
-              <BotoesTicket
+              <BotoesTicketePublicacoes
                 onAprovar={() => onAprovar(ticket.id_ticket)}
                 onRecusar={() => onRecusar(ticket.id_ticket)}
               />
