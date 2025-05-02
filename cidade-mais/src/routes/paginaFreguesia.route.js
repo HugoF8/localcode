@@ -8,6 +8,6 @@ router.use(authenticate);
 
 router.post('/criarPaginaFreguesia', paginaFreguesiaController.createPaginaFreguesia);
 router.get('/verPaginaFreguesia', paginaFreguesiaController.getAllPaginaFreguesia);
-router.get('/pesquisarPaginas', paginaFreguesiaController.pesquisaPagina);
+router.get('/pesquisarPaginas/:pesquisa', paginaFreguesiaController.pesquisaPagina);
 
 module.exports = router;
