@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/CriarPost.css';
-import userPlaceholder from '../assets/black.jpg';
+import userPlaceholder from '../assets/landscape-placeholder.svg';
 
 function CriarPost() {
   // Pega o parâmetro da rota: /Pagina/:id

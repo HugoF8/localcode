@@ -1,11 +1,11 @@
 // src/componentes/ImagemLoginRegistar.jsx
 import React from 'react';
-import img from '../../assets/black.jpg';
+import img from '../../assets/landscape-placeholder.svg';
 
 function ImagemLoginRegistar() {
   return (
     <div className="login-right">
-      <img src={img} alt="Login Illustration" />
+     <img src={img} alt="Login Illustration" />
     </div>
   );
 }

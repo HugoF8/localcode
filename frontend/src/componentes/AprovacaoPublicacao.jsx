@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/AprovacoesTicketsePublicacoes.css';
 import FotoPerfil from './FotoPerfil';
-import kfcblack from '../assets/kfcblack.jpg';
+import ex from '../assets/landscape-placeholder.svg';
 import BotoesTicketePublicacoesPedidos from './BotoesTicketePublicacoes';
 
 function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
@@ -19,7 +19,7 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
               <div className="publicacao-conteudo-central">
                 {pub.tipo === 'imagem' && (
                   <img
-                    src={kfcblack}
+                    src={ex}
                     alt="Imagem da publicação"
                     className="publicacao-img"
                   />
