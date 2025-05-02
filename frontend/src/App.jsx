@@ -6,6 +6,8 @@ import Pedidos from './pages/Pedidos';
 import PublicacoesUtilizador from './pages/PublicacoesUtilizador';
 import TicketsUtilizador from './pages/TicketsUtilizador';
 import AprovacoesTickets from './pages/AprovacoesTickets';
+import AprovacoesPedidos from './pages/AprovacoesPedidos';
+import AprovacoesPublicacoes from './pages/AprovacoesPublicacoes';
 import Login from './pages/Login';
 import Registar1 from './pages/Registar1';
 import Registar2 from './pages/Registar2';
@@ -25,6 +27,8 @@ function App() {
         <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/tickets-utilizador" element={<TicketsUtilizador />} />
         <Route path="/AprovacoesTickets" element={<AprovacoesTickets />} />
+        <Route path="/AprovacoesPublicacoes" element={<AprovacoesPublicacoes />} />
+        <Route path="/AprovacoesPedidos" element={<AprovacoesPedidos />} />
         <Route path="/" element={<Login />} />
         <Route path="/registar1" element={<Registar1 />} />
         <Route path="/registar2" element={<Registar2 />} />
