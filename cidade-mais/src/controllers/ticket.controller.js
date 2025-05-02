@@ -119,5 +119,16 @@ async function alterarTicket(req, res) {
     }
 }
 
+async function deleteTicket(req, res) {
+    try {
+      const id = Number(req.params.id_ticket);
+      await ticketService.deleteTicket(id);
+      res.status(204).send();
+    } catch (error) {
+      console.error("Erro ao apagar ticket:", error);
+      res.status(500).json({ error: "Erro ao apagar ticket" });
+    }
+  }
 
-module.exports = { createTicket, getAllTickets, getTicketPendente, getTicketAberto, getTicketFechado,atualizarEstadoTicket, alterarTicket};
+
+module.exports = { createTicket, getAllTickets, getTicketPendente, getTicketAberto, getTicketFechado,atualizarEstadoTicket, alterarTicket, deleteTicket};

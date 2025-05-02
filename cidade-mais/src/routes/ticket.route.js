@@ -14,5 +14,6 @@ router.get('/verTicketFechado',authProprietario, ticketController.getTicketFecha
 router.get('/verTicketsPendentes/:id_pagina', authRole('moderador'), ticketController.getTicketPendente);
 router.patch('/atualizarEstadoTicket/:id_ticket', authRole('moderador'), ticketController.atualizarEstadoTicket);
 router.patch('/alterarTicket/:id_ticket',authProprietario, ticketController.alterarTicket);
+router.delete('/:id_ticket', authProprietario, ticketController.deleteTicket);
 
 module.exports = router;
