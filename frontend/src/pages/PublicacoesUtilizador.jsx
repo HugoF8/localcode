@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import BarraPublicacoesEtickets from '../componentes/BarraPublicacoesEtickets';
-import BarraSuperior from '../componentes/BarraSuperior';
-import BarraLateral from '../componentes/BarraLateral';
+import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
+import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import PublicacoesNaoAprovadasUtilizador from '../componentes/PublicacoesAprovUtilizador/PublicacoesNaoAprovadasUtilizador';
 import PublicacoesAprovadasUtilizador from '../componentes/PublicacoesAprovUtilizador/PublicacoesAprovadasUtilizador';
 

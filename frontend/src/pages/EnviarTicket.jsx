@@ -1,7 +1,7 @@
 // src/pages/EnviarTicket.jsx
 import React from 'react';
-import BarraSuperior from '../componentes/BarraSuperior';
-import BarraLateral from '../componentes/BarraLateral';
+import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
+import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import TicketSubmission from '../componentes/CriarTicket';
 import '../styles/EnviarTicket.css';
 

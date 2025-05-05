@@ -1,7 +1,7 @@
 import '../App.css';
 import '../styles/PedidoPagina.css'
-import BarraSuperior from '../componentes/BarraSuperior';
-import BarraLateral from '../componentes/BarraLateral';
+import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
+import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import DropdownReprovados from '../componentes/Pedidos/PedidosReprovados';
 import DropdownAprovados from '../componentes/Pedidos/PedidosAprovados';
 

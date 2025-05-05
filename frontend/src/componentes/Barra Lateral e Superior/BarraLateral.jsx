@@ -1,6 +1,6 @@
 
-import junta from '../assets/Junta_Urgezes.jpg';
-import brasao from '../assets/Urgezes_brasao.png';
+import junta from '../../assets/Junta_Urgezes.jpg';
+import brasao from '../../assets/Urgezes_brasao.png';
 
 function BarraLateral() {
   const icones = [
