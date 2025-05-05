@@ -1,6 +1,6 @@
 // src/componentes/NotificacoesDropDown.jsx
 import React, { useState } from 'react';
-import notificationIcon from '../assets/notification-icon.png';
+import notificationIcon from '../../assets/notification-icon.png';
 
 export default function NotificacoesDropDown() {
   const [notificacoes, setNotificacoes] = useState([]);
