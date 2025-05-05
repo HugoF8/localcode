@@ -171,7 +171,6 @@
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #ccc;
   padding-bottom: 0.5rem;
 }
 
@@ -195,4 +194,18 @@
 /* Garante alinhamento vertical dos botões */
 .publicacao-botoes {
   margin-top: 1rem;
+}
+
+.titulo-centralizado {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem; /* Ajusta aqui se quiseres mais para cima ou para baixo */
+}
+
+.titulo-aprovacao {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600;   /* font-semibold */
+  border-bottom: none;
+  box-shadow: none;
+  padding-bottom: 0; /* remove espaço se existir */
 }
