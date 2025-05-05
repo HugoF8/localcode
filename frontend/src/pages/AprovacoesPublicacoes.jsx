@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
 import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import BarraPublicacoesEticketsMod from '../componentes/BarraPublicacoesEticketsMod';
-import AprovacaoPublicacao from '../componentes/AprovacaoPublicacao';
+import AprovacaoPublicacao from '../componentes/AprovacoesMod/AprovacaoPublicacao';
 import '../styles/AprovacoesTicketsePublicacoes.css';
 
 function AprovacoesPublicacoes() {

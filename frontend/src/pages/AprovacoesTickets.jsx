@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import AprovacoesTituloTickets from '../componentes/AprovacoesTituloTickets';
+import AprovacoesTituloTickets from '../componentes/AprovacoesMod/AprovacoesTituloTickets';
 import BarraPublicacoesEticketsMod from '../componentes/BarraPublicacoesEticketsMod';
 import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
 import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';

@@ -1,13 +1,15 @@
 import React from 'react';
-import '../styles/AprovacoesTicketsePublicacoes.css';
-import FotoPerfil from './FotoPerfil';
-import ex from '../assets/landscape-placeholder.svg';
-import BotoesTicketePublicacoesPedidos from './BotoesTicketePublicacoes';
+import '../../styles/AprovacoesTicketsePublicacoes.css';
+import FotoPerfil from '../FotoPerfil';
+import ex from '../../assets/landscape-placeholder.svg';
+import BotoesTicketePublicacoesPedidos from '../BotoesTicketePublicacoes';
 
 function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
   return (
     <div className="aprovacoes-container">
+    <div className="titulo-centralizado">
       <h2 className="aprovacoes-titulo">Aprovação de Publicações</h2>
+    </div>
 
       {publicacoes.map((pub) => (
         <div key={pub.id} className="publicacao-card">
