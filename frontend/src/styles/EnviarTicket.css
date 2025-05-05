@@ -1,137 +1,89 @@
-.conteudo-criar {
-    flex: 1;
-    padding: 40px;
-    background-color: #f4f4f4;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .conteudo-criar h2 {
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 25px;
-    margin-top: 10px;
-    width: 100%;
-    max-width: 720px;
-  }
-  
-  .formulario {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-    max-width: 720px;
-  }
-  
-  .formulario label {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
-  
-  .formulario input[type="text"],
-  .formulario textarea {
-    padding: 12px 16px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: white;
-  }
-  
-  textarea {
-    resize: vertical;
-    min-height: 120px;
-  }
-  
-  .upload-box {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 28px;
-    text-align: center;
-    background-color: #fff;
-    cursor: pointer;
-  }
-  
-  .upload-label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #444;
-  }
-  
-  .upload-label .plus {
-    font-size: 26px;
-    background-color: #ddd;
-    border-radius: 50%;
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-  }
-  
-  .upload-label p {
-    margin: 0;
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .btn-enviar {
-    margin-top: 24px;
-    align-self: center;
-    padding: 10px 26px;
-    background-color: #4a4a4a;
-    color: white;
-    font-size: 15px;
-    font-weight: 500;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-  }
-  
-  .btn-enviar:hover {
-    background-color: #333;
-  }
-  
-  label span[title] {
-    font-size: 14px;
-    margin-left: 6px;
-    cursor: help;
-    vertical-align: middle;
-  }
-  
+/* src/styles/EnviarTicket.css */
 
-  .upload-box {
-    border: 2px dashed #aaa;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    position: relative;
-  }
-  
-  .upload-label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    gap: 8px;
-  }
-  
-  .upload-label .plus {
-    font-size: 24px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .btn-remover {
-    background: none;
-    border: none;
-    color: #c00;
-    cursor: pointer;
-    font-size: 14px;
-  }
+.conteudo-criar {
+  flex: 1;
+  padding: 40px;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.conteudo-criar h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0;
+  width: 100%;
+  max-width: 720px;
+}
+
+/* linha horizontal */
+.conteudo-criar hr {
+  width: 100%;
+  max-width: 720px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin: 8px 0 32px;
+}
+
+/* form geral */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 720px;
+  gap: 24px;
+}
+
+/* cada grupo de label + textarea */
+.formulario .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* texto do label */
+.formulario label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* textarea grande, com cantos arredondados e borda mais grossa */
+.formulario textarea {
+  width: 100%;
+  min-height: 200px;       /* altura conforme a imagem */
+  padding: 16px;           /* espaço interno */
+  font-size: 16px;
+  line-height: 1.5;
+  border: 2px solid #ccc;  /* borda mais visível */
+  border-radius: 12px;     /* cantos grandes */
+  background-color: #fff;
+  resize: none;            /* impede redimensionamento manual */
+}
+
+/* botão alinhado à direita */
+.btn-enviar {
+  align-self: flex-end;    /* empurra o botão para o lado direito */
+  padding: 12px 32px;      /* deixa o botão mais largo */
+  background-color: #4a4a4a;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* hover do botão */
+.btn-enviar:hover {
+  background-color: #333;
+}
+
+/* mensagem de erro (se existirem) */
+.erro {
+  color: #c00;
+  font-size: 14px;
+  margin-bottom: -16px;  /* puxa pra cima, deixando perto do campo */
+}
