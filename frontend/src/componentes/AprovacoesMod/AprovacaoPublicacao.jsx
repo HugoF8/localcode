@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
-import FotoPerfil from '../FotoPerfil';
+import FotoPerfil from './FotoPerfil';
 import ex from '../../assets/landscape-placeholder.svg';
-import BotoesTicketePublicacoesPedidos from '../BotoesTicketePublicacoes';
+import BotoesTicketePublicacoesPedidos from './BotoesTicketePublicacoes';
 
 function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
   return (

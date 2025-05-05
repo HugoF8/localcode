@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DropdownPedidos from './DropdownGeral';
-import BotoesTicketePublicacoesPedidos from '../BotoesTicketePublicacoes';
+import BotoesTicketePublicacoesPedidos from '../AprovacoesMod/BotoesTicketePublicacoes';
 
 function PedidosPendentes() {
   const [pedidos, setPedidos] = useState([]);

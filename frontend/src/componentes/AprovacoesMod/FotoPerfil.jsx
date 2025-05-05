@@ -1,5 +1,5 @@
-import '../styles/FotoPerfil.css';
-import fotoPerfil from '../assets/landscape-placeholder.svg'; // Caminho ajusta conforme estrutura
+import '../../styles/FotoPerfil.css';
+import fotoPerfil from '../../assets/landscape-placeholder.svg'; // Caminho ajusta conforme estrutura
 
 export default function FotoPerfil({ nome }) {
     return (
