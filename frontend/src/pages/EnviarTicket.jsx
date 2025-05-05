@@ -1,36 +1,22 @@
-import { useNavigate } from 'react-router-dom';
-import BarraSuperior from '../componentes/BarraSuperior';
-import BarraLateral from '../componentes/BarraLateral';
+// src/pages/EnviarTicket.jsx
+import React from 'react';
+import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
+import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
+import TicketSubmission from '../componentes/CriarTicket';
 import '../styles/EnviarTicket.css';
 
-function EnviarTicket() {
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // lógica para enviar dados
-    alert('Ticket enviado!');
-    navigate('/dashboard');
-  };
-
+export default function EnviarTicket() {
   return (
     <div className="container">
       <BarraSuperior />
       <div className="corpo">
         <BarraLateral />
         <div className="conteudo-criar">
-          <h2>Ticket</h2>
+          <h2>Enviar Ticket</h2>
           <hr />
-          <form className="formulario" onSubmit={handleSubmit}>
-            <label htmlFor="descricao">Descrição</label>
-            <textarea id="descricao" placeholder="Descrição" rows="5" required></textarea>
-
-            <button type="submit" className="btn-enviar">Enviar</button>
-          </form>
+          <TicketSubmission />
         </div>
       </div>
     </div>
   );
 }
-
-export default EnviarTicket;

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import '../../styles/Home.css';
 
 function PostsFreguesia() {
-    const { id } = useParams();            // <-- pega o :id da URL
+    const { id } = useParams();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

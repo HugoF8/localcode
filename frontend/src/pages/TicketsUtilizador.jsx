@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import BarraPublicacoesEtickets from '../componentes/BarraPublicacoesEtickets';
-import BarraSuperior from '../componentes/BarraSuperior';
-import BarraLateral from '../componentes/BarraLateral';
+import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
+import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import TicketNaoAprovadoUtilizador from '../componentes/TicketAprovUtilizador/TicketNaoAprovadoUtilizador';
 import TicketAprovadoUtilizador from '../componentes/TicketAprovUtilizador/TicketAprovadoUtilizador';
 
