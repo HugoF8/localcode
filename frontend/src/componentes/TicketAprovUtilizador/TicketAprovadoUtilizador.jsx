@@ -1,12 +1,14 @@
 import React from 'react';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
+import FiltrarPorData from '../FiltrarPorData';
 
-function TicketAprovadoUtilizador({ tickets, onToggleExpand, expandidoId }) {
+function TicketAprovadoUtilizador({ tickets, expandidoId, onToggleExpand }) {
   return (
-    <div className="ticket-list-wrapper">
-      <h1 className="ticket-title">Aprovados</h1>
-
-      {tickets.map((ticket) => (
+    <FiltrarPorData
+      dados={tickets}
+      campoData="data_ticket"
+      titulo="Tickets Aprovados"
+      renderItem={(ticket) => (
         <div
           key={ticket.id_ticket}
           className={`ticket-card ${expandidoId === ticket.id_ticket ? 'expanded' : ''}`}
@@ -15,7 +17,7 @@ function TicketAprovadoUtilizador({ tickets, onToggleExpand, expandidoId }) {
             <div>
               <p className="ticket-user">{ticket.utilizador?.nome || 'Utilizador'}</p>
               <p className="ticket-date">
-                {new Date(ticket.data_criacao).toLocaleDateString('pt-PT')}
+                {new Date(ticket.data_ticket).toLocaleDateString('pt-PT')}
               </p>
             </div>
             <div className="ticket-id">#{ticket.id_ticket}</div>
@@ -25,13 +27,11 @@ function TicketAprovadoUtilizador({ tickets, onToggleExpand, expandidoId }) {
           </div>
 
           {expandidoId === ticket.id_ticket && (
-            <>
-              <p className="ticket-description">{ticket.descricao_problema}</p>
-            </>
+            <p className="ticket-description">{ticket.descricao_problema}</p>
           )}
         </div>
-      ))}
-    </div>
+      )}
+    />
   );
 }
 
