@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import BarraPublicacoesEtickets from '../componentes/BarraPublicacoesEtickets';
 import BarraSuperior from '../componentes/BarraSuperior';
 import BarraLateral from '../componentes/BarraLateral';
@@ -12,24 +11,33 @@ function TicketsUtilizador() {
   const [tickets, setTickets] = useState({ abertos: [], fechados: [] });
   const [expandidoId, setExpandidoId] = useState(null);
 
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const config = {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
 
-        const [abertos, fechados] = await Promise.all([
-          axios.get('/api/tickets/verTicketAberto', config),
-          axios.get('/api/tickets/verTicketFechado', config),
-        ]);
+        const resAbertos = await fetch('http://localhost:3000/api/tickets/verTicketAberto', config);
+        const resFechados = await fetch('http://localhost:3000/api/tickets/verTicketFechado', config);
 
-        const fechadosComInput = fechados.data.map(t => ({
+        if (!resAbertos.ok || !resFechados.ok) throw new Error('Erro ao buscar tickets');
+
+        const dataAbertos = await resAbertos.json();
+        const dataFechados = await resFechados.json();
+
+        const fechadosComInput = dataFechados.map(t => ({
           ...t,
           input: '',
         }));
 
         setTickets({
-          abertos: abertos.data,
+          abertos: dataAbertos,
           fechados: fechadosComInput,
         });
       } catch (error) {
@@ -58,12 +66,16 @@ function TicketsUtilizador() {
     if (!ticket) return;
 
     try {
-      const token = localStorage.getItem('token');
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-
-      await axios.patch(`/api/tickets/alterarTicket/${id}`, {
-        descricao_problema: ticket.input,
-      }, config);
+      await fetch(`http://localhost:3000/api/tickets/alterarTicket/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          descricao_problema: ticket.input,
+        }),
+      });
 
       alert('Descrição do ticket alterada com sucesso!');
     } catch (error) {
@@ -73,26 +85,25 @@ function TicketsUtilizador() {
 
   const onApagar = async (id) => {
     if (!window.confirm('Tens a certeza que queres apagar este ticket?')) return;
-  
+
     try {
-      const token = localStorage.getItem('token');
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-  
-      // Nota: atualmente não tens rota DELETE implementada no backend.
-      await axios.delete(`/api/tickets/${id}`, config); // Supondo que crias esta rota no backend
-  
-      // Remove do estado
+      await fetch(`http://localhost:3000/api/tickets/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       setTickets((prev) => ({
         ...prev,
         fechados: prev.fechados.filter(ticket => ticket.id_ticket !== id),
       }));
-  
+
       alert('Ticket apagado com sucesso!');
     } catch (error) {
       console.error('Erro ao apagar ticket:', error);
     }
   };
-  
 
   return (
     <div className="container">
