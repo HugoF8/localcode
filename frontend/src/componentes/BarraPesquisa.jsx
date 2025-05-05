@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function BarraPesquisa() {
   const [pesquisa, setPesquisa] = useState('');
   const [resultados, setResultados] = useState([]);
+  const navigate = useNavigate(); // Hook de navegação
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -29,7 +31,12 @@ function BarraPesquisa() {
     return () => clearTimeout(timeout);
   }, [pesquisa]);
 
-   return (
+  
+  const irParaPagina = (idPagina) => {
+    navigate(`/Pagina/${idPagina}`);
+  };
+
+  return (
     <div className="barra-pesquisa">
       <input
         type="text"
@@ -43,7 +50,7 @@ function BarraPesquisa() {
           {resultados.map((pagina) => (
             <li
               key={pagina.id_pagina}
-              onClick={() => handleSelecionar(pagina.id_pagina)}
+              onClick={() => irParaPagina(pagina.id_pagina)}
               className="item-dropdown"
             >
               {pagina.nome_pagina}
@@ -54,6 +61,5 @@ function BarraPesquisa() {
     </div>
   );
 }
-
 
 export default BarraPesquisa;
