@@ -1,7 +1,7 @@
 function Logo() {
     return (
       <div className="logo">
-        <a href="/">CIDADE +</a>
+        <a href="/home">CIDADE +</a>
       </div>
     );
   }

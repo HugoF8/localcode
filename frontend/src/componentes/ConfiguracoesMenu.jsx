@@ -17,10 +17,10 @@ function ConfiguracoesMenu() {
   };
 
   const terminarSessao = () => {
-    alert('Sessão terminada!');
-    // Ex: limpar token, redirecionar
+    localStorage.removeItem('token'); // Limpa o token
+    navigate('/'); // Redireciona para login
   };
-
+  
   return (
     <div className="config-wrapper">
       <img
