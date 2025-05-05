@@ -23,8 +23,8 @@ function PublicacoesUtilizador() {
         };
 
         const [resAprovados, resRecusados] = await Promise.all([
-          fetch('http://localhost:3000/api/posts/aprovados', config),
-          fetch('http://localhost:3000/api/posts/recusados', config),
+          fetch('http://localhost:3000/api/posts/verPostsAprovados', config),
+          fetch('http://localhost:3000/api/posts/verPostsRecusados', config),
         ]);
 
         if (!resAprovados.ok || !resRecusados.ok) {
