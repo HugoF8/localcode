@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import '../styles/PerfilUtilizador.css';
-import ImagemDefaultUtilizador from '../assets/defautlutilizador.png';
-import ImagemDefaultCapa from '../assets/defaultcapautilizador.jpg';
+import '../../styles/PerfilUtilizador.css';
+import ImagemDefaultUtilizador from '../../assets/defautlutilizador.png';
+import ImagemDefaultCapa from '../../assets/defaultcapautilizador.jpg';
 
 export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) {
   const [perfil, setPerfil] = useState({

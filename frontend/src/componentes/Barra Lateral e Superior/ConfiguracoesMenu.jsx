@@ -1,4 +1,4 @@
-import config from '../assets/config-icon.png';
+import config from '../../assets/config-icon.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

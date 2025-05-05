@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 
 function BotaoSeguir() {
   const { id } = useParams()
+  console.log("teste:",id);
   const [seguindo, setSeguindo] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)

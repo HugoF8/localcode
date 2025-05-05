@@ -26,6 +26,7 @@ function Login() {
       if (res.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('utilizador', JSON.stringify(data.utilizador));
+        localStorage.setItem('id_utilizador', data.utilizador.id_utilizador);
         if (!rememberMe) sessionStorage.setItem('token', data.token);
         navigate('/home');
       } else {

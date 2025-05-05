@@ -1,6 +1,6 @@
 import '../styles/Home.css';
-import BarraSuperior from '../componentes/BarraSuperior';
-import BarraLateral from '../componentes/BarraLateral';
+import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
+import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import ZonaPublicacoesHome from '../componentes/publicacoes/ZonaPublicacoesHome';
 
 function Home() {

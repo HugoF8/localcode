@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ConfiguracoesMenu from './ConfiguracoesMenu';
 import NotificacoesDropDown from './NotificacoesDropDown';
-import ProfileModal from './PerfilUtilizador';
-import ImagemDefaultUtilizador from '../assets/defautlutilizador.png';
+import PerfilUtilizador from './PerfilUtilizador';
+import ImagemDefaultUtilizador from '../../assets/defautlutilizador.png';
 
 export default function IconesBarraSuperiorDireito() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -45,7 +45,7 @@ export default function IconesBarraSuperiorDireito() {
         <ConfiguracoesMenu />
       </div>
 
-      <ProfileModal
+      <PerfilUtilizador
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         onFotoAtualizada={setFotoPerfil}
