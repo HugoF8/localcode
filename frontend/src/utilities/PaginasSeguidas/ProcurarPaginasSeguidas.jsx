@@ -1,22 +1,37 @@
-export async function fetchPaginasSeguidas() {
-    const token = localStorage.getItem('token');
-    const id_utilizador = localStorage.getItem('id_utilizador');
-  
-    if (!token || !id_utilizador) return;
-  
-    const res = await fetch(`http://localhost:3000/api/seguidores/paginasSeguidas/${id_utilizador}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  
-    if (!res.ok) throw new Error('Erro ao buscar páginas seguidas');
-  
-    const data = await res.json();
-    if (Array.isArray(data)) {
-      sessionStorage.setItem('paginasSeguidas', JSON.stringify(data));
-    }
-  
-  }
+import { useEffect, useState } from 'react';
 
-  export default fetchPaginasSeguidas;
+export default function usePaginasSeguidas() {
+  const [paginasSeguidas, setPaginasSeguidas] = useState([]);
+  const token = localStorage.getItem('token');
+  const id_utilizador = localStorage.getItem('id_utilizador');
+
+  useEffect(() => {
+    if (!id_utilizador || !token) return;
+
+    fetch(
+      `http://localhost:3000/api/seguidores/verPaginasSeguidas/${id_utilizador}`, // ajuste a rota aqui
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setPaginasSeguidas(data);
+          sessionStorage.setItem('paginasSeguidas', JSON.stringify(data));
+        }
+      })
+      .catch((err) => {
+        console.error('Erro ao buscar páginas seguidas:', err);
+      });
+  }, [id_utilizador, token]);
+
+  // 👉 devolve o array para quem usar o hook
+  return paginasSeguidas;
+}

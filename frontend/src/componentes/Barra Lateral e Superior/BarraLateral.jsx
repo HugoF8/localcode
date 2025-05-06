@@ -1,24 +1,35 @@
+// src/componentes/BarraLateral.jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+import usePaginasSeguidas from '../../utilities/PaginasSeguidas/ProcurarPaginasSeguidas';
 
-import junta from '../../assets/Junta_Urgezes.jpg';
-import brasao from '../../assets/Urgezes_brasao.png';
-
-function BarraLateral() {
-  const icones = [
-    junta,
-    brasao
-  ];
+export default function BarraLateral() {
+  const paginas = usePaginasSeguidas();
 
   return (
     <div className="barra-lateral">
       <ul>
-        {icones.map((icone, index) => (
-          <li key={index}>
-            <img src={icone} alt={`Ícone ${index + 1}`} />
-          </li>
-        ))}
+        {paginas.map((pagina) => {
+          const foto = pagina.foto_perfil
+            ? (pagina.foto_perfil.startsWith('http')
+                ? pagina.foto_perfil
+                : `http://localhost:3000/${pagina.foto_perfil}`)
+            : '/placeholder-page.png';
+          return (
+            <li key={pagina.id_pagina}>
+              <Link to={`/Pagina/${pagina.id_pagina}`}>
+                <img
+                  src={foto}
+                  alt={pagina.nome_pagina}
+                  title={pagina.nome_pagina}
+                  className="icone-pagina"
+                />
+              </Link>
+            </li>
+          );
+        })}
+        {/* Se não houver páginas, o map devolve [] e o <ul> fica vazio */}
       </ul>
     </div>
   );
 }
-
-export default BarraLateral;

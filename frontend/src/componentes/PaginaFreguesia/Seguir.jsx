@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
-import PaginasSeguidas from '../utilities/PaginasSeguidas/ProcurarPaginasSeguidas'
+import PaginasSeguidas from '../../utilities/PaginasSeguidas/ProcurarPaginasSeguidas'
 
 function BotaoSeguir() {
   const { id } = useParams()
