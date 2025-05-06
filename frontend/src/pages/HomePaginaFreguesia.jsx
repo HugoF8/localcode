@@ -25,16 +25,9 @@ export default function HomeFreguesia() {
           {/* Botão de seguir à página */}
           <BotaoSeguir />
 
-          {/* Formulário de criação de post — SEMPRE visível */}
-          <CriarPost />
-
-          {/* Lista de posts */}
-          <PostsFreguesia />
-
-          {/* Botão para ir à página de envio de ticket */}
           <button
             onClick={irParaTicket}
-            className="btn-ticket"
+
             style={{
               marginTop: '20px',
               padding: '10px 20px',
@@ -47,6 +40,15 @@ export default function HomeFreguesia() {
           >
             Ticket
           </button>
+          
+          {/* Formulário de criação de post — SEMPRE visível */}
+          <CriarPost />
+
+          {/* Lista de posts */}
+          <PostsFreguesia />
+
+          {/* Botão para ir à página de envio de ticket */}
+          
         </div>
       </div>
     </div>
