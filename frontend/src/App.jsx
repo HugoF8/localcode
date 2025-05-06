@@ -22,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/Pagina/:id" element={<HomeFreguesia />} />
+        <Route path="/Pagina/:id/enviar-ticket" element={<EnviarTicket />} />
         <Route path="/criar-freguesia" element={<CriarFreguesia />} />
         <Route path="/publicacoes-utilizador" element={<PublicacoesUtilizador />} />
         <Route path="/pedidos" element={<Pedidos />} />
