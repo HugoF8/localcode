@@ -8,7 +8,7 @@ import '../styles/AprovacoesTicketsePublicacoes.css';
 function AprovacoesPublicacoes() {
   const [publicacoes, setPublicacoes] = useState([]);
   const token = localStorage.getItem('token');
-  const idPagina = 1;
+  //const idPagina = 36;
 
   useEffect(() => {
     console.log('Token:', token);
