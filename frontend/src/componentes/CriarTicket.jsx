@@ -1,9 +1,8 @@
-// src/componentes/TicketSubmission.jsx
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export default function CriarTicket() {
-  const { id_pagina } = useParams();
+  const { id } = useParams(); // id da página de freguesia
   const navigate = useNavigate();
   const [descricao, setDescricao] = useState('');
   const [erro, setErro] = useState('');
@@ -24,7 +23,7 @@ export default function CriarTicket() {
         body: JSON.stringify({
           descricao_problema: descricao,
           id_utilizador,
-          id_pagina: Number(id_pagina)
+          id_pagina: Number(id)
         })
       });
 
@@ -35,7 +34,7 @@ export default function CriarTicket() {
 
       await res.json();
       alert('Ticket enviado com sucesso!');
-      navigate(`/Pagina/${id_pagina}`);
+      navigate(`/Pagina/${id}`);
     } catch (err) {
       console.error('Erro ao criar ticket:', err);
       setErro(err.message);
@@ -44,12 +43,7 @@ export default function CriarTicket() {
 
   return (
     <form className="formulario" onSubmit={handleSubmit}>
-      {erro && (
-        <div className="erro">
-          {/* <img src={ImagemDefaultErro} alt="Erro" /> */}
-          {erro}
-        </div>
-      )}
+      {erro && <div className="erro">{erro}</div>}
 
       <div className="form-group">
         <label htmlFor="descricao">Descrição</label>
