@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import usePaginasSeguidas from '../../hooks/usePaginasSeguidas';
-import '../styles/BarraLateral.css';
+import usePaginasSeguidas from '../../utilities/PaginasSeguidas/ProcurarPaginasSeguidas';
+
 
 export default function BarraLateral() {
   const paginas = usePaginasSeguidas();
