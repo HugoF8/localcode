@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 function PostsFreguesia() {
-  const { freguesia } = useParams(); // por exemplo, "Lisboa"
+  const { freguesia } = useParams();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,14 +15,14 @@ function PostsFreguesia() {
       try {
         const response = await fetch(`http://localhost:8800/api/posts/freguesia/${freguesia}`);
         if (!response.ok) {
-          throw new Error('Erro ao buscar os posts da freguesia.');
+          throw new Error(`Erro ao buscar posts: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();
         setPosts(data);
       } catch (err) {
-        console.error(err);
-        setError('Falha ao carregar posts. Tente novamente mais tarde.');
+        console.error("Erro ao buscar posts:", err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -41,7 +41,7 @@ function PostsFreguesia() {
     <div className="container">
       <h2>Posts da Freguesia: {freguesia}</h2>
       <div className="posts-grid">
-        {posts.map(post => (
+        {posts.map((post) => (
           <div key={post.idposts} className="post-card">
             <h3>{post.titulo}</h3>
             {post.imagem && (
@@ -52,7 +52,7 @@ function PostsFreguesia() {
               />
             )}
             <p>{post.descricao}</p>
-            <p><strong>Autor:</strong> {post.nome_utilizador}</p>
+            <p><strong>Autor:</strong> {post.nome_utilizador || 'Desconhecido'}</p>
             <p><strong>Data:</strong> {new Date(post.data_criacao).toLocaleDateString()}</p>
           </div>
         ))}
