@@ -4,7 +4,7 @@ export async function fetchPaginasSeguidas() {
   
     if (!token || !id_utilizador) return;
   
-    const res = await fetch(`http://localhost:3000/api/paginasSeguidas/${id_utilizador}`, {
+    const res = await fetch(`http://localhost:3000/api/seguidores/paginasSeguidas/${id_utilizador}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -16,4 +16,7 @@ export async function fetchPaginasSeguidas() {
     if (Array.isArray(data)) {
       sessionStorage.setItem('paginasSeguidas', JSON.stringify(data));
     }
+  
   }
+
+  export default fetchPaginasSeguidas;
