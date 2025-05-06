@@ -1,15 +1,20 @@
-// src/componentes/BarraLateral.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import usePaginasSeguidas from '../../utilities/PaginasSeguidas/ProcurarPaginasSeguidas';
+import usePaginasSeguidas from '../../hooks/usePaginasSeguidas';
+import '../styles/BarraLateral.css';
 
 export default function BarraLateral() {
   const paginas = usePaginasSeguidas();
 
+  // Filtra para manter apenas uma ocorrência de cada id_pagina
+  const unicas = paginas.filter((pagina, idx, arr) =>
+    arr.findIndex(p => p.id_pagina === pagina.id_pagina) === idx
+  );
+
   return (
     <div className="barra-lateral">
       <ul>
-        {paginas.map((pagina) => {
+        {unicas.map((pagina) => {
           const foto = pagina.foto_perfil
             ? (pagina.foto_perfil.startsWith('http')
                 ? pagina.foto_perfil
@@ -28,7 +33,6 @@ export default function BarraLateral() {
             </li>
           );
         })}
-        {/* Se não houver páginas, o map devolve [] e o <ul> fica vazio */}
       </ul>
     </div>
   );
