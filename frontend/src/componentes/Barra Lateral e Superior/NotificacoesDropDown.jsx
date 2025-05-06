@@ -1,4 +1,3 @@
-// src/componentes/NotificacoesDropDown.jsx
 import React, { useState } from 'react';
 import notificationIcon from '../../assets/notification-icon.png';
 
@@ -39,10 +38,11 @@ export default function NotificacoesDropDown() {
   };
 
   const renderMensagem = (notif) => {
-    const { tipo_notificacao, id_ticket, id_post, id_pagina } = notif;
+    const { tipo_notificacao, id_post, id_ticket } = notif;
 
-    // Pedido de página de freguesia
-    if (id_pagina && !id_post && !id_ticket) {
+    const isPedido = !id_post && !id_ticket; // tudo o que não for post nem ticket é pedido
+
+    if (isPedido) {
       switch (tipo_notificacao) {
         case 'Aprovado':
           return 'O seu pedido de página de freguesia foi aprovado.';
@@ -57,7 +57,6 @@ export default function NotificacoesDropDown() {
       }
     }
 
-    // Post
     if (id_post) {
       switch (tipo_notificacao) {
         case 'Aprovado':
@@ -73,7 +72,6 @@ export default function NotificacoesDropDown() {
       }
     }
 
-    // Ticket
     if (id_ticket) {
       switch (tipo_notificacao) {
         case 'Sucesso':
@@ -87,7 +85,6 @@ export default function NotificacoesDropDown() {
       }
     }
 
-    // Fallback
     return 'Tem uma nova notificação.';
   };
 
