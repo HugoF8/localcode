@@ -8,32 +8,43 @@ import '../styles/AprovacoesTicketsePublicacoes.css';
 function AprovacoesPublicacoes() {
   const [publicacoes, setPublicacoes] = useState([]);
   const token = localStorage.getItem('token');
-  const idPagina = 36;
 
   useEffect(() => {
-    console.log('Token:', token);
-    fetch(`http://localhost:3000/api/posts/verPostsPendentes/${idPagina}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,    // ← entre crases e aspas
-      },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        console.log('Recebido:', data);
-        // mapeia id_post para id para alinhar com a tua key
-        setPublicacoes(
-          Array.isArray(data)
-            ? data.map((p) => ({ ...p, id: p.id_post }))
-            : []
-        );
-      })
-      .catch((err) => {
-        console.error('Erro no fetch das publicações:', err);
-      });
+    const paginasModeradas = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
+
+    if (!token || paginasModeradas.length === 0) return;
+
+    const buscarPublicacoes = async () => {
+      const todasPublicacoes = [];
+
+      for (const pagina of paginasModeradas) {
+        const idPagina = pagina.id_pagina;
+
+        try {
+          const res = await fetch(`http://localhost:3000/api/posts/verPostsPendentes/${idPagina}`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          const posts = await res.json();
+
+          if (Array.isArray(posts)) {
+            const transformados = posts.map(p => ({ ...p, id: p.id_post }));
+            todasPublicacoes.push(...transformados);
+          }
+        } catch (err) {
+          console.error(`Erro ao buscar publicações da página ${idPagina}:`, err);
+        }
+      }
+
+      setPublicacoes(todasPublicacoes);
+    };
+
+    buscarPublicacoes();
   }, [token]);
 
   const atualizarPublicacao = (id, bolean) => {
@@ -41,7 +52,7 @@ function AprovacoesPublicacoes() {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,  // ← entre crases e aspas
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ bolean }),
     })
