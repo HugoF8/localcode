@@ -1,64 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function PostsFreguesia() {
-  const { freguesia } = useParams();
+export default function PostsFreguesia() {
+  const { id } = useParams(); // usa o "id" da rota
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    async function fetchPosts() {
       setLoading(true);
       setError(null);
-
       try {
-        const response = await fetch(`http://localhost:8800/api/posts/freguesia/${freguesia}`);
-        if (!response.ok) {
-          throw new Error(`Erro ao buscar posts: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
+        const token = localStorage.getItem('token');
+        const res = await fetch(
+          `http://localhost:3000/api/posts/verPostsPagina/${id}`,
+          { headers: { 'Authorization': `Bearer ${token}` } }
+        );
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
         setPosts(data);
       } catch (err) {
-        console.error("Erro ao buscar posts:", err);
+        console.error('Erro ao buscar posts:', err);
         setError(err.message);
       } finally {
         setLoading(false);
       }
-    };
-
-    if (freguesia) {
-      fetchPosts();
     }
-  }, [freguesia]);
+
+    if (id) fetchPosts();
+  }, [id]);
 
   if (loading) return <p>Carregando posts...</p>;
   if (error) return <p className="error">{error}</p>;
-  if (posts.length === 0) return <p>Sem posts disponíveis para esta freguesia.</p>;
+  if (!posts.length) return <p>Sem posts disponíveis para esta página.</p>;
 
   return (
-    <div className="container">
-      <h2>Posts da Freguesia: {freguesia}</h2>
-      <div className="posts-grid">
-        {posts.map((post) => (
-          <div key={post.idposts} className="post-card">
-            <h3>{post.titulo}</h3>
-            {post.imagem && (
-              <img
-                src={`http://localhost:8800/uploads/${post.imagem}`}
-                alt="Imagem do post"
-                className="post-img"
-              />
-            )}
-            <p>{post.descricao}</p>
-            <p><strong>Autor:</strong> {post.nome_utilizador || 'Desconhecido'}</p>
-            <p><strong>Data:</strong> {new Date(post.data_criacao).toLocaleDateString()}</p>
-          </div>
-        ))}
-      </div>
+    <div className="posts-grid">
+      {posts.map(post => (
+        <div key={post.id_post} className="post-card">
+          <p><strong>{post.utilizador.nome}:</strong> {post.descricao_post}</p>
+          {post.media_post && (
+            <img
+              src={`http://localhost:3000/${post.media_post}`}
+              alt="Imagem do post"
+              className="post-img"
+            />
+          )}
+          <p><small>{new Date(post.data_post).toLocaleString()}</small></p>
+        </div>
+      ))}
     </div>
   );
 }
-
-export default PostsFreguesia;
