@@ -1,12 +1,14 @@
 import React from 'react';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
+import FiltrarPorData from '../FiltrarPorData';
 
 function PublicacoesAprovadasUtilizador({ posts, expandidoId, onToggleExpand }) {
   return (
-    <div className="ticket-list-wrapper">
-      <h1 className="ticket-title">Aprovadas</h1>
-
-      {posts.map((post) => (
+    <FiltrarPorData
+      dados={posts}
+      campoData="data_post"
+      titulo="Publicações Aprovadas"
+      renderItem={(post) => (
         <div
           key={post.id_post}
           className={`ticket-card ${expandidoId === post.id_post ? 'expanded' : ''}`}
@@ -37,8 +39,8 @@ function PublicacoesAprovadasUtilizador({ posts, expandidoId, onToggleExpand }) 
             </>
           )}
         </div>
-      ))}
-    </div>
+      )}
+    />
   );
 }
 

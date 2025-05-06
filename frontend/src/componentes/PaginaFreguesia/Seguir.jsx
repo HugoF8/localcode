@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
+import PaginasSeguidas from '../../utilities/PaginasSeguidas/ProcurarPaginasSeguidas'
 
 function BotaoSeguir() {
   const { id } = useParams()
+  console.log("teste:",id);
   const [seguindo, setSeguindo] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -33,6 +35,7 @@ function BotaoSeguir() {
       }
 
       setSeguindo(true)
+      PaginasSeguidas() //atualizar paginas seguidas
       setMensagem("Agora você está a seguir esta página!")
       setTimeout(() => setMensagem(null), 3000)
     } catch (error) {

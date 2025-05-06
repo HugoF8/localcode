@@ -8,5 +8,6 @@ router.use(authenticate);
 
 router.post('/criarModeradorPagina', moderadorPaginaController.createModeradorPagina);
 router.get('/verModeradorPagina', moderadorPaginaController.getAllModeradorPagina);
+router.get('/verPaginasModeradas', moderadorPaginaController.verPaginasModeradas);
 
 module.exports = router;

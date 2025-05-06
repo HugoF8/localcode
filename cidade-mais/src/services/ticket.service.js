@@ -81,4 +81,8 @@ async function alterarTicket(id_ticket, descricao_problema) {
     return ticketAlterado;
 }
 
-module.exports = { createTicket, getAllTickets, getTicketPendente,getTicketAberto, getTicketFechado, atualizarEstadoTicket, alterarTicket };
+async function deleteTicket(id_ticket) {
+    return prisma.ticket.delete({ where: { id_ticket } });
+  }
+
+module.exports = { createTicket, getAllTickets, getTicketPendente,getTicketAberto, getTicketFechado, atualizarEstadoTicket, alterarTicket, deleteTicket };

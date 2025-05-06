@@ -8,27 +8,39 @@ async function createPerfil(data) {
 
 // Buscar todos os Perfis
 async function getAllPerfil() {
-    return prisma.perfil.findMany();
+  return prisma.perfil.findMany({
+    include: {
+      utilizador: true // Inclui dados do utilizador
+    }
+  });
+}
+
+async function getPerfilUtilizador(id_utilizador) {
+  return prisma.perfil.findFirst({
+    where: { id_utilizador },
+    include: { utilizador: true }
+  });
 }
 
 async function atualizarFotoPerfil(id_utilizador, caminhoImagem) {
-    
-    // Primeiro vamos buscar o ID único do perfil
     const perfil = await prisma.perfil.findFirst({
-        where: { id_utilizador }, // este campo tem UNIQUE?
+      where: { id_utilizador },
     });
-
+  
     if (!perfil) throw new Error('Perfil não encontrado');
-
-    // Agora fazemos o update com o ID único
+  
+    const relativePath = caminhoImagem.replace(/^.*?uploads[\\/]/, 'uploads/');
+  
     const updatedPerfil = await prisma.perfil.update({
-        where: { id_perfil: perfil.id_perfil },
-        data: { foto_perfil: caminhoImagem }
+      where: { id_perfil: perfil.id_perfil },
+      data: { foto_perfil: relativePath }
     });
 
-    return updatedPerfil;
+    return {
+        foto_perfil: updatedPerfil.foto_perfil
+      };
 }
 
 
 
-module.exports = { createPerfil, getAllPerfil, atualizarFotoPerfil };
+module.exports = { createPerfil, getAllPerfil, getPerfilUtilizador,atualizarFotoPerfil };

@@ -27,7 +27,7 @@ async function getAllPaginaFreguesia(req, res) {
 }
 
 async function pesquisaPagina(req, res) {
-  const { pesquisa } = req.query;
+  const pesquisa = req.params.pesquisa;
 
   try {
     const paginas = await paginaFreguesiaService.pesquisaPagina(pesquisa);

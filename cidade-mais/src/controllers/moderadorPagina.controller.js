@@ -22,4 +22,15 @@ async function getAllModeradorPagina(req, res) {
     }
 }
 
-module.exports = { createModeradorPagina, getAllModeradorPagina };
+async function verPaginasModeradas(req, res) {
+    const id_utilizador = req.utilizador?.utilizadorId;
+    try {
+        const moderadores = await moderadorPaginaService.verPaginasModeradas(id_utilizador);
+        res.json(moderadores);
+    } catch (error) {
+        console.error('Erro ao buscar Moderadores de Página:', error);
+        res.status(500).json({ error: 'Erro ao procurar Moderadores de Página' });
+    }
+}
+
+module.exports = { createModeradorPagina, getAllModeradorPagina, verPaginasModeradas };

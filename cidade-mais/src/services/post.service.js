@@ -69,12 +69,13 @@ async function getPostPendente(id_pagina) {
 }
 
 async function getPostPagina(id_pagina) {
-    return prisma.post.findMany({ 
-        where:{
-            id_pagina: id_pagina,
-        }
-    })
-}
+    return prisma.post.findMany({
+      where: { id_pagina },
+      include: {
+        utilizador: { select: { nome: true } }
+      }
+    });
+  }
 
 async function getPostsAprovados(id_utilizador) {
     return prisma.post.findMany({ 

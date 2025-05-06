@@ -1,61 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../styles/PedidoPagina.css';
 import DropdownPedidos from './DropdownGeral';
+import BotoesTicketePublicacoesPedidos from '../AprovacoesMod/BotoesTicketePublicacoes';
 
-function DropdownPendentes({ idUtilizador }) {
+function PedidosPendentes() {
   const [pedidos, setPedidos] = useState([]);
   const [aberto, setAberto] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
-  // Buscar os pedidos pendentes
+  const togglePedido = (id) => setAberto((prev) => (prev === id ? null : id));
+
+  const fetchPedidos = async () => {
+    const token = localStorage.getItem('token');
+    const res = await fetch('http://localhost:3000/api/pedidosPagina/verPedidosPendentes', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    setPedidos(data);
+  };
+
   useEffect(() => {
-    const fetchPedidos = async () => {
-      setLoading(true);
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/api/pedidosPagina/PedidosPendentes`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        const resultado = await response.json();
-        setPedidos(resultado);
-      } catch (error) {
-        console.error('Erro ao procurar pedidos:', error);
-        setError('Falha ao carregar pedidos. Tente novamente mais tarde.');
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchPedidos();
+    const interval = setInterval(fetchPedidos, 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  const togglePedido = (id) => {
-    setAberto((anterior) => (anterior === id ? null : id));
-  };
+  const atualizarPedido = async (id, bolean) => {
+    const token = localStorage.getItem('token');
+    await fetch(`http://localhost:3000/api/pedidosPagina/atualizarEstadoPedido/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ bol: bolean }), // 'bol' é o parâmetro usado no backend
+    });
 
-  const navegarParaEditar = (pedido) => {
-    localStorage.setItem('pedidoParaEditar', JSON.stringify(pedido));
-    navigate(`/editar-pedido/${pedido.id_pedido}`);
+    // Atualiza a lista de pedidos após a aprovação ou recusa
+    setPedidos((prev) => prev.filter((p) => p.id_pedido !== id));
   };
-
-  if (loading) return <p className="loading-message">Carregando pedidos...</p>;
-  if (error) return <p className="error-message">{error}</p>;
 
   return (
     <DropdownPedidos
       pedidos={pedidos}
       aberto={aberto}
       togglePedido={togglePedido}
-      navegarParaEditar={navegarParaEditar}
       titulo="Pedidos Pendentes"
-      exibirBotaoEditar={false} 
+      exibirBotaoEditar={false}
+      acoesAdicionais={(pedido) => (
+        <BotoesTicketePublicacoesPedidos
+          onAprovar={() => atualizarPedido(pedido.id_pedido, true)} 
+          onRecusar={() => atualizarPedido(pedido.id_pedido, false)} 
+        />
+      )}
     />
   );
 }
 
-export default DropdownPendentes;
+export default PedidosPendentes;

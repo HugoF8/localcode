@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import BarraPublicacoesEtickets from '../componentes/BarraPublicacoesEtickets';
-import BarraSuperior from '../componentes/BarraSuperior';
-import BarraLateral from '../componentes/BarraLateral';
+import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
+import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import PublicacoesNaoAprovadasUtilizador from '../componentes/PublicacoesAprovUtilizador/PublicacoesNaoAprovadasUtilizador';
 import PublicacoesAprovadasUtilizador from '../componentes/PublicacoesAprovUtilizador/PublicacoesAprovadasUtilizador';
-
-
 
 import '../styles/PublicacoesEtickets.css';
 
@@ -17,19 +15,24 @@ function PublicacoesUtilizador() {
     const fetchPosts = async () => {
       try {
         const token = localStorage.getItem('token');
-        const headers = { Authorization: `Bearer ${token}` };
+        const config = {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
 
-        const [aprovadosRes, recusadosRes] = await Promise.all([
-          fetch('/api/posts/aprovados', { headers }),
-          fetch('/api/posts/recusados', { headers }),
+        const [resAprovados, resRecusados] = await Promise.all([
+          fetch('http://localhost:3000/api/posts/verPostsAprovados', config),
+          fetch('http://localhost:3000/api/posts/verPostsRecusados', config),
         ]);
 
-        if (!aprovadosRes.ok || !recusadosRes.ok) {
-          throw new Error('Erro ao buscar posts');
+        if (!resAprovados.ok || !resRecusados.ok) {
+          throw new Error('Erro ao buscar publicações');
         }
 
-        const aprovados = await aprovadosRes.json();
-        const recusadosRaw = await recusadosRes.json();
+        const aprovados = await resAprovados.json();
+        const recusadosRaw = await resRecusados.json();
 
         const recusados = recusadosRaw.map(post => ({
           ...post,
@@ -64,7 +67,7 @@ function PublicacoesUtilizador() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`/api/posts/alterarInformacoesPost/${id}`, {
+      const res = await fetch(`http://localhost:3000/api/posts/alterarInformacoesPost/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -73,9 +76,7 @@ function PublicacoesUtilizador() {
         body: JSON.stringify({ descricao_post: post.input }),
       });
 
-      if (!res.ok) {
-        throw new Error('Falha ao alterar publicação');
-      }
+      if (!res.ok) throw new Error('Falha ao alterar publicação');
 
       alert('Publicação alterada com sucesso!');
     } catch (error) {
@@ -88,7 +89,7 @@ function PublicacoesUtilizador() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`/api/posts/alterarInformacoesPost/${id}`, {
+      const res = await fetch(`http://localhost:3000/api/posts/alterarInformacoesPost/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -97,9 +98,7 @@ function PublicacoesUtilizador() {
         body: JSON.stringify({ descricao_post: '', media_post: null }),
       });
 
-      if (!res.ok) {
-        throw new Error('Falha ao apagar publicação');
-      }
+      if (!res.ok) throw new Error('Falha ao apagar publicação');
 
       setPosts(prev => ({
         ...prev,
