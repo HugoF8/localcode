@@ -2,13 +2,12 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Garante que a pasta 'uploads/' existe
+// Pasta onde ficam os uploads
 const uploadDir = path.join(__dirname, '..', 'uploads');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 
-// Define armazenamento com diskStorage
 const storage = multer.diskStorage({
     destination(req, file, cb) {
         cb(null, uploadDir);
@@ -19,13 +18,11 @@ const storage = multer.diskStorage({
     }
 });
 
-// Validação do tipo de ficheiro: apenas imagens
 const fileFilter = (req, file, cb) => {
-    if (!file.mimetype.startsWith('image/')) {
-        return cb(null, false);
+    if (!file.mimetype.startsWith('image/') && !file.mimetype.startsWith('video/')) {
+        return cb(null, false); // Só aceita imagem ou vídeo
     }
     cb(null, true);
 };
 
-const upload = multer({ storage, fileFilter });
-module.exports = upload;
+module.exports = { storage, fileFilter };

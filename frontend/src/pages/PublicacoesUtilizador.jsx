@@ -80,6 +80,11 @@ function PublicacoesUtilizador() {
 
       if (!res.ok) throw new Error('Falha ao alterar publicação');
 
+      setPosts(prev => ({
+        ...prev,
+        recusados: prev.recusados.filter(p => p.id_post !== id),
+      }));
+      
       toast.success('Publicação alterada com sucesso!');
     } catch (error) {
       console.error('Erro ao alterar publicação:', error);
