@@ -167,8 +167,8 @@ function EditarPedidoC() {
         </div>
 
         <div className="botoes-acao">
-          <button type="button" onClick={() => navigate('/pedidos')} className="btn-cancelar">Cancelar</button>
-          <button type="submit" className="btn-enviar">Atualizar Pedido</button>
+          <button type="button" onClick={() => navigate('/pedidos')} className="btn-edit">Cancelar</button>
+          <button type="submit" className="btn-edit">Atualizar Pedido</button>
         </div>
       </form>
     </div>
