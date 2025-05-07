@@ -70,7 +70,10 @@ async function getPostPendente(id_pagina) {
 
 async function getPostPagina(id_pagina) {
     return prisma.post.findMany({
-      where: { id_pagina },
+      where: { 
+        id_pagina: id_pagina,
+        estado_post: 'ativo',
+       },
       include: {
         utilizador: { select: { nome: true } }
       }

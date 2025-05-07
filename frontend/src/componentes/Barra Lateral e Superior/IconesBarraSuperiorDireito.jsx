@@ -12,7 +12,9 @@ export default function IconesBarraSuperiorDireito() {
   useEffect(() => {
     if (!token) return;
 
-    fetch('http://localhost:3000/api/perfil/verPerfilUtilizador', {
+    const id_utilizador = Number(localStorage.getItem('id_utilizador'));
+
+    fetch(`http://localhost:3000/api/perfil/verPerfilUtilizador/${id_utilizador}`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` }
     })

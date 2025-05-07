@@ -19,10 +19,13 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
           <div className="publicacao-header">
             <div className="publicacao-conteudo">
 
-            <div onClick={() => setSelectedUserId(pub.userId)} className="cursor-pointer w-fit">
-                <FotoPerfil nome={pub.nome} /> 
-                console.log(userId)
-              </div>
+            <button
+              onClick={() => setSelectedUserId(pub.userId)}
+              className="cursor-pointer w-fit border-none bg-transparent p-0"
+              style={{ all: 'unset', cursor: 'pointer' }}//tirar
+            >
+              <FotoPerfil nome={pub.nome} />
+            </button>
 
               <p className="publicacao-descricao">{pub.descricao_post || pub.descricao}</p>
 

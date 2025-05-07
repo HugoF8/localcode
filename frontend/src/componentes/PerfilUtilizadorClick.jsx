@@ -12,12 +12,15 @@ const PerfilUtilizadorClick = ({ userId, onClose }) => {
         const res = await fetch(`http://localhost:3000/api/perfil/verPerfilUtilizador/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        const data = await response.json();
+        const data = await res.json();
         setUser(data);
       } catch (error) {
         console.error("Erro ao buscar dados do utilizador:", error);
       }
     };
+
+    if (!res.ok) throw new Error(`Erro: ${res.status}`);
+    const data = res.json();
 
     if (userId) {
       fetchUser();
