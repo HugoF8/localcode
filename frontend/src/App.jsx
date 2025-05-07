@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import Home from './pages/Home';
 import HomeFreguesia from './pages/HomePaginaFreguesia';
 import CriarFreguesia from './pages/CriarFreguesia';
@@ -20,12 +19,11 @@ import EditarPedido from './pages/EditarPedido';
 import EditarFreguesia from './pages/EditarFreguesia';
 import TodasNotificacoes from './pages/TodasNotificacoes';
 
-import { PaginasSeguidasAtualizacao } from './utilities/PaginasSeguidas/PaginasSeguidasAtualizacao';
+
 import './App.css';
 
 function App() {
   return (
-    <PaginasSeguidasAtualizacao>
       <Router>
         <Routes>
           <Route path="/home" element={<Home />} />
@@ -47,7 +45,6 @@ function App() {
           <Route path="/notificacoes" element={<TodasNotificacoes />} />
         </Routes>
       </Router>
-    </PaginasSeguidasAtualizacao>
   );
 }
 

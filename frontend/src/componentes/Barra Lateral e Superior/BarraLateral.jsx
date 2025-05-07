@@ -1,14 +1,15 @@
 // src/components/BarraLateral.jsx
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import placeholderPage from '../../assets/placeholder-page.jpg';
-import { PaginasSeguidasAtualizacao } from '../../utilities/PaginasSeguidas/PaginasSeguidasAtualizacao';
 
 export default function BarraLateral() {
-  const { paginas } = useContext(PaginasSeguidasAtualizacao);
 
+  const paginas = JSON.parse(sessionStorage.getItem('paginasSeguidas') || '[]');
   // Filtra duplicadas
-  const unicas = paginas.filter((p, i, arr) => arr.findIndex(x => x.id_pagina === p.id_pagina) === i);
+  const unicas = paginas.filter((pagina, idx, arr) =>
+    arr.findIndex(p => p.id_pagina === pagina.id_pagina) === idx
+  );
 
   return (
     <div className="barra-lateral">
@@ -21,13 +22,17 @@ export default function BarraLateral() {
             : placeholderPage;
           return (
             <li key={pagina.id_pagina}>
-              <Link to={`/Pagina/${pagina.id_pagina}`}>
+              <Link to={`/Pagina/${pagina.id_pagina}`}>  
                 <img
                   src={foto}
                   alt={pagina.nome_pagina}
                   title={pagina.nome_pagina}
                   className="icone-pagina"
-                  onError={e => { e.target.onerror = null; e.target.src = placeholderPage; }}
+                  onError={e => {
+                    // Se falhar, usa o placeholder importado
+                    e.target.onerror = null;
+                    e.target.src = placeholderPage;
+                  }}
                 />
               </Link>
             </li>
