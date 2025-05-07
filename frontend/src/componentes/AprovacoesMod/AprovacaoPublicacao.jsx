@@ -34,17 +34,15 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
                 {pub.descricao_post || pub.descricao}
               </p>
 
-              <div className="publicacao-conteudo-central">
-                <img
-                  src={
-                    pub.media_post
-                      ? `http://localhost:3000/${pub.media_post}`
-                      : placeholder
-                  }
-                  alt="Imagem da publicação"
-                  className="publicacao-img"
-                />
-              </div>
+              {pub.media_post && (
+                <div className="publicacao-conteudo-central">
+                  <img
+                    src={`http://localhost:3000/${pub.media_post}`}
+                    alt="Imagem da publicação"
+                    className="publicacao-img"
+                  />
+                </div>
+              )}
 
               <div className="publicacao-botoes">
                 <BotoesTicketePublicacoesPedidos
