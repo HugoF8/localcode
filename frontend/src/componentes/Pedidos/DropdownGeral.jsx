@@ -56,7 +56,8 @@ function DropdownPedidos({
                     <>
                       {pedido.morada.rua && `${pedido.morada.rua}, `}
                       {pedido.morada.freguesia && `${pedido.morada.freguesia}, `}
-                      {pedido.morada.cidade ?? 'N/A'}
+                      {pedido.morada.cidade && `${pedido.morada.cidade}, `}
+                      {pedido.morada.codigo_postal ?? ''}
                     </>
                   ) : 'Morada não disponível'}
                 </p>
