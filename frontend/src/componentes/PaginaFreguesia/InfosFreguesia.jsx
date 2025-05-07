@@ -36,13 +36,13 @@ function InfosFreguesia() {
 
   return (
     <div className="freguesia-container">
-      <div
-        className="foto-capa-freguesia"
-        style={{ backgroundImage: `url(${freguesia.foto_capa})` }}
-      />
-      <div className="foto-perfil-container">
-        <img className="foto-perfil-freguesia" src={freguesia.foto_perfil} alt="Foto de Perfil" />
-      </div>
+    <div
+      className="foto-capa-freguesia"
+      style={{ backgroundImage: `url(http://localhost:3000/${freguesia.foto_capa})` }}
+    />
+    <div className="foto-perfil-container">
+      <img className="foto-perfil-freguesia" src={`http://localhost:3000/${freguesia.foto_perfil}`} alt="Foto de Perfil" />
+    </div>
       <h1 className="nome-freguesia">{freguesia.nome_pagina}</h1>
 
       <button onClick={irParaEditar} className="botao-editar">
