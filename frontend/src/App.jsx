@@ -13,6 +13,7 @@ import Registar1 from './pages/Registar1';
 import Registar2 from './pages/Registar2';
 import EnviarTicket from './pages/EnviarTicket';
 import EditarPedido from './pages/EditarPedido';
+import EditarFreguesia from './pages/EditarFreguesia';
 import './App.css';
 
 
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/Pagina/:id" element={<HomeFreguesia />} />
+        <Route path="/Pagina/:id/EditarPagina" element={<EditarFreguesia />} />
         <Route path="/Pagina/:id/enviar-ticket" element={<EnviarTicket />} />
         <Route path="/criar-freguesia" element={<CriarFreguesia />} />
         <Route path="/publicacoes-utilizador" element={<PublicacoesUtilizador />} />
