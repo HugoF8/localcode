@@ -1,21 +1,39 @@
 const express = require('express');
 const postController = require('../controllers/post.controller');
-const upload = require('../config/multerConfig');
+const upload = require('../middlewares/upload.middleware'); // ✅ Aqui é o middleware final, com multer já configurado
+
 const router = express.Router();
 
 const { authSeguir, authProprietario, authModerador } = require('../middlewares/verificacoes.middleware');
-const { authenticate, authRole } = require('../middlewares/autent.middleware');
+const { authenticate } = require('../middlewares/autent.middleware');
+
+// ✅ Todas as rotas passam pela autenticação
 router.use(authenticate);
 
-router.post('/criarPost', authSeguir, upload.single('media_post'),  postController.createPost);
-router.get('/verPosts', postController.getAllPosts); //admin
+// ✅ Rota para criar post com upload de imagem ou vídeo
+router.post(
+    '/criarPost',
+    authSeguir,
+    upload.single('media_post'), // nome do campo no form-data
+    postController.createPost
+);
+
+// Outras rotas
+router.get('/verPosts', postController.getAllPosts);
 router.get('/verPostsPendentes/:id_pagina', authModerador, postController.getPostsPendente);
 router.patch('/atualizarPostsPendentes/:id_post', authModerador, postController.atualizarEstadoPost);
-router.get('/verPostsPagina/:id_pagina', /*authSeguir,*/postController.getPostPagina);
+router.get('/verPostsPagina/:id_pagina', postController.getPostPagina);
 router.get('/verPostsAprovados', postController.getPostsAprovados);
-router.get('/verPostsRecusados',authProprietario, postController.getPostsRecusados);
-router.patch('/alterarInformacoesPost/:id_post', authProprietario, upload.single('media_post'), postController.alterarInformacoesPost);
-router.get('/verPostsPaginasSeguidas/:id_utilizador', postController.getPostsPaginasSeguidas);
+router.get('/verPostsRecusados', authProprietario, postController.getPostsRecusados);
 
+// ✅ Editar post com nova imagem/vídeo
+router.patch(
+    '/alterarInformacoesPost/:id_post',
+    authProprietario,
+    upload.single('media_post'),
+    postController.alterarInformacoesPost
+);
+
+router.get('/verPostsPaginasSeguidas/:id_utilizador', postController.getPostsPaginasSeguidas);
 
 module.exports = router;

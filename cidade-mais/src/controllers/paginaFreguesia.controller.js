@@ -38,4 +38,52 @@ async function pesquisaPagina(req, res) {
   }
 }
 
-module.exports = { createPaginaFreguesia, getAllPaginaFreguesia, pesquisaPagina };
+async function getPaginaFreguesiaById(req, res) {
+  const { id } = req.params;
+
+  try {
+    const pagina = await paginaFreguesiaService.getPaginaFreguesiaById(id);
+
+    if (!pagina) {
+      return res.status(404).json({ error: "Página não encontrada" });
+    }
+
+    res.json(pagina);
+  } catch (error) {
+    console.error("Erro ao buscar página por ID:", error);
+    res.status(500).json({ error: "Erro ao buscar página", detalhes: error.message });
+  }
+}
+
+
+async function updatePaginaFreguesia(req, res) {
+  const { id } = req.params;
+  const { nome_pagina } = req.body;
+
+  try {
+    const dataAtualizacao = { nome_pagina };
+
+    if (req.files?.foto_perfil?.[0]) {
+      const caminhoRelativo = req.files.foto_perfil[0].path.replace(/^.*?uploads[\\/]/, 'uploads/');
+      dataAtualizacao.foto_perfil = caminhoRelativo;
+    }
+
+    if (req.files?.foto_capa?.[0]) {
+      const caminhoRelativo = req.files.foto_capa[0].path.replace(/^.*?uploads[\\/]/, 'uploads/');
+      dataAtualizacao.foto_capa = caminhoRelativo;
+    }
+
+    const paginaAtualizada = await paginaFreguesiaService.updatePaginaFreguesia(id, dataAtualizacao);
+    return res.status(200).json(paginaAtualizada);
+
+  } catch (error) {
+    console.error("Erro ao atualizar página:", error);
+    return res.status(500).json({
+      error: "Erro ao atualizar página",
+      detalhes: error.message
+    });
+  }
+}
+
+
+module.exports = { createPaginaFreguesia, getAllPaginaFreguesia, pesquisaPagina, getPaginaFreguesiaById, updatePaginaFreguesia };
