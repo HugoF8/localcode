@@ -1,55 +1,93 @@
 import React, { useEffect, useState } from 'react';
+import '../styles/PerfilUtilizador.css';
+import ImagemDefaultUtilizador from '../assets/defautlutilizador.png';
+import ImagemDefaultCapa from '../assets/defaultcapautilizador.jpg';
 
 const PerfilUtilizadorClick = ({ userId, onClose }) => {
-  const [user, setUser] = useState(null);
+  const [perfil, setPerfil] = useState({
+    utilizador: { nome: '', email: '', data_nascimento: '' },
+    foto_perfil: null,
+    foto_capa: null
+  });
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    console.log("userId recebido:", userId);
-    const fetchUser = async () => {
+    if (!userId || !token) return;
+
+    const carregarPerfil = async () => {
+      setLoading(true);
       try {
         const res = await fetch(`http://localhost:3000/api/perfil/verPerfilUtilizador/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
+        if (!res.ok) throw new Error('Erro ao obter perfil');
+        const p = await res.json();
 
-        if (!res.ok) throw new Error(`Erro: ${res.status}`);
-        const data = await res.json();
-        setUser(data);
-      } catch (error) {
-        console.error("Erro ao buscar dados do utilizador:", error);
+        setPerfil({
+          utilizador: {
+            nome: p.utilizador?.nome || '',
+            email: p.utilizador?.email || '',
+            data_nascimento: p.utilizador?.data_nascimento || ''
+          },
+          foto_perfil: p.foto_perfil || null,
+          foto_capa: p.foto_capa || null
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (userId) {
-      fetchUser();
-    }
-  }, [userId]);
+    carregarPerfil();
+  }, [userId, token]);
 
-  if (!user) return null;
+  if (!userId) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-xl w-96 relative">
-        <button onClick={onClose} className="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-xl">
-          &times;
-        </button>
+    <div className="profile-modal-backdrop">
+      <div className="profile-modal-container">
+        <button onClick={onClose} className="profile-modal-close">✕</button>
 
-        <div className="h-28 bg-gradient-to-r from-blue-600 to-blue-300 rounded-t-xl" />
-
-        <div className="p-6 flex flex-col items-center">
-          <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center -mt-10 border-4 border-white">
-            <svg className="w-10 h-10 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 12c2.67 0 8 1.34 8 4v2H4v-2c0-2.66 5.33-4 8-4zm0-2a4 4 0 100-8 4 4 0 000 8z" />
-            </svg>
-          </div>
-          <h2 className="mt-4 font-bold text-xl">{user.utilizador?.nome || user.username}</h2>
-          <p className="text-gray-600">{user.utilizador?.email || user.email}</p>
-          <p className="text-sm text-gray-400">
-            {user.utilizador?.data_nascimento
-              ? new Date(user.utilizador.data_nascimento).toLocaleDateString('pt-PT')
-              : user.createdAt?.split('T')[0]}
-          </p>
+        {/* Foto de capa */}
+        <div className="profile-modal-cover-wrapper">
+          {loading ? (
+            <p>Carregando capa...</p>
+          ) : (
+            <img
+              src={
+                perfil.foto_capa
+                  ? (perfil.foto_capa.startsWith('http')
+                      ? perfil.foto_capa
+                      : `http://localhost:3000/${perfil.foto_capa}`)
+                  : ImagemDefaultCapa
+              }
+              alt="Foto de capa"
+              className="profile-modal-cover"
+            />
+          )}
         </div>
+
+        {/* Foto de perfil (somente leitura) */}
+        <div className="profile-modal-avatar-wrapper">
+          <img
+            src={
+              perfil.foto_perfil
+                ? (perfil.foto_perfil.startsWith('http')
+                    ? perfil.foto_perfil
+                    : `http://localhost:3000/${perfil.foto_perfil}`)
+                : ImagemDefaultUtilizador
+            }
+            alt="Foto de perfil"
+            className="profile-modal-avatar"
+          />
+        </div>
+
+        {/* Dados do utilizador */}
+        <h2 className="profile-modal-title">{perfil.utilizador.nome}</h2>
+        <p>{perfil.utilizador.email}</p>
+        <p>{new Date(perfil.utilizador.data_nascimento).toLocaleDateString('pt-PT')}</p>
       </div>
     </div>
   );

@@ -7,12 +7,11 @@ import '../styles/AprovacoesTicketsePublicacoes.css';
 
 function AprovacoesTickets() {
   const [tickets, setTickets] = useState([]);
-  const [expandidoId, setExpandidoId] = useState(null);
+  const [expandidoId, setExpandidoId] = useState(null)
   const token = localStorage.getItem('token');
-
   useEffect(() => {
     const paginasModeradas = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
-
+    
     if (!token || paginasModeradas.length === 0) return;
     console.log(token)
 
