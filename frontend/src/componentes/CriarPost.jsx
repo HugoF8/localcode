@@ -1,6 +1,8 @@
 // src/pages/CriarPost.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/CriarPost.css';
 import userPlaceholder from '../assets/landscape-placeholder.svg';
 
@@ -32,10 +34,10 @@ function CriarPost() {
     const id_utilizador = localStorage.getItem('id_utilizador');
 
     if (!token) {
-      return alert('Tem de iniciar sessão.');
+      return toast.error('Tem de iniciar sessão.');
     }
     if (!descricao.trim() && !imagem) {
-      return alert('Escreve algo ou adiciona uma imagem.');
+      return toast.error('Escreve algo ou adiciona uma imagem.');
     }
 
     const formData = new FormData();
@@ -53,20 +55,21 @@ function CriarPost() {
       
       const data = await res.json();
       if (res.ok) {
-        alert('Publicação criada!');
+        toast.success('Publicação criada!');
         setDescricao('');
         setImagem(null);
       } else {
-        alert(data.error || 'Erro ao publicar');
+        toast.error(data.error || 'Erro ao publicar');
       }
     } catch (err) {
       console.error(err);
-      alert('Erro de rede');
+      toast.error('Erro de rede');
     }
   };
 
   return (
     <div className="criar-post">
+      <ToastContainer position="top-right" />
       <img src={userPlaceholder} alt="Perfil" className="foto-perfil" />
       <form onSubmit={handlePublicar} className="form-post">
         <input

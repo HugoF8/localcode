@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CriarTicket() {
   const { id } = useParams(); // id da página de freguesia
@@ -33,11 +35,11 @@ export default function CriarTicket() {
       }
 
       await res.json();
-      alert('Ticket enviado com sucesso!');
+      toast.success('Ticket enviado com sucesso!');
       navigate(`/Pagina/${id}`);
     } catch (err) {
       console.error('Erro ao criar ticket:', err);
-      setErro(err.message);
+      toast.error(err.message || 'Erro ao criar ticket. Tenta novamente!');
     }
   };
 
@@ -46,6 +48,7 @@ export default function CriarTicket() {
       {erro && <div className="erro">{erro}</div>}
 
       <div className="form-group">
+        <ToastContainer position="top-right" />
         <label htmlFor="descricao">Descrição</label>
         <textarea
           id="descricao"
