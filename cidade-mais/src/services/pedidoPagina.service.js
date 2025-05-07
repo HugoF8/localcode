@@ -62,31 +62,42 @@ async function getPedidoReprovado(id_utilizador) {
 }
 
 async function alterarPedidoPagina(id_pedido, dados) {
-    const pedidoAtual = await prisma.pedido_pagina.findUnique({ where: { id_pedido } });
-  
-    // Atualiza morada
-    await prisma.morada.update({
-      where: { id_morada: pedidoAtual.id_morada },
-      data: {
-        freguesia: dados.freguesia,
-        cidade: dados.cidade,
-        rua: dados.rua,
-        codigo_postal: parseInt(dados.codigo_postal, 10)
-      }
-    });
-  
-    // Atualiza pedido
-    const pedidoAlterado = await prisma.pedido_pagina.update({
-      where: { id_pedido },
-      data: {
-        nomefreguesia: dados.nomefreguesia,
-        dados_comprovacao: dados.dados_comprovacao,
-        estado_pedido: 'pendente'
-      }
-    });
-  
-    return pedidoAlterado;
+  // 1) Buscar pedido atual + morada
+  const pedidoAtual = await prisma.pedido_pagina.findUnique({
+    where: { id_pedido },
+    include: { morada: true }
+  });
+
+  if (!pedidoAtual) {
+    throw new Error('Pedido não encontrado');
   }
+
+  // 2) Atualizar a morada associada
+  await prisma.morada.update({
+    where: { id_morada: pedidoAtual.id_morada },
+    data: {
+      freguesia: dados.freguesia,
+      cidade:   dados.cidade,
+      rua:      dados.rua,
+      codigo_postal: parseInt(dados.codigo_postal, 10)
+    }
+  });
+
+  // 3) Atualizar o próprio pedido
+  const pedidoAlterado = await prisma.pedido_pagina.update({
+    where: { id_pedido },
+    data: {
+      nomefreguesia:    dados.nomefreguesia,
+      dados_comprovacao: dados.dados_comprovacao,
+      estado_pedido:     'pendente'          // força volta a pendente
+    },
+    include: {
+      morada: true                          // para retornar já a morada atualizada
+    }
+  });
+
+  return pedidoAlterado;
+}
 
 async function atualizarEstadoPedido(id_pedido, bol) {
 

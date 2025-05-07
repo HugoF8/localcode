@@ -105,7 +105,8 @@ async function alterarPedidoPagina(req, res) {
     } = req.body;
   
     // Validação básica
-    if (!nomefreguesia || !cidade || !freguesia || !rua || !codigo_postal || !dados_comprovacao) {
+    if (![nomefreguesia, cidade, freguesia, rua, codigo_postal, dados_comprovacao]
+          .every(v => v !== undefined && v !== null && v !== '')) {
       return res.status(400).json({ mensagem: "Todos os campos são obrigatórios." });
     }
   
@@ -119,13 +120,16 @@ async function alterarPedidoPagina(req, res) {
         dados_comprovacao
       });
   
-      res.status(200).json({
+      return res.status(200).json({
         mensagem: "Pedido alterado com sucesso.",
         pedido: pedidoAlterado
       });
     } catch (error) {
       console.error("Erro ao atualizar o pedido:", error);
-      res.status(500).json({ mensagem: "Erro ao atualizar o pedido.", erro: error.message });
+      return res.status(500).json({
+        mensagem: "Erro ao atualizar o pedido.",
+        erro: error.message
+      });
     }
   }
 
