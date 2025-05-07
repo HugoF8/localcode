@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
+import '../../styles/Home.css';
 import PaginasSeguidas from '../../utilities/PaginasSeguidas/ProcurarPaginasSeguidas'
 
 function BotaoSeguir() {
@@ -60,7 +61,7 @@ function BotaoSeguir() {
       {mensagem && <div className="success-message">{mensagem}</div>}
 
       <button
-        className={`botao-seguir ${seguindo ? "A seguir" : ""} ${loading ? "loading" : ""}`}
+        className={ `botao-seguir ${seguindo ? "A seguir" : ""} ${loading ? "loading" : ""}`}
         onClick={seguirPagina}
         disabled={loading}
       >

@@ -7,36 +7,34 @@ function AprovacoesTituloTickets({ tickets, onToggleExpand, onInputChange, onApr
     <div className="ticket-list-wrapper">
       <h1 className="ticket-title">Aprovação de Tickets</h1>
 
-                    {tickets.map((ticket) => {
-                console.log(ticket.utilizador); // ✅ Aqui está correto
-
-                return (
-                  <div
-                    key={ticket.id_ticket}
-                    className={`ticket-card ${expandidoId === ticket.id_ticket ? 'expanded' : ''}`}
-                  >
-                    <div className="ticket-header">
-                      <div className="ticket-user-info">
-                      <img
-                        src={
-                          ticket.utilizador?.perfil?.[0]?.foto_perfil
-                            ? `http://localhost:3000/${ticket.utilizador.perfil[0].foto_perfil}`
-                            : 'http://localhost:3000/uploads/default.jpg'
-                        }
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = 'http://localhost:3000/uploads/default.jpg';
-                        }}
-                        alt={ticket.utilizador?.nome || 'Utilizador'}
-                        className="ticket-user-img"
-                      />
-                        <p className="ticket-user">{ticket.utilizador?.nome || 'Utilizador'}</p>
-                      </div>
-                      <div className="ticket-id">#{ticket.id_ticket}</div>
-                      <button className="ticket-toggle" onClick={() => onToggleExpand(ticket.id_ticket)}>
-                        {expandidoId === ticket.id_ticket ? '˄' : '˅'}
-                      </button>
-                    </div>
+              {tickets.map((ticket) => {
+            return (
+            <div
+              key={ticket.id_ticket}
+              className={`ticket-card ${expandidoId === ticket.id_ticket ? 'expanded' : ''}`}
+            >
+              <div className="ticket-header">
+                <div className="ticket-user-info">
+                <img
+                   src={
+                    ticket.utilizador?.perfil?.[0]?.foto_perfil
+                       ? `http://localhost:3000/${ticket.utilizador.perfil[0].foto_perfil}`
+                       : 'http://localhost:3000/uploads/default.jpg'
+                   }
+                  onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'http://localhost:3000/uploads/default.jpg';
+                   }}
+                   alt={ticket.utilizador?.nome || 'Utilizador'}
+                  className="ticket-user-img"
+                />
+                   <p className="ticket-user">{ticket.utilizador?.nome || 'Utilizador'}</p>
+                 </div>
+                 <div className="ticket-id">#{ticket.id_ticket}</div>
+                <button className="ticket-toggle" onClick={() => onToggleExpand(ticket.id_ticket)}>
+                  {expandidoId === ticket.id_ticket ? '˄' : '˅'}
+                </button>
+               </div>
 
                     {expandidoId === ticket.id_ticket && (
                       <>

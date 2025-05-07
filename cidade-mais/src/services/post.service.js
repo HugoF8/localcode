@@ -64,7 +64,19 @@ async function getPostPendente(id_pagina) {
             id_pagina: id_pagina,
             estado_post:'pendente',
             aprovacoes:{lt:4}//lt=less than
+        },
+      include: {
+        utilizador: {
+          select: {
+            nome: true,
+            perfil: {
+              select: {
+                foto_perfil: true
+              }
+            }
+          }
         }
+      }
     })
 }
 
@@ -74,9 +86,18 @@ async function getPostPagina(id_pagina) {
       id_pagina,
       estado_post: 'ativo'
     },
-    include: {
-      utilizador: { select: { nome: true } }
-    }
+      include: {
+        utilizador: {
+          select: {
+            nome: true,
+            perfil: {
+              select: {
+                foto_perfil: true
+              }
+            }
+          }
+        }
+      }
   });
   }
 
