@@ -60,7 +60,6 @@ function DropdownPedidos({
                     </>
                   ) : 'Morada não disponível'}
                 </p>
-                <p className="pedido-info"><strong>Motivo da Recusa:</strong> {pedido.motivo_recusa}</p>
 
                 {pedido.dados_comprovacao && (
                   <div className="pedido-comprovativo">

@@ -32,14 +32,17 @@ async function createPedidoPagina(data) {
 
 // Buscar todos os pedidoPagina
 async function getAllPedidoPagina() {
-    return prisma.pedido_pagina.findMany();
+  return prisma.pedido_pagina.findMany({
+    include: { morada: true }   // <— inclui o objecto morada
+  })
 }
 
 async function getPedidoPendente() {
     return prisma.pedido_pagina.findMany({
         where: {
             estado_pedido:'pendente'
-        }
+        },
+        include: { morada: true }
     })
 }
 
@@ -48,7 +51,8 @@ async function getPedidoAprovado(id_utilizador) {
         where: {
             id_utilizador:id_utilizador,
             estado_pedido:'aprovado'
-        }
+        },
+        include: { morada: true }
     })
 }
 
@@ -57,7 +61,8 @@ async function getPedidoReprovado(id_utilizador) {
         where: {
             id_utilizador:id_utilizador,
             estado_pedido:'reprovado'
-        }
+        },
+        include: { morada: true }
     })
 }
 
