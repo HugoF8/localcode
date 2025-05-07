@@ -4,6 +4,12 @@ const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+const app = express();
+// Ficheiros estáticos de uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 const comentarioRoutes = require('./routes/comentario.route');
 const moderadorRoutes = require('./routes/moderdorPagina.route');
 const moradaRoutes = require('./routes/morada.route');
@@ -18,9 +24,6 @@ const utilizadorRoutes = require('./routes/utilizador.route');
 const autentRoutes = require('./routes/autent.route');
 const notificacaoRoutes = require('./routes/notificacao.route');
 
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
-const app = express();
 
 // Middlewares
 app.use(cors());
@@ -41,8 +44,7 @@ app.use('/api/tickets', ticketRoutes);
 app.use('/api/utilizadores', utilizadorRoutes);
 app.use('/api/notificacao', notificacaoRoutes);
 
-// Ficheiros estáticos de uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Erro global para capturar erros de Multer e outros
 app.use((err, req, res, next) => {
