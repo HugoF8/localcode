@@ -14,6 +14,7 @@ import Registar2 from './pages/Registar2';
 import EnviarTicket from './pages/EnviarTicket';
 import EditarPedido from './pages/EditarPedido';
 import EditarFreguesia from './pages/EditarFreguesia';
+import TodasNotificacoes from './pages/TodasNotificacoes';
 import './App.css';
 
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/registar2" element={<Registar2 />} />
         <Route path="/enviar-ticket" element={<EnviarTicket />} />
         <Route path="/editar-pedido/:id" element={<EditarPedido />} />
+        <Route path="/notificacoes" element={<TodasNotificacoes />} />
       </Routes>
     </Router>
   );
