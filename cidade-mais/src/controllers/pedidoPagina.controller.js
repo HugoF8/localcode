@@ -94,30 +94,43 @@ async function atualizarEstadoPedido(req, res) {
 }
 
 async function alterarPedidoPagina(req, res) {
-    const { id_pedido } = req.params;
-    const idPedido = Number(id_pedido);
-    const { dados_comprovacao } = req.body;
-
-    if (!dados_comprovacao) {
-        return res.status(400).json({ mensagem: "O campo 'dados_comprovacao' é obrigatório." });
+    const id_pedido = Number(req.params.id_pedido);
+    const {
+      nomefreguesia,
+      cidade,
+      freguesia,
+      rua,
+      codigo_postal,
+      dados_comprovacao
+    } = req.body;
+  
+    // Validação básica
+    if (![nomefreguesia, cidade, freguesia, rua, codigo_postal, dados_comprovacao]
+          .every(v => v !== undefined && v !== null && v !== '')) {
+      return res.status(400).json({ mensagem: "Todos os campos são obrigatórios." });
     }
-
+  
     try {
-        const pedidoAlterado = await pedidoPaginaService.alterarPedidoPagina(idPedido, dados_comprovacao);
-
-
-        return res.status(200).json({
-            mensagem: "Dados de comprovação do pedido alterados com sucesso.",
-            pedido: pedidoAlterado,
-        });
+      const pedidoAlterado = await pedidoPaginaService.alterarPedidoPagina(id_pedido, {
+        nomefreguesia,
+        cidade,
+        freguesia,
+        rua,
+        codigo_postal,
+        dados_comprovacao
+      });
+  
+      return res.status(200).json({
+        mensagem: "Pedido alterado com sucesso.",
+        pedido: pedidoAlterado
+      });
     } catch (error) {
-        console.error("Erro ao atualizar os dados de comprovação do pedido:", error);
-
-        return res.status(500).json({
-            mensagem: "Erro ao atualizar o pedido.",
-            erro: error.message,
-        });
+      console.error("Erro ao atualizar o pedido:", error);
+      return res.status(500).json({
+        mensagem: "Erro ao atualizar o pedido.",
+        erro: error.message
+      });
     }
-}
+  }
 
 module.exports = { createPedidoPagina, getAllPedidoPagina, getPedidoPendente, getPedidoAprovado, getPedidoReprovado, atualizarEstadoPedido, alterarPedidoPagina };

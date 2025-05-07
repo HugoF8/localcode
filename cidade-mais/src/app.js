@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 
+
 const comentarioRoutes = require('./routes/comentario.route');
 const moderadorRoutes = require('./routes/moderdorPagina.route');
 const moradaRoutes = require('./routes/morada.route');
@@ -43,6 +44,7 @@ app.use('/api/notificacao', notificacaoRoutes);
 
 // Ficheiros estáticos de uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Erro global para capturar erros de Multer e outros
 app.use((err, req, res, next) => {
