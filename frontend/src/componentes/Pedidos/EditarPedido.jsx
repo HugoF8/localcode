@@ -99,59 +99,72 @@ function EditarPedidoC() {
       <h2>Editar Pedido de Freguesia</h2>
       <hr />
       <form className="formulario" onSubmit={handleSubmit}>
-        <label>Nome da Freguesia</label>
+        <label>Nome da Freguesia<span title="Campo obrigatório">*</span></label>
         <input
+          type="text"
           value={nomefreguesia}
           onChange={e => setNomeFreguesia(e.target.value)}
           required
         />
 
-        <label>Cidade</label>
+        <label>Cidade<span title="Campo obrigatório">*</span></label>
         <input
+          type="text"
           value={cidade}
           onChange={e => setCidade(e.target.value)}
           required
         />
 
-        <label>Freguesia</label>
+        <label>Freguesia<span title="Campo obrigatório">*</span></label>
         <input
+          type="text"
           value={freguesia}
           onChange={e => setFreguesia(e.target.value)}
           required
         />
 
-        <label>Rua</label>
+        <label>Rua<span title="Campo obrigatório">*</span></label>
         <input
+          type="text"
           value={rua}
           onChange={e => setRua(e.target.value)}
           required
         />
 
-        <label>Código Postal</label>
+        <label>Código Postal<span title="Campo obrigatório">*</span></label>
         <input
+          type="text"
           value={codigoPostal}
           onChange={e => setCodigoPostal(e.target.value)}
           required
         />
 
-        <label>Documentos</label>
-        <input
-          type="file"
-          multiple
-          onChange={handleFileChange}
-          required
-        />
+        <label>Documentos<span title="Campo obrigatório">*</span></label>
+        <div className="upload-box">
+          <label htmlFor="arquivos-upload" className="upload-label">
+            <span className="plus">+</span>
+            <p>Anexe os documentos necessários</p>
+            <input
+              type="file"
+              id="arquivos-upload"
+              hidden
+              multiple
+              onChange={handleFileChange}
+            />
+          </label>
 
-        {documentos.length > 0 && (
-          <div className="preview-documentos-inside">
-            {documentos.map((file, idx) => (
-              <div key={idx} className="documento-card">
-                <span>{file.name}</span>
-                <button type="button" onClick={() => removerDocumento(idx)}>✖️</button>
-              </div>
-            ))}
-          </div>
-        )}
+          {documentos.length > 0 && (
+            <div className="preview-documentos-inside">
+              {documentos.map((file, idx) => (
+                <div key={idx} className="documento-card documento-info">
+                  <span className="documento-nome">{file.name}</span>
+                  {!file.isExisting && <span className="documento-tamanho">{(file.size/1024).toFixed(1)} KB</span>}
+                  <button type="button" onClick={() => removerDocumento(idx)} className="btn-remover">✖️</button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
         <div className="botoes-acao">
           <button type="button" onClick={() => navigate('/pedidos')} className="btn-cancelar">Cancelar</button>
