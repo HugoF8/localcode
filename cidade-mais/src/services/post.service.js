@@ -101,7 +101,8 @@ async function alterarInformacoesPost(idPost, descricao_post, media_post) {
         where: { id_post: idPost },
         data: {
             descricao_post: descricao_post,
-            media_post: media_post
+            media_post: media_post,
+            estado_post: 'pendente'
         },
         })  
 
