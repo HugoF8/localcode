@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import { PaginasSeguidasAtualizacao } from '../utilities/PaginasSeguidas/PaginasSeguidasAtualizacao';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/Home.css';
 
 function EditarFreguesia() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { reload } = useContext(PaginasSeguidasAtualizacao);
 
   const [nomePagina, setNomePagina] = useState('');
   const [fotoPerfil, setFotoPerfil] = useState(null);
@@ -69,6 +71,8 @@ function EditarFreguesia() {
       });
 
       if (!response.ok) throw new Error('Erro ao atualizar freguesia');
+
+      await reload();
 
       navigate(`/Pagina/${id}`);
     } catch (err) {
