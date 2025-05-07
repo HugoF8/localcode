@@ -26,11 +26,11 @@ async function getTicketPendente(id_pagina) {
                         foto_perfil: true,
                       },
                     },
-                  },
                 },
-              },
-            });
-        }
+            },
+        },
+    });
+}
 
 async function getTicketFechado(id_utilizador) {
     return prisma.ticket.findMany({ 

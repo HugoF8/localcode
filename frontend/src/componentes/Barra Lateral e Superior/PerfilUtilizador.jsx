@@ -18,8 +18,9 @@ export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) 
 
     const carregarPerfil = async () => {
       setLoading(true);
+      const id_utilizador = Number(localStorage.getItem('id_utilizador'));
       try {
-        const res = await fetch('http://localhost:3000/api/perfil/verPerfilUtilizador', {
+        const res = await fetch(`http://localhost:3000/api/perfil/verPerfilUtilizador/${id_utilizador}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (!res.ok) throw new Error('Erro ao obter perfil');

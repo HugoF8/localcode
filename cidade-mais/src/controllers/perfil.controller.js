@@ -24,7 +24,7 @@ async function getAllPerfil(req, res) {
 
 async function getPerfilUtilizador(req, res) {
   try {
-    const userId = req.utilizador.utilizadorId;
+    const userId = Number(req.params.id_utilizador); // extrair o ID 
     const perfil = await perfilService.getPerfilUtilizador(userId);
     if (!perfil) return res.status(404).json({ error: 'Perfil não encontrado' });
     res.json(perfil);

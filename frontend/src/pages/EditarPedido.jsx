@@ -1,5 +1,5 @@
-import BarraSuperior from '../componentes/BarraSuperior';
-import BarraLateral from '../componentes/BarraLateral';
+import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
+import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import '../styles/CriarFreguesia.css';
 import EditarPedidoC from '../componentes/Pedidos/EditarPedido';
 
