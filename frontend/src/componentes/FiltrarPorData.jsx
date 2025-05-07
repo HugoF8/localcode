@@ -23,10 +23,6 @@ function FiltroPorData({ dados, campoData, renderItem, titulo }) {
     <div className="ticket-list-wrapper">
       <h1 className="ticket-title">{titulo}</h1>
       <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '1rem',
-        marginBottom: '1.5rem'
       }}>
 
       <div>

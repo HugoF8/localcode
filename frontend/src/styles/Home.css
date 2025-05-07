@@ -284,3 +284,37 @@
   color: #9ca3af; /* text-gray-400 */
   white-space: nowrap;
 }
+
+.freguesia-container {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.foto-capa-freguesia {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgb(49, 30, 30);
+}
+
+.foto-perfil-container {
+  position: absolute;
+  top: 150px;
+  left: 10%;
+}
+
+.foto-perfil-freguesia {
+  width: 80px;
+  height: 80px;
+  border-radius: 18%;
+  border: 4px solid rgb(49, 30, 30);
+  object-fit: cover;
+}
+
+.nome-freguesia {
+  margin-top: 90px;
+  font-size: 2rem;
+}
