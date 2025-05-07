@@ -61,21 +61,29 @@ function DropdownPedidos({
                   ) : 'Morada não disponível'}
                 </p>
                 <p className="pedido-info"><strong>Motivo da Recusa:</strong> {pedido.motivo_recusa}</p>
-                <div className="pedido-comprovativo">
+
+                {pedido.dados_comprovacao && (
+                  <div className="pedido-comprovativo">
                   <p><strong>Comprovativo:</strong></p>
-                  <a
-                    href={`#${pedido.dados_comprovacao}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-comprovativo"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      alert(`Visualizando comprovativo: ${pedido.dados_comprovacao}`);
-                    }}
-                  >
-                    Ver Anexo 📎
-                  </a>
+                  <div style={{ display: 'flex', gap: '1rem' }}>
+                    {(() => {
+                      const nomeFicheiro = pedido.dados_comprovacao.split('\\').pop().split('/').pop();
+                      const url = `http://localhost:3000/uploads/${nomeFicheiro}`;
+                      return (
+                        <>
+                          <a
+                            href={url}
+                            download
+                            className="btn-comprovativo"
+                          >
+                            📥 Download
+                          </a>
+                        </>
+                      );
+                    })()}
+                  </div>
                 </div>
+                )}
 
                 {/* Botão de editar (condicional) */}
                 {exibirBotaoEditar && navegarParaEditar && (
