@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import BotaoSeguir from '../PaginaFreguesia/Seguir';
 import '../../styles/Home.css';
 
 function InfosFreguesia() {
   const { id } = useParams();
   const [freguesia, setFreguesia] = useState(null);
   const navigate = useNavigate();
+
+  const irParaTicket = () => {
+    navigate(`/Pagina/${id}/enviar-ticket`);
+  };
 
   useEffect(() => {
     const fetchFreguesia = async () => {
@@ -36,18 +41,31 @@ function InfosFreguesia() {
 
   return (
     <div className="freguesia-container">
-    <div
-      className="foto-capa-freguesia"
-      style={{ backgroundImage: `url(http://localhost:3000/${freguesia.foto_capa})` }}
-    />
-    <div className="foto-perfil-container">
-      <img className="foto-perfil-freguesia" src={`http://localhost:3000/${freguesia.foto_perfil}`} alt="Foto de Perfil" />
-    </div>
-      <h1 className="nome-freguesia">{freguesia.nome_pagina}</h1>
+      <div
+        className="foto-capa-freguesia"
+        style={{ backgroundImage: `url(http://localhost:3000/${freguesia.foto_capa})` }}
+      />
+  
+      <div className="info-header">
+        <div className="foto-perfil-container">
+          <img
+            className="foto-perfil-freguesia"
+            src={`http://localhost:3000/${freguesia.foto_perfil}`}
+            alt="Foto de Perfil"
+          />
+        </div>
+        <div className="container-allInfo">    
+          <div className="nomeSeguirbtn-container"> 
+            <h1 className="nome-freguesia">{freguesia.nome_pagina}</h1>
+            <div className="seguir-container"> <BotaoSeguir /> </div>
+          </div>
+          <div className='btn-TicketEditar'>
+            <button className="botao-ticket" onClick={irParaTicket}> Ticket</button>
 
-      <button onClick={irParaEditar} className="botao-editar">
-        Editar
-      </button>
+            <button onClick={irParaEditar} className="botao-editar"> Editar </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

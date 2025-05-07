@@ -7,7 +7,7 @@ function BotaoEditarPedido({ pedido, navegarParaEditar }) {
   return (
     <div className="pedido-actions">
       <button
-        className="btn-"
+        className="btn-enviar"
         onClick={() => navegarParaEditar(pedido)}
       >
         Editar Pedido

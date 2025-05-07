@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import notificationIcon from '../../assets/notification-icon.png';
 
 export default function NotificacoesDropDown() {
   const [notificacoes, setNotificacoes] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDropdown = async () => {
     const token = localStorage.getItem('token');
@@ -99,31 +101,33 @@ export default function NotificacoesDropDown() {
           {notificacoes.length === 0 ? (
             <div className="sem-notificacoes">Sem notificações.</div>
           ) : (
-            notificacoes.map((notif) => {
-              const dataObj = new Date(notif.data);
-              const dataFmt = dataObj.toLocaleDateString('pt-PT');
-              const horaFmt = dataObj.toLocaleTimeString('pt-PT', {
-                hour: '2-digit',
-                minute: '2-digit',
-              });
+            <>
+              {notificacoes.map((notif) => {
+                const dataObj = new Date(notif.data);
+                const dataFmt = dataObj.toLocaleDateString('pt-PT');
+                const horaFmt = dataObj.toLocaleTimeString('pt-PT', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
 
-              return (
-                <div key={notif.id_notificacao} className="notificacao-item">
-                  <img
-                    src={notificationIcon}
-                    alt="Ícone"
-                    className="icone-notificacao"
-                  />
-                  <div className="texto-notificacao">
-                    {renderMensagem(notif)}
+                return (
+                  <div key={notif.id_notificacao} className="notificacao-item">
+                    <img src={notificationIcon} alt="Ícone" className="icone-notificacao" />
+                    <div className="texto-notificacao">{renderMensagem(notif)}</div>
+                    <div className="meta-notificacao">
+                      <span className="data-notificacao">{dataFmt}</span>{' '}
+                      <span className="hora-notificacao">{horaFmt}</span>
+                    </div>
                   </div>
-                  <div className="meta-notificacao">
-                    <span className="data-notificacao">{dataFmt}</span>{' '}
-                    <span className="hora-notificacao">{horaFmt}</span>
-                  </div>
-                </div>
-              );
-            })
+                );
+              })}
+              <button
+                onClick={() => navigate('/notificacoes')}
+                className="btn-ver-todas"
+              >
+                Ver todas as notificações →
+              </button>
+            </>
           )}
         </div>
       )}

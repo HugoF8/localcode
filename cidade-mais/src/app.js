@@ -4,11 +4,13 @@ const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 
+
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const app = express();
 // Ficheiros estáticos de uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 const comentarioRoutes = require('./routes/comentario.route');
 const moderadorRoutes = require('./routes/moderdorPagina.route');
@@ -43,6 +45,7 @@ app.use('/api/seguidores', seguidoresRoutes);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/utilizadores', utilizadorRoutes);
 app.use('/api/notificacao', notificacaoRoutes);
+
 
 
 

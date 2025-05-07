@@ -88,28 +88,44 @@ async function atualizarEstadoPedido(req, res) {
 }
 
 async function alterarPedidoPagina(req, res) {
-  // Extrai o nome do novo ficheiro
-  const ficheiro = req.file?.filename;
-  if (!ficheiro) {
-    return res.status(400).json({ error: "Comprovativo não enviado" });
+    const id_pedido = Number(req.params.id_pedido);
+    const {
+      nomefreguesia,
+      cidade,
+      freguesia,
+      rua,
+      codigo_postal,
+      dados_comprovacao
+    } = req.body;
+  
+    // Validação básica
+    if (![nomefreguesia, cidade, freguesia, rua, codigo_postal, dados_comprovacao]
+          .every(v => v !== undefined && v !== null && v !== '')) {
+      return res.status(400).json({ mensagem: "Todos os campos são obrigatórios." });
+    }
+  
+    try {
+      const pedidoAlterado = await pedidoPaginaService.alterarPedidoPagina(id_pedido, {
+        nomefreguesia,
+        cidade,
+        freguesia,
+        rua,
+        codigo_postal,
+        dados_comprovacao
+      });
+  
+      return res.status(200).json({
+        mensagem: "Pedido alterado com sucesso.",
+        pedido: pedidoAlterado
+      });
+    } catch (error) {
+      console.error("Erro ao atualizar o pedido:", error);
+      return res.status(500).json({
+        mensagem: "Erro ao atualizar o pedido.",
+        erro: error.message
+      });
+    }
   }
-
-  const idPedido = Number(req.params.id_pedido);
-  if (isNaN(idPedido)) {
-    return res.status(400).json({ error: 'id_pedido inválido' });
-  }
-
-  try {
-    const pedidoAlterado = await pedidoPaginaService.alterarPedidoPagina(idPedido, ficheiro);
-    res.status(200).json({
-      mensagem: "Dados de comprovação do pedido alterados com sucesso.",
-      pedido: pedidoAlterado,
-    });
-  } catch (error) {
-    console.error("Erro ao atualizar dados de comprovação:", error);
-    res.status(500).json({ error: 'Erro ao atualizar o pedido', detalhes: error.message });
-  }
-}
 
 module.exports = {
   createPedidoPagina,

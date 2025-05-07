@@ -18,11 +18,3 @@ function editarPedido() {
 
 
 export default editarPedido;
-
-
-
-
-
-
-
-
