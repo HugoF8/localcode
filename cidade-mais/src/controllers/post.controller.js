@@ -4,16 +4,24 @@ const postService = require('../services/post.service');
 async function createPost(req, res) {
   try {
     const id_utilizador = req.utilizador?.utilizadorId;
-
     if (!id_utilizador) {
-        return res.status(401).json({ error: 'Utilizador não autenticado ou ID inválido' });
+      return res.status(401).json({ error: 'Utilizador não autenticado ou ID inválido' });
     }
-    const { id_pagina, descricao_post } = req.body;
-    const media_post = req.file ? req.file.path : null;
 
+    // corpo
+    const { id_pagina, descricao_post } = req.body;
+    // ——> só guardamos o caminho relativo
+    let media_post = null;
+    if (req.file) {
+      media_post = req.file.path.replace(/^.*?uploads[\\/]/, 'uploads/');
+    }
+
+    
+
+    // chamamos o service
     const post = await postService.createPost({
       id_utilizador: Number(id_utilizador),
-      id_pagina: Number(id_pagina),
+      id_pagina:    Number(id_pagina),
       descricao_post,
       media_post,
     });

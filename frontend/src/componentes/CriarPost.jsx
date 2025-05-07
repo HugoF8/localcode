@@ -21,7 +21,9 @@ function CriarPost() {
   }, [imagem]);
 
   const handleImagemChange = (e) => {
-    if (e.target.files.length) setImagem(e.target.files[0]);
+    if (e.target.files.length) {
+      setImagem(e.target.files[0]);
+    }
   };
 
   const handlePublicar = async (e) => {
@@ -48,6 +50,7 @@ function CriarPost() {
         headers: { Authorization: `Bearer ${token}` },
         body: formData
       });
+      
       const data = await res.json();
       if (res.ok) {
         alert('Publicação criada!');
