@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import BarraPublicacoesEtickets from '../componentes/BarraPublicacoesEtickets';
 import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
 import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
@@ -78,9 +80,10 @@ function PublicacoesUtilizador() {
 
       if (!res.ok) throw new Error('Falha ao alterar publicação');
 
-      alert('Publicação alterada com sucesso!');
+      toast.success('Publicação alterada com sucesso!');
     } catch (error) {
       console.error('Erro ao alterar publicação:', error);
+      toast.error('Erro ao alterar publicação');
     }
   };
 
@@ -105,14 +108,16 @@ function PublicacoesUtilizador() {
         recusados: prev.recusados.filter(p => p.id_post !== id),
       }));
 
-      alert('Publicação apagada com sucesso!');
+      toast.success('Publicação apagada com sucesso!');
     } catch (error) {
       console.error('Erro ao apagar publicação:', error);
+      toast.error('Erro ao apagar publicação');
     }
   };
 
   return (
     <div className="container">
+      <ToastContainer position="top-right" />
       <BarraSuperior />
       <div className="flex">
         <BarraLateral />

@@ -1,4 +1,6 @@
 import React from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function BotaoModerador({ userId, isModeradorNaPagina, currentUser, paginaAtualId, onSuccess }) {
   const token = localStorage.getItem('token');
@@ -25,12 +27,12 @@ function BotaoModerador({ userId, isModeradorNaPagina, currentUser, paginaAtualI
         return res.json();
       })
       .then((data) => {
-        alert('Utilizador promovido a moderador com sucesso!');
+        toast.success('Utilizador promovido a moderador com sucesso!');
         if (onSuccess) onSuccess(data);
       })
       .catch((err) => {
         console.error('Erro ao promover a moderador:', err);
-        alert('Erro ao promover utilizador.');
+        toast.error('Erro ao promover utilizador.');
       });
   };
 
@@ -38,9 +40,12 @@ function BotaoModerador({ userId, isModeradorNaPagina, currentUser, paginaAtualI
   if (isModeradorNaPagina || !temPermissaoNaPagina) return null;
 
   return (
-    <button onClick={tornarModerador} className="btn-moderador">
-      Tornar Moderador
-    </button>
+    <div>
+      <ToastContainer position="top-right" />
+      <button onClick={tornarModerador} className="btn-moderador">
+        Tornar Moderador
+      </button>
+    </div>
   );
 }
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import RegistarInputs1 from '../componentes/Login e Registar/RegistarInputs1';
 import ImagemLoginRegistar from '../componentes/Login e Registar/ImagemLoginRegistar';
 import '../styles/Registo.css';
@@ -18,7 +20,7 @@ function Registar1() {
     e.preventDefault();
 
     if (password !== repetir) {
-      return alert('As passwords não coincidem.');
+      return toast.error('As passwords não coincidem.');
     }
 
     // Guarda temporariamente no sessionStorage (não persiste após fechar)
@@ -32,6 +34,7 @@ function Registar1() {
 
   return (
     <div className="login-container">
+      <ToastContainer position="top-right" />
       <RegistarInputs1
         nome={nome} setNome={setNome}
         email={email} setEmail={setEmail}

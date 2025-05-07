@@ -1,6 +1,8 @@
 // src/pages/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import LoginInputs from '../componentes/Login e Registar/LoginInputs';
 import LoginLembrar from '../componentes/Login e Registar/LoginLembrar';
 import LoginBotoes from '../componentes/Login e Registar/LoginBotoes';
@@ -30,16 +32,17 @@ function Login() {
         if (!rememberMe) sessionStorage.setItem('token', data.token);
         navigate('/home');
       } else {
-        alert(data.error || 'Credenciais inválidas');
+        toast.error(data.error || 'Credenciais inválidas');
       }
     } catch (err) {
       console.error(err);
-      alert('Erro de rede. Tente novamente.');
+      toast.error('Erro de rede. Tente novamente.');
     }
   };
 
   return (
     <div className="login-container">
+      <ToastContainer position="top-right" />
       <div className="login-left">
         <form className="login-form" onSubmit={handleSubmit}>
           <LoginInputs

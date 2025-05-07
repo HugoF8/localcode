@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/Home.css';
 
 function EditarFreguesia() {
@@ -71,12 +73,13 @@ function EditarFreguesia() {
       navigate(`/Pagina/${id}`);
     } catch (err) {
       console.error(err);
-      alert('Falha ao atualizar a página.');
+      toast.error('Falha ao atualizar a página.');
     }
   };
 
   return (
     <div className="editar-freguesia-container" style={{ maxWidth: '600px', margin: 'auto', padding: '2rem' }}>
+      <ToastContainer position="top-right" />
       <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Editar Página da Freguesia</h2>
 
       <form onSubmit={handleSubmit} className="form-editar-freguesia" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>

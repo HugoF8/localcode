@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import RegistarInputs2 from '../componentes/Login e Registar/RegistarInputs2';
 import ImagemLoginRegistar from '../componentes/Login e Registar/ImagemLoginRegistar';
 import '../styles/Registo.css';
@@ -42,16 +44,17 @@ function Registar2() {
         // Apenas redireciona para o login
         navigate('/');
       } else {
-        alert(data.error || 'Erro no registo.');
+        toast.error(data.error || 'Erro no registo.');
       }
     } catch (err) {
-      console.error(err);
-      alert('Erro de rede ao registar.');
+      console.error(err); 
+      toast.error('Erro de rede ao registar.');
     }
   };
 
   return (
     <div className="login-container">
+      <ToastContainer position="top-right" />
       <RegistarInputs2
         cidade={cidade} setCidade={setCidade}
         freguesia={freguesia} setFreguesia={setFreguesia}

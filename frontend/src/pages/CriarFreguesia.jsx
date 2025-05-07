@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
 import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import '../styles/CriarFreguesia.css';
@@ -47,20 +49,21 @@ function CriarFreguesia() {
       const resultado = await response.json();
 
       if (response.ok) {
-        alert('Pedido de freguesia enviado com sucesso!');
+        toast.success('Pedido de freguesia enviado com sucesso!');
         navigate('/home');
       } else {
-        alert('Erro ao enviar pedido: ' + (resultado.detalhes || resultado.error));
+        toast.error('Erro ao enviar pedido: ' + (resultado.detalhes || resultado.error));
         console.error('Erro ao enviar pedido: ' + (resultado.detalhes || resultado.error))
       }
     } catch (error) {
       console.error('Erro ao enviar pedido:', error);
-      alert('Erro ao enviar o pedido. Tenta novamente.');
+      toast.error('Erro ao enviar o pedido. Tenta novamente.');
     }
   };
 
   return (
     <div className="container">
+      <ToastContainer position="top-right" />
       <BarraSuperior />
       <div className="corpo">
         <BarraLateral />

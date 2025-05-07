@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/CriarFreguesia.css';
 
 function EditarPedidoC() {
@@ -59,12 +61,12 @@ function EditarPedidoC() {
           ]);
         }
       } else {
-        alert('Pedido não encontrado');
+        toast.error('Pedido não encontrado');
         navigate('');
       }
     } catch (error) {
       console.error('Erro ao buscar dados do pedido:', error);
-      alert('Erro ao carregar dados do pedido');
+      toast.error('Erro ao carregar dados do pedido');
     }
   };
 
@@ -103,12 +105,12 @@ function EditarPedidoC() {
       // });
       
       // Simulando resposta bem-sucedida
-      alert('Pedido de freguesia atualizado com sucesso!');
+      toast.success('Pedido de freguesia atualizado com sucesso!');
       navigate('');
       
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
-      alert('Erro ao atualizar o pedido. Tente novamente.');
+      toast.error('Erro ao atualizar o pedido. Tente novamente.');
     }
   };
 
@@ -122,6 +124,7 @@ function EditarPedidoC() {
 
   return (
         <div className="conteudo-criar">
+          <ToastContainer position="top-right" />
           <h2>Editar Pedido de Freguesia</h2>
           <hr />
           <form className="formulario" onSubmit={handleSubmit}>

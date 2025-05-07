@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import BarraPublicacoesEtickets from '../componentes/BarraPublicacoesEtickets';
 import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
 import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
@@ -77,9 +79,10 @@ function TicketsUtilizador() {
         }),
       });
 
-      alert('Descrição do ticket alterada com sucesso!');
+      toast.success('Descrição do ticket alterada com sucesso!');
     } catch (error) {
       console.error('Erro ao alterar ticket:', error);
+      toast.error('Erro ao alterar o ticket.');
     }
   };
 
@@ -99,14 +102,16 @@ function TicketsUtilizador() {
         fechados: prev.fechados.filter(ticket => ticket.id_ticket !== id),
       }));
 
-      alert('Ticket apagado com sucesso!');
+      toast.success('Ticket apagado com sucesso!');
     } catch (error) {
       console.error('Erro ao apagar ticket:', error);
+      toast.error('Erro ao apagar o ticket.');
     }
   };
 
   return (
     <div className="container">
+      <ToastContainer position="top-right" />
       <BarraSuperior />
       <div className="flex">
         <BarraLateral />
