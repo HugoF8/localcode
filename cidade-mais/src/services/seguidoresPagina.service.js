@@ -14,11 +14,12 @@ async function getAllSeguidores() {
 
 async function getPaginasSeguidas(id_utilizador) {
     return prisma.seguidores_pagina.findMany({
-        where:{
-            id_utilizador: id_utilizador,
-        }
-    })
-}
+      where: { id_utilizador },
+      include: {
+        pagina_freguesia: true
+      }
+    });
+  }
 
 async function pararSeguir(id_utilizador,id_pagina){
     return prisma.seguidores_pagina.deleteMany({

@@ -96,7 +96,32 @@
   .btn-enviar:hover {
     background-color: #333;
   }
+
+  .botoes-acao{
+    display: flex;
+    justify-content: space-between;
+  }
   
+  .btn-edit {
+    margin-top: 24px;
+    align-self: center;
+    padding: 10px 26px;
+    background-color: #4a4a4a;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .btn-edit:hover {
+    background-color: #333;
+  }
+  
+
+
   label span[title] {
     font-size: 14px;
     margin-left: 6px;

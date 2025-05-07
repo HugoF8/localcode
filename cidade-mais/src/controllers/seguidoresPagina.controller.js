@@ -35,22 +35,23 @@ async function getAllSeguidores(req, res) {
 }
 
 async function getPaginasSeguidas(req, res) {
-
-    const { id_utilizador} = req.params;
-    const idUtilizador = Number(id_utilizador);
-
+    const idUtilizador = Number(req.params.id_utilizador);
     if (isNaN(idUtilizador)) {
-        return res.status(400).json({ error: 'id de utilizador deve ser um número válido' });
+      return res.status(400).json({ error: 'ID inválido.' });
     }
-
+  
     try {
-        const pagina = await seguidoresService.getPaginasSeguidas(idUtilizador);
-        res.json(pagina);
+      const seguidores = await seguidoresService.getPaginasSeguidas(idUtilizador);
+      const paginas = seguidores
+        .map(s => s.pagina_freguesia)
+        .filter(p => p != null);
+  
+      res.json(paginas);
     } catch (error) {
-        console.error("Erro na busca :", error);
-        res.status(500).json({ error: "Erro ao buscar publicação", detalhes: error.message });
+      console.error("Erro na busca:", error);
+      res.status(500).json({ error: error.message });
     }
-}
+  }
 
 async function pararSeguir(req, res) {
     const { id_utilizador, id_pagina } = req.body;
