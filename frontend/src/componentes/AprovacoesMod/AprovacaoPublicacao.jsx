@@ -20,7 +20,7 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
             <div className="publicacao-conteudo">
 
             <button
-              onClick={() => setSelectedUserId(pub.userId)}
+              onClick={() => { console.log("Cliquei! pub.userId =", pub.id_utilizador); setSelectedUserId(pub.id_utilizador)}}
               className="cursor-pointer w-fit border-none bg-transparent p-0"
               style={{ all: 'unset', cursor: 'pointer' }}//tirar
             >

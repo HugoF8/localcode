@@ -4,23 +4,21 @@ const PerfilUtilizadorClick = ({ userId, onClose }) => {
   const [user, setUser] = useState(null);
   const token = localStorage.getItem('token');
 
-
   useEffect(() => {
-    // Simulação de fetch à base de dados
+    console.log("userId recebido:", userId);
     const fetchUser = async () => {
       try {
         const res = await fetch(`http://localhost:3000/api/perfil/verPerfilUtilizador/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
+
+        if (!res.ok) throw new Error(`Erro: ${res.status}`);
         const data = await res.json();
         setUser(data);
       } catch (error) {
         console.error("Erro ao buscar dados do utilizador:", error);
       }
     };
-
-    if (!res.ok) throw new Error(`Erro: ${res.status}`);
-    const data = res.json();
 
     if (userId) {
       fetchUser();
@@ -44,9 +42,13 @@ const PerfilUtilizadorClick = ({ userId, onClose }) => {
               <path d="M12 12c2.67 0 8 1.34 8 4v2H4v-2c0-2.66 5.33-4 8-4zm0-2a4 4 0 100-8 4 4 0 000 8z" />
             </svg>
           </div>
-          <h2 className="mt-4 font-bold text-xl">{user.username}</h2>
-          <p className="text-gray-600">{user.email}</p>
-          <p className="text-sm text-gray-400">{user.createdAt?.split('T')[0]}</p>
+          <h2 className="mt-4 font-bold text-xl">{user.utilizador?.nome || user.username}</h2>
+          <p className="text-gray-600">{user.utilizador?.email || user.email}</p>
+          <p className="text-sm text-gray-400">
+            {user.utilizador?.data_nascimento
+              ? new Date(user.utilizador.data_nascimento).toLocaleDateString('pt-PT')
+              : user.createdAt?.split('T')[0]}
+          </p>
         </div>
       </div>
     </div>
