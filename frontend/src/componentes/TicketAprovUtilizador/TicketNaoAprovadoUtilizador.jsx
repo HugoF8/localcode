@@ -1,10 +1,11 @@
 import React from 'react';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
+import RespostaTicketUtilizador from './RespostaTicketUtilizador'; // Caminho ajusta conforme tua estrutura
 
-function TicketNaoAprovadoUtilizador({ tickets, onToggleExpand, onInputChange, onAlterar, onApagar, expandidoId }) {
+function TicketNaoAprovadoUtilizador({ tickets, onToggleExpand, onInputChange, onAlterar, onApagar, expandidoId, token }) {
   return (
     <div className="ticket-list-wrapper">
-      <h1 className="ticket-title">Não Aprovados</h1>
+      <h1 className="ticket-title">Respostas a Tickets</h1>
 
       {tickets.map((ticket) => (
         <div
@@ -37,6 +38,9 @@ function TicketNaoAprovadoUtilizador({ tickets, onToggleExpand, onInputChange, o
                 <button className="btn-aprovar" onClick={() => onAlterar(ticket.id_ticket)}>Alterar</button>
                 <button className="btn-recusar" onClick={() => onApagar(ticket.id_ticket)}>Apagar</button>
               </div>
+
+              {/* Aqui mostramos as respostas */}
+              <RespostaTicketUtilizador idTicket={ticket.id_ticket} token={token} />
             </>
           )}
         </div>

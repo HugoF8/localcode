@@ -35,10 +35,11 @@ async function getAllRespostas() {
     return prisma.resposta_ticket.findMany();
 }
 
-async function getRespostasPorUtilizador(id_utilizador) {
+async function getRespostasPorUtilizador(id_utilizador, id_ticket) {
     return prisma.resposta_ticket.findMany({
         where: {
             id_utilizador: id_utilizador,
+            id_ticket: id_ticket
         }
     });
 }

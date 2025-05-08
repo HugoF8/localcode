@@ -24,14 +24,15 @@ async function getAllRespostas(req, res) {
 
 async function getRespostasPorUtilizador(req, res) {
     
-    const { id_utilizador } = req.params;
+    const id_utilizador = req.utilizador.utilizadorId;
+    const { id_ticket } = req.params;
 
-    if (!id_utilizador) {
-        return res.status(400).json({ mensagem: "Parâmetro 'id_utilizador' é obrigatório." });
+    if (!id_utilizador || !id_ticket) {
+        return res.status(400).json({ mensagem: "Parâmetro obrigatórios em falta." });
     }
 
     try {
-        const respostas = await respostaService.getRespostasPorUtilizador(Number(id_utilizador));
+        const respostas = await respostaService.getRespostasPorUtilizador(Number(id_utilizador), Number(id_ticket));
         res.json(respostas);
     } catch (error) {
         console.error("Erro ao buscar respostas por utilizador:", error);
