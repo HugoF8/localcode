@@ -21,21 +21,40 @@ function Login() {
       const res = await fetch('http://localhost:3000/api/autent/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })   
+        body: JSON.stringify({ email, password })
       });
       const data = await res.json();
+      console.log('Login response:', data);
 
-      if (res.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('utilizador', JSON.stringify(data.utilizador));
-        localStorage.setItem('id_utilizador', data.utilizador.id_utilizador);
-        if (!rememberMe) sessionStorage.setItem('token', data.token);
-        navigate('/home');
-      } else {
-        toast.error(data.error || 'Credenciais inválidas');
+      if (!res.ok) {
+        return toast.error(data.error || 'Credenciais inválidas');
       }
+
+      // 1. Armazenar token e utilizador
+      const { token, utilizador } = data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('utilizador', JSON.stringify(utilizador));
+      localStorage.setItem('id_utilizador', utilizador.id_utilizador);
+
+      // 2. Extrair páginas de moderador com fallback para array vazio
+      const paginasArray = Array.isArray(utilizador.paginas)
+        ? utilizador.paginas
+        : [];
+      const modPages = paginasArray
+        .filter(p => p.role === 'moderador')
+        .map(p => p.id_pagina);
+      sessionStorage.setItem('paginasModeradas', JSON.stringify(modPages));
+
+      // 3. Guardar também o token em sessionStorage se não lembrar
+      if (!rememberMe) {
+        sessionStorage.setItem('token', token);
+      }
+
+      // 4. Finalmente navega
+      navigate('/home');
+
     } catch (err) {
-      console.error(err);
+      console.error('Erro no login:', err);
       toast.error('Erro de rede. Tente novamente.');
     }
   };

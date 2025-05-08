@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import HomeFreguesia from './pages/HomePaginaFreguesia';
 import CriarFreguesia from './pages/CriarFreguesia';
@@ -22,21 +23,29 @@ import TodasNotificacoes from './pages/TodasNotificacoes';
 
 import './App.css';
 
+
+function RequireModerator({ children }) {
+  const modPages = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
+  // Se não for moderador em nenhuma página, redireciona
+  if (modPages.length === 0) return <Navigate to="/home" replace />;
+  return children;
+}
+
 function App() {
   return (
       <Router>
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/Pagina/:id" element={<HomeFreguesia />} />
-          <Route path="/Pagina/:id/EditarPagina" element={<EditarFreguesia />} />
+          <Route path="/Pagina/:id/EditarPagina" element={<RequireModerator><EditarFreguesia /></RequireModerator>} />
           <Route path="/Pagina/:id/enviar-ticket" element={<EnviarTicket />} />
           <Route path="/criar-freguesia" element={<CriarFreguesia />} />
           <Route path="/publicacoes-utilizador" element={<PublicacoesUtilizador />} />
           <Route path="/pedidos" element={<Pedidos />} />
           <Route path="/tickets-utilizador" element={<TicketsUtilizador />} />
-          <Route path="/AprovacoesTickets" element={<AprovacoesTickets />} />
-          <Route path="/AprovacoesPublicacoes" element={<AprovacoesPublicacoes />} />
-          <Route path="/AprovacoesPedidos" element={<AprovacoesPedidos />} />
+          <Route path="/AprovacoesTickets" element={<RequireModerator><AprovacoesTickets /></RequireModerator>} />
+          <Route path="/AprovacoesPublicacoes" element={<RequireModerator><AprovacoesPublicacoes /></RequireModerator>} />
+          <Route path="/AprovacoesPedidos" element={<RequireModerator><AprovacoesPedidos /></RequireModerator>} />
           <Route path="/" element={<Login />} />
           <Route path="/registar1" element={<Registar1 />} />
           <Route path="/registar2" element={<Registar2 />} />
