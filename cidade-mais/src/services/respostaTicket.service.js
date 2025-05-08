@@ -4,24 +4,31 @@ const prisma = new PrismaClient();
 
 // Criar resposta
 async function createResposta(data) {
-
-    const novaResposta = await prisma.resposta_ticket.create({ data });
-    const notificacao = novaResposta.estado_resposta === 'resolvido' ? tipo_notificacao.Sucesso : tipo_notificacao.Insucesso
-    
-    await createNotificacao({
+    try {
+      const novaResposta = await prisma.resposta_ticket.create({ data });
+  
+      const notificacao = novaResposta.estado_resposta === 'resolvido'
+        ? tipo_notificacao.Sucesso
+        : tipo_notificacao.Insucesso;
+  
+      await createNotificacao({
         id_utilizador: novaResposta.id_utilizador,
         id_ticket: novaResposta.id_ticket,
         tipo_notificacao: notificacao
-    });
-
-    await prisma.ticket.update({ // repetição de codigo melhorar isto
+      });
+  
+      await prisma.ticket.update({
         where: { id_ticket: novaResposta.id_ticket },
-        data: {
-            estado_ticket: 'fechado',
-        },})   
-
-    return novaResposta
-}
+        data: { estado_ticket: 'fechado' },
+      });
+  
+      return novaResposta;
+  
+    } catch (error) {
+      console.error('Erro ao criar resposta:', error);
+      throw new Error('Erro interno ao criar resposta');
+    }
+  }
 
 // Buscar todas as respostas
 async function getAllRespostas() {
