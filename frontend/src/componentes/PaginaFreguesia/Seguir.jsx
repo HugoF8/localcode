@@ -1,54 +1,95 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import '../../styles/Home.css';
-import PaginasSeguidas from '../../utilities/PaginasSeguidas/ProcurarPaginasSeguidas'
+import '../../styles/Home.css'
 
 function BotaoSeguir() {
   const { id } = useParams()
-  console.log("teste:",id);
   const [seguindo, setSeguindo] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [mensagem, setMensagem] = useState(null)
 
-  const seguirPagina = async () => {
+  const token = localStorage.getItem("token")
+  const id_utilizador = localStorage.getItem("id_utilizador")
+
+  // Ao montar, verifica se já seguimos esta página
+  useEffect(() => {
+    if (!token || !id_utilizador) return
+
+    fetch(`http://localhost:3000/api/seguidores/verPaginasSeguidas/${id_utilizador}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.json()
+      })
+      .then(data => {
+        const jaSegue = data.some(p => p.id_pagina === Number(id))
+        setSeguindo(jaSegue)
+      })
+      .catch(err => {
+        console.error("Erro ao verificar seguimento:", err)
+      })
+  }, [id, token, id_utilizador])
+
+  const handleClick = async () => {
     setLoading(true)
     setError(null)
     setMensagem(null)
 
     try {
-      const token = localStorage.getItem("token")
-
-      const response = await fetch("http://localhost:3000/api/seguidores/criarSeguidor", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          id_pagina: Number(id),
-        }),
-      })
-
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || "Erro ao seguir página")
-      }
-
-      setSeguindo(true)
-      PaginasSeguidas() //atualizar paginas seguidas
-      setMensagem("Agora você está a seguir esta página!")
-      setTimeout(() => setMensagem(null), 3000)
-    } catch (error) {
-      console.error("Erro ao seguir página:", error)
-
-      if (error.message.includes("Unique constraint failed")) {
-        setSeguindo(true)
-        setMensagem("Você já está seguindo esta página")
+      if (!seguindo) {
+        // Seguir
+        const response = await fetch(
+          "http://localhost:3000/api/seguidores/criarSeguidor",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ id_pagina: Number(id) }),
+          }
+        )
+        if (!response.ok) {
+          const errData = await response.json()
+          throw new Error(errData.error || "Erro ao seguir página")
+        }
       } else {
-        setError(error.message || "Ocorreu um erro ao tentar seguir esta página")
+        // Deixar de seguir
+        const response = await fetch(
+          "http://localhost:3000/api/seguidores/removerSeguidor",
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              id_utilizador: Number(id_utilizador),
+              id_pagina: Number(id),
+            }),
+          }
+        )
+        if (!response.ok) {
+          const errData = await response.json()
+          throw new Error(errData.error || "Erro ao deixar de seguir página")
+        }
       }
 
+      // Atualiza o estado e o sessionStorage
+      setSeguindo(prev => !prev)
+      const resPaginas = await fetch(
+        `http://localhost:3000/api/seguidores/verPaginasSeguidas/${id_utilizador}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      const paginas = await resPaginas.json()
+      sessionStorage.setItem("paginasSeguidas", JSON.stringify(paginas))
+
+      setTimeout(() => setMensagem(null), 3000)
+    } catch (err) {
+      console.error(err)
+      setError(err.message)
       setTimeout(() => setError(null), 3000)
     } finally {
       setLoading(false)
@@ -61,21 +102,27 @@ function BotaoSeguir() {
       {mensagem && <div className="success-message">{mensagem}</div>}
 
       <button
-        className={ `botao-seguir ${seguindo ? "A seguir" : ""} ${loading ? "loading" : ""}`}
-        onClick={seguirPagina}
+        className={`botao-seguir ${seguindo ? "A-seguir" : ""} ${
+          loading ? "loading" : ""
+        }`}
+        onClick={handleClick}
         disabled={loading}
       >
-        {loading ? (
-          "A seguir..."
-        ) : seguindo ? (
-          <>
-            <span className="icon-check">✓</span> A Seguir
-          </>
-        ) : (
-          <>
-            <span className="icon-plus">+</span> Seguir Página
-          </>
-        )}
+        {loading
+          ? seguindo
+            ? "A deixar de seguir..."
+            : "A seguir..."
+          : seguindo
+          ? (
+            <>
+              <span className="icon-check">✓</span> A Seguir
+            </>
+          )
+          : (
+            <>
+              <span className="icon-plus">+</span> Seguir Página
+            </>
+          )}
       </button>
     </div>
   )
