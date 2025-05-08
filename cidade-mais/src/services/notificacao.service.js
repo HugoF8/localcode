@@ -63,7 +63,8 @@ async function getNotificacaoPorUtilizador(id_utilizador) {
     return prisma.notificacao.findMany({
         where: {
             id_utilizador: id_utilizador,
-        }
+        },
+        orderBy: { data: 'desc' }
     });
 }
 
