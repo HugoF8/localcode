@@ -13,12 +13,10 @@ let paginaAlpha;
 let paginaBeta;
 
 beforeAll(async () => {
-  
   await prisma.pagina_freguesia.deleteMany();
   await prisma.utilizador.deleteMany();
   await prisma.morada.deleteMany();
 
-  
   utilizador = await prisma.utilizador.create({
     data: {
       nome: "Teste",
@@ -54,7 +52,6 @@ beforeAll(async () => {
     }
   });
 
-  
   token = jwt.sign({
     utilizadorId: utilizador.id_utilizador,
     tipo_utilizador: utilizador.tipo_utilizador,
@@ -91,14 +88,13 @@ describe('Testes Integração - Página Freguesia', () => {
 
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
-    expect(res.body.length).toBe(3);
+    expect(res.body.length).toBe(3); // Alpha, Beta e Gamma
   });
 
   test('Pesquisar páginas por nome', async () => {
     const res = await request(app)
-      .get('/api/paginaFreguesias/pesquisarPaginas')
-      .set('Authorization', `Bearer ${token}`)
-      .query({ pesquisa: 'alpha' });
+      .get('/api/paginaFreguesias/pesquisarPaginas/alpha') // corrigido
+      .set('Authorization', `Bearer ${token}`);
 
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
@@ -108,9 +104,8 @@ describe('Testes Integração - Página Freguesia', () => {
 
   test('Pesquisar com termo sem correspondência', async () => {
     const res = await request(app)
-      .get('/api/paginaFreguesias/pesquisarPaginas')
-      .set('Authorization', `Bearer ${token}`)
-      .query({ pesquisa: 'delta' });
+      .get('/api/paginaFreguesias/pesquisarPaginas/delta') // corrigido
+      .set('Authorization', `Bearer ${token}`);
 
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
@@ -127,11 +122,11 @@ describe('Testes Integração - Página Freguesia', () => {
         id_morada: morada.id_morada,
         id_utilizador: utilizador.id_utilizador
       });
-  
+
     expect(res.statusCode).toBe(400);
     expect(res.body).toHaveProperty('error', 'O nome da página é obrigatório');
   });
-  
+
   test('Falhar listar sem token', async () => {
     const res = await request(app)
       .get('/api/paginaFreguesias/verPaginaFreguesia');
