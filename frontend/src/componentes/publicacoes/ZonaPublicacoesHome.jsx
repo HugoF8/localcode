@@ -1,16 +1,16 @@
   function ZonaPublicacoesHome() {
     return (
-      <div class="zona-publicacoes">
-        <div class="publicacoes-container">
-          <div class="info-perfil">
-            <div class="foto-freguesia">
+      <div className="zona-publicacoes">
+        <div className="publicacoes-container">
+          <div className="info-perfil">
+            <div className="foto-freguesia">
 
             </div>
-            <div class="nome-freguesia">
+            <div className="nome-freguesia">
               <p>SEQUEADE</p>
             </div>
           </div>
-          <div class="publicação-utilizador-container">
+          <div className="publicação-utilizador-container">
           
           </div>
         </div>
