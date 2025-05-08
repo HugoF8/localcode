@@ -41,6 +41,11 @@ async function pesquisaPagina(req, res) {
 async function getPaginaFreguesiaById(req, res) {
   const { id } = req.params;
 
+  // Verifica se o 'id' é um número inteiro positivo
+  if (!id || isNaN(id) || parseInt(id) <= 0) {
+    return res.status(400).json({ error: "ID inválido" });
+  }
+
   try {
     const pagina = await paginaFreguesiaService.getPaginaFreguesiaById(id);
 
@@ -54,7 +59,6 @@ async function getPaginaFreguesiaById(req, res) {
     res.status(500).json({ error: "Erro ao buscar página", detalhes: error.message });
   }
 }
-
 
 async function updatePaginaFreguesia(req, res) {
   const { id } = req.params;

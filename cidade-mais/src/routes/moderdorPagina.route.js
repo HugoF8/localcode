@@ -11,3 +11,4 @@ router.get('/verModeradorPagina', moderadorPaginaController.getAllModeradorPagin
 router.get('/verPaginasModeradas', moderadorPaginaController.verPaginasModeradas);
 
 module.exports = router;
+    

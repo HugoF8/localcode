@@ -66,7 +66,7 @@ function TicketsUtilizador() {
   const onAlterar = async (id) => {
     const ticket = tickets.fechados.find(t => t.id_ticket === id);
     if (!ticket) return;
-
+  
     try {
       await fetch(`http://localhost:3000/api/tickets/alterarTicket/${id}`, {
         method: 'PATCH',
@@ -78,13 +78,21 @@ function TicketsUtilizador() {
           descricao_problema: ticket.input,
         }),
       });
-
+  
+      // Após alteração, removemos o ticket da lista de fechados
+      setTickets(prev => ({
+        ...prev,
+        fechados: prev.fechados.filter(t => t.id_ticket !== id),
+      }));
+  
       toast.success('Descrição do ticket alterada com sucesso!');
     } catch (error) {
       console.error('Erro ao alterar ticket:', error);
       toast.error('Erro ao alterar o ticket.');
     }
   };
+  
+  
 
   const onApagar = async (id) => {
     if (!window.confirm('Tens a certeza que queres apagar este ticket?')) return;
