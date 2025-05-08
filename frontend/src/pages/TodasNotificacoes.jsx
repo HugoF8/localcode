@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import '../styles/notificacoes.css';
 function TodasNotificacoes() {
   const [notificacoes, setNotificacoes] = useState([]);
   const navigate = useNavigate();
@@ -14,8 +14,8 @@ function TodasNotificacoes() {
           `http://localhost:3000/api/notificacao/verNotificacaoPorUtilizador/${id_utilizador}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         const data = await res.json();
@@ -30,7 +30,7 @@ function TodasNotificacoes() {
   const renderMensagem = (notif) => {
     const { tipo_notificacao, id_post, id_ticket } = notif;
 
-    const isPedido = !id_post && !id_ticket; // tudo o que não for post nem ticket é pedido
+    const isPedido = !id_post && !id_ticket;
 
     if (isPedido) {
       switch (tipo_notificacao) {
@@ -79,16 +79,16 @@ function TodasNotificacoes() {
   };
 
   return (
-    <div className="zona-publicacoes">
-      <h1>Todas as Notificações</h1>
+    <div className="notificacoes-container">
+      <h1 className="titulo">📨 Todas as Notificações</h1>
       {notificacoes.length === 0 ? (
-        <p>Sem notificações.</p>
+        <p className="sem-notificacoes">Sem notificações.</p>
       ) : (
         <ul className="lista-notificacoes">
           {notificacoes.map((notif) => (
-            <li key={notif.id_notificacao} className="notificacao-item-grande">
-              <p><strong>{renderMensagem(notif)}</strong></p>
-              <p>
+            <li key={notif.id_notificacao} className="notificacao-item">
+              <p className="mensagem"><strong>{renderMensagem(notif)}</strong></p>
+              <p className="data">
                 {new Date(notif.data).toLocaleDateString('pt-PT')} às{' '}
                 {new Date(notif.data).toLocaleTimeString('pt-PT', {
                   hour: '2-digit',
