@@ -157,5 +157,19 @@ async function getPostsPaginasSeguidas(req, res) {
   }
 }
 
-module.exports = {createPost,getAllPosts,getPostsPendente,atualizarEstadoPost,getPostPagina,getPostsAprovados,getPostsRecusados,alterarInformacoesPost,getPostsPaginasSeguidas
+async function deletePost(req, res) {
+  try {
+    const id_post = Number(req.params.id_post);
+    if (isNaN(id_post)) {
+      return res.status(400).json({ error: 'id_post inválido' });
+    }
+    await postService.deletePost(id_post);
+    return res.status(200).json({ message: 'Post apagado com sucesso.' });
+  } catch (error) {
+    console.error("Erro ao eliminar publicação:", error);
+    res.status(500).json({ error: "Erro ao eliminar publicação", detalhes: error.message });
+  }
+}
+
+module.exports = {createPost,getAllPosts,getPostsPendente,atualizarEstadoPost,getPostPagina,getPostsAprovados,getPostsRecusados,alterarInformacoesPost,getPostsPaginasSeguidas,deletePost
 };
