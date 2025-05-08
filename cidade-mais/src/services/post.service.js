@@ -208,6 +208,11 @@ async function getPostsPaginasSeguidas(id_utilizador) {
 }
 
 async function deletePost(id_post) {
+
+  await prisma.notificacao.deleteMany({
+    where: { id_post }
+  });
+
     return prisma.post.delete({
         where:{
             id_post: id_post
