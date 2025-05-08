@@ -1,3 +1,5 @@
+// src/componentes/DropdownPedidos.jsx
+
 import React from 'react';
 import BotaoEditarPedido from './BotaoEditarPedido';
 import '../../styles/PedidoPagina.css';
@@ -49,7 +51,9 @@ function DropdownPedidos({
 
             {aberto === pedido.id_pedido && (
               <section className="pedido-details">
-                <p className="pedido-info"><strong>Nome Freguesia:</strong> {pedido.nomefreguesia}</p>
+                <p className="pedido-info">
+                  <strong>Nome Freguesia:</strong> {pedido.nomefreguesia}
+                </p>
                 <p className="pedido-info">
                   <strong>Morada:</strong>{' '}
                   {pedido.morada ? (
@@ -61,29 +65,24 @@ function DropdownPedidos({
                     </>
                   ) : 'Morada não disponível'}
                 </p>
+              
 
-                {pedido.dados_comprovacao && (
-                  <div className="pedido-comprovativo">
-                  <p><strong>Comprovativo:</strong></p>
-                  <div style={{ display: 'flex', gap: '1rem' }}>
-                    {(() => {
-                      const nomeFicheiro = pedido.dados_comprovacao.split('\\').pop().split('/').pop();
-                      const url = `http://localhost:3000/uploads/${nomeFicheiro}`;
-                      return (
-                        <>
-                          <a
-                            href={url}
-                            download
-                            className="btn-comprovativo"
-                          >
-                            📥 Download
-                          </a>
-                        </>
-                      );
-                    })()}
-                  </div>
-                </div>
-                )}
+                {pedido.dados_comprovacao && (() => {
+                  // Extrai só o nome do ficheiro (descarta C:\fakepath\...)
+                  const raw = pedido.dados_comprovacao;
+                  const nome = raw.split(/[/\\]/).pop().trim();
+                  const url = `http://localhost:5173/uploads/${nome}`;
+                  return (
+                    <div className="pedido-comprovativo">
+                      <p><strong>Comprovativo:</strong></p>
+                      <div style={{ display: 'flex', gap: '1rem' }}>
+                        <a href={url} download className="btn-comprovativo">
+                          📥 Download
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 {/* Botão de editar (condicional) */}
                 {exibirBotaoEditar && navegarParaEditar && (
