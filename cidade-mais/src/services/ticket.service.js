@@ -101,6 +101,8 @@ async function alterarTicket(id_ticket, descricao_problema) {
         },
     });
 
+    await atualizarEstadoTicket(id_ticket, true)
+
     return ticketAlterado;
 }
 
