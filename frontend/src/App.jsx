@@ -31,6 +31,16 @@ function RequireModerator({ children }) {
   return children;
 }
 
+function RequireAdmin({ children }) {
+  // Obtemos o utilizador guardado no login
+  const utilizador = JSON.parse(localStorage.getItem('utilizador') || '{}');
+  // Se não for admin, redireciona para a home
+  if (utilizador.tipo_utilizador !== 'admin') {
+    return <Navigate to="/home" replace />;
+  }
+  return children;
+}
+
 function App() {
   return (
       <Router>
@@ -45,7 +55,7 @@ function App() {
           <Route path="/tickets-utilizador" element={<TicketsUtilizador />} />
           <Route path="/AprovacoesTickets" element={<RequireModerator><AprovacoesTickets /></RequireModerator>} />
           <Route path="/AprovacoesPublicacoes" element={<RequireModerator><AprovacoesPublicacoes /></RequireModerator>} />
-          <Route path="/AprovacoesPedidos" element={<RequireModerator><AprovacoesPedidos /></RequireModerator>} />
+          <Route path="/AprovacoesPedidos" element={<RequireAdmin><AprovacoesPedidos /></RequireAdmin>} />
           <Route path="/" element={<Login />} />
           <Route path="/registar1" element={<Registar1 />} />
           <Route path="/registar2" element={<Registar2 />} />
