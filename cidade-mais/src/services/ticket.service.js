@@ -32,7 +32,28 @@ async function getTicketPendente(id_pagina) {
       }
     });
   }
-  
+
+
+  async function getTicketAbertoPagina(id_pagina) {
+    return prisma.ticket.findMany({ 
+      where: {
+        id_pagina: id_pagina,
+        estado_ticket: 'aberto'
+      },
+      include: {
+        utilizador: {
+          select: {
+            nome: true,
+            perfil: {
+              select: {
+                foto_perfil: true
+              }
+            }
+          }
+        }
+      }
+    });
+  }
 
 async function getTicketFechado(id_utilizador) {
     return prisma.ticket.findMany({ 
@@ -87,4 +108,4 @@ async function deleteTicket(id_ticket) {
     return prisma.ticket.delete({ where: { id_ticket } });
   }
 
-module.exports = { createTicket, getAllTickets, getTicketPendente,getTicketAberto, getTicketFechado, atualizarEstadoTicket, alterarTicket, deleteTicket };
+module.exports = { createTicket, getAllTickets, getTicketPendente,getTicketAberto, getTicketFechado, atualizarEstadoTicket, alterarTicket, deleteTicket, getTicketAbertoPagina };

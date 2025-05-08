@@ -30,6 +30,19 @@ async function getAllTickets(req, res) {
     }
 }
 
+async function getTicketAbertoPagina(req, res) {
+    try {
+        const { id_pagina } = req.params;
+      if (!id_pagina) {
+        return res.status(400).json({ error: "id_pagina não fornecido" });
+      }
+      const tickets = await ticketService.getTicketAbertoPagina(Number(id_pagina));
+      res.json(tickets);
+    } catch (error) {
+      console.error("Erro ao buscar tickets abertos:", error);
+      res.status(500).json({ error: "Erro ao buscar tickets Abertos", detalhes: error.message });
+    }
+  }
 
 async function getTicketPendente(req, res) {
     try {
@@ -131,4 +144,4 @@ async function deleteTicket(req, res) {
   }
 
 
-module.exports = { createTicket, getAllTickets, getTicketPendente, getTicketAberto, getTicketFechado,atualizarEstadoTicket, alterarTicket, deleteTicket};
+module.exports = { createTicket, getAllTickets, getTicketPendente, getTicketAberto, getTicketFechado,atualizarEstadoTicket, alterarTicket, deleteTicket, getTicketAbertoPagina};

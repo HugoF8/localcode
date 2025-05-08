@@ -7,14 +7,14 @@ const router = express.Router();
 const { authSeguir, authProprietario, authModerador } = require('../middlewares/verificacoes.middleware');
 const { authenticate } = require('../middlewares/autent.middleware');
 
-// ✅ Todas as rotas passam pela autenticação
+
 router.use(authenticate);
 
 // ✅ Rota para criar post com upload de imagem ou vídeo
 router.post(
     '/criarPost',
     authSeguir,
-    upload.single('media_post'), // nome do campo no form-data
+    upload.single('media_post'), 
     postController.createPost
 );
 

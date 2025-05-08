@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
-import AprovacoesTituloTickets from '../componentes/AprovacoesMod/AprovacoesTituloTickets';
+import TicketCardList from '../componentes/AprovacoesMod/AprovacoesTituloTickets';
 import BarraPublicacoesEticketsMod from '../componentes/BarraPublicacoesEticketsMod';
 import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
 import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
 import '../styles/AprovacoesTicketsePublicacoes.css';
+import TicketsAbertos from '../componentes/AprovacoesMod/RespostaTicketsAbertos'
 
 function AprovacoesTickets() {
   const [tickets, setTickets] = useState([]);
-  const [expandidoId, setExpandidoId] = useState(null)
+  const [expandidoId, setExpandidoId] = useState(null);
   const token = localStorage.getItem('token');
+
   useEffect(() => {
     const paginasModeradas = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
-    
     if (!token || paginasModeradas.length === 0) return;
-    console.log(token)
 
     const buscarTickets = async () => {
       const todosTickets = [];
@@ -30,11 +30,8 @@ function AprovacoesTickets() {
           });
 
           if (!res.ok) throw new Error('Erro ao buscar tickets');
-
           const data = await res.json();
-          if (Array.isArray(data)) {
-            todosTickets.push(...data);
-          }
+          if (Array.isArray(data)) todosTickets.push(...data);
         } catch (error) {
           console.error(`Erro ao buscar tickets da página ${idPagina}:`, error);
         }
@@ -91,14 +88,19 @@ function AprovacoesTickets() {
         <BarraLateral />
         <div className="conteudo">
           <BarraPublicacoesEticketsMod />
-          <AprovacoesTituloTickets
+          <TicketCardList
             tickets={tickets}
             expandidoId={expandidoId}
             onToggleExpand={onToggleExpand}
             onInputChange={onInputChange}
             onAprovar={onAprovar}
             onRecusar={onRecusar}
+            mostrarInput={false}
+            mostrarBotoes={true}
+            mostrarBotoesSucesso={false}
+            titulo="Aprovação de Tickets"
           />
+             <TicketsAbertos />
         </div>
       </div>
     </div>
