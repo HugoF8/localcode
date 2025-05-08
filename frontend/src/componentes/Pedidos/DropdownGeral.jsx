@@ -65,7 +65,7 @@ function DropdownPedidos({
                     </>
                   ) : 'Morada não disponível'}
                 </p>
-                <p className="pedido-info"><strong>Motivo da Recusa:</strong> {pedido.motivo_recusa}</p>
+              
 
                 {pedido.dados_comprovacao && (() => {
                   // Extrai só o nome do ficheiro (descarta C:\fakepath\...)

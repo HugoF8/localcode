@@ -1,5 +1,5 @@
 const express = require('express');
-const upload = require('../config/multerConfig');       // 📌 importa o multer
+const upload = require('../config/multerConfig');            // já retorna multer({…})
 const pedidoController = require('../controllers/pedidoPagina.controller');
 const { authenticate, authRole } = require('../middlewares/autent.middleware');
 const { authProprietario } = require('../middlewares/verificacoes.middleware');
@@ -9,7 +9,7 @@ const router = express.Router();
 router.post(
   '/criarPedido',
   authenticate,
-  upload.single('dados_comprovacao'),   // 📌 usa o upload aqui
+  upload.single('dados_comprovacao'),  
   pedidoController.createPedidoPagina
 );
 router.get('/verPedidos', authenticate, authRole('admin'), pedidoController.getAllPedidoPagina);
