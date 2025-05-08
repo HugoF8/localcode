@@ -35,6 +35,9 @@ function InfosFreguesia() {
 
   if (!freguesia) return <div>Carregando...</div>;
 
+  const modPages = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
+  const isMod = modPages.includes(Number(id));
+
   const irParaEditar = () => {
     navigate(`/Pagina/${id}/EditarPagina`);
   };
@@ -61,8 +64,9 @@ function InfosFreguesia() {
           </div>
           <div className='btn-TicketEditar'>
             <button className="botao-ticket" onClick={irParaTicket}> Ticket</button>
-
+            {isMod && (
             <button onClick={irParaEditar} className="botao-editar"> Editar </button>
+            )}
           </div>
         </div>
       </div>
