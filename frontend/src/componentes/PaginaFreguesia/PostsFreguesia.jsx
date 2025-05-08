@@ -11,7 +11,7 @@ export default function PostsFreguesia() {
     async function fetchPosts() {
       setLoading(true);
       setError(null);
-      try {
+      try { 
         const token = localStorage.getItem('token');
         const res = await fetch(
           `http://localhost:3000/api/posts/verPostsPagina/${id}`,

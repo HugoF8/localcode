@@ -13,9 +13,11 @@ export default function Home() {
   return (
     <div className="container">
       <BarraSuperior />
-      <BarraLateral />
       <div className="corpo">
-        <ZonaPublicacoesHome />
+        <div className='zona-publicacoes'>
+          <BarraLateral />
+          <ZonaPublicacoesHome />
+        </div>
       </div>
     </div>
   );
