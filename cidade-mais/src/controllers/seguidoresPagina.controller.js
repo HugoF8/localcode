@@ -58,7 +58,6 @@ async function pararSeguir(req, res) {
 
     try {
         const removerSeguidor = await seguidoresService.pararSeguir(id_utilizador, id_pagina);
-        console.log("Seguidor removido:", removerSeguidor);
         res.status(200).json({ mensagem: "Seguidor removido com sucesso" });
     } catch (error) {
         console.error("Erro ao parar de seguir:", error);

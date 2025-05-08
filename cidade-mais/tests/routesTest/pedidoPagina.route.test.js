@@ -11,162 +11,175 @@ let utilizadorUser, utilizadorAdmin;
 let pedido;
 
 beforeAll(async () => {
-    await prisma.pedido_pagina.deleteMany();
-    await prisma.utilizador.deleteMany();
-    await prisma.notificacao.deleteMany();
-    await prisma.pagina_freguesia.deleteMany();
+  await prisma.pedido_pagina.deleteMany();
+  await prisma.utilizador.deleteMany();
+  await prisma.notificacao.deleteMany();
+  await prisma.pagina_freguesia.deleteMany();
 
-    const morada = await prisma.morada.create({
-        data: {
-            cidade: 'Cidade Teste',
-            codigo_postal: 1234
-        }
-    });
+  const morada = await prisma.morada.create({
+    data: {
+      cidade: 'Cidade Teste',
+      freguesia: 'Freguesia X',
+      rua: 'Rua Y',
+      codigo_postal: 1234
+    }
+  });
 
-    utilizadorUser = await prisma.utilizador.create({
-        data: {
-            nome: "Teste",
-            email: "teste@gmail.com",
-            password: "123456",
-            data_nascimento: new Date("1990-01-01"),
-            tipo_utilizador: "utilizador",
-            id_morada: morada.id_morada
-        }
-    });
+  utilizadorUser = await prisma.utilizador.create({
+    data: {
+      nome: "Teste",
+      email: "teste@gmail.com",
+      password: "123456",
+      data_nascimento: new Date("1990-01-01"),
+      tipo_utilizador: "utilizador",
+      id_morada: morada.id_morada
+    }
+  });
 
-    utilizadorAdmin = await prisma.utilizador.create({
-        data: {
-            nome: "Admin",
-            email: "admin@gmail.com",
-            password: "123456",
-            data_nascimento: new Date("1990-01-01"),
-            tipo_utilizador: "admin"
-        }
-    });
+  utilizadorAdmin = await prisma.utilizador.create({
+    data: {
+      nome: "Admin",
+      email: "admin@gmail.com",
+      password: "123456",
+      data_nascimento: new Date("1990-01-01"),
+      tipo_utilizador: "admin"
+    }
+  });
 
-    tokenUser = jwt.sign({
-        utilizadorId: utilizadorUser.id_utilizador,
-        tipo_utilizador: utilizadorUser.tipo_utilizador,
-        email: utilizadorUser.email
-    }, JWT_SECRET, { expiresIn: '1h' });
+  tokenUser = jwt.sign({
+    utilizadorId: utilizadorUser.id_utilizador,
+    tipo_utilizador: utilizadorUser.tipo_utilizador,
+    email: utilizadorUser.email
+  }, JWT_SECRET, { expiresIn: '1h' });
 
-    tokenAdmin = jwt.sign({
-        utilizadorId: utilizadorAdmin.id_utilizador,
-        tipo_utilizador: utilizadorAdmin.tipo_utilizador,
-        email: utilizadorAdmin.email
-    }, JWT_SECRET, { expiresIn: '1h' });
+  tokenAdmin = jwt.sign({
+    utilizadorId: utilizadorAdmin.id_utilizador,
+    tipo_utilizador: utilizadorAdmin.tipo_utilizador,
+    email: utilizadorAdmin.email
+  }, JWT_SECRET, { expiresIn: '1h' });
 
-    pedido = await prisma.pedido_pagina.create({
-        data: {
-            id_utilizador: utilizadorUser.id_utilizador,
-            id_morada: morada.id_morada,
-            nomefreguesia: 'Freguesia Teste',
-            dados_comprovacao: 'Comprovação inicial',
-        }
-    });
+  pedido = await prisma.pedido_pagina.create({
+    data: {
+      id_utilizador: utilizadorUser.id_utilizador,
+      id_morada: morada.id_morada,
+      nomefreguesia: 'Freguesia Teste',
+      dados_comprovacao: 'comprov.pdf',
+    }
+  });
 });
 
 afterAll(async () => {
-    await prisma.$disconnect();
+  await prisma.$disconnect();
 });
 
 describe('Testes Integração - Pedido Página', () => {
 
-    test('Atualizar estado do pedido (admin) cria página e notificação', async () => {
-        const res = await request(app)
-          .patch(`/api/pedidosPagina/atualizarEstadoPedido/${pedido.id_pedido}`)
-          .set('Authorization', `Bearer ${tokenAdmin}`)
-          .send({ bol: true });
-      
-        expect(res.statusCode).toBe(200);
-        expect(res.body.estado_pedido).toBe('aprovado');
-      
-        // 1) Confirma que a pagina_freguesia foi criada
-        const paginas = await prisma.pagina_freguesia.findMany({
-          where: { nome_pagina: pedido.nomefreguesia }
-        });
-        expect(paginas.length).toBe(1);
-        expect(paginas[0].id_utilizador).toBe(utilizadorUser.id_utilizador);
-      
-        // 2) Confirma que a notificação é aprovado
-        const notifs = await prisma.notificacao.findMany({
-            where: {
-              id_utilizador: utilizadorUser.id_utilizador,
-              tipo_notificacao: 'Aprovado'
-            }
-          });
-        expect(notifs.length).toBe(1);
-        expect(notifs[0].tipo_notificacao).toBe('Aprovado');
+  test('Atualizar estado do pedido (admin) cria página e notificação', async () => {
+    const res = await request(app)
+      .patch(`/api/pedidosPagina/atualizarEstadoPedido/${pedido.id_pedido}`)
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .send({ bol: true });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.estado_pedido).toBe('aprovado');
+
+    const paginas = await prisma.pagina_freguesia.findMany({
+      where: { nome_pagina: pedido.nomefreguesia }
+    });
+    expect(paginas.length).toBe(1);
+    expect(paginas[0].id_utilizador).toBe(utilizadorUser.id_utilizador);
+
+    const notifs = await prisma.notificacao.findMany({
+      where: {
+        id_utilizador: utilizadorUser.id_utilizador,
+        tipo_notificacao: 'Aprovado'
+      }
+    });
+    expect(notifs.length).toBe(1);
+    expect(notifs[0].tipo_notificacao).toBe('Aprovado');
+  });
+
+  test('Criar pedido de página', async () => {
+    const res = await request(app)
+      .post('/api/pedidosPagina/criarPedido')
+      .set('Authorization', `Bearer ${tokenUser}`)
+      .field('nomefreguesia', 'Nova Freguesia')
+      .field('cidade', 'Cidade Nova')
+      .field('freguesia', 'Freguesia Nova')
+      .field('rua', 'Rua Nova')
+      .field('codigo_postal', '4321')
+      .field('estado_pedido', 'pendente')
+      .attach('dados_comprovacao', Buffer.from('conteudo fictício'), {
+        filename: 'teste.pdf',
+        contentType: 'application/pdf'
       });
 
-    test('Criar pedido de página', async () => {
-        const res = await request(app)
-            .post('/api/pedidosPagina/criarPedido')
-            .set('Authorization', `Bearer ${tokenUser}`)
-            .send({
-                id_utilizador: utilizadorUser.id_utilizador,
-                id_morada: utilizadorUser.id_morada,
-                dados_comprovacao: "Documento teste",
-                nomefreguesia: "Nova Freguesia"
-            });
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty('id_pedido');
+  });
 
-        expect(res.statusCode).toBe(201);
-        expect(res.body).toHaveProperty('id_pedido');
-    });
+  test('Listar todos os pedidos (admin)', async () => {
+    const res = await request(app)
+      .get('/api/pedidosPagina/verPedidos')
+      .set('Authorization', `Bearer ${tokenAdmin}`);
 
-    test('Listar todos os pedidos (admin)', async () => {
-        const res = await request(app)
-            .get('/api/pedidosPagina/verPedidos')
-            .set('Authorization', `Bearer ${tokenAdmin}`);
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
 
-        expect(res.statusCode).toBe(200);
-        expect(Array.isArray(res.body)).toBe(true);
-    });
+  test('Listar pedidos pendentes (admin)', async () => {
+    const res = await request(app)
+      .get('/api/pedidosPagina/verPedidosPendentes')
+      .set('Authorization', `Bearer ${tokenAdmin}`);
 
-    test('Listar pedidos pendentes (admin)', async () => {
-        const res = await request(app)
-            .get('/api/pedidosPagina/verPedidosPendentes')
-            .set('Authorization', `Bearer ${tokenAdmin}`);
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
 
-        expect(res.statusCode).toBe(200);
-        expect(Array.isArray(res.body)).toBe(true);
-    });
+  test('Atualizar estado do pedido (admin)', async () => {
+    const res = await request(app)
+      .patch(`/api/pedidosPagina/atualizarEstadoPedido/${pedido.id_pedido}`)
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .send({ bol: true });
 
-    test('Atualizar estado do pedido (admin)', async () => {
-        const res = await request(app)
-            .patch(`/api/pedidosPagina/atualizarEstadoPedido/${pedido.id_pedido}`)
-            .set('Authorization', `Bearer ${tokenAdmin}`)
-            .send({ bol: true });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.estado_pedido).toBe('aprovado');
+  });
 
-        expect(res.statusCode).toBe(200);
-        expect(res.body.estado_pedido).toBe('aprovado');
-    });
+  test('Alterar pedido (proprietário)', async () => {
+    const morada = await prisma.morada.findUnique({ where: { id_morada: pedido.id_morada } });
 
-    test('Alterar pedido (proprietário)', async () => {
-        const res = await request(app)
-            .patch(`/api/pedidosPagina/alterarPedidoPagina/${pedido.id_pedido}`)
-            .set('Authorization', `Bearer ${tokenUser}`)
-            .send({ dados_comprovacao: "Documento atualizado" });
+    const res = await request(app)
+      .patch(`/api/pedidosPagina/alterarPedidoPagina/${pedido.id_pedido}`)
+      .set('Authorization', `Bearer ${tokenUser}`)
+      .send({
+        nomefreguesia: pedido.nomefreguesia,
+        cidade: morada.cidade,
+        freguesia: morada.freguesia || '',
+        rua: morada.rua || '',
+        codigo_postal: morada.codigo_postal.toString(),
+        dados_comprovacao: "Documento atualizado"
+      });
 
-        expect(res.statusCode).toBe(200);
-        expect(res.body.pedido.dados_comprovacao).toBe("Documento atualizado");
-    });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.pedido.dados_comprovacao).toBe("Documento atualizado");
+  });
 
-    test('Acesso negado sem token', async () => {
-        const res = await request(app)
-            .get('/api/pedidosPagina/verPedidos');
+  test('Acesso negado sem token', async () => {
+    const res = await request(app)
+      .get('/api/pedidosPagina/verPedidos');
 
-        expect(res.statusCode).toBe(401);
-        expect(res.body).toHaveProperty('error', 'Token não fornecido');
-    });
+    expect(res.statusCode).toBe(401);
+    expect(res.body).toHaveProperty('error', 'Token não fornecido');
+  });
 
-    test('Acesso negado a rota admin com utilizador normal', async () => {
-        const res = await request(app)
-            .get('/api/pedidosPagina/verPedidos')
-            .set('Authorization', `Bearer ${tokenUser}`);
+  test('Acesso negado a rota admin com utilizador normal', async () => {
+    const res = await request(app)
+      .get('/api/pedidosPagina/verPedidos')
+      .set('Authorization', `Bearer ${tokenUser}`);
 
-        expect(res.statusCode).toBe(403);
-        expect(res.body).toHaveProperty('error');
-    });
+    expect(res.statusCode).toBe(403);
+    expect(res.body).toHaveProperty('error');
+  });
 
 });

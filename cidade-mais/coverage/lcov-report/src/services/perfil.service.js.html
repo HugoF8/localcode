@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
@@ -97,7 +97,19 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -113,12 +125,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,6 +148,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,30 +165,42 @@ async function createPerfil(data) {
 &nbsp;
 // Buscar todos os Perfis
 async function getAllPerfil() {
-    return prisma.perfil.findMany();
+  return prisma.perfil.findMany({
+    include: {
+      utilizador: true // Inclui dados do utilizador
+    }
+  });
+}
+&nbsp;
+async function <span class="fstat-no" title="function not covered" >getPerfilUtilizador(</span>id_utilizador) {
+<span class="cstat-no" title="statement not covered" >  return prisma.perfil.findFirst({</span>
+    where: { id_utilizador },
+    include: { utilizador: true }
+  });
 }
 &nbsp;
 async function atualizarFotoPerfil(id_utilizador, caminhoImagem) {
-    
-    // Primeiro vamos buscar o ID único do perfil
     const perfil = await prisma.perfil.findFirst({
-        where: { id_utilizador }, // este campo tem UNIQUE?
+      where: { id_utilizador },
     });
-&nbsp;
+  
     if (!perfil) throw new Error('Perfil não encontrado');
-&nbsp;
-    // Agora fazemos o update com o ID único
+  
+    const relativePath = caminhoImagem.replace(/^.*?uploads[\\/]/, 'uploads/');
+  
     const updatedPerfil = await prisma.perfil.update({
-        where: { id_perfil: perfil.id_perfil },
-        data: { foto_perfil: caminhoImagem }
+      where: { id_perfil: perfil.id_perfil },
+      data: { foto_perfil: relativePath }
     });
 &nbsp;
-    return updatedPerfil;
+    return {
+        foto_perfil: updatedPerfil.foto_perfil
+      };
 }
 &nbsp;
 &nbsp;
 &nbsp;
-module.exports = { createPerfil, getAllPerfil, atualizarFotoPerfil };
+module.exports = { createPerfil, getAllPerfil, getPerfilUtilizador,atualizarFotoPerfil };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -172,7 +208,7 @@ module.exports = { createPerfil, getAllPerfil, atualizarFotoPerfil };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-29T08:30:49.644Z
+                at 2025-05-08T17:29:45.246Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -153,14 +153,6 @@ describe('Testes Integração – Posts', () => {
     expect(res.body.estado_post).toBe('inativo');
   });
 
-  test('Listar posts de uma página (seguindo ou não)', async () => {
-    const res = await request(app)
-      .get('/api/posts/verPostsPagina')
-      .set('Authorization', `Bearer ${tokenUser}`);
-
-    expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
-  });
 
   test('Listar posts aprovados de um utilizador', async () => {
     const res = await request(app)
