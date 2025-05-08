@@ -19,13 +19,10 @@ function InfosFreguesia() {
         const token = localStorage.getItem('token');
         const response = await fetch(
           `http://localhost:3000/api/paginaFreguesias/paginaFreguesia/${id}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         if (!response.ok) throw new Error('Erro ao buscar freguesia');
         const data = await response.json();
-        console.log(data); // Verifica o que a API está a retornar
         setFreguesia(data);
       } catch (err) {
         console.error(err);
@@ -38,13 +35,14 @@ function InfosFreguesia() {
 
   if (!freguesia) return <div>Carregando...</div>;
 
-  // 1. Páginas em que o user é moderador
-  const modPages = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
-  const isMod = modPages.includes(Number(id));
-
-  // 2. Verificar se é dono da freguesia
+  // Leitura do utilizador completo (que inclui .paginas)
   const user = JSON.parse(localStorage.getItem('utilizador') || '{}');
-  // assumir que a API retorna `id_utilizador` dentro de `freguesia`
+  // 1) Moderador? procuramos neste array se existe um objeto com role="moderador" e id_pagina === id
+  const paginasDoUser = Array.isArray(user.paginas) ? user.paginas : [];
+  const isMod = paginasDoUser.some(
+    p => p.role === 'moderador' && p.id_pagina === Number(id)
+  );
+  // 2) Dono?
   const isOwner = user.id_utilizador === freguesia.id_utilizador;
 
   const irParaEditar = () => {
@@ -77,11 +75,11 @@ function InfosFreguesia() {
             <button className="botao-ticket" onClick={irParaTicket}>
               Ticket
             </button>
-            { (isMod || isOwner) && (
+            {(isMod || isOwner) && (
               <button onClick={irParaEditar} className="botao-editar">
                 Editar
               </button>
-            ) }
+            )}
           </div>
         </div>
       </div>
