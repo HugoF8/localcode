@@ -57,12 +57,13 @@ function TicketsAbertos() {
       alert('Por favor, insira uma resposta antes de marcar como sucesso');
       return;
     }
-
+    const id_utilizador = Number(localStorage.getItem('id_utilizador'));
     try {
       const resposta = {
         id_ticket: id,
         conteudo_resposta: ticket.input,
-        estado_resposta: 'resolvido'
+        estado_resposta: 'resolvido',
+        id_utilizador: id_utilizador
       };
 
       const res = await fetch(`http://localhost:3000/api/respostasTickets/criarResposta`, {
