@@ -9,6 +9,11 @@ body {
   font-family: sans-serif;
   background-color: #f4f4f4;
   color: #000;
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+  background-repeat: repeat-y;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 /* Container geral */
@@ -148,33 +153,6 @@ body {
   background-color: #ddd;
 }
 
-/* Dark mode */
-body.dark-mode {
-  background-color: #121212;
-  color: #f1f1f1;
-}
-
-body.dark-mode .topo,
-body.dark-mode .barra-lateral {
-  background-color: #1f1f1f;
-  border-color: #444;
-}
-
-body.dark-mode input,
-body.dark-mode .config-menu {
-  background-color: #2c2c2c;
-  color: white;
-  border-color: #555;
-}
-
-body.dark-mode .config-menu button {
-  background-color: #444;
-}
-
-body.dark-mode .config-menu button:hover {
-  background-color: #555;
-}
-
 /* Freguesia estilo Facebook */
 .freguesia-container {
   width: 100%;
@@ -267,18 +245,6 @@ body.dark-mode .config-menu button:hover {
   cursor: not-allowed;
 }
 
-.botao-seguir.A\ seguir {
-  background-color: #28a745; /* Verde */
-}
-
-.botao-seguir.A\ seguir:hover:not(:disabled) {
-  background-color: #218838;
-}
-
-.botao-seguir.loading {
-  opacity: 0.8;
-}
-
 .icon-check,
 .icon-plus {
   font-weight: bold;
@@ -310,10 +276,33 @@ body.dark-mode .config-menu button:hover {
   background-color: #fff;
 }
 
+/* 1. Freguesia dentro do post */
+.info-freguesia-post {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.freguesia-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.freguesia-nome {
+  margin: 0;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* 2. Utilizador */
 .info-post {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .foto-perfil-utilizador {
@@ -321,9 +310,15 @@ body.dark-mode .config-menu button:hover {
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 10px;
 }
 
+.utilizador-nome {
+  margin: 0;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* 3. Conteúdo */
 .conteudo-post {
   font-size: 1rem;
   color: #333;
@@ -334,6 +329,7 @@ body.dark-mode .config-menu button:hover {
   max-width: 500px;
   margin-top: 10px;
   border-radius: 8px;
+  object-fit: cover;
 }
 
 /* Aprovações */
@@ -375,22 +371,13 @@ body.dark-mode .config-menu button:hover {
 .foto-freguesia {
   width: 80px;
   height: 80px;
-  background-color: #e0e0e0;
+  background-color: #1d0202;
   border-radius: 35%;
-  border: 2px solid #bbb;
+  border: 2px solid #1f0101;
 }
 
 .nome-freguesia p {
   font-size: 1.2rem;
   font-weight: bold;
   color: #333;
-}
-
-.publicacao-utilizador-container {
-  width: 100%;
-  min-height: 200px;
-  background-color: #ffe0e6;
-  border-radius: 8px;
-  padding: 15px;
-  color: #444;
 }

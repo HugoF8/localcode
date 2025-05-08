@@ -175,35 +175,35 @@ async function getPostsPaginasSeguidas(id_utilizador) {
 
         // Buscar posts dessas páginas com estado "ativo"
         const posts = await prisma.post.findMany({
-            where: {
-                id_pagina: {
-                    in: idsPaginas,
-                },
-                estado_post: 'ativo',
+          where: {
+            id_pagina: {
+              in: idsPaginas,
             },
-            include: {
-                utilizador: {
-                    select: {
-                        nome: true,
-                        perfil: {
-                            select: {
-                                foto_perfil: true
-                            }
-                        }
-                    }
+            estado_post: 'ativo',
+          },
+          include: {
+            utilizador: {
+              select: {
+                nome: true,
+                perfil: {
+                  select: {
+                    foto_perfil: true, // Aqui alteramos para acessar dentro de "perfil"
+                  },
                 },
-                pagina_freguesia: {
-                    select: {
-                        nome_pagina: true,
-                        foto_perfil: true,
-                    }
-                },
+              },
             },
-            orderBy: {
-                data_post: 'desc',
+            pagina_freguesia: {
+              select: {
+                nome_pagina: true,
+                foto_perfil: true,
+              },
             },
+          },
+          orderBy: {
+            data_post: 'desc',
+          },
         });
-
+        
         return posts;
 
     } catch (error) {

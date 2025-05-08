@@ -35,6 +35,6 @@ router.patch(
     postController.alterarInformacoesPost
 );
 
-router.get('/verPostsPaginasSeguidas/:id_utilizador', postController.getPostsPaginasSeguidas);
+router.get('/verPostsPaginasSeguidas', postController.getPostsPaginasSeguidas);
 
 module.exports = router;
