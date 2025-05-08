@@ -4,19 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 function ConfiguracoesMenu() {
   const [aberto, setAberto] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
     setAberto(!aberto);
   };
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle('dark-mode');
-  };
-
   const modPages = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
+  const user = JSON.parse(localStorage.getItem('utilizador') || '{}');
+  const isAdmin = user.tipo_utilizador === 'admin';
 
   const terminarSessao = () => {
     localStorage.removeItem('token'); // Limpa o token
@@ -37,7 +33,9 @@ function ConfiguracoesMenu() {
       {aberto && (
         <div className="config-menu">
           <button onClick={() => navigate('/criar-freguesia')}>Criar Freguesia</button>
+          {isAdmin && (
           <button onClick={() => navigate('/AprovacoesPedidos')}>Aprovacoes Pedidos</button>
+          )}
           <button onClick={() => navigate('/pedidos')}>Pedido</button>
           <button onClick={() => navigate('/tickets-utilizador')}>Publicações e Tickets</button>
           {modPages.length > 0 && (
