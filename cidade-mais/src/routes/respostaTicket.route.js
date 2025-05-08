@@ -11,6 +11,6 @@ router.use(authenticate);
 
 router.post('/criarResposta', authModerador, respostaController.createResposta);
 router.get('/verRespostas',authProprietario ,respostaController.getAllRespostas);
-router.get('/verRespostas/:id_utilizador', respostaController.getRespostasPorUtilizador);
+router.get('/verRespostas/:id_ticket', respostaController.getRespostasPorUtilizador);
 
 module.exports = router;

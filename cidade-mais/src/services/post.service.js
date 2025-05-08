@@ -76,8 +76,9 @@ async function getPostPendente(id_pagina) {
             }
           }
         }
-      }
-    })
+      },
+      orderBy: { data_post: 'desc' }
+    });
 }
 
 async function getPostPagina(id_pagina) {
@@ -97,27 +98,50 @@ async function getPostPagina(id_pagina) {
             }
           }
         }
-      }
+      },
+      orderBy: { data_post: 'desc' }
   });
   }
 
-async function getPostsAprovados(id_utilizador) {
-    return prisma.post.findMany({ 
-        where:{
-            id_utilizador:id_utilizador,
-            estado_post: 'ativo'
+  async function getPostsAprovados(id_utilizador) {
+    return prisma.post.findMany({
+      where: {
+        id_utilizador,
+        estado_post: 'ativo'
+      },
+      include: {
+        utilizador: {
+          select: {
+            nome: true,
+            perfil: {
+              select: { foto_perfil: true }
+            }
+          }
         }
-    })
-}
+      },
+      orderBy: { data_post: 'desc' }
+    });
+  }
 
-async function getPostsRecusados(id_utilizador) {
-    return prisma.post.findMany({ 
-        where:{
-            id_utilizador:id_utilizador,
-            estado_post: 'inativo'
+  async function getPostsRecusados(id_utilizador) {
+    return prisma.post.findMany({
+      where: {
+        id_utilizador,
+        estado_post: 'inativo'
+      },
+      include: {
+        utilizador: {
+          select: {
+            nome: true,
+            perfil: {
+              select: { foto_perfil: true }
+            }
+          }
         }
-    })
-}
+      },
+      orderBy: { data_post: 'desc' }
+    });
+  }
 
 async function alterarInformacoesPost(idPost, descricao_post, media_post) {
 
@@ -183,6 +207,17 @@ async function getPostsPaginasSeguidas(id_utilizador) {
     }
 }
 
+async function deletePost(id_post) {
 
+  await prisma.notificacao.deleteMany({
+    where: { id_post }
+  });
 
-module.exports = { createPost, getAllPosts, atualizarEstadoPost, getPostPendente, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost, getPostsPaginasSeguidas};
+    return prisma.post.delete({
+        where:{
+            id_post: id_post
+        }
+    });
+}
+
+module.exports = { createPost, getAllPosts, atualizarEstadoPost, getPostPendente, getPostPagina, getPostsAprovados, getPostsRecusados, alterarInformacoesPost, getPostsPaginasSeguidas, deletePost};

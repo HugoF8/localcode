@@ -94,7 +94,7 @@ function CriarFreguesia() {
                   id="documentos-upload"
                   name="dados_comprovacao"
                   hidden
-                  accept="image/*,application/pdf"
+                  accept="*/*"
                   onChange={handleFileChange}
                 />
               </label>

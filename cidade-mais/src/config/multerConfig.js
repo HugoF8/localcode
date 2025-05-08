@@ -19,10 +19,15 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    if (!file.mimetype.startsWith('image/') && !file.mimetype.startsWith('video/')) {
-        return cb(null, false); // Só aceita imagem ou vídeo
+    if (file.fieldname === 'dados_comprovacao') {
+      // aceita PDF, ZIP, TXT, imagens, vídeos, o que for
+      return cb(null, true);
     }
-    cb(null, true);
-};
+    // para os outros campos só imagens/vídeos
+    if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
+      return cb(null, true);
+    }
+    cb(null, false);
+  };
 
 module.exports = multer({ storage, fileFilter });
