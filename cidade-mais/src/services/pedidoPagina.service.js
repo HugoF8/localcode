@@ -42,7 +42,8 @@ async function getPedidoPendente() {
         where: {
             estado_pedido:'pendente'
         },
-        include: { morada: true }
+        include: { morada: true },
+        orderBy: { data_pedido: 'desc' }
     })
 }
 
@@ -52,7 +53,8 @@ async function getPedidoAprovado(id_utilizador) {
             id_utilizador:id_utilizador,
             estado_pedido:'aprovado'
         },
-        include: { morada: true }
+        include: { morada: true },
+        orderBy: { data_pedido: 'desc' }
     })
 }
 
@@ -62,7 +64,8 @@ async function getPedidoReprovado(id_utilizador) {
             id_utilizador:id_utilizador,
             estado_pedido:'reprovado'
         },
-        include: { morada: true }
+        include: { morada: true },
+        orderBy: { data_pedido: 'desc' }
     })
 }
 

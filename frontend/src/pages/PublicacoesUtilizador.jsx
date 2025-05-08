@@ -17,31 +17,28 @@ function PublicacoesUtilizador() {
     const fetchPosts = async () => {
       try {
         const token = localStorage.getItem('token');
-        const config = {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
         const [resAprovados, resRecusados] = await Promise.all([
-          fetch('http://localhost:3000/api/posts/verPostsAprovados', config),
-          fetch('http://localhost:3000/api/posts/verPostsRecusados', config),
+          fetch('http://localhost:3000/api/posts/verPostsAprovados', {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          fetch('http://localhost:3000/api/posts/verPostsRecusados', {
+            headers: { Authorization: `Bearer ${token}` }
+          })
         ]);
-
-        if (!resAprovados.ok || !resRecusados.ok) {
-          throw new Error('Erro ao buscar publicações');
-        }
+        if (!resAprovados.ok || !resRecusados.ok) throw new Error();
 
         const aprovados = await resAprovados.json();
         const recusadosRaw = await resRecusados.json();
 
-        const recusados = recusadosRaw.map(post => ({
-          ...post,
-          input: '',
-        }));
-
-        setPosts({ aprovados, recusados });
+        // Injetar campos de edição
+        setPosts({
+          aprovados,
+          recusados: recusadosRaw.map(post => ({
+            ...post,
+            input: '',
+            file: null    // ← campo para o novo ficheiro
+          }))
+        });
       } catch (error) {
         console.error('Erro ao buscar posts:', error);
       }
@@ -50,16 +47,24 @@ function PublicacoesUtilizador() {
     fetchPosts();
   }, []);
 
-  const onToggleExpand = (id) => {
+  const onToggleExpand = (id) =>
     setExpandidoId(prev => (prev === id ? null : id));
-  };
 
   const onInputChange = (id, valor) => {
     setPosts(prev => ({
       ...prev,
-      recusados: prev.recusados.map(post =>
-        post.id_post === id ? { ...post, input: valor } : post
-      ),
+      recusados: prev.recusados.map(p =>
+        p.id_post === id ? { ...p, input: valor } : p
+      )
+    }));
+  };
+
+  const onFileChange = (id, file) => {
+    setPosts(prev => ({
+      ...prev,
+      recusados: prev.recusados.map(p =>
+        p.id_post === id ? { ...p, file } : p
+      )
     }));
   };
 
@@ -69,22 +74,27 @@ function PublicacoesUtilizador() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/api/posts/alterarInformacoesPost/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ descricao_post: post.input }),
-      });
+      const formData = new FormData();
+      if (post.input) formData.append('descricao_post', post.input);
+      if (post.file) formData.append('media_post', post.file);
 
-      if (!res.ok) throw new Error('Falha ao alterar publicação');
+      const res = await fetch(
+        `http://localhost:3000/api/posts/alterarInformacoesPost/${id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}` // NÃO pôr Content-Type
+          },
+          body: formData
+        }
+      );
+
+      if (!res.ok) throw new Error();
 
       setPosts(prev => ({
         ...prev,
-        recusados: prev.recusados.filter(p => p.id_post !== id),
+        recusados: prev.recusados.filter(p => p.id_post !== id)
       }));
-      
       toast.success('Publicação alterada com sucesso!');
     } catch (error) {
       console.error('Erro ao alterar publicação:', error);
@@ -94,28 +104,23 @@ function PublicacoesUtilizador() {
 
   const onApagar = async (id) => {
     if (!window.confirm('Tens a certeza que queres apagar esta publicação?')) return;
-
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/api/posts/alterarInformacoesPost/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ descricao_post: '', media_post: null }),
-      });
-
-      if (!res.ok) throw new Error('Falha ao apagar publicação');
+      const res = await fetch(
+        `http://localhost:3000/api/posts/eliminarPost/${id}`,
+        {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      if (!res.ok) throw new Error();
 
       setPosts(prev => ({
         ...prev,
-        recusados: prev.recusados.filter(p => p.id_post !== id),
+        recusados: prev.recusados.filter(p => p.id_post !== id)
       }));
-
       toast.success('Publicação apagada com sucesso!');
-    } catch (error) {
-      console.error('Erro ao apagar publicação:', error);
+    } catch {
       toast.error('Erro ao apagar publicação');
     }
   };
@@ -133,6 +138,7 @@ function PublicacoesUtilizador() {
             expandidoId={expandidoId}
             onToggleExpand={onToggleExpand}
             onInputChange={onInputChange}
+            onFileChange={onFileChange} 
             onAlterar={onAlterar}
             onApagar={onApagar}
           />

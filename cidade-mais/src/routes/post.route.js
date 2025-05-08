@@ -25,6 +25,7 @@ router.patch('/atualizarPostsPendentes/:id_post', authModerador, postController.
 router.get('/verPostsPagina/:id_pagina', postController.getPostPagina);
 router.get('/verPostsAprovados', postController.getPostsAprovados);
 router.get('/verPostsRecusados', authProprietario, postController.getPostsRecusados);
+router.delete('/eliminarPost/:id_post', authProprietario, postController.deletePost);
 
 // ✅ Editar post com nova imagem/vídeo
 router.patch(
