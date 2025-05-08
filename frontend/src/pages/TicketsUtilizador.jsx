@@ -124,6 +124,7 @@ function TicketsUtilizador() {
             onInputChange={onInputChange}
             onAlterar={onAlterar}
             onApagar={onApagar}
+            token={token} // ← aqui
           />
           <TicketAprovadoUtilizador
             tickets={tickets.abertos}

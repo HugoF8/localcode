@@ -16,8 +16,13 @@ function ConfiguracoesMenu() {
     document.body.classList.toggle('dark-mode');
   };
 
+  const modPages = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
+
   const terminarSessao = () => {
     localStorage.removeItem('token'); // Limpa o token
+    localStorage.removeItem('id_utilizador');
+    sessionStorage.removeItem('paginasModeradas');
+    sessionStorage.removeItem('paginasAdmin');
     navigate('/'); // Redireciona para login
   };
   
@@ -34,7 +39,9 @@ function ConfiguracoesMenu() {
           <button onClick={() => navigate('/tickets-utilizador')}>Publicações e Tickets</button>
           <button onClick={() => navigate('/criar-freguesia')}>Criar Freguesia</button>
           <button onClick={() => navigate('/pedidos')}>Pedido</button>
+          {modPages.length > 0 && (
           <button onClick={() => navigate('/AprovacoesTickets')}>AprovacoesTickets</button>
+          )}
           <button onClick={() => navigate('/criar-post')}>Post</button>
           <button onClick={toggleDarkMode}>
             {darkMode ? 'Modo Claro' : 'Modo Escuro'}

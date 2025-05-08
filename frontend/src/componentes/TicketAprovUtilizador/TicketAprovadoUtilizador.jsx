@@ -7,7 +7,7 @@ function TicketAprovadoUtilizador({ tickets, expandidoId, onToggleExpand }) {
     <FiltrarPorData
       dados={tickets}
       campoData="data_ticket"
-      titulo="Tickets Aprovados"
+      titulo="Tickets Abertos"
       renderItem={(ticket) => (
         <div
           key={ticket.id_ticket}
