@@ -19,7 +19,7 @@ import EnviarTicket from './pages/EnviarTicket';
 import EditarPedido from './pages/EditarPedido';
 import EditarFreguesia from './pages/EditarFreguesia';
 import TodasNotificacoes from './pages/TodasNotificacoes';
-import VerificadorTipoUtilizador from './VerificadorTipoUtilizador';
+import VerificadorTipoUtilizador from './componentes/VerificadorTipoUtilizador';
 
 
 import './App.css';
