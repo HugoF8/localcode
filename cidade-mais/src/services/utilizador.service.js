@@ -6,6 +6,12 @@ async function createUtilizador(data) {
     return prisma.utilizador.create({ data });
 }
 
+async function getUtilizadorById(id_utilizador) {
+    return prisma.utilizador.findUnique({
+        where: {id_utilizador:id_utilizador}}
+    );
+}
+
 // Buscar todos os utilizador
 async function getAllUtilizadores() {
     return prisma.utilizador.findMany();
@@ -24,4 +30,4 @@ async function alterarTipoUser(tipo, id_utilizador) {
 
 }
 
-module.exports = { createUtilizador, getAllUtilizadores, alterarTipoUser };
+module.exports = { createUtilizador, getUtilizadorById, getAllUtilizadores, alterarTipoUser };
