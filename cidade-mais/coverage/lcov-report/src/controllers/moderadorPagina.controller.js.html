@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.55% </span>
+                <span class="strong">8.69% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/18</span>
+                <span class='fraction'>2/23</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.55% </span>
+                <span class="strong">8.69% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/18</span>
+                <span class='fraction'>2/23</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -99,24 +99,46 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -134,25 +156,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const moderadorPaginaService = require('../services/moderadorPagina.service');
 &nbsp;
 // Cria um novo moderador de página
-async function createModeradorPagina(req, res) {
-    try {
-        const moderadorPagina = await moderadorPaginaService.createModeradorPagina(req.body);
-        res.status(201).json(moderadorPagina);
+async function <span class="fstat-no" title="function not covered" >createModeradorPagina(</span>req, res) {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+        const moderadorPagina = <span class="cstat-no" title="statement not covered" >await moderadorPaginaService.createModeradorPagina(req.body);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(201).json(moderadorPagina);</span>
     } catch (error) {
-        console.error('Erro ao criar Moderador de Página:', error);
-        res.status(500).json({ error: 'Erro ao criar Moderador de Página', detalhes: error.message });
+<span class="cstat-no" title="statement not covered" >        console.error('Erro ao criar Moderador de Página:', error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: 'Erro ao criar Moderador de Página', detalhes: error.message });</span>
     }
 }
 &nbsp;
+async function <span class="fstat-no" title="function not covered" >deleteModeradorPagina(</span>req, res) {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+        const moderadorPagina = <span class="cstat-no" title="statement not covered" >await moderadorPaginaService.deleteModerador(req.body);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(201).json(moderadorPagina);</span>
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >        console.error('Erro ao apagar Moderador de Página:', error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: 'Erro ao apagar Moderador de Página', detalhes: error.message });</span>
+    }
+}
+&nbsp;
+&nbsp;
 // Busca todos os moderadores de página
-async function getAllModeradorPagina(req, res) {
-    try {
-        const moderadores = await moderadorPaginaService.getAllModeradorPagina();
-        res.json(moderadores);
+async function <span class="fstat-no" title="function not covered" >getAllModeradorPagina(</span>req, res) {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+        const moderadores = <span class="cstat-no" title="statement not covered" >await moderadorPaginaService.getAllModeradorPagina();</span>
+<span class="cstat-no" title="statement not covered" >        res.json(moderadores);</span>
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >        console.error('Erro ao buscar Moderadores de Página:', error);</span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: 'Erro ao procurar Moderadores de Página' });</span>
@@ -170,7 +203,7 @@ async function <span class="fstat-no" title="function not covered" >verPaginasMo
     }
 }
 &nbsp;
-module.exports = { createModeradorPagina, getAllModeradorPagina, verPaginasModeradas };
+module.exports = { createModeradorPagina, getAllModeradorPagina, verPaginasModeradas, deleteModeradorPagina };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -178,7 +211,7 @@ module.exports = { createModeradorPagina, getAllModeradorPagina, verPaginasModer
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-08T17:29:45.246Z
+                at 2025-05-09T18:03:52.155Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

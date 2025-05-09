@@ -118,8 +118,8 @@ describe('Testes Integração - Resposta Ticket', () => {
 
     test('Buscar respostas por utilizador', async () => {
         const res = await request(app)
-            .get(`/api/respostasTickets/verRespostas/${utilizadorModerador.id_utilizador}`)
-            .set('Authorization', `Bearer ${tokenModerador}`);
+            .get(`/api/respostasTickets/verRespostas`)
+            .set('Authorization', `Bearer ${tokenNormal}`);
 
         expect(res.statusCode).toBe(200);
         expect(Array.isArray(res.body)).toBe(true);

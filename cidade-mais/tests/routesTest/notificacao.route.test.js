@@ -33,6 +33,8 @@ describe('Testes Integração – Notificação', () => {
       }
     });
 
+    id_utilizador = utilizador.id_utilizador;
+
 
     token = jwt.sign(
       {
@@ -80,6 +82,7 @@ describe('Testes Integração – Notificação', () => {
     });
   });
 
+
   afterAll(async () => {
     await prisma.$disconnect();
   });
@@ -111,7 +114,7 @@ describe('Testes Integração – Notificação', () => {
 
   test('Buscar notificações por utilizador', async () => {
     const res = await request(app)
-      .get(`/api/notificacao/verNotificacaoPorUtilizador/${utilizador.id_utilizador}`)
+      .get(`/api/notificacao/verNotificacaoPorUtilizador/${id_utilizador}`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(res.statusCode).toBe(200);

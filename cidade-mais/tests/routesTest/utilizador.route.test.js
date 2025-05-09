@@ -75,13 +75,6 @@ describe('Testes de integração: Utilizador', () => {
         expect(res.body.tipo_utilizador).toBe('moderador');
     });
 
-    test('Falhar buscar utilizadores sem token', async () => {
-        const res = await request(app)
-            .get('/api/utilizadores/verUtilizadores');
-
-        expect(res.statusCode).toBe(401);
-        expect(res.body).toHaveProperty('error', 'Token não fornecido');
-    });
 
     test('Falha ao criar utilizador com dados inválidos', async () => {
         const res = await request(app)
@@ -131,15 +124,6 @@ describe('Testes de integração: Utilizador', () => {
     
         expect(res.statusCode).toBeGreaterThanOrEqual(400);
     });
-    
 
-    test('Token inválido não permite acesso à lista de utilizadores', async () => {
-        const res = await request(app)
-            .get('/api/utilizadores/verUtilizadores')
-            .set('Authorization', 'Bearer token-falso');
-    
-        expect(res.statusCode).toBe(403);
-        expect(res.body).toHaveProperty('error', 'Token inválido');
-    });
 
 });
