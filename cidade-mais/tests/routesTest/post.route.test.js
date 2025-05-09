@@ -179,7 +179,7 @@ describe('Testes Integração – Posts', () => {
 
   test('Obter feed de páginas seguidas', async () => {
     const res = await request(app)
-      .get(`/api/posts/verPostsPaginasSeguidas/${user.id_utilizador}`)
+      .get(`/api/posts/verPostsPaginasSeguidas`)
       .set('Authorization', `Bearer ${tokenUser}`);
 
     expect(res.statusCode).toBe(200);

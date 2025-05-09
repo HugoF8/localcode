@@ -32,7 +32,6 @@ function ZonaPublicacoesHome() {
   };
 
   return (
-    <div className="zona-publicacoes">
       <div className="posts-container">
         {posts.length === 0 ? (
           <p>Não há publicações para mostrar.</p>
@@ -60,7 +59,10 @@ function ZonaPublicacoesHome() {
                   alt={post.utilizador.nome}
                   className="foto-perfil-utilizador"
                 />
-                <p className="utilizador-nome">{post.utilizador.nome}</p>
+                <div className='nomeData-container'>
+                  <p className="utilizador-nome">{post.utilizador.nome}</p>
+                  <p className="ticket-date">{new Date(post.data_post).toLocaleDateString()}</p>
+                </div>
               </div>
 
               {/* 3. Conteúdo do post */}
@@ -80,7 +82,6 @@ function ZonaPublicacoesHome() {
           ))
         )}
       </div>
-    </div>
   );
 }
 
