@@ -87,6 +87,7 @@ function TicketsAbertos() {
 
   const onInsucesso = async (id) => {
     const ticket = tickets.find(t => t.id_ticket === id);
+    const id_utilizador = Number(localStorage.getItem('id_utilizador'));
     if (!ticket || !ticket.input) {
       alert('Por favor, insira uma resposta antes de marcar como insucesso');
       return;
@@ -96,10 +97,11 @@ function TicketsAbertos() {
       const resposta = {
         id_ticket: id,
         conteudo_resposta: ticket.input,
-        estado_resposta: 'nao_resolvido'
+        estado_resposta: 'nao_resolvido',
+        id_utilizador: id_utilizador
       };
 
-      const res = await fetch(`http://localhost:3000/api/tickets/criarResposta`, {
+      const res = await fetch(`http://localhost:3000/api/respostasTickets/criarResposta`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
