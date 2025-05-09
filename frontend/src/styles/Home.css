@@ -271,7 +271,9 @@ body {
 .posts-container{
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .post {
@@ -287,7 +289,7 @@ body {
 .info-freguesia-post {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
@@ -331,11 +333,16 @@ body {
   color: #333;
 }
 
+.img-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
 .media-post {
   width: 100%;
-  max-width: 500px;
-  margin-top: 10px;
-  border-radius: 8px;
   object-fit: cover;
 }
 

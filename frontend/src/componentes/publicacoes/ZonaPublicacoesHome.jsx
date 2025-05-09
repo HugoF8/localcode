@@ -67,11 +67,13 @@ function ZonaPublicacoesHome() {
               <div className="conteudo-post">
                 <p>{post.descricao_post}</p>
                 {post.media_post && (
-                  <img
-                    src={buildImageUrl(post.media_post)}
-                    alt="Mídia do post"
-                    className="media-post"
-                  />
+                  <div className='img-container'>
+                    <img
+                      src={buildImageUrl(post.media_post)}
+                      alt="Mídia do post"
+                      className="media-post"
+                    />
+                  </div>
                 )}
               </div>
             </div>
