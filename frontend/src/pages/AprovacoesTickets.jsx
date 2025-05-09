@@ -65,6 +65,7 @@ function AprovacoesTickets() {
       body: JSON.stringify({ bol: true }),
     }).then(() => {
       setTickets((prev) => prev.filter((t) => t.id_ticket !== id));
+       window.dispatchEvent(new Event('ticketAtualizado'));
     });
   };
 
