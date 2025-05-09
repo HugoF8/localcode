@@ -32,7 +32,6 @@ function ZonaPublicacoesHome() {
   };
 
   return (
-    <div className="zona-publicacoes">
       <div className="posts-container">
         {posts.length === 0 ? (
           <p>Não há publicações para mostrar.</p>
@@ -80,7 +79,6 @@ function ZonaPublicacoesHome() {
           ))
         )}
       </div>
-    </div>
   );
 }
 
