@@ -25,4 +25,17 @@ router.patch(
   perfilController.atualizarFotoPerfil
 );
 
+router.patch(
+  '/foto-capa',
+  (req, res, next) => {
+    upload.single('imagem')(req, res, err => {
+      if (err) {
+        return res.status(400).json({ error: err.message });
+      }
+      next();
+    });
+  },
+  perfilController.atualizarFotoCapa
+);
+
 module.exports = router;

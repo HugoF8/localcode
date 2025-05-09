@@ -7,6 +7,7 @@ import ImagemDefaultUtilizador from '../../assets/defautlutilizador.png';
 export default function IconesBarraSuperiorDireito() {
   const [modalOpen, setModalOpen] = useState(false);
   const [fotoPerfil, setFotoPerfil] = useState(ImagemDefaultUtilizador);
+  const [fotoCapa, setFotoCapa] = useState(null);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -29,6 +30,13 @@ export default function IconesBarraSuperiorDireito() {
               : `http://localhost:3000/${perfil.foto_perfil}`)
           : ImagemDefaultUtilizador;
         setFotoPerfil(url);
+
+        if (perfil.foto_capa) {
+          const capaUrl = perfil.foto_capa
+            ? perfil.foto_capa.startsWith('http')
+            : `http://localhost:3000/${perfil.foto_capa}`;
+          setFotoCapa(capaUrl);
+        }
       })
       .catch(console.error);
   }, [token]);
@@ -51,6 +59,7 @@ export default function IconesBarraSuperiorDireito() {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         onFotoAtualizada={setFotoPerfil}
+        onCapaAtualizada={setFotoCapa}
       />
     </>
   );
