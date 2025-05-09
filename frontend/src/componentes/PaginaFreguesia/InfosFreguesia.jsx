@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import BotaoSeguir from '../PaginaFreguesia/Seguir';
 import '../../styles/Home.css';
+import placeholderPage from '../../assets/placeholderb.png';
 
 function InfosFreguesia() {
   const { id } = useParams();

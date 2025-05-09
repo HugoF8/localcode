@@ -1,7 +1,7 @@
 // src/components/BarraLateral.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import placeholderPage from '../../assets/placeholder-page.jpg';
+import placeholderPage from '../../assets/placeholderb.png';
 
 export default function BarraLateral() {
 
