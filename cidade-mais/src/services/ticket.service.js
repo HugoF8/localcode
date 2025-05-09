@@ -97,16 +97,20 @@ async function alterarTicket(id_ticket, descricao_problema) {
     const ticketAlterado = await prisma.ticket.update({
         where: { id_ticket },
         data: {
-            descricao_problema: descricao_problema
+            descricao_problema: descricao_problema,
+            estado_ticket: "pendente"
         },
     });
 
-    await atualizarEstadoTicket(id_ticket, true)
 
     return ticketAlterado;
 }
 
 async function deleteTicket(id_ticket) {
+    await prisma.notificacao.deleteMany({
+      where: { id_ticket }
+    });
+
     return prisma.ticket.delete({ where: { id_ticket } });
   }
 
