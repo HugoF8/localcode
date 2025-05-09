@@ -29,14 +29,18 @@ export default function CriarTicket() {
         })
       });
 
+      if (res.ok) {
+        await res.json();
+        toast.success('Ticket enviado com sucesso!', {
+          onClose: () => navigate(`/Pagina/${id}`),
+          autoClose: 2000
+        });
+      }
       if (!res.ok) {
         const payload = await res.json();
         throw new Error(payload.error || 'Erro desconhecido');
       }
-
-      await res.json();
-      toast.success('Ticket enviado com sucesso!');
-      navigate(`/Pagina/${id}`);
+      
     } catch (err) {
       console.error('Erro ao criar ticket:', err);
       toast.error(err.message || 'Erro ao criar ticket. Tenta novamente!');

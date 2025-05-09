@@ -80,6 +80,10 @@ export default function NotificacoesDropDown() {
           return 'O seu ticket foi resolvido com sucesso.';
         case 'Insucesso':
           return 'O seu ticket não pôde ser resolvido.';
+        case 'Aprovado':
+          return 'O seu ticket foi aprovado.';
+        case 'Recusado':
+          return 'O seu ticket foi recusado.';
         case 'Validacao':
           return 'Novo ticket para validação pela moderação.';
         default:

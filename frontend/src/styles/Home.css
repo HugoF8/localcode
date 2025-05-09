@@ -268,12 +268,19 @@ body {
 }
 
 /* Estilo para o post */
+.posts-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .post {
   border: 1px solid #ddd;
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 8px;
   background-color: #fff;
+  width: 50%;
 }
 
 /* 1. Freguesia dentro do post */
@@ -344,7 +351,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
   padding: 20px;
 }
 
