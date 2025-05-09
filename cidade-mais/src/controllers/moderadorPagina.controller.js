@@ -11,6 +11,17 @@ async function createModeradorPagina(req, res) {
     }
 }
 
+async function deleteModeradorPagina(req, res) {
+    try {
+        const moderadorPagina = await moderadorPaginaService.deleteModerador(req.body);
+        res.status(201).json(moderadorPagina);
+    } catch (error) {
+        console.error('Erro ao apagar Moderador de Página:', error);
+        res.status(500).json({ error: 'Erro ao apagar Moderador de Página', detalhes: error.message });
+    }
+}
+
+
 // Busca todos os moderadores de página
 async function getAllModeradorPagina(req, res) {
     try {
@@ -33,4 +44,4 @@ async function verPaginasModeradas(req, res) {
     }
 }
 
-module.exports = { createModeradorPagina, getAllModeradorPagina, verPaginasModeradas };
+module.exports = { createModeradorPagina, getAllModeradorPagina, verPaginasModeradas, deleteModeradorPagina };

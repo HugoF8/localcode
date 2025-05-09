@@ -1,52 +1,66 @@
-import React from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// BotaoModerador.jsx
+import React, { useState } from 'react';
 
-function BotaoModerador({ userId, isModeradorNaPagina, currentUser, paginaAtualId, onSuccess }) {
+const BotaoModerador = ({
+  isModeradorNaPagina,
+  paginaAtualId,
+  targetUserId,
+  idDonoPagina,
+  onSuccess
+}) => {
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem('token');
+  const currentUserId = Number(localStorage.getItem('id_utilizador'));
+  
+  console.log('BotaoModerador Debug:', {
+    currentUserId,
+    targetUserId,
+    idDonoPagina,
+    isModeradorNaPagina
+  });
 
-  // Verifica se o utilizador atual é moderador ou dono DA PÁGINA ATUAL
-  const temPermissaoNaPagina =
-    currentUser?.paginas?.some(
-      (p) =>
-        p.id === paginaAtualId &&
-        (p.role === 'moderador' || p.role === 'dono')
-    );
 
-  const tornarModerador = () => {
-    fetch(`http://localhost:3000/api/utilizadores/moderador/${userId}`, {
-      method: 'PATCH',
+const handleClick = async () => {
+  setLoading(true);
+  try {
+    const url = isModeradorNaPagina
+      ? 'http://localhost:3000/api/moderadores/removerModeradorPagina'
+      : 'http://localhost:3000/api/moderadores/criarModeradorPagina';
+
+    const method = isModeradorNaPagina ? 'DELETE' : 'POST';
+
+    const res = await fetch(url, {
+      method,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ paginaId: paginaAtualId }),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error(`Erro: ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        toast.success('Utilizador promovido a moderador com sucesso!');
-        if (onSuccess) onSuccess(data);
-      })
-      .catch((err) => {
-        console.error('Erro ao promover a moderador:', err);
-        toast.error('Erro ao promover utilizador.');
-      });
-  };
+      body: JSON.stringify({
+        id_pagina: paginaAtualId,
+        id_utilizador: targetUserId,
+        ...(isModeradorNaPagina ? {} : { funcao: 'MODERADOR' })
+      }),
+    });
 
-  // Só mostra se ainda não for moderador NAQUELA página e quem está autenticado tiver permissão
-  if (isModeradorNaPagina || !temPermissaoNaPagina) return null;
+    if (!res.ok) throw new Error('Erro na operação com moderador');
+
+    onSuccess?.();
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
-    <div>
-      <ToastContainer position="top-right" />
-      <button onClick={tornarModerador} className="btn-moderador">
-        Tornar Moderador
-      </button>
-    </div>
+    <button onClick={handleClick} disabled={loading} className="botao-moderador">
+      {loading
+        ? 'A processar...'
+        : isModeradorNaPagina
+          ? 'Remover moderador'
+          : 'Tornar moderador'}
+    </button>
   );
-}
+};
 
 export default BotaoModerador;

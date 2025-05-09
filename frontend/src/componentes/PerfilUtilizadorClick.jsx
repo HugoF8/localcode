@@ -2,8 +2,17 @@ import React, { useEffect, useState } from 'react';
 import '../styles/PerfilUtilizador.css';
 import ImagemDefaultUtilizador from '../assets/defautlutilizador.png';
 import ImagemDefaultCapa from '../assets/defaultcapautilizador.jpg';
+import BotaoModerador from './BotaoModerador';
 
-const PerfilUtilizadorClick = ({ userId, onClose }) => {
+const UserProfilePopup = ({
+  userId,
+  onClose,
+  paginaAtualId,
+  currentUserId,
+  idDonoPagina,
+  isModeradorNaPagina,
+  isPageOwner // Recebe diretamente a informação se o usuário atual é dono
+}) => {
   const [perfil, setPerfil] = useState({
     utilizador: { nome: '', email: '', data_nascimento: '' },
     foto_perfil: null,
@@ -11,19 +20,30 @@ const PerfilUtilizadorClick = ({ userId, onClose }) => {
   });
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem('token');
+  
+  // Usar diretamente a propriedade isPageOwner que foi passada
+  // Mantendo isDono como referência para compatibilidade com o código existente
+  const isDono = isPageOwner;
+  
+  console.log('Debug PerfilUtilizador:', {
+    currentUserId,
+    idDonoPagina,
+    isPageOwner,
+    isDono: currentUserId === idDonoPagina,
+    shouldShowButton: isPageOwner && currentUserId !== Number(userId)
+  });
 
   useEffect(() => {
     if (!userId || !token) return;
-
     const carregarPerfil = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:3000/api/perfil/verPerfilUtilizador/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const res = await fetch(
+          `http://localhost:3000/api/perfil/verPerfilUtilizador/${userId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         if (!res.ok) throw new Error('Erro ao obter perfil');
         const p = await res.json();
-
         setPerfil({
           utilizador: {
             nome: p.utilizador?.nome || '',
@@ -39,7 +59,6 @@ const PerfilUtilizadorClick = ({ userId, onClose }) => {
         setLoading(false);
       }
     };
-
     carregarPerfil();
   }, [userId, token]);
 
@@ -69,7 +88,7 @@ const PerfilUtilizadorClick = ({ userId, onClose }) => {
           )}
         </div>
 
-        {/* Foto de perfil (somente leitura) */}
+        {/* Foto de perfil */}
         <div className="profile-modal-avatar-wrapper">
           <img
             src={
@@ -88,9 +107,25 @@ const PerfilUtilizadorClick = ({ userId, onClose }) => {
         <h2 className="profile-modal-title">{perfil.utilizador.nome}</h2>
         <p>{perfil.utilizador.email}</p>
         <p>{new Date(perfil.utilizador.data_nascimento).toLocaleDateString('pt-PT')}</p>
+
+        {/* Botão Moderador - Só exibe se o usuário atual for dono da página e não estiver visualizando o próprio perfil */}
+        {isDono && Number(userId) !== currentUserId && (
+          <div className="botao-moderador-container">
+            <BotaoModerador
+              isModeradorNaPagina={isModeradorNaPagina}
+              paginaAtualId={paginaAtualId}
+              targetUserId={Number(userId)}
+              idDonoPagina={idDonoPagina}
+              onSuccess={() => {
+                // Atualizar a interface ou estado após a operação
+                onClose(); // Opcional: fechar o pop-up após operação bem-sucedida
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default PerfilUtilizadorClick;
+export default UserProfilePopup;
