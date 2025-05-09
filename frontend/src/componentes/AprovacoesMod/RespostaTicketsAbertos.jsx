@@ -37,6 +37,11 @@ function TicketsAbertos() {
     };
 
     buscarTicketsAbertos();
+
+    const handler = () => buscarTicketsAbertos();
+    window.addEventListener('ticketAtualizado', handler);
+    return () => window.removeEventListener('ticketAtualizado', handler);
+
   }, [token]);
 
   const onToggleExpand = (id) => {
