@@ -12,19 +12,32 @@ export default function PostsFreguesia() {
   const [error, setError] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [userIsModerator, setUserIsModerator] = useState(false);
+  const [moderadores, setModeradores] = useState([]);
+  const [isSelectedUserModerador, setIsSelectedUserModerador] = useState(false);
 
   const currentUserId = Number(localStorage.getItem('id_utilizador'));
-  
-  // Verificar se o usuário atual é moderador desta página
+
   useEffect(() => {
-    const checkModeratorStatus = () => {
-      const paginasModeradas = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
-      const isModerator = paginasModeradas.some(p => p.id_pagina === Number(id));
-      setUserIsModerator(isModerator);
+    const checkModeratorStatus = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch(
+          `http://localhost:3000/api/moderadores/verPaginasModeradas/${currentUserId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const moderacoes = await res.json();
+        setUserIsModerator(moderacoes.some(p => p.id_pagina === Number(id)));
+        setModeradores(moderacoes);
+      } catch (err) {
+        console.error('Erro ao verificar status de moderador:', err);
+      }
     };
-    
-    checkModeratorStatus();
-  }, [id]);
+
+    if (currentUserId) {
+      checkModeratorStatus();
+    }
+  }, [id, currentUserId]);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -51,25 +64,14 @@ export default function PostsFreguesia() {
     async function fetchPageOwner() {
       try {
         const token = localStorage.getItem('token');
-        console.log("Buscando página de freguesia com ID:", id);
-        
-        // Correção da URL para a rota correta
         const res = await fetch(
           `http://localhost:3000/api/paginaFreguesias/paginaFreguesia/${id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        
         const page = await res.json();
-        console.log("Dados completos da página:", page);
-        
-        // A função retorna diretamente o objeto da página
         if (page && page.id_utilizador !== undefined) {
-          console.log("ID do dono da página:", page.id_utilizador);
           setPageOwner(page.id_utilizador);
-        } else {
-          console.error("Estrutura da resposta da API não contém id_utilizador:", page);
         }
       } catch (err) {
         console.error('Erro ao buscar dono da página:', err);
@@ -78,12 +80,16 @@ export default function PostsFreguesia() {
     if (id) fetchPageOwner();
   }, [id]);
 
-  // Adicione um useEffect para debugar mudanças no pageOwner
   useEffect(() => {
-    console.log("pageOwner atualizado:", pageOwner);
-    console.log("currentUserId:", currentUserId);
-    console.log("É dono da página:", pageOwner === currentUserId);
-  }, [pageOwner, currentUserId]);
+    if (selectedUserId !== null && moderadores.length > 0) {
+      const isMod = moderadores.some(
+        m =>
+          m.id_pagina === Number(id) &&
+          m.id_utilizador === Number(selectedUserId)
+      );
+      setIsSelectedUserModerador(isMod);
+    }
+  }, [selectedUserId, moderadores, id]);
 
   if (loading) return <p>Carregando posts...</p>;
   if (error) return <p className="error">{error}</p>;
@@ -142,8 +148,8 @@ export default function PostsFreguesia() {
           paginaAtualId={Number(id)}
           currentUserId={currentUserId}
           idDonoPagina={pageOwner}
-          isModeradorNaPagina={userIsModerator && selectedUserId !== pageOwner}
-          isPageOwner={currentUserId === pageOwner} // Passa explicitamente se o usuário atual é dono
+          isModeradorNaPagina={isSelectedUserModerador}
+          isPageOwner={currentUserId === pageOwner}
         />
       )}
     </div>

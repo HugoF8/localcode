@@ -11,7 +11,7 @@ const UserProfilePopup = ({
   currentUserId,
   idDonoPagina,
   isModeradorNaPagina,
-  isPageOwner // Recebe diretamente a informação se o usuário atual é dono
+  isPageOwner
 }) => {
   const [perfil, setPerfil] = useState({
     utilizador: { nome: '', email: '', data_nascimento: '' },
@@ -19,19 +19,8 @@ const UserProfilePopup = ({
     foto_capa: null
   });
   const [loading, setLoading] = useState(false);
+  const [isMod, setIsMod] = useState(isModeradorNaPagina);
   const token = localStorage.getItem('token');
-  
-  // Usar diretamente a propriedade isPageOwner que foi passada
-  // Mantendo isDono como referência para compatibilidade com o código existente
-  const isDono = isPageOwner;
-  
-  console.log('Debug PerfilUtilizador:', {
-    currentUserId,
-    idDonoPagina,
-    isPageOwner,
-    isDono: currentUserId === idDonoPagina,
-    shouldShowButton: isPageOwner && currentUserId !== Number(userId)
-  });
 
   useEffect(() => {
     if (!userId || !token) return;
@@ -62,6 +51,10 @@ const UserProfilePopup = ({
     carregarPerfil();
   }, [userId, token]);
 
+  const handleSuccess = () => {
+    setIsMod(prev => !prev); // Alterna o estado de moderador
+  };
+
   if (!userId) return null;
 
   return (
@@ -69,7 +62,6 @@ const UserProfilePopup = ({
       <div className="profile-modal-container">
         <button onClick={onClose} className="profile-modal-close">✕</button>
 
-        {/* Foto de capa */}
         <div className="profile-modal-cover-wrapper">
           {loading ? (
             <p>Carregando capa...</p>
@@ -88,7 +80,6 @@ const UserProfilePopup = ({
           )}
         </div>
 
-        {/* Foto de perfil */}
         <div className="profile-modal-avatar-wrapper">
           <img
             src={
@@ -103,23 +94,18 @@ const UserProfilePopup = ({
           />
         </div>
 
-        {/* Dados do utilizador */}
         <h2 className="profile-modal-title">{perfil.utilizador.nome}</h2>
         <p>{perfil.utilizador.email}</p>
         <p>{new Date(perfil.utilizador.data_nascimento).toLocaleDateString('pt-PT')}</p>
 
-        {/* Botão Moderador - Só exibe se o usuário atual for dono da página e não estiver visualizando o próprio perfil */}
-        {isDono && Number(userId) !== currentUserId && (
+        {isPageOwner && Number(userId) !== currentUserId && (
           <div className="botao-moderador-container">
             <BotaoModerador
-              isModeradorNaPagina={isModeradorNaPagina}
+              isModeradorNaPagina={isMod}
               paginaAtualId={paginaAtualId}
               targetUserId={Number(userId)}
               idDonoPagina={idDonoPagina}
-              onSuccess={() => {
-                // Atualizar a interface ou estado após a operação
-                onClose(); // Opcional: fechar o pop-up após operação bem-sucedida
-              }}
+              onSuccess={handleSuccess}
             />
           </div>
         )}
