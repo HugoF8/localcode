@@ -4,6 +4,10 @@
   min-height: 100vh;
 }
 
+.flex{
+  margin-left: 160px;
+}
+
 .main-content {
   display: flex;
   flex: 1;

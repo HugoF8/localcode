@@ -19,6 +19,7 @@ import EnviarTicket from './pages/EnviarTicket';
 import EditarPedido from './pages/EditarPedido';
 import EditarFreguesia from './pages/EditarFreguesia';
 import TodasNotificacoes from './pages/TodasNotificacoes';
+import VerificadorTipoUtilizador from './VerificadorTipoUtilizador';
 
 
 import './App.css';
@@ -44,6 +45,7 @@ function RequireAdmin({ children }) {
 function App() {
   return (
       <Router>
+        <VerificadorTipoUtilizador />
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/Pagina/:id" element={<HomeFreguesia />} />

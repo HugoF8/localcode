@@ -1,4 +1,6 @@
 const utilizadorService = require('../services/utilizador.service');
+const userTypeCache = new Map();
+const CACHE_TTL = 10 * 60 * 1000;
 
 // Criar utilizadores
 async function createUtilizador(req, res) {
@@ -48,6 +50,16 @@ async function createUtilizador(req, res) {
     }
 }
 
+async function getUtilizadorPorId(req, res){
+    const id_utilizador = req.utilizador?.utilizadorId;
+    try {
+        const utilizadores = await utilizadorService.getUtilizadorById(id_utilizador);
+        res.json(utilizadores);
+    } catch (error) {
+        console.error("Erro ao buscar utilizador:", error); // Mostra o erro real no terminal
+        res.status(500).json({ error: "Erro ao buscar utilizadores", detalhes: error.message });
+    }
+}
 
 
 // Buscar todos os utilizadores
@@ -74,4 +86,4 @@ async function alterarTipoUtilizadores(req, res) {
     }
 }
 
-module.exports = { createUtilizador, getAllUtilizadores,alterarTipoUtilizadores };
+module.exports = { createUtilizador, getUtilizadorPorId, getAllUtilizadores, alterarTipoUtilizadores };
