@@ -41,6 +41,23 @@ async function atualizarFotoPerfil(id_utilizador, caminhoImagem) {
       };
 }
 
+async function atualizarFotoCapa(id_utilizador, caminhoImagem) {
+  const perfil = await prisma.perfil.findFirst({
+    where: { id_utilizador },
+  });
 
+  if (!perfil) throw new Error('Perfil não encontrado');
 
-module.exports = { createPerfil, getAllPerfil, getPerfilUtilizador,atualizarFotoPerfil };
+  const relativePath = caminhoImagem.replace(/^.*?uploads[\\/]/, 'uploads/');
+
+  const updatedPerfil = await prisma.perfil.update({
+    where: { id_perfil: perfil.id_perfil },
+    data: { foto_capa: relativePath }
+  });
+
+  return {
+    foto_capa: updatedPerfil.foto_capa
+  };
+}
+
+module.exports = { createPerfil, getAllPerfil, getPerfilUtilizador, atualizarFotoPerfil, atualizarFotoCapa };

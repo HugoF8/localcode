@@ -3,7 +3,7 @@ import '../../styles/PerfilUtilizador.css';
 import ImagemDefaultUtilizador from '../../assets/defautlutilizador.png';
 import ImagemDefaultCapa from '../../assets/defaultcapautilizador.jpg';
 
-export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) {
+export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada, onCapaAtualizada }) {
   const [perfil, setPerfil] = useState({
     utilizador: { nome: '', email: '', data_nascimento: '' },
     foto_perfil: null,
@@ -11,6 +11,7 @@ export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) 
   });
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef();
+  const fileInputCapaRef = useRef();
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -44,6 +45,32 @@ export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) 
 
     carregarPerfil();
   }, [isOpen, token]);
+
+  const handleCapaChange = (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append('imagem', file);
+
+  fetch('http://localhost:3000/api/perfil/foto-capa', {
+    method: 'PATCH',
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('Falha no upload da capa');
+      return res.json();
+    })
+    .then(updated => {
+      const url = updated.foto_capa.startsWith('http')
+        ? updated.foto_capa
+        : `http://localhost:3000/${updated.foto_capa}`;
+      setPerfil(prev => ({ ...prev, foto_capa: url }));
+      onCapaAtualizada(url);
+    })
+    .catch(console.error);
+};
 
   const handleFotoChange = e => {
     const file = e.target.files?.[0];
@@ -79,22 +106,34 @@ export default function PerfilUtilizador({ isOpen, onClose, onFotoAtualizada }) 
 
         {/* Foto de capa */}
         <div className="profile-modal-cover-wrapper">
-          {loading ? (
-            <p>Carregando capa...</p>
-          ) : (
-            <img
-              src={
-                perfil.foto_capa
-                  ? (perfil.foto_capa.startsWith('http')
-                      ? perfil.foto_capa
-                      : `http://localhost:3000/${perfil.foto_capa}`)
-                  : ImagemDefaultCapa
-              }
-              alt="Foto de capa"
-              className="profile-modal-cover"
-            />
-          )}
+          <img
+            src={
+              perfil.foto_capa
+                ? (perfil.foto_capa.startsWith('http')
+                    ? perfil.foto_capa
+                    : `http://localhost:3000/${perfil.foto_capa}`)
+                : ImagemDefaultCapa
+            }
+            alt="Foto de capa"
+            className="profile-modal-cover"
+          />
+          <button
+            type="button"
+            onClick={() => fileInputCapaRef.current.click()}
+            className="profile-modal-cover-edit-btn"
+            title="Mudar capa"
+          >
+            🖉
+          </button>
+          <input
+            ref={fileInputCapaRef}
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleCapaChange}
+          />
         </div>
+
 
         {/* Foto de perfil e edição */}
         <div className="profile-modal-avatar-wrapper">

@@ -50,6 +50,21 @@ async function atualizarFotoPerfil(req, res) {
   }
 }
 
+async function atualizarFotoCapa(req, res) {
+  try {
+    const userId = req.utilizador.utilizadorId;
+    if (!req.file) {
+      return res.status(400).json({ error: 'Nenhuma imagem de capa válida foi enviada.' });
+    }
 
+    const imagePath = req.file.path;
+    const perfilAtualizado = await perfilService.atualizarFotoCapa(userId, imagePath);
 
-module.exports = { createPerfil, getAllPerfil, getPerfilUtilizador,atualizarFotoPerfil };
+    res.status(200).json(perfilAtualizado);
+  } catch (err) {
+    console.error("Erro ao atualizar a foto de capa:", err);
+    res.status(500).json({ error: 'Erro interno ao atualizar a capa', detalhes: err.message });
+  }
+}
+
+module.exports = { createPerfil, getAllPerfil, getPerfilUtilizador, atualizarFotoPerfil, atualizarFotoCapa };
