@@ -1,47 +1,65 @@
-import config from '../../assets/config-icon.png';
-import { useState } from 'react';
+import configIcon from '../../assets/config-icon.png';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function ConfiguracoesMenu() {
   const [aberto, setAberto] = useState(false);
   const navigate = useNavigate();
+  const wrapperRef = useRef(null);
 
-  const toggleMenu = () => {
-    setAberto(!aberto);
-  };
+  useEffect(() => {
+    function fecharAoClicarFora(e) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setAberto(false);
+      }
+    }
+    window.addEventListener('mousedown', fecharAoClicarFora);
+    return () => window.removeEventListener('mousedown', fecharAoClicarFora);
+  }, []);
 
   const modPages = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
   const user = JSON.parse(localStorage.getItem('utilizador') || '{}');
   const isAdmin = user.tipo_utilizador === 'admin';
 
+  const toggleMenu = () => setAberto(v => !v);
   const terminarSessao = () => {
-    localStorage.removeItem('token'); // Limpa o token
-    localStorage.removeItem('id_utilizador');
-    sessionStorage.removeItem('paginasModeradas');
-    sessionStorage.removeItem('paginasAdmin');
-    navigate('/'); // Redireciona para login
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate('/');
   };
-  
+
   return (
-    <div className="config-wrapper">
+    <div className="config-wrapper" ref={wrapperRef}>
       <img
-        src={config}
-        alt="Definições"
-        onClick={toggleMenu}
+        src={configIcon}
+        alt="Configurações"
         className="icone-config"
+        onClick={toggleMenu}
       />
       {aberto && (
         <div className="config-menu">
-          <button onClick={() => navigate('/criar-freguesia')}>Criar Freguesia</button>
+          <button onClick={() => navigate('/criar-freguesia')}>
+            Criar Freguesia
+          </button>
           {isAdmin && (
-          <button onClick={() => navigate('/AprovacoesPedidos')}>Aprovacoes Pedidos</button>
+            <button onClick={() => navigate('/AprovacoesPedidos')}>
+              Aprovações de Pedidos
+            </button>
           )}
-          <button onClick={() => navigate('/pedidos')}>Pedido</button>
-          <button onClick={() => navigate('/tickets-utilizador')}>Publicações e Tickets</button>
+          <button onClick={() => navigate('/pedidos')}>
+            Meus Pedidos
+          </button>
+          <button onClick={() => navigate('/tickets-utilizador')}>
+            Publicações & Tickets
+          </button>
           {modPages.length > 0 && (
-          <button onClick={() => navigate('/AprovacoesTickets')}>Aprovacoes Tickets e Posts</button>
+            <button onClick={() => navigate('/AprovacoesTickets')}>
+              Aprovar Tickets & Posts
+            </button>
           )}
-          <button onClick={terminarSessao}>Terminar Sessão</button>
+          <button onClick={terminarSessao}>
+            Terminar Sessão
+          </button>
         </div>
       )}
     </div>
