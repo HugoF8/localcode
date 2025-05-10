@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
+import '../../styles/Home.css';
 import UserProfilePopup from '../PerfilUtilizadorClick';
 import placeholder from '../../assets/landscape-placeholder.svg';
 
@@ -95,51 +96,73 @@ export default function PostsFreguesia() {
   if (error) return <p className="error">{error}</p>;
   if (!posts.length) return <p>Sem posts disponíveis para esta página.</p>;
 
-  return (
-    <div className="aprovacoes-container">
-      <div className="titulo-centralizado">
-        <h2 className="aprovacoes-titulo">Publicações da Freguesia</h2>
-      </div>
 
-      {posts.map(post => (
-        <div key={post.id_post} className="ticket-card">
-          <div className="ticket-header">
+  const buildImageUrl = (path) => {
+    if (!path) return null;
+    return path.startsWith('http') ? path : `http://localhost:3000/${path}`;
+  };
+
+
+  return (
+    <div className="posts-container">
+      {posts.length === 0 ? (
+        <p>Não há publicações para mostrar.</p>
+      ) : (
+        posts.map((post) => (
+          <div key={post.id_post} className="post">
+            {/* 1. Info da freguesia */}
+            <div className="info-freguesia-post">
+              {post.pagina_freguesia?.foto_perfil && (
+                <img
+                  src={buildImageUrl(post.pagina_freguesia.foto_perfil)}
+                  alt={post.pagina_freguesia.nome_pagina}
+                  className="freguesia-img"
+                />
+              )}
+              <p className="freguesia-nome">{post.pagina_freguesia?.nome_pagina}</p>
+            </div>
+
+            {/* 2. Info do utilizador */}
             <div
-              className="ticket-user-info"
+              className="info-post"
               onClick={() => setSelectedUserId(post.id_utilizador)}
               style={{ cursor: 'pointer' }}
             >
               <img
                 src={
                   post.utilizador?.perfil?.[0]?.foto_perfil
-                    ? `http://localhost:3000/${post.utilizador.perfil[0].foto_perfil}`
+                    ? buildImageUrl(post.utilizador.perfil[0].foto_perfil)
                     : placeholder
                 }
-                onError={e => { e.target.onerror = null; e.target.src = placeholder; }}
                 alt={post.utilizador?.nome || 'Utilizador'}
-                className="ticket-user-img"
+                className="foto-perfil-utilizador"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = placeholder;
+                }}
               />
-              <p className="ticket-user">{post.utilizador?.nome || 'Desconhecido'}</p>
+              <div className="nomeData-container">
+                <p className="utilizador-nome">{post.utilizador?.nome || 'Desconhecido'}</p>
+                <p className="ticket-date">{new Date(post.data_post).toLocaleDateString()}</p>
+              </div>
             </div>
 
-            <div className="ticket-id">#{post.id_post}</div>
+            {/* 3. Conteúdo do post */}
+            <div className="conteudo-post">
+              <p>{post.descricao_post}</p>
+              {post.media_post && (
+                <div className="img-container">
+                  <img
+                    src={buildImageUrl(post.media_post)}
+                    alt="Mídia do post"
+                    className="media-post"
+                  />
+                </div>
+              )}
+            </div>
           </div>
-
-          <p className="ticket-date">{new Date(post.data_post).toLocaleDateString()}</p>
-
-          <p className="ticket-description">{post.descricao_post}</p>
-
-          {post.media_post && (
-            <div className="publicacao-conteudo-central">
-              <img
-                src={`http://localhost:3000/${post.media_post}`}
-                alt="Imagem do post"
-                className="publicacao-img"
-              />
-            </div>
-          )}
-        </div>
-      ))}
+        ))
+      )}
 
       {selectedUserId && pageOwner !== null && (
         <UserProfilePopup

@@ -13,8 +13,8 @@ export default function HomeFreguesia() {
   return (
     <div className="container">
       <BarraSuperior />
+      <BarraLateral />
       <div className="corpo">
-        <BarraLateral />
 
         <div className="zona-publicacoes">
           {/* informações freguesia */}

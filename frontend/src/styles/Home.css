@@ -43,6 +43,7 @@ body {
 .corpo {
   display: flex;
   flex: 1;
+  margin-left: 160px;
   margin-top: 80px; /* altura do topo */
 }
 
