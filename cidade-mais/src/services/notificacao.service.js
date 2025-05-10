@@ -52,7 +52,7 @@ async function createNotificacao(data) {
         pagina_freguesia: true
       }
     });
-  }
+}
 
 // Buscar todos os Notificacao
 async function getAllNotificacao() {

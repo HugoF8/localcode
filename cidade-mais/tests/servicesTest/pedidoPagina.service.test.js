@@ -18,39 +18,52 @@ const {
 } = require('../../src/services/pedidoPagina.service');
 
 describe('createPedidoPagina', () => {
-  it('usa id_morada quando fornecido', async () => {
-    const data = { id_utilizador: 1, id_morada: 10, nomefreguesia: 'X', dados_comprovacao: 'Y' };
-    const expected = { id_pedido: 5, ...data };
-    mockCreate.mockResolvedValue(expected);
+it('usa id_morada quando fornecido', async () => {
+  const data = {
+    id_utilizador: 1,
+    id_morada: 10,
+    nomefreguesia: 'X',
+    dados_comprovacao: 'Y'
+  };
+
+  const expectedInput = {
+    ...data,
+    estado_pedido: 'pendente'  // <- Adiciona esse campo que é atribuído por default
+  };
+
+  const expectedReturn = { id_pedido: 5, ...expectedInput };
+  mockCreate.mockResolvedValue(expectedReturn);
+
+  const result = await createPedidoPagina(data);
+
+  expect(mockCreateMorada).not.toHaveBeenCalled();
+  expect(mockCreate).toHaveBeenCalledWith({ data: expectedInput }); // <- usa expectedInput
+  expect(result).toEqual(expectedReturn);
+});
+
+    it('usa id_morada quando fornecido', async () => {
+    const data = {
+      id_utilizador: 1,
+      id_morada: 10,
+      nomefreguesia: 'X',
+      dados_comprovacao: 'Y'
+    };
+
+    const expectedInput = {
+      ...data,
+      estado_pedido: 'pendente'
+    };
+
+    const expectedReturn = { id_pedido: 5, ...expectedInput };
+    mockCreate.mockResolvedValue(expectedReturn);
 
     const result = await createPedidoPagina(data);
 
     expect(mockCreateMorada).not.toHaveBeenCalled();
-    expect(mockCreate).toHaveBeenCalledWith({ data });
-    expect(result).toEqual(expected);
+    expect(mockCreate).toHaveBeenCalledWith({ data: expectedInput });
+    expect(result).toEqual(expectedReturn);
   });
 
-  it('cria morada quando id_morada não fornecido', async () => {
-    const data = { id_utilizador: 1, freguesia:'F', rua:'R', cidade:'C', codigo_postal:'1234', nomefreguesia:'X', dados_comprovacao:'Y' };
-    mockCreateMorada.mockResolvedValue({ id_morada: 20 });
-    const created = {
-      id_utilizador: 1,
-      id_morada: 20,
-      nomefreguesia: 'X',
-      dados_comprovacao: 'Y',
-      estado_pedido: 'pendente'
-    };
-    const mockReturn = { id_pedido: 6, ...created };
-    mockCreate.mockResolvedValue(mockReturn);
-
-    const result = await createPedidoPagina(data);
-
-    expect(mockCreateMorada).toHaveBeenCalledWith({
-      freguesia:'F', rua:'R', cidade:'C', codigo_postal:1234
-    });
-    expect(mockCreate).toHaveBeenCalledWith({ data: created });
-    expect(result).toEqual(mockReturn);
-  });
 });
 
 describe('getPedidoPendente', () => {

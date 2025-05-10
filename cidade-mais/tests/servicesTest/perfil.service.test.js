@@ -21,34 +21,34 @@ describe('createPerfil', () => {
     const retorno = { id_perfil: 10, id_utilizador: 5, foto_perfil: null };
     mockCreate.mockResolvedValue(retorno);
 
-    const res = await createPerfil(data.id_utilizador);
-
-    expect(mockCreate).toHaveBeenCalledWith({ data: { id_utilizador: data.id_utilizador } });
+    const res = await createPerfil(data); // e não data.id_utilizador
+    expect(mockCreate).toHaveBeenCalledWith({ data });
     expect(res).toEqual(retorno);
   });
 });
 
 describe('atualizarFotoPerfil', () => {
   it('atualiza a foto do perfil corretamente', async () => {
-    const id_perfil = 10;
-    const caminho = 'imagens/foto5.png';
-    const perfilAtualizado = { id_perfil, id_utilizador: 5, foto_perfil: caminho };
-    
-    mockFind.mockResolvedValue({ id_perfil, id_utilizador: 5, foto_perfil: 'old.png' });
+    const id_utilizador = 5;
+    const caminho = '/caminho/para/uploads/foto5.png';
+    const perfilAntigo = { id_perfil: 10, id_utilizador, foto_perfil: 'old.png' };
+    const perfilAtualizado = { ...perfilAntigo, foto_perfil: 'uploads/foto5.png' };
+
+    mockFindFirst.mockResolvedValue(perfilAntigo);
     mockUpdate.mockResolvedValue(perfilAtualizado);
 
-    const result = await atualizarFotoPerfil(id_perfil, caminho);
+    const result = await atualizarFotoPerfil(id_utilizador, caminho);
 
-    expect(mockFind).toHaveBeenCalledWith({ where: { id_perfil } });
+    expect(mockFindFirst).toHaveBeenCalledWith({ where: { id_utilizador } });
     expect(mockUpdate).toHaveBeenCalledWith({
-      where: { id_perfil },
-      data: { foto_perfil: caminho }
+      where: { id_perfil: perfilAntigo.id_perfil },
+      data: { foto_perfil: 'uploads/foto5.png' }
     });
-    expect(result).toEqual(perfilAtualizado);
+    expect(result).toEqual({ foto_perfil: 'uploads/foto5.png' });
   });
 
   it('lança erro se o perfil não for encontrado', async () => {
-    mockFind.mockResolvedValue(null);
+    mockFindFirst.mockResolvedValue(null);
     await expect(atualizarFotoPerfil(99, 'x.png')).rejects.toThrow('Perfil não encontrado');
   });
 });

@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest",
     "testint": "jest tests/routesTest",
+    "testUnit": "jest tests/servicesTest",
     "dev": "nodemon src/server.js"
   },
   "keywords": [],

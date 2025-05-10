@@ -6,28 +6,32 @@ const prisma = new PrismaClient();
 
 // Criar pedidoPagina
 async function createPedidoPagina(data) {
-    //Criar a morada
-    const  moradaCriada = await createMorada({
+  let id_morada;
+
+  if (data.id_morada) {
+    id_morada = data.id_morada;
+  } else {
+    const moradaCriada = await createMorada({
       freguesia: data.freguesia, 
       rua: data.rua,
       cidade: data.cidade,
       codigo_postal: parseInt(data.codigo_postal)
     });
-  
-    //Criar o pedido
-    const pedido = {
-      nomefreguesia: data.nomefreguesia,
-      dados_comprovacao: data.dados_comprovacao,
-      id_utilizador: data.id_utilizador,
-      id_morada: moradaCriada.id_morada,
-      estado_pedido: data.estado_pedido
-    };
-  
-    //Criar o registo na tabela pedido_pagina
-    return prisma.pedido_pagina.create({
-      data: pedido
-    });
+    id_morada = moradaCriada.id_morada;
   }
+
+  const pedido = {
+    nomefreguesia: data.nomefreguesia,
+    dados_comprovacao: data.dados_comprovacao,
+    id_utilizador: data.id_utilizador,
+    id_morada: id_morada,
+    estado_pedido: data.estado_pedido ?? 'pendente' // default para testes
+  };
+
+  return prisma.pedido_pagina.create({
+    data: pedido
+  });
+}
   
 
 // Buscar todos os pedidoPagina

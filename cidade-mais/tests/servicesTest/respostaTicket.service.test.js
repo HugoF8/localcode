@@ -1,10 +1,18 @@
+// tests/servicesTest/respostaTicket.service.test.js
 const mockCreate = jest.fn();
 const mockFind = jest.fn();
+const mockTicketUpdate = jest.fn();
 const mockCreateNotificacao = jest.fn();
 
 jest.mock('@prisma/client', () => ({
+  // inclui o enum que o serviço utiliza
+  tipo_notificacao: {
+    Sucesso: 'Sucesso',
+    Insucesso: 'Insucesso'
+  },
   PrismaClient: jest.fn().mockImplementation(() => ({
-    resposta_ticket: { create: mockCreate, findMany: mockFind }
+    resposta_ticket: { create: mockCreate, findMany: mockFind },
+    ticket: { update: mockTicketUpdate }
   }))
 }));
 
@@ -15,59 +23,69 @@ jest.mock('../../src/services/notificacao.service', () => ({
 const { createResposta, getRespostasPorUtilizador } = require('../../src/services/respostaTicket.service');
 
 describe('getRespostasPorUtilizador', () => {
-  it('deve chamar prisma.resposta_ticket.findMany com o id_utilizador correto', async () => {
+  it('deve chamar prisma.resposta_ticket.findMany com where e orderBy corretos', async () => {
     const id_utilizador = 1;
     const mockReturn = [{ id_resposta: 5 }];
     mockFind.mockResolvedValue(mockReturn);
 
     const res = await getRespostasPorUtilizador(id_utilizador);
-
-    expect(mockFind).toHaveBeenCalledWith({ where: { id_utilizador } });
+    expect(mockFind).toHaveBeenCalledWith({
+      where: { id_utilizador, id_ticket: undefined },
+      orderBy: { data_post: 'desc' }
+    });
     expect(res).toEqual(mockReturn);
   });
 });
 
 describe('createResposta', () => {
-  it('deve criar uma resposta, enviar notificação de sucesso e fechar o ticket', async () => {
-    const mockData = { id_ticket: 10, id_utilizador: 1, conteudo_resposta: 'Ok', estado_resposta: 'Sucesso' };
-    mockCreate.mockResolvedValue({ id_resposta: 100, ...mockData });
-    
-    const res = await createResposta(mockData);
+  const baseData = {
+    id_ticket: 10,
+    id_utilizador: 1,
+    conteudo_resposta: 'Ok',
+    estado_resposta: 'resolvido'
+  };
 
-    expect(mockCreate).toHaveBeenCalledWith({
-      data: {
-        ticket: { connect: { id_ticket: mockData.id_ticket } },
-        utilizador: { connect: { id_utilizador: mockData.id_utilizador } },
-        conteudo_resposta: mockData.conteudo_resposta,
-        estado_resposta: mockData.estado_resposta
-      },
-      include: { pagina_freguesia: true, post: true, ticket: true }
-    });
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('deve criar uma resposta, enviar notificação de sucesso e fechar o ticket', async () => {
+    const novaResposta = { id_resposta: 100, ...baseData };
+    mockCreate.mockResolvedValue(novaResposta);
+    mockTicketUpdate.mockResolvedValue({ id_ticket: baseData.id_ticket, estado_ticket: 'fechado' });
+
+    const res = await createResposta(baseData);
+
+    expect(mockCreate).toHaveBeenCalledWith({ data: baseData });
+
     expect(mockCreateNotificacao).toHaveBeenCalledWith({
-      data: {
-        id_utilizador: mockData.id_utilizador,
-        id_ticket: mockData.id_ticket,
-        tipo_notificacao: mockData.estado_resposta
-      },
-      include: { pagina_freguesia: true, post: true, ticket: true }
+      id_utilizador: baseData.id_utilizador,
+      id_ticket: baseData.id_ticket,
+      tipo_notificacao: 'Sucesso'
     });
-    expect(res).toEqual({ id_resposta: 100, ...mockData });
+
+    expect(mockTicketUpdate).toHaveBeenCalledWith({
+      where: { id_ticket: baseData.id_ticket },
+      data: { estado_ticket: 'fechado' }
+    });
+
+    expect(res).toEqual(novaResposta);
   });
 
   it('deve enviar notificação de insucesso se a resposta não for resolvida', async () => {
-    const mockData = { id_ticket: 20, id_utilizador: 1, conteudo_resposta: 'Não', estado_resposta: 'Insucesso' };
-    mockCreate.mockResolvedValue({ id_resposta: 200, ...mockData });
+    const dataInsucesso = { ...baseData, id_ticket: 20, estado_resposta: 'Insucesso', conteudo_resposta: 'Não' };
+    const novaResposta = { id_resposta: 200, ...dataInsucesso };
+    mockCreate.mockResolvedValue(novaResposta);
+    mockTicketUpdate.mockResolvedValue({ id_ticket: dataInsucesso.id_ticket, estado_ticket: 'fechado' });
 
-    const res = await createResposta(mockData);
+    const res = await createResposta(dataInsucesso);
 
     expect(mockCreateNotificacao).toHaveBeenCalledWith({
-      data: {
-        id_utilizador: mockData.id_utilizador,
-        id_ticket: mockData.id_ticket,
-        tipo_notificacao: mockData.estado_resposta
-      },
-      include: { pagina_freguesia: true, post: true, ticket: true }
+      id_utilizador: dataInsucesso.id_utilizador,
+      id_ticket: dataInsucesso.id_ticket,
+      tipo_notificacao: 'Insucesso'
     });
-    expect(res).toEqual({ id_resposta: 200, ...mockData });
+
+    expect(res).toEqual(novaResposta);
   });
 });

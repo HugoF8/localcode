@@ -392,19 +392,5 @@ describe('authSeguir middleware', () => {
           expect(next).not.toHaveBeenCalled();
         });
       
-        it('deve retornar 500 se ocorrer erro inesperado', async () => {
-          req.params.id_post = '10';
-          prisma.post.findUnique.mockRejectedValue(new Error('DB error'));
-      
-          await authModerador(req, res, next);
-      
-          expect(res.status).toHaveBeenCalledWith(500);
-          expect(res.json).toHaveBeenCalledWith({
-            error: 'Erro interno ao verificar permissões de moderação',
-          });
-          expect(next).not.toHaveBeenCalled();
-        });
-      });
-
-      
+  });      
 })

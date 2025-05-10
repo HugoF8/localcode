@@ -10,15 +10,15 @@ jest.mock('@prisma/client', () => ({
   }))
 }));
 
-const { createUSeguidor, getPaginasSeguidas } = require('../../src/services/seguidoresPagina.service');
+const { createSeguidor, getPaginasSeguidas } = require('../../src/services/seguidoresPagina.service');
 
-describe('createUSeguidor', () => {
+describe('createSeguidor', () => {
   it('deve chamar prisma.seguidores_pagina.create com os dados corretos', async () => {
     const mockData = { id_utilizador: 1, id_pagina: 2 };
     const mockReturn = { id_seguidor: 5, ...mockData };
     mockCreate.mockResolvedValue(mockReturn);
 
-    const result = await createUSeguidor(mockData);
+    const result = await createSeguidor(mockData);
 
     expect(mockCreate).toHaveBeenCalledWith({ data: mockData });
     expect(result).toEqual(mockReturn);
