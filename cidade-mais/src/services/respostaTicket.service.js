@@ -40,9 +40,6 @@ async function getRespostasPorUtilizador(id_utilizador, id_ticket) {
         where: {
             id_utilizador: id_utilizador,
             id_ticket: id_ticket
-        },
-        orderBy: {
-            data_post: 'desc',
         }
     });
 }
