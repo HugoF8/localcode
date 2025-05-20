@@ -59,6 +59,27 @@ async function getAllNotificacao() {
     return prisma.notificacao.findMany();
 }
 
+async function marcarNotificacoesComoLidas(id_utilizador) {
+  return prisma.notificacao.updateMany({
+    where: {
+      id_utilizador: id_utilizador,
+      estado_notificacao: 'nao_lida',
+    },
+    data: {
+      estado_notificacao: 'lida',
+    },
+  });
+}
+
+async function contarNotificacoesNaoLidas(id_utilizador) {
+  return prisma.notificacao.count({
+    where: {
+      id_utilizador: id_utilizador,
+      estado_notificacao: 'nao_lida',
+    },
+  });
+}
+
 async function getNotificacaoPorUtilizador(id_utilizador) {
     return prisma.notificacao.findMany({
         where: {
@@ -70,4 +91,4 @@ async function getNotificacaoPorUtilizador(id_utilizador) {
 
 
 
-module.exports = { createNotificacao, getAllNotificacao, getNotificacaoPorUtilizador };
+module.exports = { createNotificacao, getAllNotificacao, marcarNotificacoesComoLidas, contarNotificacoesNaoLidas, getNotificacaoPorUtilizador };
