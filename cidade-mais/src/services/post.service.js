@@ -19,22 +19,12 @@ async function createPost(data) {
 }
 
 async function atualizarEstadoPost(bolean,id_post) {
-    
-    const postAtual = await prisma.post.findUnique({where:{id_post}})
 
-    let aprovacoes= postAtual.aprovacoes ?? 0
-    let estadoatualizado = postAtual.estado_post
+    let estadoatualizado
 
-    if(bolean === true && aprovacoes < 3){
-        aprovacoes += 1
-
-        if (aprovacoes === 1){
-            notificacao = tipo_notificacao.Verificacao
-        }
-        else if(aprovacoes === 3){
-            estadoatualizado = 'ativo'
-            notificacao = tipo_notificacao.Aprovado
-        }
+    if(bolean === true){
+      estadoatualizado = 'ativo'
+      notificacao = tipo_notificacao.Aprovado
     }
     else if (bolean === false) {
         estadoatualizado = 'inativo'
@@ -44,7 +34,6 @@ async function atualizarEstadoPost(bolean,id_post) {
     const postAtualizado = await prisma.post.update({
         where: { id_post },
         data: {
-          aprovacoes: aprovacoes,
           estado_post: estadoatualizado,
         },
         })
@@ -63,7 +52,6 @@ async function getPostPendente(id_pagina) {
         where:{
             id_pagina: id_pagina,
             estado_post:'pendente',
-            aprovacoes:{lt:4}//lt=less than
         },
       include: {
         utilizador: {
