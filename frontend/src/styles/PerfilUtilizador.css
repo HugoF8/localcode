@@ -80,3 +80,35 @@
     font-weight: 500;
   }
   
+.profile-modal-cover-container {
+  position: relative;
+  width: 100%;
+  height: 10rem;              /* altura total incluindo a área do botão */
+  overflow: hidden;
+  padding-bottom: 2.5rem;     /* reserva espaço na parte de baixo para o botão */
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  background-color: #f0f0f0;  /* para as “letterboxes” do object-fit: contain */
+}
+
+.profile-modal-cover {
+  display: block;
+  width: 95%;
+  height: calc(100% - 2.5rem); /* ocupa tudo menos o espaço do botão */
+  object-fit: contain;         /* mostra a imagem inteira */
+  object-position: center;
+  user-select: none;           /* opcional: evita que a imagem capture cliques */
+  pointer-events: none;        /* opcional: garante que o botão receba o clique */
+}
+
+.profile-modal-cover-edit-btn {
+  position: absolute;
+  bottom: 10.5rem;       /* abaixo da capa */
+  right: 1.4rem;         /* ajusta para alinhar com o botão da foto de perfil */
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}

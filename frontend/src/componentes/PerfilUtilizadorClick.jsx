@@ -78,6 +78,7 @@ const UserProfilePopup = ({
               className="profile-modal-cover"
             />
           )}
+          <button className="edit-cover-button" title="Mudar capa">🖉</button>
         </div>
 
         <div className="profile-modal-avatar-wrapper">
