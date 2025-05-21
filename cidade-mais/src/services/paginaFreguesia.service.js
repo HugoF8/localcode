@@ -1,9 +1,23 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { createModeradorPagina} = require('./moderadorPagina.service')
+const { createSeguidor } = require('./seguidoresPagina.service')
 
 // Criar paginaFreguesia
 async function createPaginaFreguesia(data) {
-    return prisma.pagina_freguesia.create({ data });
+  let pagina_criada = await prisma.pagina_freguesia.create({ data });
+
+  await createModeradorPagina({
+    id_utilizador: pagina_criada.id_utilizador,
+    id_pagina: pagina_criada.id_pagina,
+    funcao:"moderador"
+  });
+
+  await createSeguidor ({
+    id_utilizador: pagina_criada.id_utilizador,
+    id_pagina: pagina_criada.id_pagina,
+  })
+
 }
 
 // Buscar todos os paginaFreguesia

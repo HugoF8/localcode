@@ -1,6 +1,7 @@
 const { PrismaClient, tipo_notificacao } = require('@prisma/client');
 const { createNotificacao } = require('./notificacao.service');
 const { createMorada} = require ('./morada.service')
+const { createPaginaFreguesia} = require('./paginaFreguesia.service')
 const prisma = new PrismaClient();
 
 
@@ -128,13 +129,12 @@ async function atualizarEstadoPedido(id_pedido, bol) {
 
     
         if (novoEstado === "aprovado") {
+          console.log("Criando página com nome:", pedidoAtual.nomefreguesia);
             // Criar a página freguesia com dados do pedido
-            await prisma.pagina_freguesia.create({
-              data: {
-                id_utilizador: pedidoAtual.id_utilizador,
-                id_morada: pedidoAtual.id_morada,
-                nome_pagina: pedidoAtual.nomefreguesia
-              }
+            await createPaginaFreguesia({ 
+              id_utilizador: pedidoAtual.id_utilizador,
+              id_morada: pedidoAtual.id_morada,
+              nome_pagina: pedidoAtual.nomefreguesia
             });
         }
 
