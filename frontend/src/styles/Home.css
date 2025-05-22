@@ -5,16 +5,35 @@
   box-sizing: border-box;
 }
 
+/*
 body {
-  font-family: sans-serif;
+  
+  background-image: url('../assets/background.svg'); 
+  background-repeat: no-repeat;
+  background-size: auto; 
+  background-position: 80px 100px; 
+  
+  font-family: 'Segoe UI', sans-serif;
   background-color: #f4f4f4;
   color: #000;
-  background-image: url('../assets/background.jpg');
   background-size: cover;
   background-repeat: repeat-y;
   background-position: center center;
   background-attachment: fixed;
 }
+*/
+
+body {
+background-color: #e5e5f7;
+
+background-size: 50px 50px;
+background-image:  repeating-linear-gradient(0deg, #e5e5ee, #e0e0e9 2.5px, #e5e5f7 2.5px, #efeff7);
+
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
 
 /* Container geral */
 .container {

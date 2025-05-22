@@ -20,6 +20,10 @@ async function createPost(data) {
 
 async function atualizarEstadoPost(bolean,id_post) {
 
+    let postAtual = await prisma.post.findUnique({
+      where: {id_post}
+    })
+    
     let estadoatualizado
 
     if(bolean === true){

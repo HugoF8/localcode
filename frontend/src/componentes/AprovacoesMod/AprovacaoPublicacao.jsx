@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
-import FotoPerfil from './FotoPerfil';
-import placeholder from '../../assets/landscape-placeholder.svg';
-import BotoesTicketePublicacoesPedidos from './BotoesTicketePublicacoes';
+import BotoesAR from '../genericos/BotoesAprovarRecusar';
 import UserProfilePopup from '../PerfilUtilizadorClick';
 
 function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
@@ -59,7 +57,7 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
           )}
   
           <div className="ticket-actions">
-            <BotoesTicketePublicacoesPedidos
+            <BotoesAR
               onAprovar={() => onAprovar(pub.id)}
               onRecusar={() => onRecusar(pub.id)}
             />

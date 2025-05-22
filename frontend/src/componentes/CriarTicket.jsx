@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/EnviarTicket.css';
 
 export default function CriarTicket() {
   const { id } = useParams(); // id da página de freguesia
@@ -47,6 +48,8 @@ export default function CriarTicket() {
     }
   };
 
+
+
   return (
     <form className="formulario" onSubmit={handleSubmit}>
       {erro && <div className="erro">{erro}</div>}
@@ -63,10 +66,16 @@ export default function CriarTicket() {
           onChange={(e) => setDescricao(e.target.value)}
         />
       </div>
-
-      <button type="submit" className="btn-enviar">
+     <div className="btnSwitchMain">
+      <button type="submit" className="btn-enviarTicket">
         Enviar
       </button>
+      <div className="switchContainer">
+        <span className="switchLabel">Criar Post Público</span>
+        <input type="checkbox" id="slide" />
+        <label htmlFor="slide" className="toggleSwitch"></label>
+      </div>
+    </div>
     </form>
   );
 }
