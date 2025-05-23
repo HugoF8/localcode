@@ -3,7 +3,7 @@ import '../../styles/AprovacoesTicketsePublicacoes.css';
 
 function BotoesTicketePublicacoesPedidos({ onAprovar, onRecusar}) {
     return (
-      <div className="ticket-actions">
+      <div className="flex_spacearound">
         <button className="btn-aprovar" onClick={onAprovar}>
           Aprovar
         </button>

@@ -34,7 +34,7 @@ function TicketNaoAprovadoUtilizador({ tickets, onToggleExpand, onInputChange, o
                 value={ticket.input || ''}
                 onChange={(e) => onInputChange(ticket.id_ticket, e.target.value)}
               />
-              <div className="ticket-actions">
+              <div className="flex_spacearound">
                 <button className="btn-aprovar" onClick={() => onAlterar(ticket.id_ticket)}>Alterar</button>
                 <button className="btn-recusar" onClick={() => onApagar(ticket.id_ticket)}>Apagar</button>
               </div>

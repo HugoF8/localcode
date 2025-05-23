@@ -3,7 +3,7 @@ import './Botoes.css'
 
 function BotoesSI({ onInsucesso, onSucesso}) {
     return (
-      <div className="ticket-actions">
+      <div className="flex_spacearound">
         <button onClick={onSucesso}>
           <span class="shadow"></span>
           <span class="edgeA"></span>

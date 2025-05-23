@@ -56,7 +56,7 @@ function AprovacaoPublicacao({ publicacoes, onAprovar, onRecusar }) {
             </div>
           )}
   
-          <div className="ticket-actions">
+          <div className="flex_spacearound">
             <BotoesAR
               onAprovar={() => onAprovar(pub.id)}
               onRecusar={() => onRecusar(pub.id)}

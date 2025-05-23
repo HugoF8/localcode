@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
+import BotaoAA from '../genericos/BotaoAlterar';
 
 export default function PublicacoesNaoAprovadasUtilizador({
   posts,
@@ -72,20 +73,10 @@ export default function PublicacoesNaoAprovadasUtilizador({
                   />
                 </label>
 
-                <div className="ticket-actions">
-                  <button
-                    className="btn-aprovar"
-                    onClick={() => onAlterar(post.id_post)}
-                  >
-                    Alterar
-                  </button>
-                  <button
-                    className="btn-recusar"
-                    onClick={() => onApagar(post.id_post)}
-                  >
-                    Apagar
-                  </button>
-                </div>
+                <BotaoAA
+                onAlterar={() => onAlterar(post.id)}
+                onApagar={() => onApagar(post.id)}
+                />
               </>
             )}
           </div>

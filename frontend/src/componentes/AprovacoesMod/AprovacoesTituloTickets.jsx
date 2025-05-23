@@ -71,7 +71,7 @@ function TicketCardList({
               )}
 
               {mostrarBotoes && (
-                <div className="ticket-actions">
+                <div className="flex_spacearound">
                   <BotoesAR
                     onAprovar={() => onAprovar(ticket.id_ticket)}
                     onRecusar={() => onRecusar(ticket.id_ticket)}

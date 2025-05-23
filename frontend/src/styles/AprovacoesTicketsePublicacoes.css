@@ -98,7 +98,7 @@
   margin-bottom: 1rem;
 }
 
-.ticket-actions {
+.flex_spacearound {
   display: flex;
   justify-content: space-around;
   gap: 1rem;
