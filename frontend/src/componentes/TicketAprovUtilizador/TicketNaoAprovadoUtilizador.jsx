@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
 import RespostaTicketUtilizador from './RespostaTicketUtilizador'; // Caminho ajusta conforme tua estrutura
+import BotaoAA from '../genericos/BotaoAlterar';
 
 function TicketNaoAprovadoUtilizador({ tickets, onToggleExpand, onInputChange, onAlterar, onApagar, expandidoId, token }) {
   return (
