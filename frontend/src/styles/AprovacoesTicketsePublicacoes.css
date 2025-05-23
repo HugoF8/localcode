@@ -105,10 +105,10 @@
 }
 
 .flex_spacearound_gaptopo {
-  margin-top: 1rem;
   display: flex;
   justify-content: space-around;
   gap: 1rem;
+  flex-direction: column;
 }
 
 .btn-aprovar {
