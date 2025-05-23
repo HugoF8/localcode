@@ -104,6 +104,13 @@
   gap: 1rem;
 }
 
+.flex_spacearound_gaptopo {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
 .btn-aprovar {
   padding: 0.5rem 1rem;
   border: 2px solid #22c55e;

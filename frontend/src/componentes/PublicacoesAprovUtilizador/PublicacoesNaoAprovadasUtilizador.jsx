@@ -63,7 +63,7 @@ export default function PublicacoesNaoAprovadasUtilizador({
                   value={post.input || ''}
                   onChange={(e) => onInputChange(post.id_post, e.target.value)}
                 />
-
+                <div class="flex_spacearound_gaptopo">
                 <label className="ticket-file-label">
                   Substituir mídia:
                   <input
@@ -72,11 +72,11 @@ export default function PublicacoesNaoAprovadasUtilizador({
                     onChange={(e) => onFileChange(post.id_post, e.target.files[0])}
                   />
                 </label>
-
                 <BotaoAA
                 onAlterar={() => onAlterar(post.id)}
                 onApagar={() => onApagar(post.id)}
                 />
+                </div>
               </>
             )}
           </div>
