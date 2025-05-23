@@ -5,6 +5,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/CriarPost.css';
 import userPlaceholder from '../assets/landscape-placeholder.svg';
+import BotaoE from './genericos/BotaoEnviar'
+
 
 function CriarPost() {
   // Pega o parâmetro da rota: /Pagina/:id
@@ -94,9 +96,7 @@ function CriarPost() {
             🖼 Adicionar Imagem
             <input type="file" hidden accept="image/*" onChange={handleImagemChange} />
           </label>
-          <button type="submit" className="btn-publicar">
-            Publicar
-          </button>
+          <BotaoE/>
         </div>
       </form>
     </div>
