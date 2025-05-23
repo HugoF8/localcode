@@ -37,8 +37,8 @@ function TicketNaoAprovadoUtilizador({ tickets, onToggleExpand, onInputChange, o
               />
               <div className="flex_spacearound_gaptopo">
                 <BotaoAA
-                onAlterar={() => onAlterar(post.id)}
-                onApagar={() => onApagar(post.id)}
+                onAlterar={() => onAlterar(ticket.id_ticket)}
+                onApagar={() => onApagar(ticket.id_ticket)}
                 />
               </div>
 
