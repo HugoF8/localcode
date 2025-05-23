@@ -1,5 +1,7 @@
 import React from 'react';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
+import BotoesAR from '../genericos/BotoesAprovarRecusar';
+import BotoesSI from '../genericos/BotoesSucessoInsucesso';
 
 function TicketCardList({
   tickets,
@@ -70,16 +72,18 @@ function TicketCardList({
 
               {mostrarBotoes && (
                 <div className="ticket-actions">
-                  <button className="btn-aprovar" onClick={() => onAprovar(ticket.id_ticket)}>Aprovar</button>
-                  <button className="btn-recusar" onClick={() => onRecusar(ticket.id_ticket)}>Recusar</button>
+                  <BotoesAR
+                    onAprovar={() => onAprovar(ticket.id_ticket)}
+                    onRecusar={() => onRecusar(ticket.id_ticket)}
+                  />
                 </div>
               )}
 
               {mostrarBotoesSucesso && (
-                <div className="veracidade-botoes">
-                  <button className="btn-veredito" onClick={() => onSucesso(ticket.id_ticket)}>Sucesso</button>
-                  <button className="btn-falso" onClick={() => onInsucesso(ticket.id_ticket)}>Insucesso</button>
-                </div>
+                <BotoesSI
+                    onSucesso={() => onSucesso(ticket.id_ticket)}
+                    onInsucesso={() => onInsucesso(ticket.id_ticket)}
+                />
               )}
             </>
           )}
