@@ -98,19 +98,3 @@
   .btn-registar:hover {
     background-color: #7a7a7a;
   }
-  
-  /* Parte direita - imagem */
-  .login-right {
-    flex: 1;
-    background-color: #eaeaea;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .login-right img {
-    max-width: 80%;
-    max-height: 80%;
-    object-fit: contain;
-  }
-  
