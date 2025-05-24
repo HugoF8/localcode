@@ -27,7 +27,7 @@ body {
   min-height: 100vh;
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: #E0EAF4;
+  background: #f9faf9;
 }
 
 
@@ -44,7 +44,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background: #1C4D86;
+  background: #0091a8;
   height: 80px;
   position: fixed;
   top: 0;
@@ -165,8 +165,8 @@ margin-left: 211px;
 /* Barra lateral fixa */
 .barra-lateral {
   width: 100px;
-  background: #EDF1F6;
-  border-right: 1px solid #c0d1e4;
+  background: #f9faf9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding-top: 20px;
   position: fixed;
   top: 80px;
@@ -389,7 +389,7 @@ margin-left: 211px;
 
 .botao-editar {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #04aacc;
   color: white;
   border: none;
   border-radius: 8px;
@@ -399,13 +399,13 @@ margin-left: 211px;
 }
 
 .botao-editar:hover {
-  background-color: #0056b3;
+  background-color: #00bbe2;
 }
 
 .botao-seguir {
   padding: 10px 20px;
   margin-right: 20px;
-  background-color: #3871AF;
+  background-color: #04aacc;
   color: white;
   border: none;
   border-radius: 8px;
@@ -415,7 +415,7 @@ margin-left: 211px;
 }
 
 .botao-seguir:hover:not(:disabled) {
-  background-color: #3871AF;
+  background-color: #00bbe2;
 }
 
 .icon-check,
@@ -427,7 +427,7 @@ margin-left: 211px;
 .botao-ticket {
   padding: 10px 20px;
   margin-right: 20px;
-  background-color: #3871AF;
+  background-color: #04aacc;
   color: white;
   border: none;
   border-radius: 8px;
@@ -435,6 +435,11 @@ margin-left: 211px;
   font-weight: bold;
   transition: background-color 0.2s ease;
 }
+
+.botao-seguir:hover:not(:disabled) {
+  background-color: #00bbe2;
+}
+
 
 .container-botoes {
   display: flex;
