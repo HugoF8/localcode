@@ -73,8 +73,8 @@ export default function PublicacoesNaoAprovadasUtilizador({
                   />
                 </label>
                 <BotaoAA
-                onAlterar={() => onAlterar(post.id)}
-                onApagar={() => onApagar(post.id)}
+                onAlterar={() => onAlterar(post.id_post)}
+                onApagar={() => onApagar(post.id_post)}
                 />
                 </div>
               </>
