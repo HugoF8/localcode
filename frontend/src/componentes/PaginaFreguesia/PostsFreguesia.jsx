@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import '../../styles/AprovacoesTicketsePublicacoes.css';
-import '../../styles/Home.css';
+import GenericCard from '../genericos/Publicacao';
 import UserProfilePopup from '../PerfilUtilizadorClick';
 import placeholder from '../../assets/landscape-placeholder.svg';
+import '../../styles/AprovacoesTicketsePublicacoes.css';
+import '../../styles/Home.css';
 
 export default function PostsFreguesia() {
   const { id } = useParams();
@@ -96,73 +97,92 @@ export default function PostsFreguesia() {
   if (error) return <p className="error">{error}</p>;
   if (!posts.length) return <p>Sem posts disponíveis para esta página.</p>;
 
-
   const buildImageUrl = (path) => {
     if (!path) return null;
     return path.startsWith('http') ? path : `http://localhost:3000/${path}`;
   };
 
-
   return (
-    <div className="posts-container">
-      {posts.length === 0 ? (
-        <p>Não há publicações para mostrar.</p>
-      ) : (
-        posts.map((post) => (
-          <div key={post.id_post} className="post">
-            {/* 1. Info da freguesia */}
-            <div className="info-freguesia-post">
-              {post.pagina_freguesia?.foto_perfil && (
-                <img
-                  src={buildImageUrl(post.pagina_freguesia.foto_perfil)}
-                  alt={post.pagina_freguesia.nome_pagina}
-                  className="freguesia-img"
-                />
-              )}
-              <p className="freguesia-nome">{post.pagina_freguesia?.nome_pagina}</p>
-            </div>
-
-            {/* 2. Info do utilizador */}
-            <div
-              className="info-post"
-              onClick={() => setSelectedUserId(post.id_utilizador)}
-              style={{ cursor: 'pointer' }}
-            >
+    <div style={{ 
+      display: 'grid', 
+      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+      gap: '2rem', 
+      padding: '2rem' 
+    }}>
+      {posts.map((post) => (
+        <GenericCard
+          key={post.id_post}
+          className="card--wide card--primary"
+          hoverable={false}
+        >
+          {/* Info da freguesia */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+            {post.pagina_freguesia?.foto_perfil && (
               <img
-                src={
-                  post.utilizador?.perfil?.[0]?.foto_perfil
-                    ? buildImageUrl(post.utilizador.perfil[0].foto_perfil)
-                    : placeholder
-                }
-                alt={post.utilizador?.nome || 'Utilizador'}
-                className="foto-perfil-utilizador"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = placeholder;
-                }}
+                src={buildImageUrl(post.pagina_freguesia.foto_perfil)}
+                alt={post.pagina_freguesia.nome_pagina}
+                style={{ width: '30px', height: '30px', borderRadius: '50%' }}
               />
-              <div className="nomeData-container">
-                <p className="utilizador-nome">{post.utilizador?.nome || 'Desconhecido'}</p>
-                <p className="ticket-date">{new Date(post.data_post).toLocaleDateString()}</p>
-              </div>
-            </div>
+            )}
+            <p style={{ fontSize: '0.9rem', fontWeight: 'bold', margin: 0 }}>
+              {post.pagina_freguesia?.nome_pagina}
+            </p>
+          </div>
 
-            {/* 3. Conteúdo do post */}
-            <div className="conteudo-post">
-              <p>{post.descricao_post}</p>
-              {post.media_post && (
-                <div className="img-container">
-                  <img
-                    src={buildImageUrl(post.media_post)}
-                    alt="Mídia do post"
-                    className="media-post"
-                  />
-                </div>
-              )}
+          {/* Info do utilizador */}
+          <div
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '0.5rem', 
+              marginBottom: '1rem',
+              cursor: 'pointer'
+            }}
+            onClick={() => setSelectedUserId(post.id_utilizador)}
+          >
+            <img
+              src={
+                post.utilizador?.perfil?.[0]?.foto_perfil
+                  ? buildImageUrl(post.utilizador.perfil[0].foto_perfil)
+                  : placeholder
+              }
+              alt={post.utilizador?.nome || 'Utilizador'}
+              style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = placeholder;
+              }}
+            />
+            <div>
+              <p style={{ fontSize: '0.9rem', fontWeight: 'bold', margin: 0 }}>
+                {post.utilizador?.nome || 'Desconhecido'}
+              </p>
+              <p style={{ fontSize: '0.8rem', color: '#666', margin: 0 }}>
+                {new Date(post.data_post).toLocaleDateString()}
+              </p>
             </div>
           </div>
-        ))
-      )}
+
+          {/* Conteúdo do post */}
+          <div>
+            <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>
+              {post.descricao_post}
+            </p>
+            {post.media_post && (
+              <img
+                src={buildImageUrl(post.media_post)}
+                alt="Mídia do post"
+                style={{ 
+                  width: '100%', 
+                  maxHeight: '150px', 
+                  objectFit: 'cover', 
+                  borderRadius: '8px' 
+                }}
+              />
+            )}
+          </div>
+        </GenericCard>
+      ))}
 
       {selectedUserId && pageOwner !== null && (
         <UserProfilePopup

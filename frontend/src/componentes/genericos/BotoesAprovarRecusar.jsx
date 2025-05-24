@@ -3,13 +3,13 @@ import './Botoes.css'
 
 function BotoesAR({ onAprovar, onRecusar}) {
     return (
-      <div className="flex_spacearound">
+      <div className="ticket-actions">
         <button onClick={onAprovar}>
           <span class="shadow"></span>
           <span class="edgeA"></span>
           <span class="frontA text"> Aprovar
           </span>
-        </button>
+        </button> 
         <button onClick={onRecusar}>
           <span class="shadow"></span>
           <span class="edgeR"></span>

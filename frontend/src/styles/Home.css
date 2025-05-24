@@ -24,14 +24,10 @@ body {
 */
 
 body {
-background-color: #e5e5f7;
-
-background-size: 50px 50px;
-background-image:  repeating-linear-gradient(0deg, #e5e5ee, #e0e0e9 2.5px, #e5e5f7 2.5px, #efeff7);
-
   min-height: 100vh;
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
+  background: rgb(200, 235, 255);
 }
 
 
@@ -48,8 +44,8 @@ background-image:  repeating-linear-gradient(0deg, #e5e5ee, #e0e0e9 2.5px, #e5e5
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background-color: white;
-  border-bottom: 1px solid #ccc;
+  background: linear-gradient(to left, rgb(205, 235, 255), rgb(165, 195, 235));
+  border-bottom: 3px solid rgb(150, 180, 220);
   height: 80px;
   position: fixed;
   top: 0;
@@ -174,8 +170,8 @@ margin-left: 211px;
 /* Barra lateral fixa */
 .barra-lateral {
   width: 160px;
-  background-color: white;
-  border-right: 1px solid #ccc;
+  background: linear-gradient(to top, rgb(205, 235, 255), rgb(165, 195, 235));
+  border-right: 3px solid rgb(150, 180, 220);
   padding-top: 20px;
   position: fixed;
   top: 80px;
@@ -197,7 +193,7 @@ margin-left: 211px;
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  background-color: #ddd;
+  background-color: rgb(181, 208, 228);
 }
 
 /* Menu de configurações */

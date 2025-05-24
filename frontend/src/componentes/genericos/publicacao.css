@@ -1,0 +1,280 @@
+.publicacao-generica {
+  background: #ffffff;
+  border: 1px solid #e1e5e9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.publicacao-generica:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #008bf8;
+}
+
+.publicacao-generica--compact {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Header da publicação */
+.publicacao-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Informações da página/freguesia */
+.publicacao-pagina-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.publicacao-pagina-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.publicacao-pagina-nome {
+  font-weight: 600;
+  color: #008bf8;
+}
+
+/* Ajuste no header para alinhar user info e ID */
+.publicacao-user-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Informações do utilizador */
+.publicacao-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: opacity 0.2s ease;
+  flex: 1;
+}
+
+.publicacao-user-info:hover {
+  opacity: 0.8;
+}
+
+.publicacao-user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e9ecef;
+}
+
+.publicacao-user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.publicacao-user-nome {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #212529;
+  line-height: 1.2;
+}
+
+.publicacao-data {
+  font-size: 0.875rem;
+  color: #6c757d;
+  line-height: 1.2;
+}
+
+.publicacao-id {
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+/* Conteúdo da publicação */
+.publicacao-content {
+  margin-bottom: 1rem;
+}
+
+.publicacao-descricao {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #212529;
+  margin: 0 0 1rem 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.publicacao-media-container {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.publicacao-media {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+/* Ações da publicação */
+.publicacao-actions {
+  border-top: 1px solid #e9ecef;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Versão compacta */
+.publicacao-generica--compact .publicacao-header {
+  margin-bottom: 0.75rem;
+}
+
+.publicacao-generica--compact .publicacao-user-avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.publicacao-generica--compact .publicacao-user-nome {
+  font-size: 0.875rem;
+}
+
+.publicacao-generica--compact .publicacao-data {
+  font-size: 0.75rem;
+}
+
+.publicacao-generica--compact .publicacao-descricao {
+  font-size: 0.875rem;
+}
+
+.publicacao-generica--compact .publicacao-content {
+  margin-bottom: 0.75rem;
+}
+
+.publicacao-generica--compact .publicacao-actions {
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .publicacao-generica {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .publicacao-user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .publicacao-user-nome {
+    font-size: 0.875rem;
+  }
+
+  .publicacao-data {
+    font-size: 0.75rem;
+  }
+
+  .publicacao-descricao {
+    font-size: 0.875rem;
+  }
+
+  .publicacao-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .publicacao-generica {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .publicacao-header {
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .publicacao-user-info {
+    gap: 0.5rem;
+  }
+
+  .publicacao-user-avatar {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Estados especiais */
+.publicacao-generica.pendente {
+  border-color: #290050;
+  background: #f7f3e8;
+}
+
+.publicacao-generica.aprovada {
+  border-color: #accf2be8;
+  background: #f8fff9;
+}
+
+.publicacao-generica.recusada {
+  border-color: #d63646;
+  background: #fff5f5;
+}
+
+/* Layout em grid para múltiplas publicações */
+.publicacoes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.publicacoes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.publicacao-generica {
+  animation: fadeIn 0.3s ease-out;
+}
