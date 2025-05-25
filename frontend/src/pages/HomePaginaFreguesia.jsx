@@ -19,10 +19,8 @@ export default function HomeFreguesia() {
         <div className="zona-publicacoes">
           {/* informações freguesia */}
           <InfosFreguesia />
-
           <CriarPost />
-
-          <PostsFreguesia />
+          <PostsFreguesia/>
         </div>
       </div>
     </div>

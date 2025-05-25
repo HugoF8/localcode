@@ -34,9 +34,12 @@ const PublicacaoGenerica = ({
   }
 
   const handleUserClick = (e) => {
-    e.stopPropagation() // Evita conflito com onClick da publicação
-    if (onUserClick && utilizador?.id_utilizador) {
-      onUserClick(utilizador.id_utilizador)
+    e.stopPropagation()
+
+    const userId = utilizador?.id_utilizador
+
+    if (onUserClick && userId) {
+      onUserClick(userId)
     }
   }
 

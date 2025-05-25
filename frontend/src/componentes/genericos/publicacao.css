@@ -7,7 +7,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
   width: 100%;
-  max-width: 100%;
+  max-width: 900px;
   box-sizing: border-box;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .publicacao-user-info:hover {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .publicacao-user-avatar {
@@ -232,17 +232,17 @@
 
 /* Estados especiais */
 .publicacao-generica.pendente {
-  border-color: #290050;
-  background: #f7f3e8;
+  border-color: #ffc107;
+  background: #fffbf0;
 }
 
 .publicacao-generica.aprovada {
-  border-color: #accf2be8;
+  border-color: #28a745;
   background: #f8fff9;
 }
 
 .publicacao-generica.recusada {
-  border-color: #d63646;
+  border-color: #dc3545;
   background: #fff5f5;
 }
 
@@ -252,6 +252,7 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   padding: 1rem;
+  justify-items: center;
 }
 
 .publicacoes-list {
@@ -261,6 +262,22 @@
   padding: 1rem;
   max-width: 800px;
   margin: 0 auto;
+  align-items: center;
+}
+
+/* Grid específico para páginas de freguesia - LARGURA AUMENTADA */
+.publicacoes-grid-freguesia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* Aumentado de 300px para 450px */
+  gap: 2rem; /* Aumentado de 1.5rem para 2rem */
+  padding: 1.5rem; /* Aumentado de 1rem para 1.5rem */
+  justify-items: center;
+}
+
+/* Estilos específicos para cards da freguesia */
+.publicacao-generica.card--freguesia {
+  max-width: 900px; /* Aumentado de 400px para 500px */
+  min-height: 80px; /* Aumentado de 250px para 280px */
 }
 
 /* Animações */
@@ -277,4 +294,56 @@
 
 .publicacao-generica {
   animation: fadeIn 0.3s ease-out;
+}
+
+/* Estilos específicos para o card--primary */
+.publicacao-generica.card--primary {
+  border-color: #008bf8;
+  background: linear-gradient(135deg, #f5f9ff 0%, #e8f4ff 100%);
+}
+
+.publicacao-generica.card--primary:hover {
+  border-color: #0056b3;
+  box-shadow: 0 6px 20px rgba(0, 139, 248, 0.15);
+  transform: scale(1.0025, 1.0025);
+}
+
+/* Ajustes para versão compacta no grid */
+.publicacoes-grid .publicacao-generica--compact {
+  display: flex;
+  flex-direction: column;
+}
+
+.publicacoes-grid .publicacao-generica--compact .publicacao-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.publicacoes-grid .publicacao-generica--compact .publicacao-media {
+
+  object-fit: cover;
+}
+
+
+/* Responsividade para freguesia */
+@media (max-width: 900px) {
+  .publicacoes-grid-freguesia {
+    grid-template-columns: 1fr; /* Uma coluna em mobile */
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .publicacao-generica.card--freguesia {
+    max-width: 100%;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 500px) {
+  .publicacoes-grid-freguesia {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
 }

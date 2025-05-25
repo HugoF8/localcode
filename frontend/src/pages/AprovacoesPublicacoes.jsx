@@ -78,6 +78,7 @@ function AprovacoesPublicacoes() {
             publicacoes={publicacoes}
             onAprovar={(id) => atualizarPublicacao(id, true)}
             onRecusar={(id) => atualizarPublicacao(id, false)}
+            token={token}
           />
         </div>
       </div>

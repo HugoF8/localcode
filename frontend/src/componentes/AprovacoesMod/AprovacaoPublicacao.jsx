@@ -1,16 +1,26 @@
 "use client"
-
 import { useState } from "react"
 import PublicacaoGenerica from "../genericos/Publicacao"
 import BotoesAR from "../genericos/BotoesAprovarRecusar"
 import UserProfilePopup from "../PerfilUtilizadorClick"
 
-function AprovacaoPublicacaoNova({ publicacoes, onAprovar, onRecusar }) {
+function AprovacaoPublicacaoNova({ 
+  publicacoes, 
+  onAprovar, 
+  onRecusar,
+  token
+}) {
   const [selectedUserId, setSelectedUserId] = useState(null)
 
   const handleUserClick = (userId) => {
-    console.log("Cliquei! userId =", userId)
-    setSelectedUserId(userId)
+    if (!userId) {
+      return;
+    }
+    setSelectedUserId(userId);
+  }
+
+  const handleClosePopup = () => {
+    setSelectedUserId(null);
   }
 
   return (
@@ -20,14 +30,17 @@ function AprovacaoPublicacaoNova({ publicacoes, onAprovar, onRecusar }) {
       </div>
 
       <div className="publicacoes-list">
-        {publicacoes.map((pub) => (
+        {publicacoes.map((pub, index) => (
           <PublicacaoGenerica
             key={pub.id}
             id={pub.id}
             descricao={pub.descricao_post || pub.descricao}
             data={pub.data_post}
             media={pub.media_post}
-            utilizador={pub.utilizador}
+            utilizador={{
+              ...pub.utilizador,
+              id_utilizador: pub.id_utilizador
+            }}
             onUserClick={handleUserClick}
             className="pendente"
             actions={<BotoesAR onAprovar={() => onAprovar(pub.id)} onRecusar={() => onRecusar(pub.id)} />}
@@ -35,7 +48,18 @@ function AprovacaoPublicacaoNova({ publicacoes, onAprovar, onRecusar }) {
         ))}
       </div>
 
-      {selectedUserId && <UserProfilePopup userId={selectedUserId} onClose={() => setSelectedUserId(null)} />}
+      {selectedUserId && (
+        <UserProfilePopup 
+          userId={selectedUserId} 
+          onClose={handleClosePopup}
+          token={token}
+          paginaAtualId={null}
+          currentUserId={null}
+          idDonoPagina={null}
+          isModeradorNaPagina={false}
+          isPageOwner={false}
+        />
+      )}
     </div>
   )
 }
