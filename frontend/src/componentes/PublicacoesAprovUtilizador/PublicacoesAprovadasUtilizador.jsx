@@ -1,59 +1,53 @@
-import React from 'react';
-import FiltrarPorData from '../FiltrarPorData';
-import '../../styles/AprovacoesTicketsePublicacoes.css';
+"use client"
+import PublicacaoGenerica from "../genericos/Publicacao"
+import FiltrarPorData from "../FiltrarPorData"
+import "../../styles/AprovacoesTicketsePublicacoes.css"
 
-export default function PublicacoesAprovadasUtilizador({
-  posts,
-  expandidoId,
-  onToggleExpand
-}) {
+export default function PublicacoesAprovadasUtilizador({ posts, expandidoId, onToggleExpand }) {
   return (
     <FiltrarPorData
       dados={posts}
       campoData="data_post"
       titulo="Publicações Aprovadas"
       renderItem={(post) => {
-        const autor = post.utilizador?.nome ?? 'Desconhecido';
-        return (
-          <div
-            key={post.id_post}
-            className={`ticket-card ${expandidoId === post.id_post ? 'expanded' : ''}`}
-          >
-            <div className="ticket-header">
-              <div>
-                <p className="ticket-user">{autor}</p>
-                <p className="ticket-date">
-                  {new Date(post.data_post).toLocaleDateString('pt-PT')}
-                </p>
-              </div>
-              <div className="ticket-id">#{post.id_post}</div>
-              <button
-                className="ticket-toggle"
-                onClick={() => onToggleExpand(post.id_post)}
-              >
-                {expandidoId === post.id_post ? '˄' : '˅'}
-              </button>
-            </div>
+        const isExpanded = expandidoId === post.id_post
 
-            {expandidoId === post.id_post && (
-              <>
-                <p className="ticket-description">{post.descricao_post}</p>
-                {post.media_post && (
-                  <img
-                    src={`http://localhost:3000/${post.media_post}`}
-                    alt="Imagem do post"
-                    className="publicacao-img"
-                    onError={e => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = 'http://localhost:3000/uploads/default.jpg';
-                    }}
-                  />
-                )}
-              </>
-            )}
+        // Botão de toggle para expandir/colapsar
+        const ToggleButton = () => (
+          <button
+            className="ticket-toggle"
+            onClick={(e) => {
+              e.stopPropagation()
+              onToggleExpand(post.id_post)
+            }}
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: "1.2rem",
+              cursor: "pointer",
+              padding: "0.5rem",
+              color: "#6c757d",
+            }}
+          >
+            {isExpanded ? "˄" : "˅"}
+          </button>
+        )
+
+        return (
+          <div key={post.id_post} className="publicacao-container-expansivel">
+            <PublicacaoGenerica
+              id={post.id_post}
+              descricao={isExpanded ? post.descricao_post : null}
+              data={post.data_post}
+              media={isExpanded ? post.media_post : null}
+              utilizador={post.utilizador}
+              className="aprovada publicacao-expansivel"
+              compact={!isExpanded}
+              actions={<ToggleButton />}
+            />
           </div>
-        );
+        )
       }}
     />
-  );
+  )
 }

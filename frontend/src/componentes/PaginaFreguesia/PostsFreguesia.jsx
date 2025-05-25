@@ -100,8 +100,7 @@ export default function PostsFreguesia() {
 
   return (
     <>
-      {/* Container em grid para as publicações */}
-      <div className="publicacoes-grid-freguesia">
+      <div className="publicacoes-list-home">
         {posts.map((post) => {
           const userId = post.id_utilizador || post.utilizador?.id_utilizador
 
@@ -117,9 +116,8 @@ export default function PostsFreguesia() {
               }}
               pagina={post.pagina_freguesia}
               showPagina={true}
-              compact={true}
               onUserClick={handleUserClick}
-              className="card--primary card--freguesia"
+              className="card--home"
             />
           )
         })}

@@ -14,8 +14,10 @@
 
 .botao-navegacao {
   padding: 30px;
-  background-color: #d1d5db;
-  color: black;
+  background-color:#0894ac;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: large;
   border: none;
   width: 100%;
   cursor: pointer;

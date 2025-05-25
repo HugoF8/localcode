@@ -13,7 +13,7 @@
   
   .pedido-list-wrapper {
     flex: 1;
-    background-color: #f3f4f6;
+    background-color: #f9faf9;
     padding: 2rem 1.5rem;
     min-height: 100vh;
     max-width: 800px; /* Limita a largura máxima */

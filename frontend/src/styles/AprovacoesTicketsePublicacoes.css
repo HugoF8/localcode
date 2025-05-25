@@ -15,7 +15,6 @@
 
 .ticket-list-wrapper {
   flex: 1;
-  background-color: #f3f4f6;
   padding: 2rem 1.5rem;
   min-height: 100vh;
 }
@@ -170,8 +169,16 @@
 .conteudo {
   flex: 1;
   padding: 2rem;
-  max-width: 800px;
+  max-width: 1300px;
   margin: 0 auto;
+}
+
+.conteudoDuplo {
+  display: flex;
+  padding: 2rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 .aprovacoes-container {
