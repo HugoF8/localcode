@@ -17,7 +17,11 @@ function TicketAprovadoUtilizador({ tickets, expandidoId, onToggleExpand }) {
             <div>
               <p className="ticket-user">{ticket.utilizador?.nome || 'Utilizador'}</p>
               <p className="ticket-date">
-                {new Date(ticket.data_ticket).toLocaleDateString('pt-PT')}
+                {ticket.data_ticket
+                  ? new Date(ticket.data_ticket).toLocaleDateString('pt-PT')
+                  : ticket.data_criacao
+                    ? new Date(ticket.data_criacao).toLocaleDateString('pt-PT')
+                    : 'Data indisponível'}
               </p>
             </div>
             <div className="ticket-id">#{ticket.id_ticket}</div>

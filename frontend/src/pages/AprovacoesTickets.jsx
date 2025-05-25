@@ -1,86 +1,70 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import TicketCardList from '../componentes/AprovacoesMod/AprovacoesTituloTickets';
 import BarraPublicacoesEticketsMod from '../componentes/BarraPublicacoesEticketsMod';
 import BarraSuperior from '../componentes/Barra Lateral e Superior/BarraSuperior';
 import BarraLateral from '../componentes/Barra Lateral e Superior/BarraLateral';
+import TicketsAbertos from '../componentes/AprovacoesMod/RespostaTicketsAbertos';
+import UserProfilePopup from '../componentes/PerfilUtilizadorClick';
 import '../styles/AprovacoesTicketsePublicacoes.css';
-import TicketsAbertos from '../componentes/AprovacoesMod/RespostaTicketsAbertos'
 
 function AprovacoesTickets() {
   const [tickets, setTickets] = useState([]);
   const [expandidoId, setExpandidoId] = useState(null);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const paginasModeradas = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
-    if (!token || paginasModeradas.length === 0) return;
-
-    const buscarTickets = async () => {
-      const todosTickets = [];
-
-      for (const pagina of paginasModeradas) {
-        const idPagina = pagina.id_pagina;
-
+    const paginas = JSON.parse(sessionStorage.getItem('paginasModeradas') || '[]');
+    if (!token || paginas.length === 0) return;
+    (async () => {
+      const all = [];
+      for (const pg of paginas) {
         try {
-          const res = await fetch(`http://localhost:3000/api/tickets/verTicketsPendentes/${idPagina}`, {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          if (!res.ok) throw new Error('Erro ao buscar tickets');
+          const res = await fetch(
+            `http://localhost:3000/api/tickets/verTicketsPendentes/${pg.id_pagina}`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          if (!res.ok) continue;
           const data = await res.json();
-          if (Array.isArray(data)) todosTickets.push(...data);
-        } catch (error) {
-          console.error(`Erro ao buscar tickets da página ${idPagina}:`, error);
+          if (Array.isArray(data)) all.push(...data);
+        } catch (err) {
+          console.error(err);
         }
       }
-
-      setTickets(todosTickets);
-    };
-
-    buscarTickets();
+      setTickets(all);
+    })();
   }, [token]);
 
-  const onToggleExpand = (id) => {
-    setExpandidoId((prevId) => (prevId === id ? null : id));
+  const handleUserClick = userId => {
+    if (userId) setSelectedUserId(userId);
   };
+  const handleClosePopup = () => setSelectedUserId(null);
 
-  const onInputChange = (id, valor) => {
-    setTickets((prevTickets) =>
-      prevTickets.map((ticket) =>
-        ticket.id_ticket === id ? { ...ticket, input: valor } : ticket
-      )
-    );
-  };
-
-  const onAprovar = (id) => {
+  const onToggleExpand = id =>
+    setExpandidoId(prev => (prev === id ? null : id));
+  const onInputChange = (id, val) =>
+    setTickets(prev => prev.map(t => t.id_ticket === id ? { ...t, input: val } : t));
+  const onAprovar = id =>
     fetch(`http://localhost:3000/api/tickets/atualizarEstadoTicket/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({ bol: true }),
+      body: JSON.stringify({ bol: true })
     }).then(() => {
-      setTickets((prev) => prev.filter((t) => t.id_ticket !== id));
-       window.dispatchEvent(new Event('ticketAtualizado'));
+      setTickets(prev => prev.filter(t => t.id_ticket !== id));
+      window.dispatchEvent(new Event('ticketAtualizado'));
     });
-  };
-
-  const onRecusar = (id) => {
+  const onRecusar = id =>
     fetch(`http://localhost:3000/api/tickets/atualizarEstadoTicket/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({ bol: false }),
-    }).then(() => {
-      setTickets((prev) => prev.filter((t) => t.id_ticket !== id));
-    });
-  };
+      body: JSON.stringify({ bol: false })
+    }).then(() => setTickets(prev => prev.filter(t => t.id_ticket !== id)));
 
   return (
     <div className="container">
@@ -89,19 +73,40 @@ function AprovacoesTickets() {
         <BarraLateral />
         <div className="conteudo">
           <BarraPublicacoesEticketsMod />
-          <TicketCardList
-            tickets={tickets}
-            expandidoId={expandidoId}
-            onToggleExpand={onToggleExpand}
-            onInputChange={onInputChange}
-            onAprovar={onAprovar}
-            onRecusar={onRecusar}
-            mostrarInput={false}
-            mostrarBotoes={true}
-            mostrarBotoesSucesso={false}
-            titulo="Aprovação de Tickets"
-          />
-             <TicketsAbertos />
+
+          <div className="tickets-sections">
+            <div className="ticket-section">
+              <TicketCardList
+                tickets={tickets}
+                expandidoId={expandidoId}
+                onToggleExpand={onToggleExpand}
+                onInputChange={onInputChange}
+                onAprovar={onAprovar}
+                onRecusar={onRecusar}
+                onUserClick={handleUserClick}
+                mostrarInput={false}
+                mostrarBotoes
+                mostrarBotoesSucesso={false}
+                titulo="Respostas a Tickets"
+              />
+            </div>
+            <div className="ticket-section">
+              <TicketsAbertos onUserClick={handleUserClick} />
+            </div>
+          </div>
+
+          {selectedUserId && (
+            <UserProfilePopup
+              userId={selectedUserId}
+              onClose={handleClosePopup}
+              token={token}
+              paginaAtualId={null}
+              currentUserId={Number(localStorage.getItem('id_utilizador'))}
+              idDonoPagina={null}
+              isModeradorNaPagina={false}
+              isPageOwner={false}
+            />
+          )}
         </div>
       </div>
     </div>

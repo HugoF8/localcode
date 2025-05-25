@@ -32,3 +32,72 @@
   padding: 30px;
   overflow-y: auto;
 }
+
+.tickets-sections {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  align-items: flex-start;
+}
+
+.ticket-section {
+  flex: 1;
+}
+
+@media (max-width: 1024px) {
+  .tickets-sections {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.ticket-title {
+  text-align: center;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.respostas-wrapper {
+  margin-top: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid #dce0e5;
+}
+
+.respostas-titulo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #212529;
+  margin-bottom: 1rem;
+}
+
+.resposta-card {
+  background-color: #ffffff;
+  border-left: 5px solid #008bf8;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.resposta-card.resolvido {
+  border-left-color: #28a745;
+}
+
+.resposta-card.nao_resolvido {
+  border-left-color: #dc3545;
+}
+
+.resposta-card p {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.resposta-loading,
+.resposta-vazia {
+  font-style: italic;
+  color: #6c757d;
+  margin-top: 1rem;
+}

@@ -12,7 +12,6 @@ import '../styles/PublicacoesEtickets.css';
 function TicketsUtilizador() {
   const [tickets, setTickets] = useState({ abertos: [], fechados: [] });
   const [expandidoId, setExpandidoId] = useState(null);
-
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -24,7 +23,6 @@ function TicketsUtilizador() {
             Authorization: `Bearer ${token}`,
           },
         };
-
         const resAbertos = await fetch('http://localhost:3000/api/tickets/verTicketAberto', config);
         const resFechados = await fetch('http://localhost:3000/api/tickets/verTicketFechado', config);
 
@@ -33,15 +31,9 @@ function TicketsUtilizador() {
         const dataAbertos = await resAbertos.json();
         const dataFechados = await resFechados.json();
 
-        const fechadosComInput = dataFechados.map(t => ({
-          ...t,
-          input: '',
-        }));
+        const fechadosComInput = dataFechados.map(t => ({ ...t, input: '' }));
 
-        setTickets({
-          abertos: dataAbertos,
-          fechados: fechadosComInput,
-        });
+        setTickets({ abertos: dataAbertos, fechados: fechadosComInput });
       } catch (error) {
         console.error('Erro ao buscar tickets:', error);
       }
@@ -50,15 +42,13 @@ function TicketsUtilizador() {
     fetchTickets();
   }, []);
 
-  const onToggleExpand = (id) => {
-    setExpandidoId((prevId) => (prevId === id ? null : id));
-  };
+  const onToggleExpand = (id) => setExpandidoId(prevId => (prevId === id ? null : id));
 
   const onInputChange = (id, valor) => {
-    setTickets((prev) => ({
+    setTickets(prev => ({
       ...prev,
-      fechados: prev.fechados.map((ticket) =>
-        ticket.id_ticket === id ? { ...ticket, input: valor } : ticket
+      fechados: prev.fechados.map(t =>
+        t.id_ticket === id ? { ...t, input: valor } : t
       ),
     }));
   };
@@ -66,7 +56,7 @@ function TicketsUtilizador() {
   const onAlterar = async (id) => {
     const ticket = tickets.fechados.find(t => t.id_ticket === id);
     if (!ticket) return;
-  
+
     try {
       await fetch(`http://localhost:3000/api/tickets/alterarTicket/${id}`, {
         method: 'PATCH',
@@ -74,25 +64,20 @@ function TicketsUtilizador() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          descricao_problema: ticket.input,
-        }),
+        body: JSON.stringify({ descricao_problema: ticket.input }),
       });
-  
-      // Após alteração, removemos o ticket da lista de fechados
+
       setTickets(prev => ({
         ...prev,
         fechados: prev.fechados.filter(t => t.id_ticket !== id),
       }));
-  
+
       toast.success('Descrição do ticket alterada com sucesso!');
     } catch (error) {
       console.error('Erro ao alterar ticket:', error);
       toast.error('Erro ao alterar o ticket.');
     }
   };
-  
-  
 
   const onApagar = async (id) => {
     if (!window.confirm('Tens a certeza que queres apagar este ticket?')) return;
@@ -100,14 +85,12 @@ function TicketsUtilizador() {
     try {
       await fetch(`http://localhost:3000/api/tickets/${id}`, {
         method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      setTickets((prev) => ({
+      setTickets(prev => ({
         ...prev,
-        fechados: prev.fechados.filter(ticket => ticket.id_ticket !== id),
+        fechados: prev.fechados.filter(t => t.id_ticket !== id),
       }));
 
       toast.success('Ticket apagado com sucesso!');
@@ -125,20 +108,26 @@ function TicketsUtilizador() {
         <BarraLateral />
         <div className="conteudo">
           <BarraPublicacoesEtickets />
-          <TicketNaoAprovadoUtilizador
-            tickets={tickets.fechados}
-            expandidoId={expandidoId}
-            onToggleExpand={onToggleExpand}
-            onInputChange={onInputChange}
-            onAlterar={onAlterar}
-            onApagar={onApagar}
-            token={token} // ← aqui
-          />
-          <TicketAprovadoUtilizador
-            tickets={tickets.abertos}
-            expandidoId={expandidoId}
-            onToggleExpand={onToggleExpand}
-          />
+          <div className="tickets-sections">
+            <div className="ticket-section">
+              <TicketNaoAprovadoUtilizador
+                tickets={tickets.fechados}
+                expandidoId={expandidoId}
+                onToggleExpand={onToggleExpand}
+                onInputChange={onInputChange}
+                onAlterar={onAlterar}
+                onApagar={onApagar}
+                token={token}
+              />
+            </div>
+            <div className="ticket-section">
+              <TicketAprovadoUtilizador
+                tickets={tickets.abertos}
+                expandidoId={expandidoId}
+                onToggleExpand={onToggleExpand}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
