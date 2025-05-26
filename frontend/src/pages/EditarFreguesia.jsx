@@ -14,45 +14,46 @@ function EditarFreguesia() {
   const [previewPerfil, setPreviewPerfil] = useState(null);
   const [previewCapa, setPreviewCapa] = useState(null);
 
+  // 1) Buscar dados iniciais
   useEffect(() => {
-    const fetchFreguesia = async () => {
+    async function fetchFreguesia() {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/api/paginaFreguesias/paginaFreguesia/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (!response.ok) throw new Error('Erro ao buscar freguesia');
-        const data = await response.json();
+        const res = await fetch(
+          `http://localhost:3000/api/paginaFreguesias/paginaFreguesia/${id}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        if (!res.ok) throw new Error();
+        const data = await res.json();
         setNomePagina(data.nome_pagina);
         setPreviewPerfil(data.foto_perfil ? `http://localhost:3000/${data.foto_perfil}` : null);
-        setPreviewCapa(data.foto_capa ? `http://localhost:3000/${data.foto_capa}` : null);        
+        setPreviewCapa(data.foto_capa ? `http://localhost:3000/${data.foto_capa}` : null);
       } catch (err) {
-        console.error(err);
+        console.error('Erro ao buscar:', err);
       }
-    };
-
+    }
     fetchFreguesia();
   }, [id]);
 
+  // 2) Gerar preview ao selecionar perfil
   useEffect(() => {
-    if (fotoPerfil) {
-      const url = URL.createObjectURL(fotoPerfil);
-      setPreviewPerfil(url);
-      return () => URL.revokeObjectURL(url);
-    }
+    if (!fotoPerfil) return;
+    const url = URL.createObjectURL(fotoPerfil);
+    setPreviewPerfil(url);
+    return () => URL.revokeObjectURL(url);
   }, [fotoPerfil]);
 
+  // 3) Gerar preview ao selecionar capa
   useEffect(() => {
-    if (fotoCapa) {
-      const url = URL.createObjectURL(fotoCapa);
-      setPreviewCapa(url);
-      return () => URL.revokeObjectURL(url);
-    }
+    if (!fotoCapa) return;
+    const url = URL.createObjectURL(fotoCapa);
+    setPreviewCapa(url);
+    return () => URL.revokeObjectURL(url);
   }, [fotoCapa]);
 
+  // 4) Enviar alterações
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
     formData.append('nome_pagina', nomePagina);
     if (fotoPerfil) formData.append('foto_perfil', fotoPerfil);
@@ -60,71 +61,89 @@ function EditarFreguesia() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3000/api/paginaFreguesias/editarPaginaFreguesia/${id}`, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        body: formData
-      });
-
-      if (!response.ok) throw new Error('Erro ao atualizar freguesia');
-
+      const res = await fetch(
+        `http://localhost:3000/api/paginaFreguesias/editarPaginaFreguesia/${id}`,
+        {
+          method: 'PATCH',
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData
+        }
+      );
+      if (!res.ok) throw new Error();
       navigate(`/Pagina/${id}`);
     } catch (err) {
-      console.error(err);
+      console.error('Erro ao atualizar:', err);
       toast.error('Falha ao atualizar a página.');
     }
   };
 
   return (
-    <div className="editar-freguesia-container" style={{ maxWidth: '600px', margin: 'auto', padding: '2rem' }}>
+    <div className="editar-wrapper">
       <ToastContainer position="top-right" />
-      <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Editar Página da Freguesia</h2>
+      <div className="card-editar-freguesia">
+        <h2 className="titulo-editar">Editar Página da Freguesia</h2>
 
-      <form onSubmit={handleSubmit} className="form-editar-freguesia" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-        <label>
-          Nome da Página:
-          <input
-            type="text"
-            value={nomePagina}
-            onChange={(e) => setNomePagina(e.target.value)}
-            style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid #ccc', width: '100%' }}
-          />
-        </label>
+        <form onSubmit={handleSubmit} className="form-editar">
+          {/* Nome da Página */}
+          <div className="input-group">
+            <label htmlFor="nome" className="label-text">Nome da Página</label>
+            <input
+              id="nome"
+              type="text"
+              value={nomePagina}
+              onChange={(e) => setNomePagina(e.target.value)}
+              className="input-campo"
+              placeholder="Escreva o nome..."
+            />
+          </div>
 
-        <label>
-          Foto de Perfil:
-          <input type="file" accept="image/*" onChange={(e) => setFotoPerfil(e.target.files[0])} />
-          {previewPerfil && (
-            <img src={previewPerfil} alt="Preview Perfil" style={{ width: '100px', marginTop: '0.5rem', borderRadius: '8px' }} />
-          )}
-        </label>
+          {/* Upload Perfil */}
+          <div className="upload-group">
+            <span className="label-text">Foto de Perfil</span>
+            <div className="upload-control">
+              <label htmlFor="perfil" className="btn-upload">Escolher Foto de Perfil</label>
+              <input
+                type="file"
+                id="perfil"
+                accept="image/*"
+                onChange={(e) => setFotoPerfil(e.target.files[0])}
+                className="input-file-hidden"
+              />
+              <span className="file-name">
+                {fotoPerfil ? fotoPerfil.name : 'Nenhum ficheiro'}
+              </span>
+            </div>
+            {previewPerfil && (
+              <img src={previewPerfil} alt="Preview Perfil" className="preview-imagem perfil" />
+            )}
+          </div>
 
-        <label>
-          Foto de Capa:
-          <input type="file" accept="image/*" onChange={(e) => setFotoCapa(e.target.files[0])} />
-          {previewCapa && (
-            <img src={previewCapa} alt="Preview Capa" style={{ width: '100%', marginTop: '0.5rem', borderRadius: '8px' }} />
-          )}
-        </label>
+          {/* Upload Capa */}
+          <div className="upload-group">
+            <span className="label-text">Foto de Capa</span>
+            <div className="upload-control">
+              <label htmlFor="capa" className="btn-upload">Escolher Foto de Capa</label>
+              <input
+                type="file"
+                id="capa"
+                accept="image/*"
+                onChange={(e) => setFotoCapa(e.target.files[0])}
+                className="input-file-hidden"
+              />
+              <span className="file-name">
+                {fotoCapa ? fotoCapa.name : 'Nenhum ficheiro'}
+              </span>
+            </div>
+            {previewCapa && (
+              <img src={previewCapa} alt="Preview Capa" className="preview-imagem capa" />
+            )}
+          </div>
 
-        <button
-          type="submit"
-          className="botao-salvar"
-          style={{
-            backgroundColor: '#4a4a4a',
-            color: 'white',
-            padding: '0.8rem',
-            borderRadius: '8px',
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: '1rem'
-          }}
-        >
-          Salvar Alterações
-        </button>
-      </form>
+          <button type="submit" className="botao-submit">
+            Guardar Alterações
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
