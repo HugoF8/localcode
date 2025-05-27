@@ -50,7 +50,7 @@ export default function BarraPesquisa() {
     <div className="barra-pesquisa" ref={containerRef}>
       <input
         type="text"
-        placeholder="🔍 Pesquisar páginas..."
+        placeholder="Pesquisar páginas..."
         value={pesquisa}
         onChange={e => setPesquisa(e.target.value)}
         className="input-pesquisa"

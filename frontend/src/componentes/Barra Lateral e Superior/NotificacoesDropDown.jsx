@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import notificationIcon from '../../assets/notification-icon.png';
+import '../../styles/NotificacoesDropDown.css';
 
 export default function NotificacoesDropDown() {
   const [notificacoes, setNotificacoes] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [naoLidas, setNaoLidas] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const id_utilizador = Number(localStorage.getItem('id_utilizador'));
+    if (!token || !id_utilizador) return;
+
+    fetch(`http://localhost:3000/api/notificacao/contarNaoLidas/${id_utilizador}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => res.json())
+      .then(data => setNaoLidas(data.totalNaoLidas || 0))
+      .catch(console.error);
+    }, []);
 
   const toggleDropdown = async () => {
     const token = localStorage.getItem('token');
@@ -34,6 +49,19 @@ export default function NotificacoesDropDown() {
       } catch (err) {
         console.error('Erro ao buscar notificações:', err);
       }
+    }
+
+    if (!isOpen) {
+      try {
+        await fetch(`http://localhost:3000/api/notificacao/marcarComoLidas/${id_utilizador}`, {
+          method: 'PATCH',
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setNaoLidas(0);
+      } catch (err) {
+        console.error('Erro ao marcar notificações como lidas:', err);
+      }
+      setNaoLidas(0);
     }
 
     setIsOpen((open) => !open);
@@ -98,6 +126,9 @@ export default function NotificacoesDropDown() {
     <div className="notificacoes-dropdown" style={{ position: 'relative' }}>
       <button onClick={toggleDropdown} className="botao-notificacoes">
         <img src={notificationIcon} alt="Notificações" />
+        {naoLidas > 0 && (
+          <span className="badge">{naoLidas}</span>
+        )}
       </button>
 
       {isOpen && (

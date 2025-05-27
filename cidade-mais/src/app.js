@@ -47,8 +47,6 @@ app.use('/api/utilizadores', utilizadorRoutes);
 app.use('/api/notificacao', notificacaoRoutes);
 
 
-
-
 // Erro global para capturar erros de Multer e outros
 app.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {

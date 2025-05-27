@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../styles/AprovacoesTicketsePublicacoes.css';
 import RespostaTicketUtilizador from './RespostaTicketUtilizador'; // Caminho ajusta conforme tua estrutura
+import BotaoAA from '../genericos/BotaoAlterar';
 
 function TicketNaoAprovadoUtilizador({ tickets, onToggleExpand, onInputChange, onAlterar, onApagar, expandidoId, token }) {
   return (
@@ -34,9 +35,11 @@ function TicketNaoAprovadoUtilizador({ tickets, onToggleExpand, onInputChange, o
                 value={ticket.input || ''}
                 onChange={(e) => onInputChange(ticket.id_ticket, e.target.value)}
               />
-              <div className="ticket-actions">
-                <button className="btn-aprovar" onClick={() => onAlterar(ticket.id_ticket)}>Alterar</button>
-                <button className="btn-recusar" onClick={() => onApagar(ticket.id_ticket)}>Apagar</button>
+              <div className="flex_spacearound_gaptopo">
+                <BotaoAA
+                onAlterar={() => onAlterar(ticket.id_ticket)}
+                onApagar={() => onApagar(ticket.id_ticket)}
+                />
               </div>
 
               {/* Aqui mostramos as respostas */}

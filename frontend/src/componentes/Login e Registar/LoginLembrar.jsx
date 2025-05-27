@@ -10,10 +10,9 @@ function LoginLembrar({ rememberMe, setRememberMe }) {
           checked={rememberMe}
           onChange={(e) => setRememberMe(e.target.checked)}
         />
-        Lembrar-me
+        <span className="lembrar-text">Lembrar-me</span>
       </label>
     </div>
   );
 }
-
 export default LoginLembrar;

@@ -1,82 +1,161 @@
-/* ProfileModal.css */
-
 .profile-modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 50;
-  }
-  
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.profile-modal-container {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 540px; /* menor e proporcional */
+  padding: 2rem;
+  position: relative;
+  overflow: visible; /* necessário para que o botão "sair" não seja cortado */
+  animation: popIn 0.3s ease-out;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Botão Sair */
+.profile-modal-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 5; /* cima de tudo */
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.profile-modal-close:hover {
+  background: #d9363e;
+  transform: scale(1.05);
+}
+
+/* Capa */
+.profile-modal-cover-wrapper {
+  position: relative;
+  width: 100%;
+  height: 180px; /* um pouco menor */
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #eee;
+}
+.profile-modal-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+.profile-modal-cover-wrapper:hover .profile-modal-cover {
+  transform: scale(1.03);
+}
+
+/* Botão editar capa */
+.profile-modal-cover-edit-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50%;
+  padding: 0.6rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  z-index: 2;
+}
+.profile-modal-cover-edit-btn:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+/* Avatar */
+.profile-modal-avatar-wrapper {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: -55px auto 0;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.profile-modal-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Botão editar avatar */
+.profile-modal-avatar-edit-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.profile-modal-avatar-edit-btn:hover {
+  background: #f7f7f7;
+  transform: scale(1.1);
+}
+
+/* Título e info */
+.profile-modal-title {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #333;
+}
+.profile-modal-container p {
+  text-align: center;
+  margin: 0.3rem 0;
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
   .profile-modal-container {
-    background: #fff;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 90%;
     padding: 1.5rem;
-    width: 100%;
-    max-width: 28rem;
-    position: relative;
   }
-  
-  .profile-modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    font-size: 1.25rem;
-    color: #666;
-    cursor: pointer;
-  }
-  
-  .profile-modal-close:hover {
-    color: #333;
-  }
-  
+
   .profile-modal-avatar-wrapper {
-    position: relative;
+    width: 90px;
+    height: 90px;
+    margin-top: -45px;
   }
-  
-  .profile-modal-avatar {
-    width: 6rem;
-    height: 6rem;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  .profile-modal-avatar-edit-btn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    padding: 0.25rem;
-    cursor: pointer;
-  }
-  
-  .profile-modal-avatar-edit-btn:hover {
-    background: #f0f0f0;
-  }
-  
+
   .profile-modal-title {
-    margin-top: 1rem;
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.4rem;
   }
-  
-  .profile-modal-info {
-    margin-top: 1.5rem;
-  }
-  
-  .profile-modal-info div {
-    margin-bottom: 0.5rem;
-  }
-  
-  .profile-modal-info span {
-    font-weight: 500;
-  }
-  
+}

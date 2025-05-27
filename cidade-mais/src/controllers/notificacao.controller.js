@@ -23,6 +23,34 @@ async function getAllNotificacao(req, res) {
     }    
 }
 
+async function marcarTodasComoLidas(req, res) {
+  const id = Number(req.params.id_utilizador);
+  if (isNaN(id)) {
+    return res.status(400).json({ error: 'ID inválido.' });
+  }
+  try {
+    await notificacaoService.marcarNotificacoesComoLidas(id);
+    res.json({ mensagem: 'Notificações marcadas como lidas.' });
+  } catch (error) {
+    console.error('Erro ao marcar notificações como lidas:', error);
+    res.status(500).json({ error: 'Erro ao atualizar notificações.' });
+  }
+}
+
+async function contarNaoLidas(req, res) {
+  const id = Number(req.params.id_utilizador);
+  if (isNaN(id)) {
+    return res.status(400).json({ error: 'ID inválido.' });
+  }
+  try {
+    const total = await notificacaoService.contarNotificacoesNaoLidas(id);
+    res.json({ totalNaoLidas: total });
+  } catch (error) {
+    console.error('Erro ao contar notificações:', error);
+    res.status(500).json({ error: 'Erro ao contar notificações.' });
+  }
+}
+
 async function getNotificacaoPorUtilizador(req, res) {
 
     const idParam = req.params.id_utilizador;
@@ -45,4 +73,4 @@ async function getNotificacaoPorUtilizador(req, res) {
 }
 
 
-module.exports = { createNotificacao, getAllNotificacao, getNotificacaoPorUtilizador };
+module.exports = { createNotificacao, getAllNotificacao, marcarTodasComoLidas, contarNaoLidas, getNotificacaoPorUtilizador };

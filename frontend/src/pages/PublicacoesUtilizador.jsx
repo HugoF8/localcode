@@ -131,7 +131,7 @@ function PublicacoesUtilizador() {
       <BarraSuperior />
       <div className="flex">
         <BarraLateral />
-        <div className="conteudo">
+        <div className="conteudoDuplo">
           <BarraPublicacoesEtickets />
           <PublicacoesNaoAprovadasUtilizador
             posts={posts.recusados}

@@ -5,16 +5,31 @@
   box-sizing: border-box;
 }
 
+/*
 body {
-  font-family: sans-serif;
+  
+  background-image: url('../assets/background.svg'); 
+  background-repeat: no-repeat;
+  background-size: auto; 
+  background-position: 80px 100px; 
+  
+  font-family: 'Segoe UI', sans-serif;
   background-color: #f4f4f4;
   color: #000;
-  background-image: url('../assets/background.jpg');
   background-size: cover;
   background-repeat: repeat-y;
   background-position: center center;
   background-attachment: fixed;
 }
+*/
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9faf9;
+}
+
 
 /* Container geral */
 .container {
@@ -29,8 +44,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background-color: white;
-  border-bottom: 1px solid #ccc;
+  background: #0091a8;
   height: 80px;
   position: fixed;
   top: 0;
@@ -43,20 +57,16 @@ body {
 .corpo {
   display: flex;
   flex: 1;
-  margin-left: 160px;
+  margin-left: 100px;
   margin-top: 80px; /* altura do topo */
 }
 
 /* Logo */
 .logo a {
   text-decoration: none;
-  color: black;
+  color: rgb(255, 255, 255);
   font-weight: bold;
   font-size: 24px;
-}
-
-.logo a:hover {
-  color: #555;
 }
 
 /* Barra de pesquisa */
@@ -154,9 +164,9 @@ margin-left: 211px;
 
 /* Barra lateral fixa */
 .barra-lateral {
-  width: 160px;
-  background-color: white;
-  border-right: 1px solid #ccc;
+  width: 100px;
+  background: #f9faf9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding-top: 20px;
   position: fixed;
   top: 80px;
@@ -178,7 +188,7 @@ margin-left: 211px;
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  background-color: #ddd;
+  background-color: rgb(181, 208, 228);
 }
 
 /* Menu de configurações */
@@ -256,7 +266,6 @@ margin-left: 211px;
 .botao-notificacoes {
   padding: 0;  
   border-radius: 0;
-  background-color: transparent;  
   border: none;  
 }
 
@@ -380,7 +389,7 @@ margin-left: 211px;
 
 .botao-editar {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #04aacc;
   color: white;
   border: none;
   border-radius: 8px;
@@ -390,13 +399,13 @@ margin-left: 211px;
 }
 
 .botao-editar:hover {
-  background-color: #0056b3;
+  background-color: #00bbe2;
 }
 
 .botao-seguir {
   padding: 10px 20px;
   margin-right: 20px;
-  background-color: #007bff;
+  background-color: #04aacc;
   color: white;
   border: none;
   border-radius: 8px;
@@ -406,12 +415,7 @@ margin-left: 211px;
 }
 
 .botao-seguir:hover:not(:disabled) {
-  background-color: #0056b3;
-}
-
-.botao-seguir:disabled {
-  background-color: #999;
-  cursor: not-allowed;
+  background-color: #00bbe2;
 }
 
 .icon-check,
@@ -423,7 +427,7 @@ margin-left: 211px;
 .botao-ticket {
   padding: 10px 20px;
   margin-right: 20px;
-  background-color: #007bff;
+  background-color: #04aacc;
   color: white;
   border: none;
   border-radius: 8px;
@@ -431,6 +435,11 @@ margin-left: 211px;
   font-weight: bold;
   transition: background-color 0.2s ease;
 }
+
+.botao-seguir:hover:not(:disabled) {
+  background-color: #00bbe2;
+}
+
 
 .container-botoes {
   display: flex;
@@ -569,4 +578,142 @@ margin-left: 211px;
   font-size: 1.2rem;
   font-weight: bold;
   color: #333;
+}
+
+.editar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+}
+
+/* Card branco com sombra e animação */
+.card-editar-freguesia {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Título centralizado */
+.titulo-editar {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Formulário espaçado */
+.form-editar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Labels */
+.label-text,
+.input-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+/* Input de texto */
+.input-campo {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+.input-campo:focus {
+  border-color: #04aacc;
+  outline: none;
+}
+
+/* Botão de submit */
+.botao-submit {
+  padding: 0.9rem;
+  background-color: #04aacc;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+.botao-submit:hover {
+  background-color: #00bbe2;
+}
+
+/* Esconder input file nativo */
+.input-file-hidden {
+  display: none;
+}
+
+/* Grupo de upload (perfil e capa) */
+.upload-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Linha do botão + nome do arquivo */
+.upload-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Botão estilizado para escolher arquivo */
+.btn-upload {
+  padding: 0.6rem 1.2rem;
+  background-color: #04aacc;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+}
+.btn-upload:hover {
+  background-color: #00bbe2;
+}
+
+/* Nome do arquivo com ellipsis */
+.file-name {
+  font-size: 0.9rem;
+  color: #555;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pré-visualizações de imagem */
+.preview-imagem {
+  margin-top: 0.8rem;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.preview-imagem.perfil {
+  width: 100px;
+  height: 100px;
+}
+
+.preview-imagem.capa {
+  width: 100%;
+  max-height: 200px;
 }

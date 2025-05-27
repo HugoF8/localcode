@@ -1,4 +1,3 @@
-// src/componentes/LoginInputs.jsx
 import React, { useState } from 'react';
 
 function LoginInputs({ email, setEmail, password, setPassword }) {
@@ -8,22 +7,20 @@ function LoginInputs({ email, setEmail, password, setPassword }) {
     <>
       <h1>Iniciar sessão</h1>
 
-      <label htmlFor="email">Email</label>
       <div className="input-box">
-        <span className="icon">✉️</span>
+        <span className="icon" role="img" aria-label="email">✉️</span>
         <input
           type="email"
           id="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}  // ← aqui
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
       </div>
 
-      <label htmlFor="password">Palavra-passe</label>
       <div className="input-box">
-        <span className="icon">🔒</span>
+        <span className="icon" role="img" aria-label="lock">🔒</span>
         <input
           type={mostrar ? 'text' : 'password'}
           id="password"

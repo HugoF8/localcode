@@ -1,88 +1,86 @@
-// src/components/ZonaPublicacoesHome.jsx
+"use client"
 
-import { useState, useEffect } from 'react';
-import '../../styles/Home.css';
+import { useState, useEffect } from "react"
+import PublicacaoGenerica from "../genericos/Publicacao"
+import UserProfilePopup from "../PerfilUtilizadorClick"
+import "../../styles/Home.css"
 
 function ZonaPublicacoesHome() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([])
+  const [selectedUserId, setSelectedUserId] = useState(null)
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(
-          'http://localhost:3000/api/posts/verPostsPaginasSeguidas',
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        if (!response.ok) throw new Error('Erro ao buscar posts');
-        const data = await response.json();
-        setPosts(data);
+        const response = await fetch("http://localhost:3000/api/posts/verPostsPaginasSeguidas", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        if (!response.ok) throw new Error("Erro ao buscar posts")
+        const data = await response.json()
+        setPosts(data)
       } catch (err) {
-        console.error('Erro:', err);
-        setPosts([]);
+        console.error("Erro:", err)
+        setPosts([])
       }
-    };
+    }
 
-    fetchPosts();
-  }, []);
+    fetchPosts()
+  }, [token])
 
-  const buildImageUrl = (path) => {
-    if (!path) return null;
-    return path.startsWith('http') ? path : `http://localhost:3000/${path}`;
-  };
+  const handleUserClick = (userId) => {
+    setSelectedUserId(userId)
+  }
+
+  const handleClosePopup = () => {
+    setSelectedUserId(null)
+  }
 
   return (
-      <div className="posts-container">
+    <>
+      <div className="publicacoes-list-home">
         {posts.length === 0 ? (
-          <p>Não há publicações para mostrar.</p>
+          <p className="no-posts-message">Não há publicações para mostrar.</p>
         ) : (
-          posts.map((post) => (
-            <div key={post.id_post} className="post">
-              {/* 1. Info da freguesia */}
-              <div className="info-freguesia-post">
-                {post.pagina_freguesia.foto_perfil && (
-                  <img
-                    src={buildImageUrl(post.pagina_freguesia.foto_perfil)}
-                    alt={post.pagina_freguesia.nome_pagina}
-                    className="freguesia-img"
-                  />
-                )}
-                <p className="freguesia-nome">
-                  {post.pagina_freguesia.nome_pagina}
-                </p>
-              </div>
+          posts.map((post) => {
+            // Garantir que temos o id_utilizador correto
+            const userId = post.id_utilizador || post.utilizador?.id_utilizador
 
-              {/* 2. Info do utilizador */}
-              <div className="info-post">
-                <img
-                  src={buildImageUrl(post.utilizador.perfil[0]?.foto_perfil)}
-                  alt={post.utilizador.nome}
-                  className="foto-perfil-utilizador"
-                />
-                <div className='nomeData-container'>
-                  <p className="utilizador-nome">{post.utilizador.nome}</p>
-                  <p className="ticket-date">{new Date(post.data_post).toLocaleDateString()}</p>
-                </div>
-              </div>
-
-              {/* 3. Conteúdo do post */}
-              <div className="conteudo-post">
-                <p>{post.descricao_post}</p>
-                {post.media_post && (
-                  <div className='img-container'>
-                    <img
-                      src={buildImageUrl(post.media_post)}
-                      alt="Mídia do post"
-                      className="media-post"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          ))
+            return (
+              <PublicacaoGenerica
+                key={post.id_post}
+                descricao={post.descricao_post}
+                data={post.data_post}
+                media={post.media_post}
+                utilizador={{
+                  ...post.utilizador,
+                  id_utilizador: userId,
+                }}
+                pagina={post.pagina_freguesia}
+                showPagina={true}
+                onUserClick={handleUserClick}
+                className="card--home"
+              />
+            )
+          })
         )}
       </div>
-  );
+
+      {/* Popup do utilizador */}
+      {selectedUserId && (
+        <UserProfilePopup
+          userId={selectedUserId}
+          onClose={handleClosePopup}
+          token={token}
+          paginaAtualId={null}
+          currentUserId={Number(localStorage.getItem("id_utilizador"))}
+          idDonoPagina={null}
+          isModeradorNaPagina={false}
+          isPageOwner={false}
+        />
+      )}
+    </>
+  )
 }
 
-export default ZonaPublicacoesHome;
+export default ZonaPublicacoesHome

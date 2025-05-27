@@ -2,8 +2,8 @@
     display: flex;
     width: 50%;
     padding: 16px;
-    background: #f4f4f4;
-    border: 1px solid #ccc;
+    background: #FFFFFF;
+    border: 1px solid #D9E3EE;
     border-radius: 12px;
     align-items: flex-start;
     gap: 12px;
@@ -27,24 +27,13 @@
   .descricao-input {
     width: 100%;
     padding: 10px 14px;
-    border: 1px solid #aaa;
-    border-radius: 8px;
+    border: none;                /* remove todas as bordas */
+    border-bottom: 1px solid #aaa;  /* adiciona apenas a borda inferior */
+    outline: none;               /* remove o contorno ao focar (opcional) */ 
     font-size: 15px;
   }
   
-  .preview-container {
-    position: relative;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-  }
-  
-  .preview-img {
-    width: 100%;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-  
+
   .btn-remover-preview {
     position: absolute;
     top: 8px;
@@ -65,24 +54,9 @@
   }
   
   .btn-foto {
-    background-color: #ddd;
+    background-color: #ECF1F6;
     padding: 6px 12px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
   }
-  
-  .btn-publicar {
-    background-color: #333;
-    color: white;
-    font-weight: bold;
-    padding: 8px 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .btn-publicar:hover {
-    background-color: #000;
-  }
-  

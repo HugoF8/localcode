@@ -1,6 +1,6 @@
 // src/componentes/ImagemLoginRegistar.jsx
 import React from 'react';
-import img from '../../assets/landscape-placeholder.svg';
+import img from '../../assets/condominio.png';
 
 function ImagemLoginRegistar() {
   return (

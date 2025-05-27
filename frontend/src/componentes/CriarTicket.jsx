@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/EnviarTicket.css';
 
 export default function CriarTicket() {
   const { id } = useParams(); // id da página de freguesia
@@ -10,42 +11,65 @@ export default function CriarTicket() {
   const [erro, setErro] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErro('');
-    const token = localStorage.getItem('token');
-    const id_utilizador = Number(localStorage.getItem('id_utilizador'));
+  e.preventDefault();
+  setErro('');
+  const token = localStorage.getItem('token');
+  const id_utilizador = Number(localStorage.getItem('id_utilizador'));
+  const isPublic = document.getElementById('slide').checked;
 
-    try {
-      const res = await fetch('http://localhost:3000/api/tickets/criarTicket', {
+  try {
+    const ticketRes = await fetch('http://localhost:3000/api/tickets/criarTicket', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        descricao_problema: descricao,
+        id_utilizador,
+        id_pagina: Number(id)
+      })
+    });
+
+    if (!ticketRes.ok) {
+      const payload = await ticketRes.json();
+      throw new Error(payload.error || 'Erro ao criar ticket');
+    }
+
+    if (isPublic) {
+      // criar também o post
+      const postRes = await fetch('http://localhost:3000/api/posts/criarPost', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
-          descricao_problema: descricao,
+          descricao_post: descricao,
           id_utilizador,
           id_pagina: Number(id)
         })
       });
 
-      if (res.ok) {
-        await res.json();
-        toast.success('Ticket enviado com sucesso!', {
-          onClose: () => navigate(`/Pagina/${id}`),
-          autoClose: 2000
-        });
+      if (!postRes.ok) {
+        const payload = await postRes.json();
+        console.error('Erro ao criar post:', payload.error);
+        toast.warn('Ticket criado, mas houve um erro ao criar o post público.');
       }
-      if (!res.ok) {
-        const payload = await res.json();
-        throw new Error(payload.error || 'Erro desconhecido');
-      }
-      
-    } catch (err) {
-      console.error('Erro ao criar ticket:', err);
-      toast.error(err.message || 'Erro ao criar ticket. Tenta novamente!');
     }
-  };
+
+    toast.success('Ticket enviado com sucesso!', {
+      onClose: () => navigate(`/Pagina/${id}`),
+      autoClose: 2000
+    });
+
+  } catch (err) {
+    console.error('Erro ao criar ticket:', err);
+    toast.error(err.message || 'Erro ao criar ticket. Tenta novamente!');
+  }
+};
+
+
 
   return (
     <form className="formulario" onSubmit={handleSubmit}>
@@ -63,10 +87,16 @@ export default function CriarTicket() {
           onChange={(e) => setDescricao(e.target.value)}
         />
       </div>
-
-      <button type="submit" className="btn-enviar">
+     <div className="btnSwitchMain">
+      <button type="submit" className="btn-enviarTicket">
         Enviar
       </button>
+      <div className="switchContainer">
+        <span className="switchLabel">Criar Post Público</span>
+        <input type="checkbox" id="slide" />
+        <label htmlFor="slide" className="toggleSwitch"></label>
+      </div>
+    </div>
     </form>
   );
 }

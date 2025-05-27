@@ -1,0 +1,452 @@
+.publicacao-generica {
+  background: #ffffff;
+  border: 1px solid #e1e5e9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.publicacao-generica:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #008bf8;
+}
+
+.publicacao-generica--compact {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Header da publicação */
+.publicacao-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Informações da página/freguesia */
+.publicacao-pagina-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.publicacao-pagina-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.publicacao-pagina-nome {
+  font-weight: 600;
+  color: #008bf8;
+}
+
+/* Ajuste no header para alinhar user info e ID */
+.publicacao-user-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Informações do utilizador */
+.publicacao-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: opacity 0.2s ease;
+  flex: 1;
+}
+
+.publicacao-user-info:hover {
+  opacity: 0.8;
+}
+
+.publicacao-user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e9ecef;
+}
+
+.publicacao-user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.publicacao-user-nome {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #212529;
+  line-height: 1.2;
+}
+
+.publicacao-data {
+  font-size: 0.875rem;
+  color: #6c757d;
+  line-height: 1.2;
+}
+
+.publicacao-id {
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+/* Conteúdo da publicação */
+.publicacao-content {
+  margin-bottom: 1rem;
+}
+
+.publicacao-descricao {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #212529;
+  margin: 0 0 1rem 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.publicacao-media-container {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.publicacao-media {
+  width: 100%;
+  height: auto;
+  max-height: 1000px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Ações da publicação */
+.publicacao-actions {
+  border-top: 1px solid #e9ecef;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Versão compacta */
+.publicacao-generica--compact .publicacao-header {
+  margin-bottom: 0.75rem;
+}
+
+.publicacao-generica--compact .publicacao-user-avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.publicacao-generica--compact .publicacao-user-nome {
+  font-size: 0.875rem;
+}
+
+.publicacao-generica--compact .publicacao-data {
+  font-size: 0.75rem;
+}
+
+.publicacao-generica--compact .publicacao-descricao {
+  font-size: 0.875rem;
+}
+
+.publicacao-generica--compact .publicacao-content {
+  margin-bottom: 0.75rem;
+}
+
+.publicacao-generica--compact .publicacao-actions {
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .publicacao-generica {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .publicacao-user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .publicacao-user-nome {
+    font-size: 0.875rem;
+  }
+
+  .publicacao-data {
+    font-size: 0.75rem;
+  }
+
+  .publicacao-descricao {
+    font-size: 0.875rem;
+  }
+
+  .publicacao-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .publicacao-generica {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .publicacao-header {
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .publicacao-user-info {
+    gap: 0.5rem;
+  }
+
+  .publicacao-user-avatar {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Estados especiais - CORES ATUALIZADAS */
+.publicacao-generica.pendente {
+  border-color: #ffc107;
+  background: #fffbf0;
+}
+
+.publicacao-generica.aprovada {
+  border-color: #28a745 !important; /* Verde para aprovadas */
+  background: #f8fff9;
+  border-width: 2px;
+}
+
+.publicacao-generica.recusada {
+  border-color: #dc3545 !important; /* Vermelho para recusadas */
+  background: #f8fff9;
+  border-width: 2px;
+}
+
+/* Hover states para aprovadas e recusadas */
+.publicacao-generica.aprovada:hover {
+  border-color: #1e7e34 !important;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+.publicacao-generica.recusada:hover {
+  border-color: #c82333 !important;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+}
+
+/* Layout em grid para múltiplas publicações */
+.publicacoes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+  justify-items: center;
+}
+
+.publicacoes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+/* Layout específico para a home */
+.publicacoes-list-home {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+/* Grid específico para páginas de freguesia */
+.publicacoes-grid-freguesia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 2rem;
+  padding: 1.5rem;
+  justify-items: center;
+}
+
+/* Estilos específicos para cards da home */
+.publicacao-generica.card--home {
+  max-width: 850px;
+  border: 1px solid #e1e5e9;
+  background: #ffffff;
+}
+
+.publicacao-generica.card--home:hover {
+  border-color: #008bf8;
+  box-shadow: 0 6px 20px rgba(0, 139, 248, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Estilos específicos para cards da freguesia */
+.publicacao-generica.card--freguesia {
+  max-width: 500px;
+  min-height: 280px;
+}
+
+/* Estilos para publicações expansíveis */
+.publicacao-container-expansivel {
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.publicacao-generica.publicacao-expansivel {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 0;
+}
+
+/* Ajustes específicos para as ações expansíveis */
+.publicacao-generica.publicacao-expansivel .publicacao-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.publicacao-generica {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Estilos específicos para o card--primary */
+.publicacao-generica.card--primary {
+  border-color: #008bf8;
+  background: linear-gradient(135deg, #f5f9ff 0%, #e8f4ff 100%);
+}
+
+.publicacao-generica.card--primary:hover {
+  border-color: #0056b3;
+  box-shadow: 0 6px 20px rgba(0, 139, 248, 0.15);
+}
+
+/* Ajustes para versão compacta no grid */
+.publicacoes-grid .publicacao-generica--compact {
+  min-height: 250px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.publicacoes-grid .publicacao-generica--compact .publicacao-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.publicacoes-grid .publicacao-generica--compact .publicacao-media {
+  max-height: 120px;
+  object-fit: cover;
+}
+
+/* Ajustes específicos para freguesia */
+.publicacoes-grid-freguesia .publicacao-generica--compact {
+  min-height: 280px;
+  max-width: 500px;
+}
+
+.publicacoes-grid-freguesia .publicacao-generica--compact .publicacao-media {
+  max-height: 150px;
+}
+
+/* Mensagem quando não há posts */
+.no-posts-message {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.1rem;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+/* Responsividade para home */
+@media (max-width: 768px) {
+  .publicacoes-list-home {
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  .publicacao-generica.card--home {
+    max-width: 100%;
+  }
+}
+
+/* Responsividade para freguesia */
+@media (max-width: 768px) {
+  .publicacoes-grid-freguesia {
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  .publicacao-generica.card--freguesia {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .publicacoes-grid-freguesia {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+}
+
+/* Responsividade para controles de edição */
+@media (max-width: 768px) {
+  .publicacao-generica.publicacao-expansivel .publicacao-actions > div > div:last-child > div {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .ticket-file-label {
+    margin-bottom: 0.5rem !important;
+    flex: 1 1 auto !important;
+  }
+}

@@ -5,6 +5,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/CriarPost.css';
 import userPlaceholder from '../assets/landscape-placeholder.svg';
+import BotaoE from './genericos/BotaoEnviar'
+
 
 function CriarPost() {
   // Pega o parâmetro da rota: /Pagina/:id
@@ -69,8 +71,6 @@ function CriarPost() {
 
   return (
     <div className="criar-post">
-      <ToastContainer position="top-right" />
-      <img src={userPlaceholder} alt="Perfil" className="foto-perfil" />
       <form onSubmit={handlePublicar} className="form-post">
         <input
           type="text"
@@ -80,23 +80,12 @@ function CriarPost() {
           className="descricao-input"
         />
 
-        {preview && (
-          <div className="preview-container">
-            <img src={preview} alt="Preview" className="preview-img" />
-            <button type="button" className="btn-remover-preview" onClick={() => setImagem(null)}>
-              ✖️
-            </button>
-          </div>
-        )}
-
         <div className="acoes">
           <label className="btn-foto">
             🖼 Adicionar Imagem
             <input type="file" hidden accept="image/*" onChange={handleImagemChange} />
           </label>
-          <button type="submit" className="btn-publicar">
-            Publicar
-          </button>
+          <BotaoE/>
         </div>
       </form>
     </div>
